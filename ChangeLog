@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-19 20:53:04 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-93
+
+    Summary:
+      Added color keyword comments
+    Revision:
+      ccze--0.1--patch-93
+
+    * src/ccze-color.c (ccze_color_keyword_t): Added a `comment' member.
+      (ccze_color_keyword_map): Added comments for all the keywords.
+
+    modified files:
+     ChangeLog src/ccze-color.c
+
+
 2002-11-19 19:00:19 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-92
 
     Summary:
