@@ -60,7 +60,7 @@ distcheck: dist
 	echo "$$banner" ;\
 	echo "$$dashes"
 
-ccze.spec: ccze.spec.in ${top_srcdir}/Rules.mk ${top_srcdir}/ChangeLog
+ccze.spec: ccze.spec.in Rules.mk ${top_srcdir}/ChangeLog
 	sed -e "s,@VERSION@,${VERSION},g" <${srcdir}/$@.in >$@
 
 .PHONY: all-recursive
