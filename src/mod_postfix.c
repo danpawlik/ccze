@@ -84,8 +84,8 @@ ccze_postfix_setup (void)
   int errptr;
 
   reg_postfix = pcre_compile
-    ("^([\\dA-F]+): ((client|to|message-id|uid|resent-message-id)(=.*))", 0,
-     &error, &errptr, NULL);
+    ("^([\\dA-F]+): ((client|to|message-id|uid|resent-message-id|from)(=.*))",
+     0, &error, &errptr, NULL);
 }
 
 static void

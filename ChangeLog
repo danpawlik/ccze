@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-31 08:49:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-145
+
+    Summary:
+      Postfix colorizer fix
+    Revision:
+      ccze--0.1--patch-145
+
+    * src/mod_postfix.c (ccze_postfix_setup): Modified the regexp to catch
+      `from=' too.
+
+    modified files:
+     ChangeLog src/mod_postfix.c
+
+
 2003-01-30 00:56:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-144
 
     Summary:
