@@ -28,10 +28,11 @@ clean:
 
 install: build
 	test -e debian/control
-	install -d ${PKGDIR}/usr/share/doc/${PACKAGE}/
+	install -d ${PKGDIR}/usr/share/doc/${PACKAGE} ${PKGDIR}/etc
 	${MAKE} install DESTDIR=${PKGDIR}
 	install -m 0644 NEWS THANKS TODO \
 		${PKGDIR}/usr/share/doc/${PACKAGE}/
+	install -m 0644 etc/cczerc ${PKGDIR}/etc/
 
 binary-ccze: install
 	test -e debian/control && test "x`whoami`" = "xroot"
@@ -58,6 +59,7 @@ endif
 			${PKGDIR}/usr/bin/ccze ${PKGDIR}/usr/lib/ccze/*.so
 ## Install stuff to DEBIAN/
 	install -d ${PKGDIR}/DEBIAN
+	install -m 0644 debian/maint/conffiles ${PKGDIR}/DEBIAN
 ## Generate DEBIAN/md5sums
 	cd ${PKGDIR} >/dev/null ;\
 	 find * -type f ! -regex '^DEBIAN/.*' -print0 | xargs -r0 md5sum > DEBIAN/md5sums
