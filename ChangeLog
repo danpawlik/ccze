@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-02 18:18:12 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-204
+
+    Summary:
+      Minor plugin-argument cleanup
+    Revision:
+      ccze--0.1--patch-204
+
+    * src/ccze.c (parse_opt): Removed a debugging printf.
+    * src/ccze-plugin.c (_ccze_plugin_load): Do not touch ->argv, so we can
+      check for NULL in plugins.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c src/ccze.c
+
+
 2003-03-02 17:25:05 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-203
 
     Summary:

@@ -113,8 +113,6 @@ _ccze_plugin_load (const char *name, const char *path)
       return;
     }
   plugin->dlhandle = dlhandle;
-  plugin->argv = (char **)ccze_calloc (1, sizeof (char *));
-  plugin->argv[0] = strdup (name);
   
   ccze_plugin_add (plugin);
 }

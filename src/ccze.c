@@ -187,7 +187,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
       plugin = strtok (optarg, "=");
       value = strtok (NULL, "\n");
       ccze_plugin_argv_set (plugin, value);
-      fprintf (stderr, "%s->%s\n", plugin, value);
       break;
     case 'p':
       subopts = arg;
