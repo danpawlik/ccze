@@ -2,6 +2,33 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-18 22:17:47 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-88
+
+    Summary:
+      APM log colorisation
+    Revision:
+      ccze--0.1--patch-88
+
+    * src/ccze-apm.c: New file.
+    * src/Makefile.in (PLUGINS): Added apm.
+    * doc/ccze.1.in (PLUGINS): Document it.
+    * src/ccze-wordcolor.c (words_bad): Added `empty'.
+      (words_system): Added `discharging' and `resume'.
+    * src/ccze-color.h (ccze_color_t): Added CCZE_COLOR_PERCENTAGE.
+    * src/ccze-color.c: Added support code for it.
+    * src/ccze.c (main): Support word colorisation of partial plugin
+      output.
+    * THANKS: Added Janos Lorincz.
+
+    new files:
+     src/.arch-ids/ccze-apm.c.id src/ccze-apm.c
+
+    modified files:
+     ChangeLog THANKS doc/ccze.1.in src/Makefile.in
+     src/ccze-color.c src/ccze-color.h src/ccze-wordcolor.c
+     src/ccze.c
+
+
 2002-11-18 21:41:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-87
 
     Summary:

@@ -332,7 +332,7 @@ main (int argc, char **argv)
     {
       int handled = 0;
       int status = 0;
-      char *rest = NULL;
+      char *rest = NULL, *rest2 = NULL;
       char *tmp = strchr (subject, '\n');
       unsigned int remfac_tmp;
       
@@ -351,13 +351,17 @@ main (int argc, char **argv)
       if (rest)
 	{
 	  handled = 0;
-	  ccze_plugin_run (plugins, rest, strlen (rest), NULL,
+	  ccze_plugin_run (plugins, rest, strlen (rest), &rest2,
 			   CCZE_PLUGIN_TYPE_PARTIAL, &handled, &status);
 	  if (handled == 0)
 	    ccze_wordcolor_process (rest, ccze_config.wcol,
 				    ccze_config.slookup);
+	  else
+	    ccze_wordcolor_process (rest2, ccze_config.wcol,
+				    ccze_config.slookup);
 	  CCZE_NEWLINE ();
 	  free (rest);
+	  free (rest2);
 	}
 
       if (status == 0)

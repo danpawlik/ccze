@@ -125,7 +125,9 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {"outgoing", CCZE_COLOR_OUTGOING},
   {"uniqn", CCZE_COLOR_UNIQN},
   {"repeat", CCZE_COLOR_REPEAT},
-  {"field", CCZE_COLOR_FIELD}
+  {"field", CCZE_COLOR_FIELD},
+  {"chain", CCZE_COLOR_CHAIN},
+  {"percentage", CCZE_COLOR_PERCENTAGE},
 };
 
 int
@@ -295,5 +297,6 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_REPEAT] = (WHITE);
   ccze_color_table[CCZE_COLOR_FIELD] = (GREEN);
   ccze_color_table[CCZE_COLOR_CHAIN] = (CYAN);
+  ccze_color_table[CCZE_COLOR_PERCENTAGE] = (BOLD YELLOW);
   ccze_color_table[CCZE_COLOR_LAST] = (CYAN);
 }

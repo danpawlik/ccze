@@ -38,7 +38,7 @@ static char *words_bad[] = {
   "warn", "restart", "exit", "stop", "end", "shutting", "down", "close",
   "unreach", "can't", "cannot", "skip", "deny", "disable", "ignored",
   "miss", "oops", "not", "backdoor", "blocking", "ignoring",
-  "unable", "readonly", "offline", "terminate"
+  "unable", "readonly", "offline", "terminate", "empty"
 };
 
 static char *words_good[] = {
@@ -54,7 +54,7 @@ static char *words_error[] = {
 static char *words_system[] = {
   "ext2-fs", "reiserfs", "vfs", "iso", "isofs", "cslip", "ppp", "bsd",
   "linux", "tcp/ip", "mtrr", "pci", "isa", "scsi", "ide", "atapi",
-  "bios", "cpu", "fpu"
+  "bios", "cpu", "fpu", "discharging", "resume"
 };
 
 static char *

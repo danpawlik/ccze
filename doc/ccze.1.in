@@ -70,6 +70,9 @@ be overridden by the user easily).
 At the moment, the following modules are bundled with the official
 release:
 .TP
+.IR apm.so
+For coloring apmd's logs.
+.TP
 .IR exim.so
 For coloring exim's \fImain.log\fR. (See \fIexim\fR(8))
 .TP
