@@ -13,16 +13,17 @@ include ../Rules.mk
 ALL_LDFLAGS	= ${LDFLAGS} ${LIBS}
 
 SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
-		$(addprefix ccze-,$(addsuffix .c, ${PLUGINS}))
+		$(addprefix ccze-,$(addsuffix .c, ${PLUGINS})) \
+		ccze-dump.c
 HEADERS		= ccze.h ccze-color.h ccze-plugin.h ccze-wordcolor.h
 PLUGINS		= apm exim httpd procmail squid sulog super syslog \
 		ulogd vsftpd
 PLUGIN_OBJS	= $(addsuffix .so,${PLUGINS})
-CLEANFILES	= ${OBJECTS:.o=.da} ${PLUGIN_OBJS}
+CLEANFILES	= ${OBJECTS:.o=.da} ${PLUGIN_OBJS} ccze-dump
 OBJECTS		= ccze.o ccze-color.o ccze-plugin.o ccze-wordcolor.o
 
 ## -- Standard targets -- ##
-all: ${PROGRAM} ${PLUGIN_OBJS}
+all: ${PROGRAM} ${PLUGIN_OBJS} ccze-dump
 
 install: all
 	${INSTALL} -d ${DESTDIR}${bindir}
@@ -41,6 +42,8 @@ uninstall:
 ## -- Specific targets -- ##
 ${PROGRAM}: ${OBJECTS}
 	${CC} -rdynamic ${ALL_CFLAGS} -o $@ $^ ${ALL_LDFLAGS}
+ccze-dump: ccze-dump.c ccze-color.c ccze.h ccze-color.h
+	${CC} ${ALL_CFLAGS} -o $@ ccze-dump.c
 
 ## -- Dependencies -- ##
 ccze.o: ccze.c ${top_builddir}/system.h ccze.h ccze-color.h ccze-plugin.h \

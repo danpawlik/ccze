@@ -2,6 +2,28 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-19 22:44:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-94
+
+    Summary:
+      ccze-dump
+    Revision:
+      ccze--0.1--patch-94
+
+    * src/ccze-dump.c: New file.
+    * src/Makefile.in (SOURCES): Added ccze-dump.c.
+      (CLEANFILES): Added ccze-dump.
+      (all): Likewise.
+      (ccze-dump): New target.
+    * src/ccze-color.c (CCZE_KEYWORD): New macro.
+      (ccze_color_keyword_map): Use it all over the place.
+
+    new files:
+     src/.arch-ids/ccze-dump.c.id src/ccze-dump.c
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze-color.c
+
+
 2002-11-19 20:53:04 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-93
 
     Summary:
