@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-20 15:16:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-195
+
+    Summary:
+      Fixed make dist from an objdir
+    Revision:
+      ccze--0.1--patch-195
+
+    * Rules.mk.in (distdir): Copy from the current dir, if the file does not
+      exist in ${srcdir}.
+
+    modified files:
+     ChangeLog Rules.mk.in
+
+
 2003-02-20 15:06:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-194
 
     Summary:

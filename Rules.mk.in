@@ -66,8 +66,13 @@ distdir = ${top_builddir}/${PACKAGE}-${VERSION}/${subdir}
 distdir: ${DISTFILES}
 	${INSTALL_DIR} ${distdir}
 	@list='${DISTFILES}'; for f in $$list; do \
-		echo cp -p ${srcdir}/$$f ${distdir}/$$f ;\
-		cp -p ${srcdir}/$$f ${distdir}/$$f ;\
+		if test -e ${srcdir}/$$f; then \
+			fn=${srcdir}/$$f; \
+		else \
+			fn=$$f; \
+		fi ; \
+		echo cp -p $$fn ${distdir}/$$f ;\
+		cp -p $$fn ${distdir}/$$f ;\
 	done
 
 ${top_builddir}/Rules.mk: ${top_srcdir}/Rules.mk.in ${top_builddir}/config.status
