@@ -2,6 +2,33 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 13:26:12 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-44
+
+    Summary:
+      Configuration support, take #1
+    Revision:
+      ccze--0.1--patch-44
+
+    * src/ccze-color.h: New file.
+    * src/ccze-color.c: Likewise.
+    * src/ccze.h: Removed all the color-related defines.
+    * src/ccze.c (main): Initialise color support, and load the
+      configuration files.
+    * src/Makefile.in (SOURCES): Added ccze-color.c.
+      (HEADERS): Added ccze-color.h.
+      (OBJECTS): Added ccze-color.o.
+      (ccze.o): Depend on ccze-color.h too.
+      (ccze-color.o): New target.
+    * TODO: Updated relevant entry.
+
+    new files:
+     src/.arch-ids/ccze-color.h.id src/.arch-ids/ccze-color.c.id
+     src/ccze-color.h src/ccze-color.c
+
+    modified files:
+     ChangeLog TODO src/Makefile.in src/ccze.c src/ccze.h
+
+
 2002-09-18 13:15:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-43
 
     Summary:

@@ -2,6 +2,9 @@
 
 * New features
 ** Color-configuration support
+*** Partially done
+**** Needs testing
+**** Needs background color support
 ** Support for more kinds of logs
 
 * Documentation

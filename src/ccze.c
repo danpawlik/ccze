@@ -31,6 +31,7 @@
 #include <unistd.h>
 
 #include "ccze.h"
+#include "ccze-color.h"
 #include "ccze-wordcolor.h"
 #include "ccze-plugin.h"
 
@@ -162,6 +163,7 @@ main (int argc, char **argv)
   char *subject = NULL;
   size_t subjlen = 0;
   int i;
+  char *homerc, *home;
   
   ccze_config.scroll = 1;
   ccze_config.convdate = 0;
@@ -181,14 +183,25 @@ main (int argc, char **argv)
     }
   
   start_color ();
-  init_pair (1, COLOR_RED,     COLOR_BLACK);
-  init_pair (2, COLOR_GREEN,   COLOR_BLACK);
-  init_pair (3, COLOR_YELLOW,  COLOR_BLACK);
-  init_pair (4, COLOR_BLUE,    COLOR_BLACK);
-  init_pair (5, COLOR_CYAN,    COLOR_BLACK);
+  init_pair (0, COLOR_BLACK, COLOR_BLACK);
+  init_pair (1, COLOR_RED, COLOR_BLACK);
+  init_pair (2, COLOR_GREEN, COLOR_BLACK);
+  init_pair (3, COLOR_YELLOW, COLOR_BLACK);
+  init_pair (4, COLOR_BLUE, COLOR_BLACK);
+  init_pair (5, COLOR_CYAN, COLOR_BLACK);
   init_pair (6, COLOR_MAGENTA, COLOR_BLACK);
-  init_pair (7, COLOR_WHITE,   COLOR_BLACK);
-  
+  init_pair (7, COLOR_WHITE, COLOR_BLACK);
+
+  ccze_color_init ();
+  endwin();
+  ccze_color_load (SYSCONFDIR "/colorizerc");
+  home = getenv ("HOME");
+  if (home)
+    {
+      asprintf (&homerc, "%s/.colorizerc", home);
+      ccze_color_load (homerc);
+      free (homerc);
+    }
   ccze_wordcolor_setup ();
 
   plugins = ccze_plugin_load_all ();
