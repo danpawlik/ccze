@@ -28,15 +28,17 @@ fi
 . $srcdir/defs
 
 SUBTESTS="apm exim syslog"
-SUBTEST_PLUGINS="apm:-p_syslog_-p_apm"
+SUBTEST_PLUGINS="apm:syslog,apm"
 
 for subtest in ${SUBTESTS}; do
 	subtest_plugins=$(echo ${SUBTEST_PLUGINS} | grep "$subtest:" | \
 		sed -e "s,^.*\(${subtest}:[^ ]*\).*,\1," \
-		    -e "s,.*:,," -e "s,_, ,g")
+		    -e "s,.*:,-p ,")
 	if [ -z "${subtest_plugins}" ]; then
+		echo foo
 		subtest_plugins="-p ${subtest}"
 	fi
+	echo "$subtest::${subtest_plugins}"
 	cp ${srcdir}/$subtest.ok $testname.ok
 	cp ${srcdir}/$subtest.in $testname.in
 

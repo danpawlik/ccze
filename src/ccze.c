@@ -184,13 +184,20 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	}
       break;
     case 'p':
-      ccze_config.pluginlist[ccze_config.pluginlist_len++] = strdup (arg);
-      if (ccze_config.pluginlist_len >= ccze_config.pluginlist_alloc)
+      subopts = arg;
+      while (*subopts != '\0')
 	{
-	  ccze_config.pluginlist_alloc *= 2;
-	  ccze_config.pluginlist =
-	    (char **)realloc (ccze_config.pluginlist,
-			      ccze_config.pluginlist_alloc * sizeof (char *));
+	  getsubopt (&subopts, empty_subopts, &value);
+	  ccze_config.pluginlist[ccze_config.pluginlist_len++] =
+	    strdup (value);
+	  if (ccze_config.pluginlist_len >= ccze_config.pluginlist_alloc)
+	    {
+	      ccze_config.pluginlist_alloc *= 2;
+	      ccze_config.pluginlist =
+		(char **)realloc (ccze_config.pluginlist,
+				  ccze_config.pluginlist_alloc *
+				  sizeof (char *));
+	    }
 	}
       break;
     case 'h':

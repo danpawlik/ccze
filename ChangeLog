@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-10 17:42:39 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-178
+
+    Summary:
+      Support -p foo,bar
+    Revision:
+      ccze--0.1--patch-178
+
+    * src/ccze.c (parse_opt): Use getsubopt when parsing -p.
+    * testsuite/color.test: Modified to use this new feature.
+
+    modified files:
+     ChangeLog src/ccze.c testsuite/color.test
+
+
 2003-02-10 09:46:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-177
 
     Summary:
