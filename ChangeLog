@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-06 08:33:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-220
+
+    Summary:
+      New, non-settable colors
+    Revision:
+      ccze--0.1--patch-220
+
+    * src/ccze.h (ccze_color_t): Added CCZE_COLOR_STATIC_*.
+    * src/ccze-color.c (ccze_color_keyword_map): Added them to the table.
+      (ccze_color_init): Initialise them.
+    * src/ccze-dump.c (ccze_dump_color_hidden): New function.
+      (main): Skip one iteration of the loop, if the color is hidden.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-dump.c src/ccze.h
+
+
 2003-03-06 08:12:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-219
 
     Summary:

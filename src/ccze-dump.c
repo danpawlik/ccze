@@ -108,6 +108,12 @@ ccze_dump_color_comment (int cidx)
 }
 
 static int
+ccze_dump_color_hidden (int cidx)
+{
+  return !ccze_color_keyword_map[cidx].settable;
+}
+
+static int
 ccze_dump_color_to_idx (ccze_color_t color)
 {
   size_t cidx;
@@ -169,8 +175,11 @@ main (int argc, char *argv[])
   /* Dump colors */
   for (cidx = CCZE_COLOR_DATE; cidx < CCZE_COLOR_LAST; cidx++)
     {
+      if (ccze_dump_color_hidden (cidx))
+	continue;
+      
       color = ccze_color (cidx);
-
+      
       strcpy (line, ccze_color_lookup_name (cidx));
       llen = strlen (line);
       memset (&line[llen], ' ', 16 - llen);

@@ -155,7 +155,29 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {CCZE_KEYWORD ("percentage", CCZE_COLOR_PERCENTAGE, "Percentages")},
   {CCZE_KEYWORD ("ftpcodes", CCZE_COLOR_FTPCODES, "FTP codes")},
   {CCZE_KEYWORD ("keyword", CCZE_COLOR_KEYWORD,
-		 "Various keywords (like PHP in php.log, etc)")}
+		 "Various keywords (like PHP in php.log, etc)")},
+  
+  {CCZE_KEYWORD_H ("black", CCZE_COLOR_STATIC_BLACK, "Black")},
+  {CCZE_KEYWORD_H ("red", CCZE_COLOR_STATIC_RED, "Red")},
+  {CCZE_KEYWORD_H ("green", CCZE_COLOR_STATIC_GREEN, "Green")},
+  {CCZE_KEYWORD_H ("yellow", CCZE_COLOR_STATIC_YELLOW, "Yyellow")},
+  {CCZE_KEYWORD_H ("blue", CCZE_COLOR_STATIC_BLUE, "Blue")},
+  {CCZE_KEYWORD_H ("cyan", CCZE_COLOR_STATIC_CYAN, "Cyan")},
+  {CCZE_KEYWORD_H ("magenta", CCZE_COLOR_STATIC_MAGENTA, "Magenta")},
+  {CCZE_KEYWORD_H ("white", CCZE_COLOR_STATIC_WHITE, "White")},
+  {CCZE_KEYWORD_H ("bold_black", CCZE_COLOR_STATIC_BOLD_BLACK,
+		   "Bold black")},
+  {CCZE_KEYWORD_H ("bold_red", CCZE_COLOR_STATIC_BOLD_RED, "Bold red")},
+  {CCZE_KEYWORD_H ("bold_green", CCZE_COLOR_STATIC_BOLD_GREEN,
+		   "Bold green")},
+  {CCZE_KEYWORD_H ("bold_yellow", CCZE_COLOR_STATIC_BOLD_YELLOW,
+		   "Bold yellow")},
+  {CCZE_KEYWORD_H ("bold_blue", CCZE_COLOR_STATIC_BOLD_BLUE, "Bold blue")},
+  {CCZE_KEYWORD_H ("bold_cyan", CCZE_COLOR_STATIC_BOLD_CYAN, "Bold cyan")},
+  {CCZE_KEYWORD_H ("bold_magenta", CCZE_COLOR_STATIC_BOLD_MAGENTA,
+		   "Bold magenta")},
+  {CCZE_KEYWORD_H ("bold_white", CCZE_COLOR_STATIC_BOLD_WHITE,
+		   "Bold white")},
 };
 
 char *
@@ -487,5 +509,23 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_PERCENTAGE] = (BOLD YELLOW);
   ccze_color_table[CCZE_COLOR_FTPCODES] = (CYAN);
   ccze_color_table[CCZE_COLOR_KEYWORD] = (BOLD YELLOW);
+
+  ccze_color_table[CCZE_COLOR_STATIC_BLACK] = (BLACK);
+  ccze_color_table[CCZE_COLOR_STATIC_RED] = (RED);
+  ccze_color_table[CCZE_COLOR_STATIC_GREEN] = (GREEN);
+  ccze_color_table[CCZE_COLOR_STATIC_YELLOW] = (YELLOW);
+  ccze_color_table[CCZE_COLOR_STATIC_BLUE] = (BLUE);
+  ccze_color_table[CCZE_COLOR_STATIC_CYAN] = (CYAN);
+  ccze_color_table[CCZE_COLOR_STATIC_MAGENTA] = (MAGENTA);
+  ccze_color_table[CCZE_COLOR_STATIC_WHITE] = (WHITE);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_BLACK] = (BOLD BLACK);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_RED] = (BOLD RED);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_GREEN] = (BOLD GREEN);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_YELLOW] = (BOLD YELLOW);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_BLUE] = (BOLD BLUE);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_CYAN] = (BOLD CYAN);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_MAGENTA] = (BOLD MAGENTA);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_WHITE] = (BOLD WHITE);
+  
   ccze_color_table[CCZE_COLOR_LAST] = (CYAN);
 }
