@@ -154,7 +154,7 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
 {
   char *date, *tag, *swapnum, *swapname, *swapsum, *space1, *hcode;
   char *hdate, *lmdate, *expire, *ctype, *size, *read, *method;
-  char *uri;
+  char *uri, *space2, *space3, *space4;
     
   pcre_get_substring (str, offsets, match, 1, (const char **)&date);
   pcre_get_substring (str, offsets, match, 2, (const char **)&tag);
@@ -163,14 +163,17 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 5, (const char **)&swapsum);
   pcre_get_substring (str, offsets, match, 6, (const char **)&space1);
   pcre_get_substring (str, offsets, match, 7, (const char **)&hcode);
-  pcre_get_substring (str, offsets, match, 8, (const char **)&hdate);
-  pcre_get_substring (str, offsets, match, 9, (const char **)&lmdate);
-  pcre_get_substring (str, offsets, match, 10, (const char **)&expire);
-  pcre_get_substring (str, offsets, match, 11, (const char **)&ctype);
-  pcre_get_substring (str, offsets, match, 12, (const char **)&size);
-  pcre_get_substring (str, offsets, match, 13, (const char **)&read);
-  pcre_get_substring (str, offsets, match, 14, (const char **)&method);
-  pcre_get_substring (str, offsets, match, 15, (const char **)&uri);
+  pcre_get_substring (str, offsets, match, 8, (const char **)&space2);
+  pcre_get_substring (str, offsets, match, 9, (const char **)&hdate);
+  pcre_get_substring (str, offsets, match, 10, (const char **)&space3);
+  pcre_get_substring (str, offsets, match, 11, (const char **)&lmdate);
+  pcre_get_substring (str, offsets, match, 12, (const char **)&space4);
+  pcre_get_substring (str, offsets, match, 13, (const char **)&expire);
+  pcre_get_substring (str, offsets, match, 14, (const char **)&ctype);
+  pcre_get_substring (str, offsets, match, 15, (const char **)&size);
+  pcre_get_substring (str, offsets, match, 16, (const char **)&read);
+  pcre_get_substring (str, offsets, match, 17, (const char **)&method);
+  pcre_get_substring (str, offsets, match, 18, (const char **)&uri);
   
   CCZE_ADDSTR (CCZE_COLOR_DATE, date);
   ccze_space();
@@ -184,11 +187,11 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
   CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapsum);
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space1);
   CCZE_ADDSTR (CCZE_COLOR_HTTPCODES, hcode);
-  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space2);
   CCZE_ADDSTR (CCZE_COLOR_DATE, hdate);
-  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space3);
   CCZE_ADDSTR (CCZE_COLOR_DATE, lmdate);
-  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space4);
   CCZE_ADDSTR (CCZE_COLOR_DATE, expire);
   ccze_space();
   CCZE_ADDSTR (CCZE_COLOR_CTYPE, ctype);
@@ -226,11 +229,9 @@ ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre **r_store,
   *h_cache = pcre_study (*r_cache, 0, &error);
 
   *r_store = pcre_compile
-    ("^(\\d{9,10}\\.\\d{3})\\s(\\w+)\\s(\\w+)\\s+(\\d+)\\s([\\dA-F]+)"
-     "(\\s+)(\\d{3})\\s(\\d{9,10})\\s(\\d{9,10})\\s(\\d{9,10})\\s"
-     "(\\S+)\\s(\\d+)\\/(\\d+)\\s(\\S+)\\s(.*)",
-     
-     0, &error,
-     &errptr, NULL);
+    ("^([\\d\\.]+)\\s(\\w+)\\s(\\-?[\\dA-F]+)\\s+(\\S+)\\s([\\dA-F]+)"
+     "(\\s+)(\\d{3}|\\?)(\\s+)(\\-?[\\d\\?]+)(\\s+)(\\-?[\\d\\?]+)(\\s+)"
+     "(\\-?[\\d\\?]+)\\s(\\S+)\\s(\\-?[\\d|\\?]+)\\/(\\-?[\\d|\\?]+)\\s"
+     "(\\S+)\\s(.*)", 0, &error, &errptr, NULL);
   *h_store = pcre_study (*r_store, 0, &error);
 }
