@@ -2,6 +2,36 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 13:23:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-22
+
+    Summary:
+      Word-colorising
+    Revision:
+      ccze--0.1--patch-22
+
+    * src/ccze-wordcolor.h: New file.
+    * src/ccze-wordcolor.c: New file.
+    * src/ccze.h (CCZE_COLOR_MAC): New colour.
+      (CCZE_COLOR_VERSION): Likewise.
+      (CCZE_COLOR_ADDRESS): Likewise.
+      (CCZE_COLOR_NUMBERS): Likewise.
+      (CCZE_COLOR_SIGNAL): Likewise.
+      (CCZE_COLOR_SERVICE): Likewise.
+      (CCZE_COLOR_PROT): Likewise.
+      (CCZE_COLOR_BADWORD): Likewise.
+      (CCZE_COLOR_GOODWORD): Likewise.
+      (CCZE_COLOR_SYSTEMWORD): Likewise.
+    * src/ccze.c (main): Support word colorising.
+
+    new files:
+     src/.arch-ids/ccze-wordcolor.c.id
+     src/.arch-ids/ccze-wordcolor.h.id src/ccze-wordcolor.c
+     src/ccze-wordcolor.h
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze.c src/ccze.h
+
+
 2002-09-13 11:34:33 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-21
 
     Summary:

@@ -37,6 +37,7 @@
 #include "ccze-super.h"
 #include "ccze-syslog.h"
 #include "ccze-vsftpd.h"
+#include "ccze-wordcolor.h"
 
 struct
 {
@@ -155,7 +156,8 @@ main (int argc, char **argv)
   ccze_vsftpd_setup (&regc_vsftpd_log, &hints_vsftpd_log);
   ccze_sulog_setup (&regc_sulog, &hints_sulog);
   ccze_super_setup (&regc_super, &hints_super);
-    
+  ccze_wordcolor_setup ();
+      
   while (getline (&subject, &subjlen, stdin) != -1)
     {
       int handled = CCZE_MATCH_NONE;
@@ -256,13 +258,16 @@ main (int argc, char **argv)
       /** Common. Goodword coloring should come here **/
       if (rest)
 	{
-	  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, rest);
+	  ccze_wordcolor_process (rest);
 	  CCZE_NEWLINE ();
 	  free (rest);
 	}
 
       if (handled == CCZE_MATCH_NONE)
-	CCZE_ADDSTR (CCZE_COLOR_DEFAULT, subject);
+	{
+	  ccze_wordcolor_process (subject);
+	  CCZE_NEWLINE ();
+	}
             
       refresh ();
     }
@@ -290,7 +295,8 @@ main (int argc, char **argv)
   free (regc_super);
   free (hints_super);
   free (subject);
-  
+  ccze_wordcolor_shutdown ();
+    
   sigint_handler (0);
   
   return 0;

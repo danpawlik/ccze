@@ -13,9 +13,11 @@ include ../Rules.mk
 ALL_LDFLAGS	= ${LDFLAGS} ${LIBS}
 
 SOURCES		= ccze.c ccze-httpd.c ccze-procmail.c ccze-squid.c \
-		ccze-sulog.c ccze-super.c ccze-syslog.c ccze-vsftpd.c
+		ccze-sulog.c ccze-super.c ccze-syslog.c ccze-vsftpd.c \
+		ccze-wordcolor.c
 HEADERS		= ccze.h ccze-httpd.h ccze-procmail.h ccze-squid.h \
-		ccze-sulog.h ccze-super.h ccze-syslog.h ccze-vsftpd.h
+		ccze-sulog.h ccze-super.h ccze-syslog.h ccze-vsftpd.h \
+		ccze-wordcolor.h
 CLEANFILES	= ${SOURCES:.c=.da}
 
 ## -- Standard targets -- ##
@@ -37,7 +39,8 @@ ${PROGRAM}: ${OBJECTS}
 
 ## -- Dependencies -- ##
 ccze.o: ccze.c ${top_builddir}/system.h ccze.h ccze-httpd.h ccze-procmail.h \
-	ccze-squid.h ccze-sulog.h ccze-super.h ccze-syslog.h ccze-vsftpd.h
+	ccze-squid.h ccze-sulog.h ccze-super.h ccze-syslog.h ccze-vsftpd.h \
+	ccze-wordcolor.h
 ccze-httpd.o: ccze-httpd.c ${top_builddir}/system.h ccze.h ccze-httpd.h
 ccze-procmail.o: ccze-procmail.c ${top_builddir}/system.h ccze.h ccze-procmail.h
 ccze-squid.o: ccze-squid.c ${top_builddir}/system.h ccze.h ccze-squid.h
@@ -45,4 +48,6 @@ ccze-sulog.o: ccze-sulog.c ${top_builddir}/system.h ccze.h ccze-sulog.h
 ccze-super.o: ccze-super.c ${top_builddir}/system.h ccze.h ccze-super.h
 ccze-syslog.o: ccze-syslog.c $(top_builddir)/system.h ccze.h ccze-syslog.h
 ccze-vsftpd.o: ccze-vsftpd.c ${top_builddir}/system.h ccze.h ccze-vsftpd.h
+ccze-wordcolor.o: ccze-wordcolor.c ${top_builddir}/system.h ccze.h \
+		  ccze-wordcolor.h
 ${top_builddir}/system.h: ${top_builddir}/config.status
