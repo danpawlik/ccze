@@ -73,7 +73,9 @@ ccze_procmail_process (const char *str, int *offsets, int match)
   ccze_space ();
 
   ccze_addstr (col, value);
-  ccze_addstr (CCZE_COLOR_DEFAULT, space2);
+  if (col == CCZE_COLOR_EMAIL)
+    col = CCZE_COLOR_DEFAULT;
+  ccze_addstr (col, space2);
 
   if (!strcasecmp ("folder:", header))
     col = CCZE_COLOR_SIZE;

@@ -2,6 +2,36 @@
 # arch-tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-04-26 14:16:04 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-11
+
+    Summary:
+      Fixed procmail subject coloring
+    Revision:
+      ccze--0.3--patch-11
+
+    * src/mod_procmail.c (ccze_procmail_process): If the header field is
+      Subject or Folder, put out space2 with the same color. This fixes the
+      problem where the first set of whitespace in a multi-word subject were
+      coloured with the default color.
+    * testsuite/bug-procmailsubj2.test: New test.
+    * testsuite/bug-procmailsubj2.in: New input file.
+    * testsuite/bug-procmailsubj2.ok: New expected output.
+    * testsuite/Makefile.in (TESTS): Added bug-procmailsubj2.test.
+    
+    Problem was noticed by Alan Schmitt, who also provided the sample input
+    to trigger the bug.
+
+    new files:
+     testsuite/.arch-ids/bug-procmailsubj2.in.id
+     testsuite/.arch-ids/bug-procmailsubj2.ok.id
+     testsuite/.arch-ids/bug-procmailsubj2.test.id
+     testsuite/bug-procmailsubj2.in testsuite/bug-procmailsubj2.ok
+     testsuite/bug-procmailsubj2.test
+
+    modified files:
+     ChangeLog src/mod_procmail.c testsuite/Makefile.in
+
+
 2003-04-26 14:10:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-10
 
     Summary:
