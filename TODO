@@ -2,8 +2,8 @@
 
 * New features
 ** Support for more kinds of logs
+*** xferlog
+*** oops.log
 
 * Documentation
-** The manual page needs more info
-*** Supported log formats
-*** Plug-in architecture
+** Plug-in architecture

@@ -1,30 +1,115 @@
-.TH CCZE 1 "2002-09-16" ccze ccze
+.TH CCZE 1 "2002-10-01" ccze ccze
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
 .B ccze
-.RI [ options ] < logfile
+.RI [ options "] <" logfile
 .SH DESCRIPTION
 This manual page documents briefly the
 .B ccze
 utility, which is a drop-in replacement for
 .BR colorize ,
-but written in C, to be faster and less resource-hungry.
+but written in C, to be faster and less resource-hungry. The goal was
+to be fully backwards compatible, yet superior with respect to speed
+and features.
 .SH OPTIONS
 These programs follow the usual GNU command line syntax, with long
 options starting with two dashes (`-'). A summary of options is
 included below.
 .TP
-.TP
 .B \-C, \-\-convert\-date
 Convert unix timestamp to readable date format (in
 oops and squid logs, for example).
+.TP
+.B \-F, \-\-rcfile \fIrcfile\fB
+Read \fIrcfile\fR as a configuration file upon startup, instead of the
+default ones.
+.TP
+.B \-o, \-\-options \fIOPTIONS...\fB
+\fBCCZE\fR is able to toggle some of its features with this
+option. You can toggle the \fIscroll\fR, \fIwordcolor\fR, and
+\fIlookups\fR features. All of these are enabled by default. One can
+turn them off by prefixing the option with a "no".
+
+With \fIscroll\fR, one can enable or disable scrolling. If the output
+is not redirected, it is wise to leave it enabled.
+
+The \fIwordcolor\fR option makes \fBccze\fR search for different
+keywords in unparsed input, and color those too. Since it is quite
+fast, and makes the output look better, it is recommended to leave
+this enabled.
+
+However, \fIlookups\fR is an option that might be better to
+disable. When on, \fBccze\fR will try to look up usernames, service
+names, and lots of other stuff, which will slow down coloring a great
+deal. If one is piping a long log through \fBccze\fR, this option
+might be turned off to speed up the process.
+.TP
+.B \-p, \-\-plugin \fIPLUGIN\fR
+While the default action is to load all plugins (see the \fBPlugins\fR
+section below), when this option is present, only the specified
+plugins will be loaded. If one knows what kind of log will be piped
+through \fBccze\fR, using this option may result in a slight speedup.
+.TP
+.B \-r, \-\-remove\-facilty
+Syslog\-ng puts the facility level before log messages. With this
+switch, these can be cut off.
 .TP
 .B \-\-help
 Show summary of options and exit.
 .TP
 .B \-V, \-\-version
 Show version of program.
+.SH PLUGINS
+Different programs have different kind of logs, and every kind of log
+\fBccze\fR supports is implemented via a plug\-in. They are by default
+located under \fI/usr/lib/ccze\fR and \fI$HOME/.ccze\fR (so they can
+be overridden by the user easily).
+
+At the moment, the following modules are bundled with the official
+release:
+.TP
+.IR exim.so
+For coloring exim's \fImain.log\fR. (See \fIexim\fR(8))
+.TP
+.IR httpd.so
+For coloring apache-style \fIaccess.log\fR and \fIerror.log\fR
+files. (See \fIapache\fR(8))
+.TP
+.IR procmail.so
+For coloring procmail's log file. (See \fIprocmail\fR(1))
+.TP
+.IR squid.so
+For coloring squid's \fIaccess.log\fR, \fIstore.log\fR and
+\fIcache.log\fR files. (See \fIsquid\fR(8))
+.TP
+.IR sulog.so
+For coloring \fIsulog\fR files. (See \fIsu\fR(1))
+.TP
+.IR super.so
+For coloring \fIsuper.log\fR files. (See \fIsuper\fR(1))
+.TP
+.IR syslog.so
+For coloring generic syslog messages. (See \fIsyslogd\fR(8))
+.TP
+.IR vsftpd.so
+For coloring \fIvsftpd.log\fR files. (See \fIvsftpd\fR(8))
+.SH FILES
+.TP
+.IR /etc/colorizerc ", " $HOME/.colorizerc
+.RS
+These files are the default configuration files for \fBcolorize\fR,
+and are parsed by \fBccze\fR for the sake of full compatibility.
+.RE
+.IR /etc/cczerc ", " $HOME/.cczerc
+.RS
+This two are the main configuration files, in which one can change the
+colors used by the program to his liking. See the comments in the
+beginning of \fI/etc/cczerc\fR for a description on the files'
+structure.
+.RE
+.SH "SEE ALSO"
+.BR colorize (1)
 .SH AUTHOR
 ccze was written by Gergely Nagy <algernon@bonehunter.rulez.org>,
 based on colorize by Istvan Karaszi <colorize@spam.raszi.hu>.
