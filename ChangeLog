@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-28 15:33:51 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-61
+
+    Summary:
+      Minor optimisation in plugin loading
+    Revision:
+      ccze--0.1--patch-61
+
+    * src/ccze-plugin.c (_ccze_plugin_load): Moved most of
+      ccze_plugin_load() here.
+      (ccze_plugin_load): Made it a wrapper around _ccze_plugin_load().
+      (_ccze_plugin_load_set): Take a `base' argument, and use it to
+      construct `path' which is passed to _ccze_plugin_load() (yes,
+      changed to use _ccze_plugin_load() instead of ccze_plugin_load()).
+      (ccze_plugin_load_all): Adapted to _ccze_plugin_load_set change.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2002-09-28 14:41:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-60
 
     Summary:

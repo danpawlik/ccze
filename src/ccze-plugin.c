@@ -29,7 +29,7 @@
 #include "ccze.h"
 #include "ccze-plugin.h"
 
-#define PLUGIN_LIBPATH PKGLIBDIR "/"
+#define PLUGIN_LIBPATH PKGLIBDIR
 
 static ccze_plugin_t **plugins;
 static size_t plugins_alloc, plugins_len;
@@ -55,29 +55,14 @@ ccze_plugin_init (void)
   plugins = (ccze_plugin_t **)calloc (plugins_alloc, sizeof (ccze_plugin_t *));
 }
 
-void
-ccze_plugin_load (const char *name)
+static void
+_ccze_plugin_load (const char *name, const char *path)
 {
   ccze_plugin_t *plugin;
   char *tmp;
-  char *home;
-  
+    
   plugin = (ccze_plugin_t *)malloc (sizeof (ccze_plugin_t));
-
-  if ((home = getenv ("HOME")) != NULL)
-    {
-      asprintf (&tmp, "%s/.ccze/%s.so", home, name);
-      if (access (tmp, F_OK))
-	{
-	  free (tmp);
-	  asprintf (&tmp, PLUGIN_LIBPATH "%s.so", name);
-	}
-    }
-  else
-    asprintf (&tmp, PLUGIN_LIBPATH "%s.so", name);
-
-  plugin->dlhandle = dlopen (tmp, RTLD_LAZY);
-  free (tmp);
+  plugin->dlhandle = dlopen (path, RTLD_LAZY);
   if (dlerror () || !plugin->dlhandle)
     {
       free (plugin);
@@ -123,6 +108,28 @@ ccze_plugin_load (const char *name)
   _ccze_plugin_add (plugin);
 }
 
+void
+ccze_plugin_load (const char *name)
+{
+  char *home;
+  char *path;
+
+  if ((home = getenv ("HOME")) != NULL)
+    {
+      asprintf (&path, "%s/.ccze/%s.so", home, name);
+      if (access (path, F_OK))
+	{
+	  free (path);
+	  asprintf (&path, PLUGIN_LIBPATH "/%s.so", name);
+	}
+    }
+  else
+    asprintf (&path, PLUGIN_LIBPATH "/%s.so", name);
+
+  _ccze_plugin_load (name, path);
+  free (path);
+}
+
 static int
 _ccze_plugin_select (const struct dirent *de)
 {
@@ -145,7 +152,7 @@ _ccze_plugin_loaded (const char *name)
 }
 
 static void
-_ccze_plugin_load_set (struct dirent ***namelist, int nn)
+_ccze_plugin_load_set (struct dirent ***namelist, int nn, const char *base)
 {
   int m, n = nn;
 
@@ -154,10 +161,15 @@ _ccze_plugin_load_set (struct dirent ***namelist, int nn)
     {
       char *tmp = strdup ((*namelist)[m]->d_name);
       char *tmp2 = strstr (tmp, ".so");
+      char *path;
       tmp2[0] = '\0';
 
       if (!_ccze_plugin_loaded (tmp))
-	ccze_plugin_load (tmp);
+	{
+	  asprintf (&path, "%s/%s.so", base, tmp);
+	  _ccze_plugin_load (tmp, path);
+	  free (path);
+	}
       free (tmp);
       free ((*namelist)[m]);
       m++;
@@ -177,13 +189,13 @@ ccze_plugin_load_all (void)
       asprintf (&homeplugs, "%s/.ccze/", home);
       n = scandir (homeplugs, &namelist, _ccze_plugin_select, alphasort);
       if (n != -1)
-	_ccze_plugin_load_set (&namelist, n);
+	_ccze_plugin_load_set (&namelist, n, home);
       free (homeplugs);
     }
 
   n = scandir (PLUGIN_LIBPATH, &namelist, _ccze_plugin_select, alphasort);
   if (n != -1)
-    _ccze_plugin_load_set (&namelist, n);
+    _ccze_plugin_load_set (&namelist, n, PLUGIN_LIBPATH);
 }
 
 void
