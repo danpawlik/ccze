@@ -10,7 +10,7 @@ include Rules.mk
 EXTRA_DIST	= Rules.mk.in configure configure.ac system.h.in \
 		COPYING ChangeLog install-sh config.guess config.sub \
 		AUTHORS README NEWS INSTALL TODO THANKS ccze.spec.in \
-		ccze.spec
+		ccze.spec ccze.plugins
 DISTCLEANFILES	= ccze.spec
 
 ## -- Generic rules -- ##

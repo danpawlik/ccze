@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 22:43:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-165
+
+    Summary:
+      Splitted off ALL_PLUGINS from configure.ac
+    Revision:
+      ccze--0.1--patch-165
+
+    * configure.ac (ALL_PLUGINS): Moved the list to...
+    * ccze.plugins: ...here.
+    * Makefile.in (DISTFILES): Include ccze.plugins.
+
+    new files:
+     .arch-ids/ccze.plugins.id ccze.plugins
+
+    modified files:
+     ChangeLog Makefile.in configure.ac
+
+
 2003-02-07 22:27:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-164
 
     Summary:
