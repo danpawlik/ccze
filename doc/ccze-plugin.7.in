@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE-PLUGIN 7 "2003-03-04" "CCZE @VERSION@" CCZE
+.TH CCZE-PLUGIN 7 "2003-03-19" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer, plugin infrastructure
 .SH SYNOPSIS
@@ -28,11 +28,10 @@ ccze \- A robust log colorizer, plugin infrastructure
 .br
 .BI "typedef int (*" ccze_plugin_handle_t ") (const char *" str ,
 .BI "size_t " length ", char **" rest );
-.br
-.BI "char **ccze_plugin_argv_get (const char *" name ");"
-.br
 
 .BI "CCZE_DEFINE_PLUGIN (" name ", " type );
+.br
+.BI "CCZE_DEFINE_PLUGINS (" plugins "...);"
 .br
 
 .B /* Display */
@@ -51,6 +50,12 @@ ccze \- A robust log colorizer, plugin infrastructure
 .BI "ccze_color_t ccze_http_action (const char *" method ");"
 .br
 .BI "void ccze_print_date (const char *" date ");"
+
+.B /* Command line */
+.br
+.BI "char **ccze_plugin_argv_get (const char *" name ");"
+.br
+.BI "const char *ccze_plugin_name_get (void);"
 .SH DESCRIPTION
 This manual page attempts to outline the internals of CCZE plugins:  how
 they work, how they are implemented, and how to add new ones.
@@ -94,6 +99,9 @@ assumed that the three functions are called \fIccze_\fBname\fI_setup\fR,
 \fIccze_\fBname\fI_shutdown\fR and \fIccze_\fBname\fI_handle\fR,
 respectively.
 
+With \fICCZE_DEFINE_PLUGINS\fR one can place more than one plugin into one
+shared object.
+
 A \fIFULL\fR plugin is one that accepts raw input, untouched by any other
 plugin before, and processes it.  On the other hand, a \fIPARTIAL\fR plugin
 relies on previous ones preprocessing the input.  For example, \fIsyslog\fR
@@ -102,10 +110,11 @@ is a full plugin, on which \fIulogd\fR, a partial plugin relies.  The
 most of it, save the actual message sent by a process, that is left to
 subsequent plugins, like \fIulogd\fR.
 
-There is another helper function, \fIccze_plugin_argv_get\fR. One can pass
-arguments to CCZE plugins, and this is the function to retrieve them. It
-simply returns a NULL\-terminated array, with each entry containing an
-argument.
+There are two other helper functions, \fIccze_plugin_argv_get\fR and
+\fIccze_plugin_name_get\fR. One can pass arguments to CCZE plugins, and
+these is the function to retrieve them. While \fIccze_plugin_name_get\fR
+returns the name of the current plugin, \fIccze_plugin_argv_get\fR returns a
+NULL\-terminated array, with each entry containing an argument.
 .SH "DISPLAY METHODS"
 The so\-called \fIdisplay methods\fR are the \fBonly\fR supported interface
 to emit something to the display. These handle both the normal,
@@ -160,7 +169,7 @@ ccze_foo_handle (const char *str, size_t length, char **rest)
 static void
 ccze_foo_startup (void)
 {
-  ccze_foo_argv = ccze_plugin_argv_get ("foo");
+  ccze_foo_argv = ccze_plugin_argv_get (ccze_plugin_name_get ());
 }
 
 static void

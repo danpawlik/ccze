@@ -45,6 +45,7 @@ ccze_plugin_t **ccze_plugins (void);
 void ccze_plugin_load_all (void);
 void ccze_plugin_load (const char *name);
 void ccze_plugin_add (ccze_plugin_t *plugin);
+void ccze_plugin_setup (void);
 void ccze_plugin_shutdown (void);
 void ccze_plugin_finalise (void);
 void ccze_plugin_run (ccze_plugin_t **pluginset, char *subject,

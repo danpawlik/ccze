@@ -2,6 +2,34 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-19 10:26:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-227
+
+    Summary:
+      Support loading a module twice or more
+    Revision:
+      ccze--0.1--patch-227
+
+    * src/ccze.h (__default_plugin): New define.
+      (CCZE_DEFINE_PLUGIN): Use it.
+      (ccze_plugin_name_get): New prototype.
+    * src/ccze-private.h (ccze_plugin_setup): New prototype.
+    * src/ccze-plugin.c (ccze_plugin_setup): New function, extracted from
+      src/main.c's main().
+      (ccze_plugin_shutdown): Place the current plugin name into
+      `plugin_running'.
+      (ccze_plugin_run): Likewise.
+      (ccze_plugin_argv_set): Initialise ->argv[0].
+      (ccze_plugin_name_get): New function.
+      (_ccze_plugin_load): If loading in the normal way failed, check
+      `ccze_default_plugin', and try loading that one.
+    * doc/ccze-plugin.7.in: Document ccze_plugin_name_get and
+      CCZE_DEFINE_PLUGINS.
+
+    modified files:
+     ChangeLog doc/ccze-plugin.7.in src/Makefile.in
+     src/ccze-plugin.c src/ccze-private.h src/ccze.c src/ccze.h
+
+
 2003-03-12 20:21:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-226
 
     Summary:

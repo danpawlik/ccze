@@ -563,10 +563,8 @@ ccze_main (void)
     }
 
   ccze_plugin_argv_finalise ();
+  ccze_plugin_setup ();
   
-  while (plugins[i])
-    (*(plugins[i++]->startup))();
-        
   while ((getline (&subject, &subjlen, stdin) != -1) && !sighup_received)
     {
       int handled = 0;

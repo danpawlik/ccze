@@ -34,6 +34,7 @@ static ccze_plugin_t **plugins;
 static size_t plugins_alloc, plugins_len;
 static ccze_plugin_t **plugin_args;
 static size_t plugin_args_alloc, plugin_args_len;
+static char *plugin_running = NULL;
 
 static int
 _ccze_plugin_allow (const char *name)
@@ -117,7 +118,7 @@ static void
 _ccze_plugin_load (const char *name, const char *path, int recurse)
 {
   ccze_plugin_t *plugin;
-  char *tmp;
+  char *tmp, *n;
   void *dlhandle;
   char **pluginlist = NULL;
   int bailout = 0;
@@ -135,7 +136,16 @@ _ccze_plugin_load (const char *name, const char *path, int recurse)
   if (dlerror () || !plugin)
     {
       if (!plugin)
-	bailout = 1;
+	{
+	  n = (char *)dlsym (dlhandle, "ccze_default_plugin");
+	  asprintf (&tmp, "ccze_%s_info", n);
+	  plugin = (ccze_plugin_t *)dlsym (dlhandle, tmp);
+	  free (tmp);
+	  if (!plugin)
+	    bailout = 1;
+	  else
+	    plugin->name = strdup (name);
+	}
       else
 	{
 	  dlclose (dlhandle);
@@ -263,6 +273,22 @@ ccze_plugins (void)
 }
 
 void
+ccze_plugin_setup (void)
+{
+  size_t i;
+
+  for (i = 0; i < plugins_len; i++)
+    {
+      if (plugins[i])
+	{
+	  plugin_running = plugins[i]->name;
+	  (*(plugins[i++]->startup))();
+	}
+    }
+  plugin_running = NULL;
+}
+
+void
 ccze_plugin_shutdown (void)
 {
   size_t i;
@@ -271,12 +297,15 @@ ccze_plugin_shutdown (void)
     {
       if (plugins[i])
 	{
+	  plugin_running = plugins[i]->name;
 	  (*(plugins[i]->shutdown)) ();
 	  free (plugins[i]->argv);
 	  if (plugins[i]->dlhandle)
 	    dlclose (plugins[i]->dlhandle);
 	}
     }
+
+  plugin_running = NULL;
   free (plugins);
 }
 
@@ -291,14 +320,18 @@ ccze_plugin_run (ccze_plugin_t **pluginset, char *subject, size_t subjlen,
     {
       if (pluginset[i]->type == type ||
 	  pluginset[i]->type == CCZE_PLUGIN_TYPE_ANY)
-	if ((*handled = (*(pluginset[i]->handler))
-	     (subject, subjlen, rest)) != 0)
-	  {
-	    *status = *handled;
-	    break;
-	  }
+	{
+	  plugin_running = pluginset[i]->name;
+	  if ((*handled = (*(pluginset[i]->handler))
+	       (subject, subjlen, rest)) != 0)
+	    {
+	      *status = *handled;
+	      break;
+	    }
+	}
       i++;
     }
+  plugin_running = NULL;
 }
 
 char **
@@ -355,6 +388,7 @@ ccze_plugin_argv_set (const char *name, const char *args)
     } while ((arg = strtok (NULL, " \t\n")) != NULL);
   p->argv = (char **)ccze_realloc (p->argv, (j + 1) * sizeof (char *));
   p->argv[j] = NULL;
+  p->argv[0] = strdup (name);
   plugin_args[i] = p;
   free (args_copy);
   
@@ -375,4 +409,10 @@ ccze_plugin_argv_finalise (void)
       free (plugin_args[i]);
     }
   free (plugin_args);
+}
+
+const char *
+ccze_plugin_name_get (void)
+{
+  return plugin_running;
 }
