@@ -53,6 +53,7 @@ static struct
   int slookup;
   int remfac;
   int html;
+  int transparent;
   char *rcfile;
   char *cssfile;
   char **pluginlist;
@@ -67,6 +68,7 @@ static struct
   .slookup = 1,
   .rcfile = NULL,
   .cssfile = NULL,
+  .transparent = 1,
   .pluginlist_len = 0,
   .pluginlist_alloc = 10,
   .color_argv_len = 0,
@@ -88,7 +90,7 @@ static struct argp_option options[] = {
   {"rcfile", 'F', "FILE", 0, "Read configuration from FILE", 1},
   {"html", 'h', NULL, 0, "Generate HTML output", 1},
   {"options", 'o', "OPTIONS...", 0, "Toggle some options\n"
-   "(such as scroll, wordcolor and lookups, or cssfile)", 1},
+   "(such as scroll, wordcolor and lookups, transparent, or cssfile)", 1},
   {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
   {"plugin", 'p', "PLUGIN", 0, "Load PLUGIN", 1},
   {"remove-facility", 'r', NULL, 0,
@@ -110,6 +112,8 @@ enum
   CCZE_O_SUBOPT_NOLOOKUPS,
   CCZE_O_SUBOPT_CSSFILE,
   CCZE_O_SUBOPT_NOCSSFILE,
+  CCZE_O_SUBOPT_TRANSPARENT,
+  CCZE_O_SUBOPT_NOTRANSPARENT,
   CCZE_O_SUBOPT_END
 };
 
@@ -122,6 +126,8 @@ static char *o_subopts[] = {
   [CCZE_O_SUBOPT_NOLOOKUPS] = "nolookups",
   [CCZE_O_SUBOPT_CSSFILE] = "cssfile",
   [CCZE_O_SUBOPT_NOCSSFILE] = "nocssfile",
+  [CCZE_O_SUBOPT_TRANSPARENT] = "transparent",
+  [CCZE_O_SUBOPT_NOTRANSPARENT] = "notransparent",
   [CCZE_O_SUBOPT_END] = NULL
 };
 
@@ -239,6 +245,12 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	      break;
 	    case CCZE_O_SUBOPT_NOCSSFILE:
 	      ccze_config.cssfile = NULL;
+	      break;
+	    case CCZE_O_SUBOPT_TRANSPARENT:
+	      ccze_config.transparent = 1;
+	      break;
+	    case CCZE_O_SUBOPT_NOTRANSPARENT:
+	      ccze_config.transparent = 0;
 	      break;
 	    default:
 	      argp_error (state, "unrecognised option: `%s'", value);
@@ -467,8 +479,16 @@ ccze_main (void)
 	  scrollok (stdscr, TRUE);
 	  leaveok (stdscr, FALSE);
 	}
-  
+      
       start_color ();
+      if (ccze_config.transparent)
+	{
+	  if (use_default_colors () == OK)
+	    {
+	      colors[0] = -1;
+	    }
+	}
+      
       for (i = 0; i < 8; i++)
 	for (j = 0; j < 8; j++)
 	  init_pair (i*8 + j, colors[j], colors[i]);
