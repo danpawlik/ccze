@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-05 15:10:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-215
+
+    Summary:
+      Fixed good/bad word colorising
+    Revision:
+      ccze--0.1--patch-215
+
+    * src/ccze-wordcolor.c (ccze_wordcolor_process_one): Unrolled the `if
+     (slookup)' branch, it was a bad idea. (This reverts patch 179).
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c
+
+
 2003-03-05 12:51:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-214
 
     Summary:
