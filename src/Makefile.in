@@ -82,7 +82,9 @@ ccze-builtins.c: Makefile
 	for p in ${S_PLUGINS}; do \
 		echo "extern ccze_plugin_t ccze_$${p}_info;" >>$@; \
 	done
-	echo -e '\nvoid\nccze_plugin_load_all_builtins (void)\n{' >>$@;
+	echo "void" >>$@
+	echo "ccze_plugin_load_all_builtins (void)" >>$@
+	echo "{" >>$@
 	for p in ${S_PLUGINS}; do \
 		echo "  ccze_plugin_add (&ccze_$${p}_info);" >>$@; \
 	done

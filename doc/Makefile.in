@@ -21,7 +21,7 @@ all: ${MANS}
 	sed -e "s,@VERSION\@,${VERSION},g" \
 	    -e "s,@sysconfdir\@,${sysconfdir},g" \
 	    -e "s,@pkglibdir\@,${pkglibdir},g" \
-	<$@.in >$@T && mv -f $@T $@
+	<${srcdir}/$@.in >$@T && mv -f $@T $@
 
 install: ${MANS}
 	${INSTALL} -d ${DESTDIR}${man1dir}

@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-05 08:20:47 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-155
+
+    Summary:
+      Makefile fixes
+    Revision:
+      ccze--0.1--patch-155
+
+    * Makefile.in (ccze.spec): Use ${srcdir}/$@.
+    * doc/Makefile.in (% [%.in]): Likewise.
+    * src/Makefile.in (ccze-builtins.c): Do not use echo -e, but multiple
+      echos. Allows building with /bin/ash.
+    
+
+    modified files:
+     ChangeLog Makefile.in doc/Makefile.in src/Makefile.in
+
+
 2003-02-05 01:12:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-154
 
     Summary:
