@@ -80,7 +80,7 @@ _stolower (const char *str)
 
 /* FIXME: strtok cuts multiple spaces, which is not good! */
 void
-ccze_wordcolor_process (const char *msg)
+ccze_wordcolor_process (const char *msg, int wcol, int slookup)
 {
   char *word, *tmp;
   char *msg2 = strdup (msg);
@@ -88,7 +88,13 @@ ccze_wordcolor_process (const char *msg)
   int offsets[99];
   int col;
   int match;
-          
+
+  if (!wcol)
+    {
+      CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
+      return;
+    }
+  
   word = xstrdup (strtok (msg2, " "));
   do
     {
@@ -157,13 +163,13 @@ ccze_wordcolor_process (const char *msg)
       else if (pcre_exec (reg_sig, NULL, word, wlen, 0, 0, offsets, 99) >= 0)
 	col = CCZE_COLOR_SIGNAL;
       /** Service **/
-      else if (getservbyname (word, NULL))
+      else if (slookup && getservbyname (word, NULL))
 	col = CCZE_COLOR_SERVICE;
       /** Protocol **/
-      else if (getprotobyname (word))
+      else if (slookup && getprotobyname (word))
 	col = CCZE_COLOR_PROT;
       /** User **/
-      else if (getpwnam (word))
+      else if (slookup && getpwnam (word))
 	col = CCZE_COLOR_USER;
       else
 	{ /* Good/Bad/System words */

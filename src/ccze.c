@@ -44,6 +44,8 @@ struct
 {
   int scroll;
   int convdate;
+  int wcol;
+  int slookup;
 } ccze_config;
 
 const char *argp_program_version = "ccze/0.1";
@@ -53,6 +55,8 @@ static struct argp_option options[] = {
   {"scroll", 's', NULL, 0, "Enable scrolling", 1},
   {"no-scroll", -100, NULL, 0, "Disable scrolling", 1},
   {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
+  {"no-word-color", -101, NULL, 0, "Disable word coloring", 1},
+  {"no-service-lookup", -102, NULL, 0, "Disable service lookups", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -72,6 +76,12 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
     case 'C':
       ccze_config.convdate = 1;
+      break;
+    case -101:
+      ccze_config.wcol = 0;
+      break;
+    case -102:
+      ccze_config.slookup = 0;
       break;
     default:
       return ARGP_ERR_UNKNOWN;
@@ -152,6 +162,8 @@ main (int argc, char **argv)
     
   ccze_config.scroll = 1;
   ccze_config.convdate = 0;
+  ccze_config.wcol = 1;
+  ccze_config.slookup = 1;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
   
   initscr ();
@@ -286,14 +298,16 @@ main (int argc, char **argv)
       /** Common. Goodword coloring should come here **/
       if (rest)
 	{
-	  ccze_wordcolor_process (rest);
+	  ccze_wordcolor_process (rest, ccze_config.wcol,
+				  ccze_config.slookup);
 	  CCZE_NEWLINE ();
 	  free (rest);
 	}
 
       if (handled == CCZE_MATCH_NONE)
 	{
-	  ccze_wordcolor_process (subject);
+	  ccze_wordcolor_process (subject, ccze_config.wcol,
+				  ccze_config.slookup);
 	  CCZE_NEWLINE ();
 	}
             

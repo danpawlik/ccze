@@ -2,6 +2,28 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 14:44:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-26
+
+    Summary:
+      --no-service-lookup and --no-word-color
+    Revision:
+      ccze--0.1--patch-26
+
+    * src/ccze.c (ccze_config): Added `wcol' and `slookup' members.
+      (options): Added --no-service-lookup and --no-word-color.
+      (parse_opt): Recognise them.
+      (main): Initialise them to on, and pass them to
+      ccze_wordcolor_process.
+    * src/ccze-wordcolor.h (ccze_wordcolor_process): Take two new
+      arguments.
+    * src/ccze-wordcolor.c (ccze_wordcolor_process): If `wcol' is
+      disabled, print the message in the default color. If slookup is
+      disabled, do not try costy lookups.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c src/ccze-wordcolor.h src/ccze.c
+
+
 2002-09-13 14:23:36 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-25
 
     Summary:
