@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 12:23:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-114
+
+    Summary:
+      Added War_New to THANKS
+    Revision:
+      ccze--0.1--patch-114
+
+    * THANKS: Added War_New.
+
+    modified files:
+     ChangeLog THANKS
+
+
 2003-01-12 19:29:48 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-113
 
     Summary:
