@@ -57,6 +57,10 @@ default ones.
 Instead of colorising the input onto the console, output it in HTML
 format instead.
 .TP
+.B \-l, \-\-list\-plugins
+List all available (loaded) plugins, along with their type and a short
+description.
+.TP
 .B \-o, \-\-options \fIOPTIONS...\fB
 \fBCCZE\fR is able to toggle some of its features with this
 option. You can toggle the \fIscroll\fR, \fIwordcolor\fR,
