@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 16:53:51 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-243
+
+    Summary:
+      mod_ftpstats
+    Revision:
+      ccze--0.1--patch-243
+
+    * src/mod_ftpstats.c: New file.
+    * ccze.plugins: Added ftpstats.
+    * doc/ccze.1.in (PLUGINS): Documented it.
+    
+    Thanks to Ciga for the sample logs.
+
+    new files:
+     src/.arch-ids/mod_ftpstats.c.id src/mod_ftpstats.c
+
+    modified files:
+     ChangeLog ccze.plugins doc/ccze.1.in
+
+
 2003-03-29 16:14:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-242
 
     Summary:

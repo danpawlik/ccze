@@ -124,6 +124,10 @@ For coloring exim's \fImain.log\fR. (See \fIexim\fR(8))
 .IR fetchmail
 For coloring fetchmail's log files. (See \fIfetchmail\fR(1))
 .TP
+.IR ftpstats
+For coloring ftpStats compatible log files, such as Pure\-FTPD's
+\fIStats\fR log format.
+.TP
 .IR httpd
 For coloring apache\-style \fIaccess.log\fR and \fIerror.log\fR
 files. (See \fIapache\fR(8))

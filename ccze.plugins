@@ -2,6 +2,7 @@ apm
 distcc
 exim
 fetchmail
+ftpstats
 httpd
 icecast
 oops
