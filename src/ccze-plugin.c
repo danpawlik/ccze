@@ -191,7 +191,8 @@ ccze_plugin_shutdown (void)
       if (plugins[i])
 	{
 	  (*(plugins[i]->shutdown)) ();
-	  dlclose (plugins[i]->dlhandle);
+	  if (plugins[i]->dlhandle)
+	    dlclose (plugins[i]->dlhandle);
 	}
     }
   free (plugins);

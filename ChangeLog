@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-21 17:29:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-100
+
+    Summary:
+      Fixed built-in module support
+    Revision:
+      ccze--0.1--patch-100
+
+    * src/ccze-plugins.c (ccze_plugin_shutdown): Do not dlclose() ->dlhandle
+      if it is NULL.
+    * src/Makefile.in (ccze-builtins.c): _info are `ccze_plugin_t', not
+      pointers to such a struct.
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze-plugin.c
+
+
 2002-11-21 16:55:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-99
 
     Summary:

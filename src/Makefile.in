@@ -58,11 +58,11 @@ ccze-builtins.c: Makefile
 	echo '#include "ccze-plugin.h"' >>$@
 	echo >>$@
 	for p in ${S_PLUGINS}; do \
-		echo "extern ccze_plugin_t *ccze_$${p}_info;" >>$@; \
+		echo "extern ccze_plugin_t ccze_$${p}_info;" >>$@; \
 	done
 	echo -e '\nvoid\nccze_plugin_load_all_builtins (void)\n{' >>$@;
 	for p in ${S_PLUGINS}; do \
-		echo "  ccze_plugin_add (ccze_$${p}_info);" >>$@; \
+		echo "  ccze_plugin_add (&ccze_$${p}_info);" >>$@; \
 	done
 	echo "}" >>$@
 
