@@ -24,9 +24,9 @@
 
 #include <ctype.h>
 #include <errno.h>
-//#ifdef HAVE_GETOPT_H
+#ifdef HAVE_GETOPT_H
 #include <getopt.h>
-//#endif
+#endif
 #include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>

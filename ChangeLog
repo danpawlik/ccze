@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-16 21:58:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-124
+
+    Summary:
+      Portability, #2
+    Revision:
+      ccze--0.1--patch-124
+
+    * configure.ac (AC_CHECK_TYPE): Check for error_t, and fall back to
+      `int'.
+      (AC_CHECK_HEADERS): Added getopt.h.
+    * src/ccze-compat.c [HAVE_GETOPT_H]: #include getopt.h.
+
+    modified files:
+     ChangeLog configure.ac src/ccze-compat.c
+
+
 2003-01-13 20:09:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-123
 
     Summary:

@@ -60,7 +60,7 @@ dnl * Headers
 dnl **********************
 AC_HEADER_STDC
 AC_HEADER_DIRENT
-AC_CHECK_HEADERS([argp.h netdb.h fcntl.h])
+AC_CHECK_HEADERS([argp.h getopt.h netdb.h fcntl.h])
 AC_CHECK_HEADER([pcre.h],
                 [AC_DEFINE_UNQUOTED(HAVE_PCRE_H, 1, [Define to 1 if you have
 the <pcre.h> header file.])], [AC_CHECK_HEADERS([pcre/pcre.h])])
@@ -71,6 +71,8 @@ dnl **********************
 AC_C_CONST
 AC_TYPE_SIZE_T
 AC_TYPE_SIGNAL
+
+AC_CHECK_TYPE(error_t, int)
 
 dnl **********************
 dnl * Library functions
