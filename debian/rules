@@ -51,11 +51,12 @@ binary-ccze: install
 	install -m 0644 debian/copyright ${PKGDIR}/usr/share/doc/${PACKAGE}
 ## Gzip manual pages and info docs
 	gzip -9f ${PKGDIR}/usr/share/man/man1/ccze.1 \
+		 ${PKGDIR}/usr/share/man/man1/ccze-cssdump.1 \
 		 ${PKGDIR}/usr/share/man/man7/ccze-plugin.7
 ## Strip binaries
 ifeq (,$(findstring nostrip,${DEB_BUILD_OPTIONS}))
 	strip --remove-section=.comment --remove-section=.note \
-		${PKGDIR}/usr/bin/ccze
+		${PKGDIR}/usr/bin/ccze ${PKGDIR}/usr/bin/ccze-cssdump
 endif
 ## Fix permissions
 	find ${PKGDIR} -print0 2>/dev/null | xargs -0r chown \
@@ -64,7 +65,8 @@ endif
 		chmod go=rX,u+rw,a-s
 ## Generate ${shlibs:Depends}
 	dpkg-shlibdeps -Tdebian/${PACKAGE}.substvars -dDepends \
-			${PKGDIR}/usr/bin/ccze
+			${PKGDIR}/usr/bin/ccze \
+			${PKGDIR}/usr/bin/ccze-cssdump
 ## Install stuff to DEBIAN/
 	install -d ${PKGDIR}/DEBIAN
 	cd ${PKGDIR} >/dev/null ;\

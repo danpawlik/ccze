@@ -85,8 +85,8 @@ subsequent plugins, like \fIulogd\fR.
 .SH EXAMPLE
 .nf
 #include <ccze.h>
-#include <ccze-color.h>
-#include <ccze-plugin.h>
+#include <ccze\-color.h>
+#include <ccze\-plugin.h>
 
 #include <ncurses.h>
 #include <string.h>

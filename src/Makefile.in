@@ -32,7 +32,7 @@ all: ${PROGRAM} ${PLUGIN_SHOBJS} ccze-dump ccze-cssdump
 
 install: all
 	${INSTALL} -d ${DESTDIR}${bindir}
-	${INSTALL_PROGRAM} ${PROGRAM} ${DESTDIR}${bindir}/
+	${INSTALL_PROGRAM} ${PROGRAM} ccze-cssdump ${DESTDIR}${bindir}/
 ifneq (${SH_PLUGINS},)
 		${INSTALL} -d ${DESTDIR}${pkglibdir}
 		${INSTALL_DATA} ${PLUGIN_SHOBJS} ${DESTDIR}${pkglibdir}/
@@ -43,7 +43,7 @@ install-strip:
 		INSTALL_DATA='${INSTALL_DATA} -s' install
 
 uninstall:
-	rm -f ${DESTDIR}${bindir}/${PROGRAM}
+	rm -f ${DESTDIR}${bindir}/${PROGRAM} ${DESTDIR}${bindir}/ccze-cssdump
 ifneq (${SH_PLUGINS},)
 		rm -f $(addprefix ${DESTDIR}${pkglibdir}/,${PLUGIN_SHOBJS})
 endif

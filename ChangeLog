@@ -2,6 +2,34 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 15:33:04 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-120
+
+    Summary:
+      Install ccze-cssdump
+    Revision:
+      ccze--0.1--patch-120
+
+    * src/Makefile.in (install): Install ccze-cssdump.
+      (uninstall): Unintall it.
+    * doc/ccze-cssdump.1.in: New file.
+    * doc/Makefile.in (MANS): Added ccze-cssdump.1.
+      (EXTRA_DIST): Added ccze-cssdump.1.in.
+      (install): Install ccze-cssdump.1.
+      (uninstall): Uninstall it.
+    * ccze.spec.in: Handle the above changes.
+    * debian/rules: Likewise.
+    
+    While there, also corrected a few typos and errors in the other manual
+    pages.
+
+    new files:
+     doc/.arch-ids/ccze-cssdump.1.in.id doc/ccze-cssdump.1.in
+
+    modified files:
+     ChangeLog ccze.spec.in debian/rules doc/Makefile.in
+     doc/ccze-plugin.7.in src/Makefile.in
+
+
 2003-01-13 14:43:26 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-119
 
     Summary:
