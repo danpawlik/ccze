@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-12 21:11:46 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-76
+
+    Summary:
+      TODO updates
+    Revision:
+      ccze--0.1--patch-76
+
+    * TODO: Added two new entries.
+
+    modified files:
+     ChangeLog TODO
+
+
 2002-10-12 20:56:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-75
 
     Summary:
