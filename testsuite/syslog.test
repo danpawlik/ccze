@@ -1,5 +1,5 @@
 #! /bin/sh
-## version.test -- Test if CCZE responds to --version	-*- sh -*-
+## syslog.test -- Test if CCZE correctly processes syslog output -*- sh -*-
 ## Copyright (C) 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
 ##
 ## This file is part of CCZE.
@@ -32,6 +32,6 @@ TEST_OK_LIST="$testname.ok"
 cp ${srcdir}/$testname.ok $testname.ok
 cp ${srcdir}/$testname.in $testname.in
 
-PROG_CMDLINE="-F /dev/null -p syslog -o nolookups"
+PROG_CMDLINE="-F /dev/null -p syslog -o nolookups -d"
 
 . ${srcdir}/do-test

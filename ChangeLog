@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-10 08:44:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-175
+
+    Summary:
+      Made the testsuite use -d.
+    Revision:
+      ccze--0.1--patch-175
+
+    * testsuite/syslog.ok: Regenerated output.
+    * testsuite/syslog.test: Updated.
+
+    modified files:
+     ChangeLog testsuite/syslog.ok testsuite/syslog.test
+
+
 2003-02-10 08:35:44 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-174
 
     Summary:
