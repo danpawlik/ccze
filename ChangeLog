@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 23:33:44 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-167
+
+    Summary:
+      Optional building of compatibility package
+    Revision:
+      ccze--0.1--patch-167
+
+    * debian/rules (COMPAT): If DEB_BUILD_OPTIONS contains compat, set it to
+      binary-colorize, otherwise empty.
+      (COMPAT_VERSION): New variable.
+      (binary-indep): Depend on ${COMPAT} and use ${COMPAT_VERSION}.
+
+    modified files:
+     ChangeLog debian/rules
+
+
 2003-02-07 23:15:44 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-166
 
     Summary:

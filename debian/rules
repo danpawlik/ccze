@@ -16,6 +16,13 @@ else
 CFLAGS		+= -O2
 endif
 
+ifneq (,$(findstring compat,${DEB_BUILD_OPTIONS}))
+COMPAT		:= binary-colorize
+else
+COMPAT		:=
+endif
+COMPAT_VERSION	:= 0.3.1-3
+
 config.status: configure
 	test -e debian/control
 	CFLAGS="${CFLAGS}" ./configure --prefix=/usr --sysconfdir=/etc \
@@ -88,11 +95,11 @@ binary-colorize:
 ## Install stuff to DEBIAN/
 	install -d ${PKGDIR_D}/DEBIAN
 ## Generate DEBIAN/control
-	dpkg-gencontrol -isp -pcolorize -P${PKGDIR_D} -v0.3.1-3
+	dpkg-gencontrol -isp -pcolorize -P${PKGDIR_D} -v${COMPAT_VERSION}
 ## Build the binary package
 	dpkg --build ${PKGDIR_D} ..
 
-binary-indep:
+binary-indep: ${COMPAT}
 binary-arch: binary-ccze
 
 binary: binary-indep binary-arch
