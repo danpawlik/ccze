@@ -86,6 +86,7 @@ dnl **********************
 AC_CONFIG_FILES([
 Rules.mk
 Makefile
+doc/Makefile
 src/Makefile
 ])
 

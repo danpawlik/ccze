@@ -42,7 +42,7 @@ binary-ccze: install
 # ..the copyright file..
 	install -m 0644 debian/copyright ${PKGDIR}/usr/share/doc/${PACKAGE}
 ## Gzip manual pages and info docs
-#	gzip -9f ${PKGDIR}/usr/share/man/man1/ccze.1
+	gzip -9f ${PKGDIR}/usr/share/man/man1/ccze.1
 ## Strip binaries
 ifeq (,$(findstring nostrip,${DEB_BUILD_OPTIONS}))
 	strip --remove-section=.comment --remove-section=.note \

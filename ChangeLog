@@ -2,6 +2,31 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-16 19:54:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-41
+
+    Summary:
+      Introducing: ccze.1
+    Revision:
+      ccze--0.1--patch-41
+
+    * doc/Makefile.in: New file.
+    * doc/ccze.1: New file.
+    * configure.ac: Create doc/Makefile too.
+    * Makefile.in: Recurse into doc/
+    * TODO: Updated Documentation entry.
+    * debian/rules: Compress the manual page.
+
+    new files:
+     doc/.arch-ids/=id doc/.arch-ids/Makefile.in.id
+     doc/.arch-ids/ccze.1.id doc/Makefile.in doc/ccze.1
+
+    modified files:
+     ChangeLog Makefile.in TODO configure.ac debian/rules
+
+    new directories:
+     doc/.arch-ids doc
+
+
 2002-09-16 17:40:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-40
 
     Summary:
