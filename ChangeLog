@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-04 17:26:12 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-152
+
+    Summary:
+      Fixed mod_xferlog's date regexp
+    Revision:
+      ccze--0.1--patch-152
+
+    * src/mod_xferlog.c (ccze_xferlog_setup): Allow dates of the form 
+      "Feb  4" not only "Feb 04".
+
+    modified files:
+     ChangeLog src/mod_xferlog.c
+
+
 2003-02-04 17:20:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-151
 
     Summary:

@@ -107,7 +107,7 @@ ccze_xferlog_setup (void)
 
   /* FIXME: Does not handle spaces in filenames! */
   reg_xferlog = pcre_compile
-    ("^(... ... \\d{1,2} \\d{1,2}:\\d{1,2}:\\d{1,2} \\d+) (\\d+) ([^ ]+) "
+    ("^(... ... +\\d{1,2} +\\d{1,2}:\\d{1,2}:\\d{1,2} \\d+) (\\d+) ([^ ]+) "
      "(\\d+) (\\S+) (a|b) (C|U|T|_) (o|i) (a|g|r) ([^ ]+) ([^ ]+) " 
      "(0|1) ([^ ]+) (c|i)", 0, &error,
      &errptr, NULL);
