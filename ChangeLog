@@ -2,6 +2,29 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-06 08:03:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-218
+
+    Summary:
+      Support non-settable colors
+    Revision:
+      ccze--0.1--patch-218
+
+    * src/ccze-color.c (CCZE_KEYWORD_R): New macro.
+      (CCZE_KEYWORD): Use it.
+      (CCZE_KEYWORD_H): New macro.
+      (ccze_color_keyword_t): Added a ->settable member.
+      (ccze_color_keyword_lookup): Renamed and made it a wrapper of...
+      (_ccze_color_keyword_lookup): ...this.
+      (_ccze_colorname_map_lookup): Use _ccze_color_keyword_lookup ().
+      (ccze_color_parse): Likewise.
+    
+    This will allow us stuff like ccze_addstr (CCZE_COLOR_STATIC_BLUE,
+    "Blah") in the near future...
+
+    modified files:
+     ChangeLog src/ccze-color.c
+
+
 2003-03-05 20:38:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-217
 
     Summary:

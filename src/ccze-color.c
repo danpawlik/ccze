@@ -41,10 +41,14 @@
 #define MAGENTA COLOR_PAIR (6)
 #define WHITE COLOR_PAIR (7)
 
+#define CCZE_KEYWORD_R(k,c,s) k, c, s
+
 #if CCZE_DUMP
-#define CCZE_KEYWORD(k,c,d) k, c, d
+#define CCZE_KEYWORD(k,c,d) CCZE_KEYWORD_R (k, c, 1), d
+#define CCZE_KEYWORD_H(k,c,d) CCZE_KEYWORD_R (k, c, 0), d
 #else
-#define CCZE_KEYWORD(k,c,d) k, c
+#define CCZE_KEYWORD(k,c,d) CCZE_KEYWORD_R (k, c, 1)
+#define CCZE_KEYWORD_H(k,c,d) CCZE_KEYWORD_R (k, c, 0)
 #endif
 
 static int ccze_color_table [CCZE_COLOR_LAST + 1];
@@ -85,6 +89,7 @@ typedef struct
 {
   char *keyword;
   ccze_color_t idx;
+  int settable;
 #if CCZE_DUMP
   char *comment;
 #endif
@@ -267,16 +272,23 @@ ccze_color (ccze_color_t idx)
   return ccze_color_table[idx];
 }
 
-int
-ccze_color_keyword_lookup (const char *key)
+static int
+_ccze_color_keyword_lookup (const char *key, int hiddentoo)
 {
   size_t i;
 
   for (i = 0; i < sizeof (ccze_color_keyword_map) /
 	 sizeof (ccze_color_keyword_t); i++)
-    if (!strcmp (key, ccze_color_keyword_map[i].keyword))
+    if (!strcmp (key, ccze_color_keyword_map[i].keyword)
+	&& (hiddentoo || ccze_color_keyword_map[i].settable))
       return ccze_color_keyword_map[i].idx;
   return -1;
+}
+
+int
+ccze_color_keyword_lookup (const char *key)
+{
+  return _ccze_color_keyword_lookup (key, 1);
 }
 
 static int
@@ -287,7 +299,7 @@ _ccze_colorname_map_lookup (const char *color)
   if (color[0] == '\'')
     {
       char *tmp = strndup (&color[1], strlen (color) - 2);
-      int rval = ccze_color_table[ccze_color_keyword_lookup (tmp)];
+      int rval = ccze_color_table[_ccze_color_keyword_lookup (tmp, 0)];
       free (tmp);
       return rval;
     }
@@ -317,7 +329,7 @@ ccze_color_parse (char *line)
     }
 
   if (!csskey &&
-      ((nkeyword = ccze_color_keyword_lookup (keyword)) == -1))
+      ((nkeyword = _ccze_color_keyword_lookup (keyword, 0)) == -1))
     return;
 
   color = strtok (NULL, " \t\n");
