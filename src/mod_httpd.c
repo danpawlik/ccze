@@ -73,7 +73,7 @@ ccze_httpd_access_log_process (const char *str, int *offsets, int match)
 
   ccze_addstr (CCZE_COLOR_DATE, date);
   ccze_space ();
-
+  
   ccze_addstr (ccze_http_action (method), full_action);
   ccze_space ();
 
@@ -134,7 +134,7 @@ ccze_httpd_setup (void)
   reg_httpd_access = pcre_compile
     ("^(\\S*)\\s(\\S*)?\\s?-\\s(\\S+)\\s(\\[\\d{1,2}\\/\\S*"
      "\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}.{0,6}[^\\]]*\\])\\s"
-     "(\"([A-Z]{3,})\\s[^\"]+\")\\s(\\d{3})\\s(\\d+|-)\\s(.*)$",
+     "(\"([^ \"]+)\\s*[^\"]*\")\\s(\\d{3})\\s(\\d+|-)\\s(.*)$",
      0, &error, &errptr, NULL);
   hints_httpd_access = pcre_study (reg_httpd_access, 0, &error);
 

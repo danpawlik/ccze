@@ -2,6 +2,30 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 15:58:53 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-240
+
+    Summary:
+      Fixed coloring of bad HTTP requests
+    Revision:
+      ccze--0.1--patch-240
+
+    * src/mod_httpd.c (ccze_httpd_setup): Changed the httpd_access regexp
+      to allow arbitrary request methods.
+    * testsuite/bug-httpd.test: New test.
+    * testsuite/bug-httpd.in: New test input.
+    * testsuite/bug-httpd.ok: New expected test output.
+    * testsuite/Makefile.in (TESTS): Added bug-httpd.test.
+
+    new files:
+     testsuite/.arch-ids/bug-httpd.in.id
+     testsuite/.arch-ids/bug-httpd.ok.id
+     testsuite/.arch-ids/bug-httpd.test.id testsuite/bug-httpd.in
+     testsuite/bug-httpd.ok testsuite/bug-httpd.test
+
+    modified files:
+     ChangeLog src/mod_httpd.c testsuite/Makefile.in
+
+
 2003-03-29 15:06:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-239
 
     Summary:
