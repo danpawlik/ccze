@@ -79,15 +79,19 @@ ccze-builtins.c: Makefile
 	echo '#include <ccze.h>' >$@
 	echo '#include "ccze-private.h"' >>$@
 	echo >>$@
+ifneq (${S_PLUGINS},)
 	for p in ${S_PLUGINS}; do \
 		echo "extern ccze_plugin_t ccze_$${p}_info;" >>$@; \
 	done
+endif
 	echo "void" >>$@
 	echo "ccze_plugin_load_all_builtins (void)" >>$@
 	echo "{" >>$@
+ifneq (${S_PLUGINS},)
 	for p in ${S_PLUGINS}; do \
 		echo "  ccze_plugin_add (&ccze_$${p}_info);" >>$@; \
 	done
+endif
 	echo "}" >>$@
 %.o: %.c ccze.h
 	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
