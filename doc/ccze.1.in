@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-03-04" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-03-06" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -139,6 +139,10 @@ For coloring postfix logs. (See \fIpostfix\fR(1))
 .TP
 .IR procmail
 For coloring procmail's log file. (See \fIprocmail\fR(1))
+.TP
+.IR proftpd
+For coloring proftpd's \fIaccess.log\fR and \fIauth.log\fR files. (See
+\fIproftpd\fR(8))
 .TP
 .IR squid
 For coloring squid's \fIaccess.log\fR, \fIstore.log\fR and

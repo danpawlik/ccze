@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-06 16:46:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-221
+
+    Summary:
+      mod_proftpd
+    Revision:
+      ccze--0.1--patch-221
+
+    * src/mod_proftpd.c: New file.
+    * ccze.plugins: Added proftpd.
+    * doc/ccze.1.in (PLUGINS): Mention it.
+
+    new files:
+     src/.arch-ids/mod_proftpd.c.id src/mod_proftpd.c
+
+    modified files:
+     ChangeLog ccze.plugins doc/ccze.1.in
+
+
 2003-03-06 08:33:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-220
 
     Summary:
