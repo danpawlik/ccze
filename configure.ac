@@ -74,12 +74,13 @@ dnl * Headers
 dnl **********************
 AC_HEADER_STDC
 AC_HEADER_DIRENT
-AC_CHECK_HEADERS([argp.h getopt.h netdb.h fcntl.h])
+AC_CHECK_HEADERS([argp.h getopt.h netdb.h fcntl.h stddef.h])
 
 dnl **********************
 dnl * Typedefs & co
 dnl **********************
 AC_C_CONST
+AC_C_VOLATILE
 AC_TYPE_SIZE_T
 AC_TYPE_SIGNAL
 
@@ -92,9 +93,12 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_FUNC_STRFTIME
 AC_FUNC_STAT
+AC_FUNC_MEMCMP
+AC_FUNC_VPRINTF
+AC_FUNC_CLOSEDIR_VOID
 AC_CHECK_FUNCS([alphasort argp_parse asprintf getdelim getline getopt_long \
-		getsubopt memset scandir strcasecmp strchr strdup strndup \
-		strstr])
+		getsubopt memchr memset scandir strcasecmp strchr strdup \
+		strndup strstr])
 
 AC_CHECK_LIB(ncurses, initscr, [], [AC_ERROR(NCurses library not found)])
 AC_CHECK_FUNC(dlopen, [], [AC_CHECK_LIB(dl, dlopen)])

@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-03 14:15:45 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-206
+
+    Summary:
+      configure.ac update
+    Revision:
+      ccze--0.1--patch-206
+
+    * configure.ac: Updated, based on autoscan results.
+
+    modified files:
+     ChangeLog configure.ac
+
+
 2003-03-03 13:47:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-205
 
     Summary:
