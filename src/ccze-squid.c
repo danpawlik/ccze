@@ -205,6 +205,25 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
   CCZE_ADDSTR (CCZE_COLOR_URI, uri);
 
   CCZE_NEWLINE ();
+
+  free (date);
+  free (tag);
+  free (swapnum);
+  free (swapname);
+  free (swapsum);
+  free (space1);
+  free (hcode);
+  free (hdate);
+  free (lmdate);
+  free (expire);
+  free (ctype);
+  free (size);
+  free (read);
+  free (method);
+  free (uri);
+  free (space2);
+  free (space3);
+  free (space4);
   
   return NULL;
 }

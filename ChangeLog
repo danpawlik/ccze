@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 08:17:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-11
+
+    Summary:
+      Memory-leak plugging
+    Revision:
+      ccze--0.1--patch-11
+
+    * src/ccze-squid.c (ccze_squid_store_log_process): free() the
+      variables allocated by pcre_get_substring().
+
+    modified files:
+     ChangeLog src/ccze-squid.c
+
+
 2002-09-13 08:14:29 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-10
 
     Summary:
