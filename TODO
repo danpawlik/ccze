@@ -3,3 +3,5 @@
 * New features
 ** Support for more kinds of logs
 *** oops.log
+*** php.log
+*** icecast.log
