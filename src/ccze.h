@@ -86,7 +86,8 @@ enum
   CCZE_MATCH_SQUID_CACHE_LOG,
   CCZE_MATCH_SQUID_STORE_LOG,
   CCZE_MATCH_VSFTPD_LOG,
-  CCZE_MATCH_SULOG
+  CCZE_MATCH_SULOG,
+  CCZE_MATCH_SUPER
 };
 
 int ccze_http_action (const char *method);

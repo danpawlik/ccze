@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 09:49:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-16
+
+    Summary:
+      super.log colorisation support
+    Revision:
+      ccze--0.1--patch-16
+
+    * src/ccze-super.h: New file.
+    * src/ccze-super.c: New file.
+    * src/ccze.h (CCZE_MATCH_SUPER): New enum member.
+    * src/ccze.c (main): Support super.log colorisation.
+    * src/Makefile.in (SOURCES): Added ccze-super.c.
+      (HEADERS): Added ccze-super.h
+      (ccze.o): Depend on ccze-super.h too.
+      (ccze-super.o): New target.
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze.c src/ccze.h
+
+
 2002-09-13 09:31:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-15
 
     Summary:
