@@ -130,14 +130,13 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
     {
       CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
       free (msg2);
+      free (word);
       return;
     }
   
   do
     {
       size_t wlen;
-      free (pre);
-      free (post);
       col = CCZE_COLOR_DEFAULT;
 
       /** prefix **/
@@ -242,8 +241,12 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
       
       free (lword);
       free (word);
+      free (post);
+      free (pre);
     } while ((word = xstrdup (_my_strbrk (NULL, ' '))) != NULL);
 
+  free (word);
+  free (lword);
   free (msg2);
   
   return;
