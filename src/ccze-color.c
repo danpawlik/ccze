@@ -55,7 +55,15 @@ static ccze_colorname_t ccze_colorname_map[] = {
   {"blue", 4},
   {"cyan", 5},
   {"magenta", 6},
-  {"white", 7}
+  {"white", 7},
+  {"on_black", 0},
+  {"on_red", 1},
+  {"on_green", 2},
+  {"on_yellow", 3},
+  {"on_blue", 4},
+  {"on_cyan", 5},
+  {"on_magenta", 6},
+  {"on_white", 7}
 };
 
 typedef struct _ccze_color_keyword_t
@@ -195,11 +203,8 @@ ccze_color_load (const char *fn)
       bg = strtok (NULL, " \t\n");
       if (bg)
 	{
-	  if (strstr (bg, "on_") == bg)
-	    nbg = _ccze_colorname_map_lookup (&bg[3]);
-	  else
-	    nbg = _ccze_colorname_map_lookup (bg);
-	  ncolor += nbg*8;
+	  if ((nbg = _ccze_colorname_map_lookup (bg)) != -1)
+	    ncolor += nbg*8;
 	}
             
       if (pre)

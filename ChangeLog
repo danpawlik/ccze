@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 15:31:16 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-52
+
+    Summary:
+      Simplified background-color parsing logic
+    Revision:
+      ccze--0.1--patch-52
+
+    * src/ccze-color.c (ccze_color_load): Instead of the ugly strstr()
+      check, put the on_ variants into the ccze_colorname_map table too.
+
+    modified files:
+     ChangeLog src/ccze-color.c
+
+
 2002-09-18 15:25:35 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-51
 
     Summary:
