@@ -2,6 +2,29 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-16 17:40:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-40
+
+    Summary:
+      Debianisation
+    Revision:
+      ccze--0.1--patch-40
+
+    Debianised ccze. It was a fast job, so there might be rough edges, but
+    this is still better than nothing.
+
+    new files:
+     debian/.arch-ids/=id debian/.arch-ids/changelog.id
+     debian/.arch-ids/control.id debian/.arch-ids/copyright.id
+     debian/.arch-ids/rules.id debian/changelog debian/control
+     debian/copyright debian/rules
+
+    modified files:
+     ChangeLog
+
+    new directories:
+     debian/.arch-ids debian
+
+
 2002-09-16 16:56:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-39
 
     Summary:

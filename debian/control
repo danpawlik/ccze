@@ -1,0 +1,13 @@
+Source: ccze
+Section: utils
+Priority: extra
+Maintainer: Gergely Nagy <algernon@debian.org>
+Standards-Version: 3.5.7
+Build-Depends: libpcre3-dev, libncurses5-dev
+
+Package: ccze
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: A roboust, modular log coloriser in C.
+ CCZE is a roboust and modular log colorizer, written to be a drop-in
+ replacement for `colorize'.
