@@ -1,5 +1,11 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.228 [Largo] -- 2003-03-20
+
+This release features many many internal enhancements, mostly for the
+plug-in system, a coloriser for proftpd logs, and various fixes all
+over the place.
+
 * CCZE 0.1.212 [Avatar] -- 2003-03-04
 
 Implemented support for passing arguments to plugins. None of the

@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-20 22:52:15 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-228
+
+    Summary:
+      The `Largo' release.
+    Revision:
+      ccze--0.1--patch-228
+
+      No tree's shade ever was
+      more serence, dear and lovely.
+    
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+
+    modified files:
+     ChangeLog NEWS debian/changelog
+
+
 2003-03-19 10:26:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-227
 
     Summary:
