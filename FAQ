@@ -21,7 +21,6 @@ you want to view your access.log and your xferlog in the same terminal:
 
 server:/var/log# (tail -f apache/access.log & ; tail -f xferlog) | ccze
 
-
 ** I would like to combine two files, but with different options.
 
 This is possible too, once you have a recent enough CCZE (0.1.230 or

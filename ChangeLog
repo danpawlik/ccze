@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 15:06:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-239
+
+    Summary:
+      FAQ cosmetic fix
+    Revision:
+      ccze--0.1--patch-239
+
+    * FAQ: Removed a spurious newline.
+
+    modified files:
+     ChangeLog FAQ
+
+
 2003-03-29 15:04:28 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-238
 
     Summary:
