@@ -270,7 +270,7 @@ ccze_wordcolor_setup (void)
 			    0, &error, &errptr, NULL);
   reg_uri = pcre_compile ("^\\w{2,}:\\/\\/(\\S+\\/?)+$", 0, &error,
 			  &errptr, NULL);
-  reg_size = pcre_compile ("^\\d+(\\.\\d+)?[k|K|m|M|g|G|t|T]i?B?(ytes?)?",
+  reg_size = pcre_compile ("^\\d+(\\.\\d+)?[k|m|g|t]i?b?(ytes?)?",
 			   0, &error, &errptr, NULL);
   reg_ver = pcre_compile ("^v?(\\d+\\.){1}((\\d|[a-z])+\\.)*(\\d|[a-z])+$",
 			  0, &error, &errptr, NULL);
@@ -278,10 +278,10 @@ ccze_wordcolor_setup (void)
 			   &errptr, NULL);
   reg_addr = pcre_compile ("^0x(\\d|[a-f])+$", 0, &error, &errptr, NULL);
   reg_num = pcre_compile ("^-?\\d+$", 0, &error, &errptr, NULL);
-  reg_sig = pcre_compile ("^SIG(HUP|INT|QUIT|ILL|ABRT|FPE|KILL|SEGV|PIPE|"
-			  "ALRM|TERM|USR1|USR2|CHLD|CONT|STOP|TSTP|TIN|TOUT|"
-			  "BUS|POLL|PROF|SYS|TRAP|URG|VTALRM|XCPU|XFSZ|IOT|"
-			  "EMT|STKFLT|IO|CLD|PWR|INFO|LOST|WINCH|UNUSED)", 0,
+  reg_sig = pcre_compile ("^sig(hup|int|quit|ill|abrt|fpe|kill|segv|pipe|"
+			  "alrm|term|usr1|usr2|chld|cont|stop|tstp|tin|tout|"
+			  "bus|poll|prof|sys|trap|urg|vtalrm|xcpu|xfsz|iot|"
+			  "emt|stkflt|io|cld|pwr|info|lost|winch|unused)", 0,
 			  &error, &errptr, NULL);
 }
 

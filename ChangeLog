@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-16 08:57:46 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-36
+
+    Summary:
+      Signal colouring fix
+    Revision:
+      ccze--0.1--patch-36
+
+    * src/ccze-wordcolor.c (ccze_wordcolor_setup): Lowercased the signal
+      names in `reg_sig', since we try to apply the regexp to a lowercase
+      string. Also removed the capital letters from `reg_size', for the
+      same reason.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c
+
+
 2002-09-15 16:23:48 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-35
 
     Summary:
