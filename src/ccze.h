@@ -67,6 +67,7 @@
 #define CCZE_COLOR_PROXY_PARENT (BOLD YELLOW)
 
 #define CCZE_ADDSTR(col,str) attrset (col) ; addstr (str)
+#define ccze_space() CCZE_ADDSTR (CCZE_COLOR_DEFAULT, " ")
 
 enum
 {
@@ -79,7 +80,6 @@ enum
   CCZE_MATCH_SQUID_CACHE_LOG
 };
 
-void ccze_space (void);
 int ccze_http_action (const char *method);
 
 #endif /* !_CCZE_H */

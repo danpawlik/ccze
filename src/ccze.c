@@ -69,13 +69,6 @@ parse_opt (int key, char *arg, struct argp_state *state)
   return 0;
 }
 
-void
-ccze_space (void)
-{
-  attrset (CCZE_COLOR_DEFAULT);
-  addstr (" ");
-}
-
 int
 ccze_http_action (const char *method)
 {
