@@ -194,6 +194,51 @@ ccze_color_lookup_name (ccze_color_t color)
   return NULL;
 }
 
+char *
+ccze_color_to_css (int cidx)
+{
+  int my_color = ccze_color_strip_attrib (ccze_color (cidx));
+  char *str, *tmp;
+
+  if (my_color < COLOR_PAIR (8))
+    asprintf (&tmp, "\tcolor: %s\n", ccze_color_to_name_simple (my_color));
+  else
+    {
+      int i,j;
+
+      j = (my_color >> 8) % 8;
+      i = (my_color >> 8) / 8;
+      asprintf (&tmp, "\tcolor: %s\n\ttext-background: %s\n",
+		ccze_color_to_name_simple (COLOR_PAIR (j)),
+		ccze_color_to_name_simple (COLOR_PAIR (i)));
+    }
+
+  if (ccze_color (cidx) & A_UNDERLINE)
+    asprintf (&str, "%s {\n%s\ttext-decoration: underline\n}\n",
+	      ccze_color_lookup_name (cidx), tmp);
+  else
+    asprintf (&str, "%s {\n%s}\n",
+	      ccze_color_lookup_name (cidx), tmp);
+  free (tmp);
+  
+  return str;
+}
+
+void
+ccze_colors_to_css (void)
+{
+  ccze_color_t cidx;
+
+  for (cidx = CCZE_COLOR_DATE; cidx < CCZE_COLOR_LAST; cidx++)
+    {
+      char *line;
+
+      line = ccze_color_to_css (cidx);
+      printf ("%s\n", line);
+      free (line);
+    }
+}
+
 int
 ccze_color (ccze_color_t idx)
 {

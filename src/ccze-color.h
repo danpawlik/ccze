@@ -90,5 +90,7 @@ void ccze_color_load (const char *fn);
 int ccze_color_strip_attrib (int color);
 char *ccze_color_to_name_simple (int color);
 char *ccze_color_lookup_name (ccze_color_t color);
+char *ccze_color_to_css (int cidx);
+void ccze_colors_to_css (void);
 
 #endif /* !_CCZE_COLOR_H */

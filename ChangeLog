@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-12 17:02:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-110
+
+    Summary:
+      Preparing CSS-in-HTML
+    Revision:
+      ccze--0.1--patch-110
+
+    * src/ccze-color.h (ccze_color_to_css): New prototype.
+      (ccze_colors_to_css): Likewise.
+    * src/ccze-color.c (ccze_color_to_css): Moved here from
+      src/ccze-cssdump.c::ccze_dump_color_to_css().
+      (ccze_colors_to_css): New function.
+    * src/ccze-cssdump.c: Use them.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-color.h src/ccze-cssdump.c
+
+
 2003-01-12 16:44:48 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-109
 
     Summary:

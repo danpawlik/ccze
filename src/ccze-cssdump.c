@@ -22,53 +22,10 @@
 #include "ccze-color.c"
 #include <ncurses.h>
 
-static char *
-ccze_dump_color_to_name (int color)
-{
-  int my_color = ccze_color_strip_attrib (color);
-  char *str, *tmp;
-
-  if (my_color < COLOR_PAIR (8))
-    asprintf (&str, "\tcolor: %s\n", ccze_color_to_name_simple (my_color));
-  else
-    {
-      int i,j;
-
-      j = (my_color >> 8) % 8;
-      i = (my_color >> 8) / 8;
-      asprintf (&str, "\tcolor: %s\n\ttext-background: %s\n",
-		ccze_color_to_name_simple (COLOR_PAIR (j)),
-		ccze_color_to_name_simple (COLOR_PAIR (i)));
-    }
-
-  if (color & A_UNDERLINE)
-    {
-      asprintf (&tmp, "%s\ttext-decoration: underline\n", str);
-      free (str);
-      str = tmp;
-    }
-  
-  return str;
-}
-
 int
 main (void)
 {
-  ccze_color_t cidx;
-  
   ccze_color_init ();
-
-  for (cidx = CCZE_COLOR_DATE; cidx < CCZE_COLOR_LAST; cidx++)
-    {
-      int color = ccze_color (cidx);
-      char *line;
-
-      asprintf (&line, "%s {\n%s}\n",
-		ccze_color_lookup_name (cidx),
-		ccze_dump_color_to_name (color));
-      
-      printf ("%s\n", line);      
-    }
-  
+  ccze_colors_to_css ();
   return 0;
 }
