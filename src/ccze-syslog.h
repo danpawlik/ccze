@@ -22,9 +22,8 @@
 #ifndef _CCZE_SYSLOG_H
 #define _CCZE_SYSLOG_H 1
 
-#include <pcre.h>
-
-char *ccze_syslog_process (const char *str, int *offsets, int match);
-void ccze_syslog_setup (pcre **r, pcre_extra **h);
+int ccze_syslog_handle (const char *str, size_t length, char **rest);
+void ccze_syslog_setup (void);
+void ccze_syslog_shutdown (void);
 
 #endif /* !_CCZE_SYSLOG_H */

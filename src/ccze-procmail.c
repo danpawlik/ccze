@@ -27,7 +27,10 @@
 #include "ccze.h"
 #include "ccze-procmail.h"
 
-char *
+static pcre *reg_procmail;
+static pcre_extra *hints_procmail;
+
+static char *
 ccze_procmail_process (const char *str, int *offsets, int match)
 {
   char *header = NULL, *value = NULL, *space1 = NULL;
@@ -88,13 +91,35 @@ ccze_procmail_process (const char *str, int *offsets, int match)
 }
 
 void
-ccze_procmail_setup (pcre **r, pcre_extra **h)
+ccze_procmail_setup (void)
 {
   const char *error;
   int errptr;
 
-  *r = pcre_compile
+  reg_procmail = pcre_compile
     ("^(\\s*)(>?From|Subject:|Folder:)?\\s(\\S+)(\\s+)(.*)$", 0,
      &error, &errptr, NULL);
-  *h = pcre_study (*r, 0, &error);
+  hints_procmail = pcre_study (reg_procmail, 0, &error);
+}
+
+void
+ccze_procmail_shutdown (void)
+{
+  free (reg_procmail);
+  free (hints_procmail);
+}
+
+int
+ccze_procmail_handle (const char *str, size_t length, char **rest)
+{
+  int match, offsets[99];
+  
+  if ((match = pcre_exec (reg_procmail, hints_procmail, str, length,
+			  0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_procmail_process (str, offsets, match);
+      return CCZE_MATCH_PROCMAIL_LOG;
+    }
+  
+  return CCZE_MATCH_NONE;
 }

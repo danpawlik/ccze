@@ -27,6 +27,9 @@
 #include "ccze.h"
 #include "ccze-squid.h"
 
+static pcre *reg_squid_access, *reg_squid_store, *reg_squid_cache;
+static pcre_extra *hints_squid_access, *hints_squid_store, *hints_squid_cache;
+
 static int
 _ccze_proxy_action (const char *action)
 {
@@ -78,7 +81,7 @@ _ccze_proxy_tag (const char *tag)
   return CCZE_COLOR_UNKNOWN;
 }
 
-char *
+static char *
 ccze_squid_access_log_process (const char *str, int *offsets, int match)
 {
   char *date, *espace, *elaps, *host, *action, *httpc, *gsize;
@@ -149,7 +152,7 @@ ccze_squid_access_log_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-char *
+static char *
 ccze_squid_cache_log_process (const char *str, int *offsets, int match)
 {
   char *date, *other;
@@ -164,7 +167,7 @@ ccze_squid_cache_log_process (const char *str, int *offsets, int match)
   return other;
 }
 
-char *
+static char *
 ccze_squid_store_log_process (const char *str, int *offsets, int match)
 {
   char *date, *tag, *swapnum, *swapname, *swapsum, *space1, *hcode;
@@ -243,28 +246,66 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
 }
 
 void
-ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre **r_store,
-		  pcre_extra **h_access, pcre_extra **h_cache,
-		  pcre_extra **h_store)
+ccze_squid_setup (void)
 {
   const char *error;
   int errptr;
 
-  *r_access = pcre_compile
+  reg_squid_access = pcre_compile
     ("^(\\d{9,10}\\.\\d{3})(\\s+)(\\d+)\\s(\\S+)\\s(\\w+)\\/(\\d{3})"
      "\\s(\\d+)\\s(\\w+)\\s(\\S+)\\s(\\S+)\\s(\\w+)\\/([\\d\\.]+|-)\\s(.*)",
      0, &error, &errptr, NULL);
-  *h_access = pcre_study (*r_access, 0, &error);
+  hints_squid_access = pcre_study (reg_squid_access, 0, &error);
 
-  *r_cache = pcre_compile
+  reg_squid_cache = pcre_compile
     ("^(\\d{4}\\/\\d{2}\\/\\d{2}\\s(\\d{2}:){2}\\d{2}\\|)\\s(.*)$", 0,
      &error, &errptr, NULL);
-  *h_cache = pcre_study (*r_cache, 0, &error);
+  hints_squid_cache = pcre_study (reg_squid_cache, 0, &error);
 
-  *r_store = pcre_compile
+  reg_squid_store = pcre_compile
     ("^([\\d\\.]+)\\s(\\w+)\\s(\\-?[\\dA-F]+)\\s+(\\S+)\\s([\\dA-F]+)"
      "(\\s+)(\\d{3}|\\?)(\\s+)(\\-?[\\d\\?]+)(\\s+)(\\-?[\\d\\?]+)(\\s+)"
      "(\\-?[\\d\\?]+)\\s(\\S+)\\s(\\-?[\\d|\\?]+)\\/(\\-?[\\d|\\?]+)\\s"
      "(\\S+)\\s(.*)", 0, &error, &errptr, NULL);
-  *h_store = pcre_study (*r_store, 0, &error);
+  hints_squid_store = pcre_study (reg_squid_store, 0, &error);
+}
+
+void
+ccze_squid_shutdown (void)
+{
+  free (reg_squid_access);
+  free (hints_squid_access);
+  free (reg_squid_cache);
+  free (hints_squid_cache);
+  free (reg_squid_store);
+  free (hints_squid_store);
+}
+
+int
+ccze_squid_handle (const char *str, size_t length, char **rest)
+{
+  int match, offsets[99];
+
+  if ((match = pcre_exec (reg_squid_access, hints_squid_access, str,
+			  length, 0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_squid_access_log_process (str, offsets, match);
+      return CCZE_MATCH_SQUID_ACCESS_LOG;
+    }
+  
+  if ((match = pcre_exec (reg_squid_store, hints_squid_store, str,
+			  length, 0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_squid_store_log_process (str, offsets, match);
+      return CCZE_MATCH_SQUID_STORE_LOG;
+    }
+  
+  if ((match = pcre_exec (reg_squid_cache, hints_squid_cache, str,
+			  length, 0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_squid_cache_log_process (str, offsets, match);
+      return CCZE_MATCH_SQUID_CACHE_LOG;
+    }
+
+  return CCZE_MATCH_NONE;
 }

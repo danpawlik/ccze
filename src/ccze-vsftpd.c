@@ -26,7 +26,10 @@
 #include "ccze.h"
 #include "ccze-vsftpd.h"
 
-char *
+static pcre *reg_vsftpd;
+static pcre_extra *hints_vsftpd;
+
+static char *
 ccze_vsftpd_log_process (const char *str, int *offsets, int match)
 {
   char *date, *sspace, *pid, *user, *other;
@@ -63,14 +66,36 @@ ccze_vsftpd_log_process (const char *str, int *offsets, int match)
 }
 
 void
-ccze_vsftpd_setup (pcre **r, pcre_extra **h)
+ccze_vsftpd_setup (void)
 {
   const char *error;
   int errptr;
 
-  *r = pcre_compile
+  reg_vsftpd = pcre_compile
     ("^(\\S+\\s+\\S+\\s+\\d{1,2}\\s+\\d{1,2}:\\d{1,2}:\\d{1,2}\\s+\\d+)"
      "(\\s+)\\[pid (\\d+)\\]\\s+(\\[(\\S+)\\])?\\s*(.*)$", 0, &error,
      &errptr, NULL);
-  *h = pcre_study (*r, 0, &error);
+  hints_vsftpd = pcre_study (reg_vsftpd, 0, &error);
+}
+
+void
+ccze_vsftpd_shutdown (void)
+{
+  free (reg_vsftpd);
+  free (hints_vsftpd);
+}
+
+int
+ccze_vsftpd_handle (const char *str, size_t length, char **rest)
+{
+  int match, offsets[99];
+  
+  if ((match = pcre_exec (reg_vsftpd, hints_vsftpd, str, length,
+			  0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_vsftpd_log_process (str, offsets, match);
+      return CCZE_MATCH_VSFTPD_LOG;
+    }
+  
+  return CCZE_MATCH_NONE;
 }

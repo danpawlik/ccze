@@ -22,9 +22,8 @@
 #ifndef _CCZE_SULOG_H
 #define _CCZE_SULOG_H 1
 
-#include <pcre.h>
-
-char *ccze_sulog_process (const char *str, int *offsets, int match);
-void ccze_sulog_setup (pcre **r, pcre_extra **h);
+int ccze_sulog_handle (const char *str, size_t length, char **rest);
+void ccze_sulog_setup (void);
+void ccze_sulog_shutdown (void);
 
 #endif /* !_CCZE_SULOG_H */

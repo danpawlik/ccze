@@ -27,7 +27,10 @@
 #include "ccze.h"
 #include "ccze-httpd.h"
 
-char *
+static pcre *reg_httpd_access, *reg_httpd_error;
+static pcre_extra *hints_httpd_access, *hints_httpd_error;
+
+static char *
 ccze_httpd_access_log_process (const char *str, int *offsets, int match)
 {
   char *host, *vhost, *user, *date, *full_action, *method, *http_code;
@@ -94,7 +97,7 @@ _ccze_httpd_error (const char *level)
   return CCZE_COLOR_UNKNOWN;
 }
 
-char *
+static char *
 ccze_httpd_error_log_process (const char *str, int *offsets, int match)
 {
   char *date, *level, *msg;
@@ -123,21 +126,50 @@ ccze_httpd_error_log_process (const char *str, int *offsets, int match)
 }
 
 void
-ccze_httpd_setup (pcre **r_access, pcre **r_error,
-		  pcre_extra **h_access, pcre_extra **h_error)
+ccze_httpd_setup (void)
 {
   const char *error;
   int errptr;
 
-  *r_access = pcre_compile
+  reg_httpd_access = pcre_compile
     ("^(\\S*)\\s(\\S*)?\\s?-\\s(\\S+)\\s(\\[\\d{1,2}\\/\\S*"
      "\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}.{0,6}[^\\]]*\\])\\s"
      "(\"([A-Z]{3,})\\s[^\"]+\")\\s(\\d{3})\\s(\\d+|-)\\s(.*)$",
      0, &error, &errptr, NULL);
-  *h_access = pcre_study (*r_access, 0, &error);
+  hints_httpd_access = pcre_study (reg_httpd_access, 0, &error);
 
-  *r_error = pcre_compile
+  reg_httpd_error = pcre_compile
     ("^(\\[\\w{3}\\s\\w{3}\\s{1,2}\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\s"
      "\\d{4}\\])\\s(\\[\\w*\\])\\s(.*)$", 0, &error, &errptr, NULL);
-  *h_error = pcre_study (*r_error, 0, &error);
+  hints_httpd_error = pcre_study (reg_httpd_error, 0, &error);
+}
+
+void
+ccze_httpd_shutdown (void)
+{
+  free (reg_httpd_access);
+  free (hints_httpd_access);
+  free (reg_httpd_error);
+  free (hints_httpd_error);
+}
+
+int
+ccze_httpd_handle (const char *str, size_t length, char **rest)
+{
+  int match, offsets[99];
+
+  if ((match = pcre_exec (reg_httpd_access, hints_httpd_access,
+			  str, length, 0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_httpd_access_log_process (str, offsets, match);
+      return CCZE_MATCH_HTTPD_ACCESS_LOG;
+    }
+  if ((match = pcre_exec (reg_httpd_error, hints_httpd_error,
+			  str, length, 0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_httpd_error_log_process (str, offsets, match);
+      return CCZE_MATCH_HTTPD_ERROR_LOG;
+    }
+
+  return CCZE_MATCH_NONE;
 }

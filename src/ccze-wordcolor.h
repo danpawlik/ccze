@@ -22,8 +22,6 @@
 #ifndef _CCZE_WORDCOLOR_H
 #define _CCZE_WORDCOLOR_H 1
 
-#include <pcre.h>
-
 void ccze_wordcolor_process (const char *msg, int wcol, int slookup);
 void ccze_wordcolor_setup (void);
 void ccze_wordcolor_shutdown (void);

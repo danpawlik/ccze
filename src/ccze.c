@@ -20,7 +20,6 @@
  */
 
 #include <curses.h>
-#include <pcre.h>
 
 #include <argp.h>
 #include <signal.h>
@@ -134,6 +133,16 @@ static void
 sigint_handler (int sig)
 {
   endwin ();
+
+  ccze_wordcolor_shutdown ();
+  ccze_vsftpd_shutdown ();
+  ccze_syslog_shutdown ();
+  ccze_super_shutdown ();
+  ccze_sulog_shutdown ();  
+  ccze_squid_shutdown ();
+  ccze_procmail_shutdown ();
+  ccze_httpd_shutdown ();
+
   exit (0);
 }
 
@@ -150,15 +159,6 @@ main (int argc, char **argv)
 {
   char *subject = NULL;
   size_t subjlen = 0;
-  int match, offsets[99];
-  pcre *regc_syslog, *regc_procmail_log, *regc_httpd_access_log;
-  pcre *regc_squid_access_log, *regc_vsftpd_log, *regc_squid_cache_log;
-  pcre *regc_squid_store_log, *regc_httpd_error_log, *regc_sulog;
-  pcre *regc_super;
-  pcre_extra *hints_syslog, *hints_procmail_log, *hints_httpd_access_log;
-  pcre_extra *hints_squid_access_log, *hints_vsftpd_log;
-  pcre_extra *hints_squid_cache_log, *hints_squid_store_log;
-  pcre_extra *hints_httpd_error_log, *hints_sulog, *hints_super;
     
   ccze_config.scroll = 1;
   ccze_config.convdate = 0;
@@ -186,116 +186,46 @@ main (int argc, char **argv)
   init_pair (6, COLOR_MAGENTA, COLOR_BLACK);
   init_pair (7, COLOR_WHITE,   COLOR_BLACK);
 
-  ccze_squid_setup (&regc_squid_access_log, &regc_squid_cache_log,
-		    &regc_squid_store_log, &hints_squid_access_log,
-		    &hints_squid_cache_log, &hints_squid_store_log);
-  ccze_syslog_setup (&regc_syslog, &hints_syslog);
-  ccze_procmail_setup (&regc_procmail_log, &hints_procmail_log);
-  ccze_httpd_setup (&regc_httpd_access_log, &regc_httpd_error_log,
-		    &hints_httpd_access_log, &hints_httpd_error_log);
-  ccze_vsftpd_setup (&regc_vsftpd_log, &hints_vsftpd_log);
-  ccze_sulog_setup (&regc_sulog, &hints_sulog);
-  ccze_super_setup (&regc_super, &hints_super);
+  ccze_httpd_setup ();
+  ccze_procmail_setup ();
+  ccze_squid_setup ();
+  ccze_sulog_setup ();
+  ccze_super_setup ();
+  ccze_syslog_setup ();
+  ccze_vsftpd_setup ();
   ccze_wordcolor_setup ();
       
   while (getline (&subject, &subjlen, stdin) != -1)
     {
       int handled = CCZE_MATCH_NONE;
+      int status = CCZE_MATCH_NONE;
       char *rest = NULL;
       char *tmp = strchr (subject, '\n');
 
       tmp[0] = '\0';
       
-      /** Procmail **/
-      if ((match = pcre_exec (regc_procmail_log, hints_procmail_log,
-			      subject, subjlen, 0, 0, offsets, 99)) >= 0)
-	{
-	  rest = ccze_procmail_process (subject, offsets, match);
-	  handled = CCZE_MATCH_PROCMAIL_LOG;
-	}
-
-      /** HTTPd access.log **/
-      if ((match = pcre_exec (regc_httpd_access_log, hints_httpd_access_log,
-			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_httpd_access_log_process (subject, offsets, match);
-	  handled = CCZE_MATCH_HTTPD_ACCESS_LOG;
-	}
-
-      /** HTTPD error.log **/
-      if ((match = pcre_exec (regc_httpd_error_log, hints_httpd_error_log,
-			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_httpd_error_log_process (subject, offsets, match);
-	  handled = CCZE_MATCH_HTTPD_ERROR_LOG;
-	}
-
-      /** Squid access.log **/
-      if ((match = pcre_exec (regc_squid_access_log, hints_squid_access_log,
-			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_squid_access_log_process (subject, offsets, match);
-	  handled = CCZE_MATCH_SQUID_ACCESS_LOG;
-	}
-
-      /** Squid store.log **/
-      if ((match = pcre_exec (regc_squid_store_log, hints_squid_store_log,
-			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_squid_store_log_process (subject, offsets, match);
-	  handled = CCZE_MATCH_SQUID_STORE_LOG;
-	}
-      
-      /** Squid cache.log **/
-      if ((match = pcre_exec (regc_squid_cache_log, hints_squid_cache_log,
-			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_squid_cache_log_process (subject, offsets, match);
-	  handled = CCZE_MATCH_SQUID_CACHE_LOG;
-	}
-      
-      /** VSFTPd log **/
-      if ((match = pcre_exec (regc_vsftpd_log, hints_vsftpd_log, subject,
-			      subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_vsftpd_log_process (subject, offsets, match);
-	  handled = CCZE_MATCH_VSFTPD_LOG;
-	}
-
-      /** sulog **/
-      if ((match = pcre_exec (regc_sulog, hints_sulog, subject,
-			      subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_sulog_process (subject, offsets, match);
-	  handled = CCZE_MATCH_SULOG;
-	}
-
-      /** super **/
-      if ((match = pcre_exec (regc_super, hints_super, subject,
-			      subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_super_process (subject, offsets, match);
-	  handled = CCZE_MATCH_SUPER;
-	}
-
-      /** Syslog **/
-      if ((match = pcre_exec (regc_syslog, hints_syslog, subject,
-			      subjlen, 0, 0, offsets, 99)) >= 0 &&
-	  handled == CCZE_MATCH_NONE)
-	{
-	  rest = ccze_syslog_process (subject, offsets, match);
-	  handled = CCZE_MATCH_SYSLOG;
-	}
+      if ((handled = ccze_procmail_handle (subject, subjlen, &rest)) !=
+	  CCZE_MATCH_NONE)
+	status = handled;
+      else if ((handled = ccze_httpd_handle (subject, subjlen, &rest)) !=
+	       CCZE_MATCH_NONE)
+	status = handled;
+      else if ((handled = ccze_squid_handle (subject, subjlen, &rest)) !=
+	       CCZE_MATCH_NONE)
+	status = handled;
+      else if ((handled = ccze_vsftpd_handle (subject, subjlen, &rest)) !=
+	       CCZE_MATCH_NONE)
+	status = handled;
+      else if ((handled = ccze_sulog_handle (subject, subjlen, &rest)) !=
+	       CCZE_MATCH_NONE)
+	status = handled;
+      else if ((handled = ccze_super_handle (subject, subjlen, &rest)) !=
+	       CCZE_MATCH_NONE)
+	status = handled;
+      else if ((handled = ccze_syslog_handle (subject, subjlen, &rest)) !=
+	       CCZE_MATCH_NONE)
+	status = handled;
                         
-      /** Common. Goodword coloring should come here **/
       if (rest)
 	{
 	  ccze_wordcolor_process (rest, ccze_config.wcol,
@@ -304,7 +234,7 @@ main (int argc, char **argv)
 	  free (rest);
 	}
 
-      if (handled == CCZE_MATCH_NONE)
+      if (status == CCZE_MATCH_NONE)
 	{
 	  ccze_wordcolor_process (subject, ccze_config.wcol,
 				  ccze_config.slookup);
@@ -316,29 +246,8 @@ main (int argc, char **argv)
 
   refresh ();
 
-  free (regc_syslog);
-  free (hints_syslog);
-  free (regc_procmail_log);
-  free (hints_procmail_log);
-  free (regc_httpd_access_log);
-  free (hints_httpd_access_log);
-  free (regc_squid_access_log);
-  free (hints_squid_access_log);
-  free (regc_vsftpd_log);
-  free (hints_vsftpd_log);
-  free (regc_squid_cache_log);
-  free (hints_squid_cache_log);
-  free (regc_squid_store_log);
-  free (hints_squid_store_log);
-  free (regc_httpd_error_log);
-  free (hints_httpd_error_log);
-  free (regc_sulog);
-  free (hints_sulog);
-  free (regc_super);
-  free (hints_super);
   free (subject);
-  ccze_wordcolor_shutdown ();
-    
+       
   sigint_handler (0);
   
   return 0;

@@ -22,13 +22,8 @@
 #ifndef _CCZE_HTTPD_H
 #define _CCZE_HTTPD_H 1
 
-#include <pcre.h>
-
-char *ccze_httpd_access_log_process (const char *str, int *offsets,
-				     int match);
-char *ccze_httpd_error_log_process (const char *str, int *offsets,
-				    int match);
-void ccze_httpd_setup (pcre **r_access, pcre **r_error,
-		       pcre_extra **h_access, pcre_extra **h_error);
+void ccze_httpd_setup (void);
+void ccze_httpd_shutdown (void);
+int ccze_httpd_handle (const char *str, size_t length, char **rest);
 
 #endif /* !_CCZE_HTTPD_H */

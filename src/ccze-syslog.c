@@ -27,7 +27,10 @@
 #include "ccze.h"
 #include "ccze-syslog.h"
 
-char *
+static pcre *reg_syslog;
+static pcre_extra *hints_syslog;
+
+static char *
 ccze_syslog_process (const char *str, int *offsets, int match)
 {
   char *date = NULL, *host = NULL, *send = NULL, *process = NULL;
@@ -93,13 +96,35 @@ ccze_syslog_process (const char *str, int *offsets, int match)
 }
 
 void
-ccze_syslog_setup (pcre **r, pcre_extra **h)
+ccze_syslog_setup (void)
 {
   const char *error;
   int errptr;
 
-  *r = pcre_compile ("^(\\S*\\s{1,2}\\d{1,2}\\s\\d\\d:\\d\\d:\\d\\d)"
-		     "\\s(\\S+)\\s((\\S+:?)\\s(.*))$", 0, &error,
-		     &errptr, NULL);
-  *h = pcre_study (*r, 0, &error);
+  reg_syslog = pcre_compile ("^(\\S*\\s{1,2}\\d{1,2}\\s\\d\\d:\\d\\d:\\d\\d)"
+			     "\\s(\\S+)\\s((\\S+:?)\\s(.*))$", 0, &error,
+			     &errptr, NULL);
+  hints_syslog = pcre_study (reg_syslog, 0, &error);
+}
+
+void
+ccze_syslog_shutdown (void)
+{
+  free (reg_syslog);
+  free (hints_syslog);
+}
+
+int
+ccze_syslog_handle (const char *str, size_t length, char **rest)
+{
+  int match, offsets[99];
+  
+  if ((match = pcre_exec (reg_syslog, hints_syslog, str, length,
+			  0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_syslog_process (str, offsets, match);
+      return CCZE_MATCH_SYSLOG;
+    }
+  
+  return CCZE_MATCH_NONE;
 }

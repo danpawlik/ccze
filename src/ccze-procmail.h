@@ -22,9 +22,8 @@
 #ifndef _CCZE_PROCMAIL_H
 #define _CCZE_PROCMAIL_H 1
 
-#include <pcre.h>
-
-char *ccze_procmail_process (const char *str, int *offsets, int match);
-void ccze_procmail_setup (pcre **r, pcre_extra **h);
+int ccze_procmail_handle (const char *str, size_t length, char **rest);
+void ccze_procmail_setup (void);
+void ccze_procmail_shutdown (void);
 
 #endif /* !_CCZE_PROCMAIL_H */

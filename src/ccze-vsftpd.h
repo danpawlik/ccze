@@ -22,9 +22,8 @@
 #ifndef _CCZE_VSFTPD_H
 #define _CCZE_VSFTPD_H 1
 
-#include <pcre.h>
-
-char *ccze_vsftpd_log_process (const char *str, int *offsets, int match);
-void ccze_vsftpd_setup (pcre **r, pcre_extra **h);
+int ccze_vsftpd_handle (const char *str, size_t length, char **rest);
+void ccze_vsftpd_setup (void);
+void ccze_vsftpd_shutdown (void);
 
 #endif /* !_CCZE_VSFTPD_H */

@@ -26,7 +26,10 @@
 #include "ccze.h"
 #include "ccze-sulog.h"
 
-char *
+static pcre *reg_sulog;
+static pcre_extra *hints_sulog;
+
+static char *
 ccze_sulog_process (const char *str, int *offsets, int match)
 {
   char *date, *islogin, *tty, *fromuser, *touser;
@@ -68,13 +71,35 @@ ccze_sulog_process (const char *str, int *offsets, int match)
 }
 
 void
-ccze_sulog_setup (pcre **r, pcre_extra **h)
+ccze_sulog_setup (void)
 {
   const char *error;
   int errptr;
 
-  *r = pcre_compile ("^SU (\\d{2}\\/\\d{2} \\d{2}:\\d{2}) ([\\+\\-]) (\\S+) "
-		     "([^\\-]+)-(.*)$",
-		     0, &error, &errptr, NULL);
-  *h = pcre_study (*r, 0, &error);
+  reg_sulog = pcre_compile ("^SU (\\d{2}\\/\\d{2} \\d{2}:\\d{2}) ([\\+\\-]) "
+			    "(\\S+) ([^\\-]+)-(.*)$", 0, &error, &errptr,
+			    NULL);
+  hints_sulog = pcre_study (reg_sulog, 0, &error);
+}
+
+void
+ccze_sulog_shutdown (void)
+{
+  free (reg_sulog);
+  free (hints_sulog);
+}
+
+int
+ccze_sulog_handle (const char *str, size_t length, char **rest)
+{
+  int match, offsets[99];
+  
+  if ((match = pcre_exec (reg_sulog, hints_sulog, str, length,
+			  0, 0, offsets, 99)) >= 0)
+    {
+      *rest = ccze_sulog_process (str, offsets, match);
+      return CCZE_MATCH_SULOG;
+    }
+  
+  return CCZE_MATCH_NONE;
 }
