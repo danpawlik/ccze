@@ -2,6 +2,27 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 18:13:09 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-134
+
+    Summary:
+      The `Song of the Dispossessed' release.
+    Revision:
+      ccze--0.1--patch-134
+
+      You blocked up my ears
+      You plucked out my eyes
+      You cut out my tongue
+      You fed me with lies
+    
+      Oh Lord...
+    
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+
+    modified files:
+     ChangeLog NEWS debian/changelog
+
+
 2003-01-19 14:42:26 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-133
 
     Summary:

@@ -1,5 +1,11 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.134 [Song of the Dispossessed] -- 2002-01-19.
+
+Colours (even the background of the outputted HTML) can now be changed
+on the command-line too. During this process, CCZE was ported to
+FreeBSD.
+
 * CCZE 0.1.122 [Wild in The Woods] -- 2003-01-13.
 
 HTML output was cleaned up and made customisable. From now on, CCZE
