@@ -167,5 +167,7 @@ ccze_plugin_t ccze_##name##_info = { CCZE_ABI_VERSION, \
 				     ccze_##name##_shutdown, \
 				     ccze_##name##_handle, \
 				     CCZE_PLUGIN_TYPE_##type }
+#define CCZE_DEFINE_PLUGINS(plugins...) \
+char *ccze_plugin_list[] = { plugins, NULL }
 
 #endif /* !_CCZE_H */

@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-12 20:21:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-226
+
+    Summary:
+      Support loading multiple plugins from a single file
+    Revision:
+      ccze--0.1--patch-226
+
+    * src/ccze.h (CCZE_DEFINE_PLUGINS): New macro.
+    * src/ccze-plugins.c (_ccze_plugin_load): Take a `recurse'
+      argument. Do not check multiple plugins if it is off. Also, before
+      loading a plugin, check if it is loaded already. If the plugin
+      opening succeeds, but the _info symbol is not found, defer bailing
+      out. After loaded the default plugin, or deferred exiting, check if
+      there are more plugins, and load them too.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c src/ccze.h
+
+
 2003-03-12 16:23:33 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-225
 
     Summary:

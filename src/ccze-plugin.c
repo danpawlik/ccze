@@ -91,66 +91,6 @@ ccze_plugin_argv_init (void)
 					       sizeof (ccze_plugin_t *));
 }
 
-static void
-_ccze_plugin_load (const char *name, const char *path)
-{
-  ccze_plugin_t *plugin;
-  char *tmp;
-  void *dlhandle;
-
-  dlhandle = dlopen (path, RTLD_LAZY);
-  if (dlerror () || !dlhandle)
-    return;
-
-  asprintf (&tmp, "ccze_%s_info", name);
-  plugin = (ccze_plugin_t *)dlsym (dlhandle, tmp);
-  free (tmp);
-  if (dlerror () || !plugin)
-    {
-      dlclose (dlhandle);
-      return;
-    }
-  if (plugin->abi_version != CCZE_ABI_VERSION)
-    {
-      dlclose (dlhandle);
-      return;
-    }
-  
-  plugin->dlhandle = dlhandle;
-  
-  ccze_plugin_add (plugin);
-}
-
-void
-ccze_plugin_load (const char *name)
-{
-  char *home;
-  char *path;
-
-  if ((home = getenv ("HOME")) != NULL)
-    {
-      asprintf (&path, "%s/.ccze/%s.so", home, name);
-      if (access (path, F_OK))
-	{
-	  free (path);
-	  asprintf (&path, PKGLIBDIR "/%s.so", name);
-	}
-    }
-  else
-    asprintf (&path, PKGLIBDIR "/%s.so", name);
-
-  _ccze_plugin_load (name, path);
-  free (path);
-}
-
-static int
-_ccze_plugin_select (const struct dirent *de)
-{
-  if (strstr (de->d_name, ".so"))
-    return 1;
-  return 0;
-}
-
 static ccze_plugin_t *
 _ccze_plugin_find (const char *name)
 {
@@ -174,6 +114,96 @@ _ccze_plugin_loaded (const char *name)
 }
 
 static void
+_ccze_plugin_load (const char *name, const char *path, int recurse)
+{
+  ccze_plugin_t *plugin;
+  char *tmp;
+  void *dlhandle;
+  char **pluginlist = NULL;
+  int bailout = 0;
+  
+  if (_ccze_plugin_loaded (name))
+    return;
+  
+  dlhandle = dlopen (path, RTLD_LAZY);
+  if (dlerror () || !dlhandle)
+    return;
+
+  asprintf (&tmp, "ccze_%s_info", name);
+  plugin = (ccze_plugin_t *)dlsym (dlhandle, tmp);
+  free (tmp);
+  if (dlerror () || !plugin)
+    {
+      if (!plugin)
+	bailout = 1;
+      else
+	{
+	  dlclose (dlhandle);
+	  return;
+	}
+    }
+  if (!bailout)
+    {
+      if (plugin->abi_version != CCZE_ABI_VERSION)
+	{
+	  dlclose (dlhandle);
+	  return;
+	}
+  
+      plugin->dlhandle = dlhandle;
+
+      ccze_plugin_add (plugin);
+    }
+  
+  /* If there are more plugins defined in the file, load them all! */
+  if (recurse)
+    {
+      pluginlist = (char **)dlsym (dlhandle, "ccze_plugin_list");
+      if (pluginlist)
+	{
+	  int i = 0;
+	  
+	  while (pluginlist[i])
+	    {
+	      if (!_ccze_plugin_loaded (pluginlist[i]))
+		_ccze_plugin_load (pluginlist[i], path, 0);
+	      i++;
+	    }
+	}
+    }
+}
+
+void
+ccze_plugin_load (const char *name)
+{
+  char *home;
+  char *path;
+
+  if ((home = getenv ("HOME")) != NULL)
+    {
+      asprintf (&path, "%s/.ccze/%s.so", home, name);
+      if (access (path, F_OK))
+	{
+	  free (path);
+	  asprintf (&path, PKGLIBDIR "/%s.so", name);
+	}
+    }
+  else
+    asprintf (&path, PKGLIBDIR "/%s.so", name);
+
+  _ccze_plugin_load (name, path, 1);
+  free (path);
+}
+
+static int
+_ccze_plugin_select (const struct dirent *de)
+{
+  if (strstr (de->d_name, ".so"))
+    return 1;
+  return 0;
+}
+
+static void
 _ccze_plugin_load_set (struct dirent ***namelist, int nn, const char *base)
 {
   int m, n = nn;
@@ -189,7 +219,7 @@ _ccze_plugin_load_set (struct dirent ***namelist, int nn, const char *base)
       if (!_ccze_plugin_loaded (tmp))
 	{
 	  asprintf (&path, "%s/%s.so", base, tmp);
-	  _ccze_plugin_load (tmp, path);
+	  _ccze_plugin_load (tmp, path, 1);
 	  free (path);
 	}
       free (tmp);
