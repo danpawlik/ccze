@@ -237,31 +237,75 @@ alphasort (const struct dirent **a, const struct dirent **b)
 }
 #endif
 
+/* getline() and getdelim() were taken from GNU Mailutils'
+   mailbox/getline.c */
+/* First implementation by Alain Magloire */
 #ifndef HAVE_GETLINE
-#define BUF_INC 256
 ssize_t
-getline(char **lineptr, size_t *n, FILE *stream)
+getline (char **lineptr, size_t *n, FILE *stream)
 {
-  if (feof (stream))
+  return getdelim (lineptr, n, '\n', stream);
+}
+#endif
+
+#ifndef HAVE_GETDELIM
+/* Default value for line length.  */
+static const int line_size = 128;
+
+ssize_t
+getdelim (char **lineptr, size_t *n, int delim, FILE *stream)
+{
+  size_t indx = 0;
+  int c;
+
+  /* Sanity checks.  */
+  if (lineptr == NULL || n == NULL || stream == NULL)
     return -1;
 
-  do
+  /* Allocate the line the first time.  */
+  if (*lineptr == NULL)
     {
-      *lineptr = realloc (*lineptr, *n + BUF_INC + 1);
-      if (!fgets (*lineptr + *n, BUF_INC, stream))
-	{
-	  if (*n == 0)
-	    return -1;
-	  else
-	    {
-	      (*lineptr)[*n]='\0'; /* work around a bug (?) in fgets */
-	      break;
-	    }
-	}
-      *n = strlen(*lineptr);
-    } while (*n > 0 && (*lineptr)[*n] != '\n');
+      *lineptr = malloc (line_size);
+      if (*lineptr == NULL)
+	return -1;
+      *n = line_size;
+    }
 
-  return *n;
+  while ((c = getc (stream)) != EOF)
+    {
+      /* Check if more memory is needed.  */
+      if (indx >= *n)
+	{
+	  *lineptr = realloc (*lineptr, *n + line_size);
+	  if (*lineptr == NULL)
+	    return -1;
+	  *n += line_size;
+	}
+
+      /* Push the result in the line.  */
+      (*lineptr)[indx++] = c;
+
+      /* Bail out.  */
+      if (c == delim)
+	break;
+    }
+
+  /* Make room for the null character.  */
+  if (indx >= *n)
+    {
+      *lineptr = realloc (*lineptr, *n + line_size);
+      if (*lineptr == NULL)
+       return -1;
+      *n += line_size;
+    }
+
+  /* Null terminate the buffer.  */
+  (*lineptr)[indx++] = 0;
+
+  /* The last line may not have the delimiter, we have to
+   * return what we got and the error will be seen on the
+   * next iteration.  */
+  return (c == EOF && (indx - 1) == 0) ? -1 : (ssize_t)(indx - 1);
 }
 #endif
 

@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-13 17:20:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-188
+
+    Summary:
+      New getline() implementation from Mailutils
+    Revision:
+      ccze--0.1--patch-188
+
+    * configure.ac: Check for getdelim() too.
+    * src/ccze-compat.h [!HAVE_GETDELIM] (getdelim): New prototype.
+    * src/ccze-compat.c [!HAVE_GETLINE] (getline): New implementation.
+      [!HAVE_GETDELIM] (getdelim): New function.
+
+    modified files:
+     ChangeLog configure.ac src/ccze-compat.c src/ccze-compat.h
+
+
 2003-02-13 16:22:32 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-187
 
     Summary:

@@ -99,6 +99,10 @@ error_t argp_error (const struct argp_state *state, char *fmt, ...)
 #ifndef HAVE_GETLINE
 ssize_t getline(char **lineptr, size_t *n, FILE *stream);
 #endif
+#ifndef HAVE_GETDELIM
+ssize_t
+getdelim (char **lineptr, size_t *n, int delim, FILE *stream);
+#endif
 
 #ifdef _AIX
 char *strndup (const char *s, size_t size);

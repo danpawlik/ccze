@@ -92,8 +92,8 @@ AC_FUNC_MALLOC
 AC_FUNC_REALLOC
 AC_FUNC_STRFTIME
 AC_FUNC_STAT
-AC_CHECK_FUNCS([alphasort argp_parse asprintf getline getsubopt memset \
-		scandir strcasecmp strchr strdup strndup strstr])
+AC_CHECK_FUNCS([alphasort argp_parse asprintf getdelim getline getsubopt \
+		memset scandir strcasecmp strchr strdup strndup strstr])
 
 AC_CHECK_LIB(ncurses, initscr, [], [AC_ERROR(NCurses library not found)])
 AC_CHECK_FUNC(dlopen, [], [AC_CHECK_LIB(dl, dlopen)])
