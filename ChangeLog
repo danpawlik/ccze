@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-12 18:56:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-182
+
+    Summary:
+      Include some more files
+    Revision:
+      ccze--0.1--patch-182
+
+    * testsuite/Makefile.in (EXTRA_DIST): Added defs and do-test.
+
+    modified files:
+     ChangeLog testsuite/Makefile.in
+
+
 2003-02-12 18:51:31 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-181
 
     Summary:
