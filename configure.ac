@@ -61,6 +61,9 @@ dnl **********************
 AC_HEADER_STDC
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS([netdb.h fcntl.h])
+AC_CHECK_HEADER([pcre.h],
+                [AC_DEFINE_UNQUOTED(HAVE_PCRE_H, 1, [Define to 1 if you have
+the <pcre.h> header file.])], [AC_CHECK_HEADERS([pcre/pcre.h])])
 
 dnl **********************
 dnl * Typedefs & co

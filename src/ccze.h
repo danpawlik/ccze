@@ -22,6 +22,13 @@
 #ifndef _CCZE_H
 #define _CCZE_H 1
 
+#include "system.h"
+#ifdef HAVE_PCRE_H
+#define PCRE_H <pcre.h>
+#elif HAVE_PCRE_PCRE_H
+#define PCRE_H <pcre/pcre.h>
+#endif
+
 #include "ccze-color.h"
 #include <curses.h>
 

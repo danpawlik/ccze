@@ -19,13 +19,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include <curses.h>
-#include <pcre.h>
-#include <string.h>
-#include <stdlib.h>
-
 #include "ccze.h"
 #include "ccze-plugin.h"
+
+#include <curses.h>
+#include <string.h>
+#include <stdlib.h>
+#include PCRE_H
 
 static void ccze_squid_setup (void);
 static void ccze_squid_shutdown (void);

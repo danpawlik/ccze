@@ -27,7 +27,7 @@ for the well-known colorize.pl.
 	--sysconfdir=%{_sysconfdir} \
 	--mandir=%{_mandir} \
 	--with-builtins=all
-make CFLAGS="${RPM_OPT_FLAGS} -I/usr/include/pcre"
+make CFLAGS="${RPM_OPT_FLAGS}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
