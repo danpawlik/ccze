@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 00:17:29 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-125
+
+    Summary:
+      strdup()ing command-line options
+    Revision:
+      ccze--0.1--patch-125
+
+    * src/ccze.c (parse_opt): strdup() the command-line arguments.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-01-16 21:58:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-124
 
     Summary:

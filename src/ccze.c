@@ -168,19 +168,20 @@ parse_opt (int key, char *arg, struct argp_state *state)
   switch (key)
     {
     case 'p':
-      ccze_config.pluginlist[ccze_config.pluginlist_len++] = arg;
+      ccze_config.pluginlist[ccze_config.pluginlist_len++] = strdup (arg);
       if (ccze_config.pluginlist_len >= ccze_config.pluginlist_alloc)
 	{
 	  ccze_config.pluginlist_alloc *= 2;
-	  ccze_config.pluginlist = (char **)realloc
-	    (ccze_config.pluginlist, ccze_config.pluginlist_alloc * sizeof (char *));
+	  ccze_config.pluginlist =
+	    (char **)realloc (ccze_config.pluginlist,
+			      ccze_config.pluginlist_alloc * sizeof (char *));
 	}
       break;
     case 'h':
       ccze_config.html = 1;
       break;
     case 'F':
-      ccze_config.rcfile = arg;
+      ccze_config.rcfile = strdup (arg);
       break;
     case 'r':
       ccze_config.remfac = 1;
@@ -211,7 +212,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	      break;
 	    case CCZE_O_SUBOPT_CSSFILE:
 	      if (value)
-		ccze_config.cssfile = value;
+		ccze_config.cssfile = strdup (value);
 	      break;
 	    case CCZE_O_SUBOPT_NOCSSFILE:
 	      ccze_config.cssfile = NULL;
