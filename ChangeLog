@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-02 17:25:05 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-203
+
+    Summary:
+      Fixed ccze.1.in
+    Revision:
+      ccze--0.1--patch-203
+
+    * doc/ccze.1.in (PLUGINS): Fixed. There were a bunch of roff errors.
+      (well, not errors.. it just did not format right)
+
+    modified files:
+     ChangeLog doc/ccze.1.in
+
+
 2003-03-02 17:20:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-202
 
     Summary:

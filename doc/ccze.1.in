@@ -110,7 +110,8 @@ release:
 .TP
 .IR apm
 For coloring apmd's logs.
-.TP distcc
+.TP
+.IR distcc
 For coloring distccd's logs. (See \fIdistccd\fR(1))
 .TP
 .IR exim
@@ -123,12 +124,13 @@ For coloring fetchmail's log files. (See \fIfetchmail\fR(1))
 For coloring apache-style \fIaccess.log\fR and \fIerror.log\fR
 files. (See \fIapache\fR(8))
 .TP
-.TP
 .IR icecast
 For coloring \fIicecast/icecast.log\fR and \fIicecast/usage.log\fR
 files. (See \fIicecast\fR(8))
-.IR
+.TP
+.IR oops
 For coloring \fIoops/oops.log\fR files.
+.TP
 .IR php
 For coloring \fIphp.log\fR files.
 .TP
