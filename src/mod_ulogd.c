@@ -48,6 +48,7 @@ ccze_ulogd_process (const char *msg)
 	  ccze_addstr (CCZE_COLOR_DEFAULT, "=");
 	  ccze_wordcolor_process_one (value, 1);
 	  free (field);
+	  ccze_space ();
 	}
       else
 	{

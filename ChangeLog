@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-08 22:53:05 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-169
+
+    Summary:
+      Fixed mod_ulogd.
+    Revision:
+      ccze--0.1--patch-169
+
+    * src/mod_ulogd.c (ccze_ulogd_process): In case there is a field=value
+      pair, put a space after the value.
+
+    modified files:
+     ChangeLog src/mod_ulogd.c
+
+
 2003-02-08 16:47:47 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-168
 
     Summary:
