@@ -32,13 +32,15 @@
 #include "ccze-color.h"
 #include <curses.h>
 
-#define CCZE_ADDSTR(col,str) { attrset (ccze_color (col)) ; addstr (str); }
-#define ccze_space() CCZE_ADDSTR (CCZE_COLOR_DEFAULT, " ")
-#define CCZE_NEWLINE() addstr ("\n")
+#define CCZE_ADDSTR ccze_addstr
+#define CCZE_NEWLINE ccze_newline
 
 int ccze_http_action (const char *method);
 void ccze_print_date (const char *date);
 char *ccze_strbrk (char *str, char delim);
 char *xstrdup (const char *str);
+void ccze_addstr (int col, const char *str);
+void ccze_newline (void);
+void ccze_space (void);
 
 #endif /* !_CCZE_H */

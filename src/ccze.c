@@ -42,10 +42,21 @@ struct
   int wcol;
   int slookup;
   int remfac;
+  int html;
   char *rcfile;
   char **pluginlist;
   size_t pluginlist_alloc, pluginlist_len;
-} ccze_config;
+} ccze_config = {
+  .scroll = 1,
+  .convdate = 0,
+  .remfac = 0,
+  .wcol = 1,
+  .slookup = 1,
+  .rcfile = NULL,
+  .pluginlist_len = 0,
+  .pluginlist_alloc = 10,
+  .html = 0
+};
 
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
 			 COLOR_BLUE, COLOR_CYAN, COLOR_MAGENTA, COLOR_WHITE};
@@ -55,6 +66,7 @@ const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
   {NULL, 0, NULL, 0, "", 1},
   {"rcfile", 'F', "FILE", 0, "Read configuration from FILE", 1},
+  {"html", 'h', NULL, 0, "Generate HTML output", 1},
   {"options", 'o', "OPTIONS...", 0, "Toggle some options\n"
    "(such as scroll, wordcolor and lookups)", 1},
   {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
@@ -228,6 +240,25 @@ ccze_print_date (const char *date)
     CCZE_ADDSTR (CCZE_COLOR_DATE, date);
 }
 
+void
+ccze_newline (void)
+{
+  addstr ("\n");
+}
+
+void
+ccze_space (void)
+{
+  ccze_addstr (CCZE_COLOR_DEFAULT, " ");
+}
+
+void
+ccze_addstr (int col, const char *str)
+{
+  ccze_color (col);
+  addstr (str);
+}
+
 static void sigint_handler (int sig) __attribute__ ((noreturn));
 static void
 sigint_handler (int sig)
@@ -257,14 +288,6 @@ main (int argc, char **argv)
   char *homerc, *home;
   ccze_plugin_t **plugins;
       
-  ccze_config.scroll = 1;
-  ccze_config.convdate = 0;
-  ccze_config.remfac = 0;
-  ccze_config.wcol = 1;
-  ccze_config.slookup = 1;
-  ccze_config.rcfile = NULL;
-  ccze_config.pluginlist_len = 0;
-  ccze_config.pluginlist_alloc = 10;
   ccze_config.pluginlist = (char **)calloc (ccze_config.pluginlist_alloc,
 					    sizeof (char *));
   argp_parse (&argp, argc, argv, 0, 0, NULL);

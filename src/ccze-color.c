@@ -141,6 +141,48 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {CCZE_KEYWORD ("percentage", CCZE_COLOR_PERCENTAGE, "Percentages")},
 };
 
+char *
+ccze_color_to_name_simple (int color)
+{
+  switch (color)
+    {
+    case BLACK:
+      return "black";
+    case RED:
+      return "red";
+    case GREEN:
+      return "green";
+    case YELLOW:
+      return "yellow";
+    case BLUE:
+      return "blue";
+    case CYAN:
+      return "cyan";
+    case MAGENTA:
+      return "magenta";
+    case WHITE:
+      return "white";
+    }
+  return NULL;
+}
+
+int
+ccze_color_strip_attrib (int color)
+{
+  int mycolor = color;
+
+  if (mycolor & A_BOLD)
+    mycolor ^= A_BOLD;
+  if (mycolor & A_UNDERLINE)
+    mycolor ^= A_UNDERLINE;
+  if (mycolor & A_REVERSE)
+    mycolor ^= A_REVERSE;
+  if (mycolor & A_BLINK)
+    mycolor ^= A_BLINK;
+
+  return mycolor;
+}
+
 int
 ccze_color (ccze_color_t idx)
 {

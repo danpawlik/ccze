@@ -23,23 +23,6 @@
 #include "ccze-color.c"
 #include <ncurses.h>
 
-static int
-ccze_dump_color_strip_attrib (int color)
-{
-  int mycolor = color;
-
-  if (mycolor & A_BOLD)
-    mycolor ^= A_BOLD;
-  if (mycolor & A_UNDERLINE)
-    mycolor ^= A_UNDERLINE;
-  if (mycolor & A_REVERSE)
-    mycolor ^= A_REVERSE;
-  if (mycolor & A_BLINK)
-    mycolor ^= A_BLINK;
-
-  return mycolor;
-}
-
 static char *
 ccze_dump_color_get_attrib (int color)
 {
@@ -69,55 +52,24 @@ ccze_dump_lookup_name (ccze_color_t color)
 }
 
 static char *
-ccze_dump_color_to_name_simple (int color)
-{
-  switch (color)
-    {
-    case BLACK:
-      return "black";
-    case RED:
-      return "red";
-    case GREEN:
-      return "green";
-    case YELLOW:
-      return "yellow";
-    case BLUE:
-      return "blue";
-    case CYAN:
-      return "cyan";
-    case MAGENTA:
-      return "magenta";
-    case WHITE:
-      return "white";
-    }
-  return NULL;
-}
-
-static char *
 ccze_dump_color_to_name (int color)
 {
-  int my_color = ccze_dump_color_strip_attrib (color);
+  int my_color = ccze_color_strip_attrib (color);
 
-  if (my_color < COLOR_PAIR(8))
-    return ccze_dump_color_to_name_simple (my_color);
+  if (my_color < COLOR_PAIR (8))
+    return ccze_color_to_name_simple (my_color);
   else
     {
       int i,j;
-      
-      for (i = 0; i < 8; i++)
-	for (j = 0; j < 8; j++)
-	  if (my_color == COLOR_PAIR (i*8 + j))
-	    {
-	      char *str;
+      char * str;
 
-	      asprintf (&str, "%s on_%s",
-			ccze_dump_color_to_name_simple (COLOR_PAIR (j)),
-			ccze_dump_color_to_name_simple (COLOR_PAIR (i)));
-	      return str;
-	    }
-      return NULL;
+      j = (my_color >> 8) % 8;
+      i = (my_color >> 8) / 8;
+      asprintf (&str, "%s on_%s",
+		ccze_color_to_name_simple (COLOR_PAIR (j)),
+		ccze_color_to_name_simple (COLOR_PAIR (i)));
+      return str;
     }
-  
   
   return NULL;
 }

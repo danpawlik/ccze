@@ -2,6 +2,40 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-09 20:36:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-106
+
+    Summary:
+      Preparing HTML output...
+    Revision:
+      ccze--0.1--patch-106
+
+    * src/ccze.h (ccze_addstr): New prototype.
+      (ccze_newline): Likewise.
+      (ccze_space): Likewise.
+      (CCZE_ADDSTR): Make it an alias of ccze_addstr.
+      (CCZE_NEWLINE): Make it an alias of ccze_newline.
+    * src/ccze.c (ccze_config): Added a `html' member, and switched to
+      using C99-style initialisers.
+      (options): Added `html' (not handled yet).
+      (ccze_newline): New function.
+      (ccze_addstr): Likewise.
+      (ccze_space): Likewise.
+      (main): Remove most of hte ccze_config initialisation code.
+    * src/ccze-color.h (ccze_color_strip_attrib): New prototype.
+      (ccze_color_to_name_simple): New prototype.
+    * src/ccze-color.c (ccze_color_strip_attrib): New function, from
+      src/ccze-dump.c.
+      (ccze_color_to_name_simple): Likewise.
+    * src/ccze-dump.c (ccze_dump_color_strip_attrib): Moved to
+      src/ccze-color.c.
+      (ccze_dump_color_to_name_simple): Likewise.
+      (ccze_dump_color_to_name): Simpified.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-color.h src/ccze-dump.c
+     src/ccze.c src/ccze.h
+
+
 2003-01-09 19:37:05 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-105
 
     Summary:
