@@ -101,5 +101,6 @@ enum
 };
 
 int ccze_http_action (const char *method);
+void ccze_print_date (const char *date);
 
 #endif /* !_CCZE_H */

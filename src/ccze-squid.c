@@ -98,7 +98,7 @@ ccze_squid_access_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 12, (const char **)&fhost);
   pcre_get_substring (str, offsets, match, 13, (const char **)&ctype);
 
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_print_date (date);
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, espace);
   CCZE_ADDSTR (CCZE_COLOR_GETTIME, elaps);
   ccze_space ();
@@ -189,8 +189,8 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 16, (const char **)&read);
   pcre_get_substring (str, offsets, match, 17, (const char **)&method);
   pcre_get_substring (str, offsets, match, 18, (const char **)&uri);
-  
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+
+  ccze_print_date (date);
   ccze_space();
   CCZE_ADDSTR (_ccze_proxy_tag (tag), tag);
   ccze_space();
@@ -202,11 +202,11 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space1);
   CCZE_ADDSTR (CCZE_COLOR_HTTPCODES, hcode);
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space2);
-  CCZE_ADDSTR (CCZE_COLOR_DATE, hdate);
+  ccze_print_date (hdate);
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space3);
-  CCZE_ADDSTR (CCZE_COLOR_DATE, lmdate);
+  ccze_print_date (lmdate);
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space4);
-  CCZE_ADDSTR (CCZE_COLOR_DATE, expire);
+  ccze_print_date (expire);
   ccze_space();
   CCZE_ADDSTR (CCZE_COLOR_CTYPE, ctype);
   ccze_space();

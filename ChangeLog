@@ -2,6 +2,27 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 13:41:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-23
+
+    Summary:
+      UNIX timestamp conversion support
+    Revision:
+      ccze--0.1--patch-23
+
+    * src/ccze.h (ccze_print_date): New prototype.
+    * src/ccze.c (ccze_print_date): New function.
+      (ccze_config): Added a convdate member.
+      (options): Handle --convert-date.
+      (parse_opt): Recognise it.
+      (main): Initialise ->convdate to off.
+    * src/ccze-squid.c (ccze_squid_access_log_process): Use
+      ccze_print_date.
+      (ccze_squid_store_log_process): Likewise.
+
+    modified files:
+     ChangeLog src/ccze-squid.c src/ccze.c src/ccze.h
+
+
 2002-09-13 13:23:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-22
 
     Summary:

@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "ccze.h"
@@ -42,6 +43,7 @@
 struct
 {
   int scroll;
+  int convdate;
 } ccze_config;
 
 const char *argp_program_version = "ccze/0.1";
@@ -50,6 +52,7 @@ static struct argp_option options[] = {
   {NULL, 0, NULL, 0, "", 1},
   {"scroll", 's', NULL, 0, "Enable scrolling", 1},
   {"no-scroll", -100, NULL, 0, "Disable scrolling", 1},
+  {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -66,6 +69,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
     case -100:
       ccze_config.scroll = 0;
+      break;
+    case 'C':
+      ccze_config.convdate = 1;
       break;
     default:
       return ARGP_ERR_UNKNOWN;
@@ -90,6 +96,27 @@ ccze_http_action (const char *method)
     return CCZE_COLOR_HTTP_TRACE;
   else
     return CCZE_COLOR_UNKNOWN;
+}
+
+void
+ccze_print_date (const char *date)
+{
+  time_t ltime;
+  char tmp[128];
+  
+  if (ccze_config.convdate)
+    {
+      ltime = atol (date);
+      if (ltime < 0)
+	{
+	  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+	  return;
+	}
+      strftime (tmp, sizeof (tmp) - 1, "%b %e %T", gmtime (&ltime));
+      CCZE_ADDSTR (CCZE_COLOR_DATE, tmp);
+    }
+  else
+    CCZE_ADDSTR (CCZE_COLOR_DATE, date);
 }
 
 static void sigint_handler (int sig) __attribute__ ((noreturn));
@@ -124,6 +151,7 @@ main (int argc, char **argv)
   pcre_extra *hints_httpd_error_log, *hints_sulog, *hints_super;
     
   ccze_config.scroll = 1;
+  ccze_config.convdate = 0;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
   
   initscr ();
