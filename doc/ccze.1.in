@@ -127,6 +127,9 @@ For coloring fetchmail's log files. (See \fIfetchmail\fR(1))
 .IR httpd
 For coloring apache\-style \fIaccess.log\fR and \fIerror.log\fR
 files. (See \fIapache\fR(8))
+
+As a side\-effect, all compatible formats, like \fIpure\-ftpd\fR(8)'s
+common\-log format is also supported by this plugin.
 .TP
 .IR icecast
 For coloring \fIicecast/icecast.log\fR and \fIicecast/usage.log\fR

@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 16:10:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-241
+
+    Summary:
+      Support Pure-FTPD CLF format
+    Revision:
+      ccze--0.1--patch-241
+
+    * src/mod_httpd.c (ccze_httpd_setup): Modified the httpd_access regexp
+      to catch pure-ftpd's CLF logformat.
+    * doc/ccze.1.in (PLUGINS): Documented this.
+    
+    Thanks to Ciga for his assistance.
+
+    modified files:
+     ChangeLog doc/ccze.1.in src/mod_httpd.c
+
+
 2003-03-29 15:58:53 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-240
 
     Summary:
