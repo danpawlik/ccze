@@ -2,6 +2,20 @@
 # arch-tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-04-26 12:45:07 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-9
+
+    Summary:
+      Support transparency in the ANSI output too
+    Revision:
+      ccze--0.3--patch-9
+
+    * src/ccze.c (ccze_addstr_internal): Only set the background if it is
+      necessary.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-04-26 11:48:06 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-8
 
     Summary:

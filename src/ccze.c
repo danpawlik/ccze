@@ -476,9 +476,10 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
 	      printf("%c[7m", ESC);
 	      c ^= 0x8000;
 	    }
-	  
-	  printf("%c[%dm%c[%dm%s%c[0m", ESC, ccze_raw_ansi_color[c & 0xf], ESC,
-		 ccze_raw_ansi_color[c >> 8] + 10, str, ESC);
+
+	  if (c >> 8 > 0 || !ccze_config.transparent)
+	    printf("%c[%dm", ESC, ccze_raw_ansi_color[c >> 8] + 10);
+	  printf ("%c[%dm%s%c[0m", ESC, ccze_raw_ansi_color[c & 0xf], str, ESC);
 	}
       break;
     case CCZE_MODE_DEBUG:
