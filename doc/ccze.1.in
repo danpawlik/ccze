@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-03-10" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-03-13" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -48,8 +48,9 @@ format instead.
 .B \-o, \-\-options \fIOPTIONS...\fB
 \fBCCZE\fR is able to toggle some of its features with this
 option. You can toggle the \fIscroll\fR, \fIwordcolor\fR, and
-\fIlookups\fR features. All of these are enabled by default. One can
-turn them off by prefixing the option with a "no".
+\fIlookups\fR features, or you can fiddle with \fIcssfile\fR. All of
+these are enabled by default, except \fIcssfile\fR. One can turn them
+off by prefixing the option with a "no".
 
 With \fIscroll\fR, one can enable or disable scrolling. If the output
 is not redirected, it is wise to leave it enabled.
@@ -64,6 +65,10 @@ disable. When on, \fBccze\fR will try to look up usernames, service
 names, and lots of other stuff, which will slow down coloring a great
 deal. If one is piping a long log through \fBccze\fR, this option
 might be turned off to speed up the process.
+
+If \fIcssfile\fR is set, then CCZE will not inline the Cascading Style
+Sheet information into the outputted HTML, but include a link to the
+external stylesheet given in this paramater.
 .TP
 .B \-p, \-\-plugin \fIPLUGIN\fR
 While the default action is to load all plugins (see the \fBPlugins\fR

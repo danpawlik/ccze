@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 12:31:35 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-115
+
+    Summary:
+      Documentation updates
+    Revision:
+      ccze--0.1--patch-115
+
+    * doc/ccze.1.in: Documented -o cssfile.
+    * doc/ccze-plugin.7.in: Use ccze_addstr().
+
+    modified files:
+     ChangeLog doc/ccze-plugin.7.in doc/ccze.1.in
+
+
 2003-01-13 12:23:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-114
 
     Summary:
