@@ -10,22 +10,24 @@ subdir		= doc
 include ../Rules.mk
 
 ## -- Private variables -- ##
-MAN		= ccze.1
-DISTCLEANFILES	= ${MAN}
-EXTRA_DIST	= ${MAN}.in
+MANS		= ccze.1 ccze-plugin.7
+DISTCLEANFILES	= ${MANS}
+EXTRA_DIST	= ccze.1.in ccze-plugin.7.in
 
 ## -- Generic rules -- ##
-all: ${MAN}
+all: ${MANS}
 
-${MAN}: ${MAN}.in ${top_srcdir}/ChangeLog
+%: %.in ${top_srcdir}/ChangeLog
 	sed -e "s,@VERSION\@,${VERSION},g" \
 	    -e "s,@sysconfdir\@,${sysconfdir},g" \
 	    -e "s,@pkglibdir\@,${pkglibdir},g" \
-	<${MAN}.in >${MAN}T && mv -f ${MAN}T ${MAN}
+	<$@.in >$@T && mv -f $@T $@
 
-install: all
+install: ${MANS}
 	${INSTALL} -d ${DESTDIR}${man1dir}
-	${INSTALL_DATA} ${MAN} ${DESTDIR}${man1dir}/
+	${INSTALL_DATA} ccze.1 ${DESTDIR}${man1dir}/
+	${INSTALL} -d ${DESTDIR}${man7dir}
+	${INSTALL_DATA} ccze-plugin.7 ${DESTDIR}${man7dir}/
 
 uninstall:
-	rm -f ${DESTDIR}${man1dir}/${MAN}
+	rm -f ${DESTDIR}${man1dir}/ccze.1 ${DESTDIR}${man7dir}/ccze-plugin.7
