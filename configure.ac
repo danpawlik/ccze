@@ -36,7 +36,6 @@ VERSION="$PACKAGE_VERSION"
 dnl **********************
 dnl * Programs
 dnl **********************
-
 AC_CHECK_TOOL(CC, gcc)
 
 WFLAGS_3X=""
@@ -59,9 +58,8 @@ AC_PROG_INSTALL
 dnl **********************
 dnl * Headers
 dnl **********************
-
 AC_HEADER_STDC
-AC_CHECK_HEADERS()
+AC_CHECK_HEADERS([netdb.h])
 
 dnl **********************
 dnl * Typedefs & co
@@ -74,6 +72,7 @@ dnl **********************
 dnl * Library functions
 dnl **********************
 AC_FUNC_MALLOC
+AC_FUNC_STRFTIME
 AC_CHECK_FUNCS([memset strcasecmp strchr strdup strndup strstr])
 
 AC_CHECK_LIB(pcre, pcre_exec, [], [AC_ERROR(PCRE library not found)])
@@ -82,7 +81,6 @@ AC_CHECK_LIB(ncurses, initscr, [], [AC_ERROR(NCurses library not found)])
 dnl **********************
 dnl * Output
 dnl **********************
-
 AC_CONFIG_FILES([
 Rules.mk
 Makefile
