@@ -310,4 +310,4 @@ ccze_squid_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (squid, "squid", FULL);
+CCZE_DEFINE_PLUGIN (squid, FULL);

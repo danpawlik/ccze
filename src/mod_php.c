@@ -83,4 +83,4 @@ ccze_php_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (php, "php", FULL);
+CCZE_DEFINE_PLUGIN (php, FULL);

@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-12 22:44:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-186
+
+    Summary:
+      Use stringification in CCZE_DEFINE_PLUGIN.
+    Revision:
+      ccze--0.1--patch-186
+
+    * src/ccze.h (CCZE_DEFINE_PLUGIN): Use stringification, and remove the
+      quoted-name argument. All users updated.
+    * doc/ccze-plugin.7.in: Reflect the above change.
+
+    modified files:
+     ChangeLog doc/ccze-plugin.7.in src/ccze.h src/mod_apm.c
+     src/mod_distcc.c src/mod_exim.c src/mod_fetchmail.c
+     src/mod_httpd.c src/mod_icecast.c src/mod_oops.c src/mod_php.c
+     src/mod_postfix.c src/mod_procmail.c src/mod_squid.c
+     src/mod_sulog.c src/mod_super.c src/mod_syslog.c
+     src/mod_ulogd.c src/mod_vsftpd.c src/mod_xferlog.c
+
+
 2003-02-12 22:33:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-185
 
     Summary:

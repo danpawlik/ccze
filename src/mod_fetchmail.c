@@ -94,4 +94,4 @@ ccze_fetchmail_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (fetchmail, "fetchmail", PARTIAL);
+CCZE_DEFINE_PLUGIN (fetchmail, PARTIAL);

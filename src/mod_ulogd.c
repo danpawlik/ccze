@@ -96,4 +96,4 @@ ccze_ulogd_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (ulogd, "ulogd", PARTIAL);
+CCZE_DEFINE_PLUGIN (ulogd, PARTIAL);

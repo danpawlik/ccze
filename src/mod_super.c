@@ -89,4 +89,4 @@ ccze_super_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (super, "super", FULL);
+CCZE_DEFINE_PLUGIN (super, FULL);

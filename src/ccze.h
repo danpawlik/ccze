@@ -134,9 +134,9 @@ typedef struct
   ccze_plugin_type_t type;
 } ccze_plugin_t;
 
-#define CCZE_DEFINE_PLUGIN(name,quoted,type) \
+#define CCZE_DEFINE_PLUGIN(name,type) \
 ccze_plugin_t ccze_##name##_info = { NULL, \
-				     quoted, \
+				     # name, \
 				     ccze_##name##_setup, \
 				     ccze_##name##_shutdown, \
 				     ccze_##name##_handle, \

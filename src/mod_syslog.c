@@ -131,4 +131,4 @@ ccze_syslog_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (syslog, "syslog", FULL);
+CCZE_DEFINE_PLUGIN (syslog, FULL);

@@ -124,4 +124,4 @@ ccze_procmail_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (procmail, "procmail", FULL);
+CCZE_DEFINE_PLUGIN (procmail, FULL);
