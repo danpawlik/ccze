@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-24 16:18:32 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-57
+
+    Summary:
+      CLEANFILES cleanup
+    Revision:
+      ccze--0.1--patch-57
+
+    * src/Makefile.in (CLEANFILES): Clean ${OBJECTS:.o=.da} only, not the
+      whole ${SOURCES:.c=.da}.
+
+    modified files:
+     ChangeLog src/Makefile.in
+
+
 2002-09-20 13:48:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-56
 
     Summary:

@@ -18,7 +18,7 @@ HEADERS		= ccze.h ccze-color.h ccze-plugin.h ccze-wordcolor.h \
 		$(addprefix ccze-,$(addsuffix .h, ${PLUGINS}))
 PLUGINS		= httpd procmail squid sulog super syslog vsftpd
 PLUGIN_OBJS	= $(addsuffix .so,${PLUGINS})
-CLEANFILES	= ${SOURCES:.c=.da} ${PLUGIN_OBJS}
+CLEANFILES	= ${OBJECTS:.o=.da} ${PLUGIN_OBJS}
 OBJECTS		= ccze.o ccze-color.o ccze-plugin.o ccze-wordcolor.o
 
 ## -- Standard targets -- ##
