@@ -2,6 +2,35 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-10 09:18:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-176
+
+    Summary:
+      New tests
+    Revision:
+      ccze--0.1--patch-176
+
+    * testsuite/syslog.test: Renamed to...
+    * testsuite/color.test: ..this. Also hacked to run multiple tests in a
+      row.
+    * testsuite/apm.in: New file.
+    * testsuite/apm.ok: Likewise.
+    * testsuite/Makefile.in (EXTRA_DIST): Added apm.in and apm.ok.
+
+    new files:
+     testsuite/.arch-ids/apm.in.id testsuite/.arch-ids/apm.ok.id
+     testsuite/apm.in testsuite/apm.ok
+
+    modified files:
+     ChangeLog testsuite/Makefile.in testsuite/color.test
+
+    renamed files:
+     testsuite/.arch-ids/syslog.test.id
+       ==> testsuite/.arch-ids/color.test.id
+     testsuite/syslog.test
+       ==> testsuite/color.test
+
+
+
 2003-02-10 08:44:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-175
 
     Summary:

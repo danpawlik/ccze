@@ -11,8 +11,8 @@ include ../Rules.mk
 
 TESTS_ENVIRONMENT       = top_builddir=$(top_builddir) \
 			VERSION=$(VERSION)
-TESTS                   = version.test syslog.test
-EXTRA_DIST		= syslog.in syslog.ok
+TESTS                   = version.test color.test
+EXTRA_DIST		= syslog.in syslog.ok apm.in apm.ok
 
 ## -- Standard targets -- ##
 all: ;
