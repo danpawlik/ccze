@@ -41,8 +41,9 @@
 char *
 strndup (const char *s, size_t size)
 {
-  char *ns = (char *)malloc (size);
+  char *ns = (char *)malloc (size + 1);
   memcpy (ns, s, size);
+  ns[size] = '\0';
   return ns;
 }
 #endif

@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-13 17:43:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-189
+
+    Summary:
+      Fixed strndup() implementation.
+    Revision:
+      ccze--0.1--patch-189
+
+    * src/ccze-compat.c [!HAVE_STRNDUP] (strndup): NULL-terminate the
+      string.
+
+    modified files:
+     ChangeLog src/ccze-compat.c
+
+
 2003-02-13 17:20:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-188
 
     Summary:
