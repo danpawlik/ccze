@@ -220,8 +220,8 @@ argp_error (const struct argp_state *state, char *fmt, ...)
 #endif
 
 #ifndef HAVE_GETSUBOPT
-int getsubopt (char **optionp, char *const *tokens,
-	       char **valuep)
+int ccze_getsubopt (char **optionp, char *const *tokens,
+		    char **valuep)
 {
   char *endp, *vstart;
   int cnt;
@@ -264,6 +264,22 @@ int getsubopt (char **optionp, char *const *tokens,
   *optionp = endp;
 
   return -1;
+}
+#else
+#if HAVE_SUBOPTARG
+extern char *suboptarg;
+#else
+#endif
+int
+ccze_getsubopt (char **optionp, char *const *tokens,
+		char **valuep)
+{
+  int i = getsubopt (optionp, tokens, valuep);
+#if HAVE_SUBOPTARg
+  if (!*valuep && suboptarg)
+    *valuep = strdup (suboptarg);
+#endif
+  return i;
 }
 #endif
 

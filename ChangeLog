@@ -2,6 +2,27 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-11 08:14:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-224
+
+    Summary:
+      ccze_getsubopt() redesign
+    Revision:
+      ccze--0.1--patch-224
+
+    * configure.ac: Lift the suboptarg check from Thy, and drop the
+      previous getsubopt() checks.
+    * src/ccze-compat.h (ccze_getsubopt): Define this unconditionally.
+    * src/ccze-compat.c [HAVE_GETSUBOPT] (ccze_getsubopt): New function.
+      [!HAVE_GETSUBOPT] (getsubopt): Renamed to...
+      [!HAVE_GETSUBOPT] (ccze_getsubopt): ...this.
+    * src/ccze.c (parse_opt): Updated to new ccze_getsubopt calling
+      conventions.
+
+    modified files:
+     ChangeLog configure.ac src/ccze-compat.c src/ccze-compat.h
+     src/ccze.c
+
+
 2003-03-08 11:39:34 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-223
 
     Summary:

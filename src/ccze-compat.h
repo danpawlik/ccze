@@ -32,10 +32,8 @@
 #ifndef HAVE_STRNDUP
 char *strndup (const char *s, size_t size);
 #endif
-#ifndef HAVE_GETSUBOPT
-int getsubopt (char **optionp, char *const *tokens,
-	       char **valuep);
-#endif
+int ccze_getsubopt (char **optionp, char *const *tokens,
+		    char **valuep);
 
 #ifndef HAVE_SCANDIR
 int scandir (const char *dir, struct dirent ***namelist,
