@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-12-02 14:53:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-102
+
+    Summary:
+      Fetchmail log colorisation
+    Revision:
+      ccze--0.1--patch-102
+
+    * src/ccze-fetchmail.c: New file.
+    * configure.ac (ALL_PLUGINS): Added fetchmail.
+    * doc/ccze.1.in (PLUGINS): Documented it.
+
+    new files:
+     src/.arch-ids/ccze-fetchmail.c.id src/ccze-fetchmail.c
+
+    modified files:
+     ChangeLog configure.ac doc/ccze.1.in
+
+
 2002-11-29 22:48:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-101
 
     Summary:
