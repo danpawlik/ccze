@@ -1,5 +1,11 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.108 [Devorzhum] -- 2003-01-10.
+
+In this release experimental HTML output was added. It is not really
+customisable yet, but produces usable output (better than that of
+colorize! :).
+
 * CCZE 0.1.103 [For My Fallen Angel] -- 2002.12.02.
 
 Many internal cleanups and documentation updates, support for built-in

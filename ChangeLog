@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-11 02:56:45 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-108
+
+    Summary:
+      The `Devorzhum' release.
+    Revision:
+      ccze--0.1--patch-108
+
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+    * debian/copyright: Refer to .../stable/.
+    * debian/control (Standards-Version): Bumped to 3.5.8.
+    * TODO: Extended the HTML output entry.
+
+    modified files:
+     ChangeLog NEWS TODO debian/changelog debian/control
+     debian/copyright
+
+
 2003-01-09 22:53:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-107
 
     Summary:
