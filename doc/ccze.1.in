@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-02-08" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-02-12" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -106,6 +106,8 @@ release:
 .TP
 .IR apm
 For coloring apmd's logs.
+.TP distcc
+For coloring distccd's logs. (See \fIdistccd\fR(1))
 .TP
 .IR exim
 For coloring exim's \fImain.log\fR. (See \fIexim\fR(8))

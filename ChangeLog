@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-12 21:57:46 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-183
+
+    Summary:
+      mod_distcc
+    Revision:
+      ccze--0.1--patch-183
+
+    * src/mod_distcc.c: New file.
+    * ccze.plugins: Added distcc.
+    * doc/ccze.1.in: Documented it.
+
+    new files:
+     src/.arch-ids/mod_distcc.c.id src/mod_distcc.c
+
+    modified files:
+     ChangeLog ccze.plugins doc/ccze.1.in
+
+
 2003-02-12 18:56:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-182
 
     Summary:
