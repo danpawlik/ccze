@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 22:16:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-162
+
+    Summary:
+      mod_icecast
+    Revision:
+      ccze--0.1--patch-162
+
+    * src/mod_icecast.c: New file.
+    * configure.ac (ALL_PLUGINS): Added icecast.
+    * doc/ccze.1.in (PLUGINS): Added a note about it.
+    * TODO: Removed relevant entry.
+
+    new files:
+     src/.arch-ids/mod_icecast.c.id src/mod_icecast.c
+
+    modified files:
+     ChangeLog TODO configure.ac doc/ccze.1.in
+
+
 2003-02-07 21:44:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-161
 
     Summary:
