@@ -73,10 +73,11 @@ ccze_procmail_process (const char *str, int *offsets, int match)
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space2);
 
   if (!strcasecmp ("folder:", header))
-    CCZE_ADDSTR (CCZE_COLOR_SIZE, extra);
-  if (!strcasecmp ("from", header))
-    CCZE_ADDSTR (CCZE_COLOR_DATE, extra);
+    col = CCZE_COLOR_SIZE;
+  else if (!strcasecmp ("from", header))
+    col = CCZE_COLOR_DATE;
 
+  CCZE_ADDSTR (col, extra);
   CCZE_NEWLINE();
     
   free (extra);
