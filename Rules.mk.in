@@ -50,8 +50,8 @@ DISTFILES	= ${SOURCES} ${HEADERS} ${HTML_FILES} ${MAN} \
 		Makefile.in ${EXTRA_DIST}
 
 INCLUDES	= -I. -I${srcdir} -I${top_builddir}
-DEFINES		= -DPATCHLEVEL=\"${PATCHLEVEL}\" -DEXTRAVERSION=\"${EXTRAVERSION}\" \
-		-DSYSCONFDIR=\"${sysconfdir}\" -D_GNU_SOURCE=1
+DEFINES		= -DPATCHLEVEL=\"${PATCHLEVEL}\" -DSYSCONFDIR=\"${sysconfdir}\" \
+		-D_GNU_SOURCE=1
 WFLAGS		= -Werror -Wshadow -Wpointer-arith -Waggregate-return \
 		-Wstrict-prototypes -Wmissing-prototypes -Wcast-qual \
 		-Wbad-function-cast -Wsign-compare -Wchar-subscripts \
