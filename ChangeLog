@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 12:28:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-231
+
+    Summary:
+      FAQ update
+    Revision:
+      ccze--0.1--patch-231
+
+    * FAQ: Added a new Q&A.
+
+    modified files:
+     ChangeLog FAQ
+
+
 2003-03-29 12:17:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-230
 
     Summary:
