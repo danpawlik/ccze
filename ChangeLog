@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-29 17:18:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-66
+
+    Summary:
+      Folded a set of options into --options
+    Revision:
+      ccze--0.1--patch-66
+
+    * src/ccze.c: Folded --no-* and --scroll into --options
+      [no]{scroll,wordcolor,lookups}.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-09-28 20:47:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-65
 
     Summary:

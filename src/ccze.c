@@ -55,10 +55,9 @@ static struct argp_option options[] = {
   {NULL, 0, NULL, 0, "", 1},
   {"rcfile", 'F', "FILE", 0, "Read configuration from FILE", 1},
   {"scroll", 's', NULL, 0, "Enable scrolling", 1},
-  {"no-scroll", -100, NULL, 0, "Disable scrolling", 1},
+  {"options", 'o', "OPTIONS...", 0, "Toggle some options\n"
+   "(such as scroll, wordcolor and lookups)", 1},
   {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
-  {"no-word-color", -101, NULL, 0, "Disable word coloring", 1},
-  {"no-service-lookup", -102, NULL, 0, "Disable service lookups", 1},
   {"plugin", 'p', "PLUGIN", 0, "Load PLUGIN", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
@@ -66,9 +65,32 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state);
 static struct argp argp =
   {options, parse_opt, 0, "ccze -- cheer up 'yer logs.", NULL, NULL, NULL};
 
+enum
+{
+  CCZE_O_SUBOPT_SCROLL = 0,
+  CCZE_O_SUBOPT_NOSCROLL,
+  CCZE_O_SUBOPT_WORDCOLOR,
+  CCZE_O_SUBOPT_NOWORDCOLOR,
+  CCZE_O_SUBOPT_LOOKUPS,
+  CCZE_O_SUBOPT_NOLOOKUPS,
+  CCZE_O_SUBOPT_END
+};
+
+static char *o_subopts[] = {
+  [CCZE_O_SUBOPT_SCROLL] = "scroll",
+  [CCZE_O_SUBOPT_NOSCROLL] = "noscroll",
+  [CCZE_O_SUBOPT_WORDCOLOR] = "wordcolor",
+  [CCZE_O_SUBOPT_NOWORDCOLOR] = "nowordcolor",
+  [CCZE_O_SUBOPT_LOOKUPS] = "lookups",
+  [CCZE_O_SUBOPT_NOLOOKUPS] = "nolookups",
+  [CCZE_O_SUBOPT_END] = NULL
+};
+
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
 {
+  char *subopts, *value;
+  
   switch (key)
     {
     case 'p':
@@ -83,20 +105,38 @@ parse_opt (int key, char *arg, struct argp_state *state)
     case 'F':
       ccze_config.rcfile = arg;
       break;
-    case 's':
-      ccze_config.scroll = 1;
-      break;
-    case -100:
-      ccze_config.scroll = 0;
+    case 'o':
+      subopts = optarg;
+      while (*subopts != '\0')
+	{
+	  switch (getsubopt (&subopts, o_subopts, &value))
+	    {
+	    case CCZE_O_SUBOPT_SCROLL:
+	      ccze_config.scroll = 1;
+	      break;
+	    case CCZE_O_SUBOPT_NOSCROLL:
+	      ccze_config.scroll = 0;
+	      break;
+	    case CCZE_O_SUBOPT_WORDCOLOR:
+	      ccze_config.wcol = 1;
+	      break;
+	    case CCZE_O_SUBOPT_NOWORDCOLOR:
+	      ccze_config.wcol = 0;
+	      break;
+	    case CCZE_O_SUBOPT_LOOKUPS:
+	      ccze_config.slookup = 1;
+	      break;
+	    case CCZE_O_SUBOPT_NOLOOKUPS:
+	      ccze_config.slookup = 0;
+	      break;
+	    default:
+	      argp_error (state, "unrecognised option: `%s'", value);
+	      break;
+	    }
+	}
       break;
     case 'C':
       ccze_config.convdate = 1;
-      break;
-    case -101:
-      ccze_config.wcol = 0;
-      break;
-    case -102:
-      ccze_config.slookup = 0;
       break;
     default:
       return ARGP_ERR_UNKNOWN;
