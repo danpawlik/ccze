@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 08:10:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-157
+
+    Summary:
+      Description improvement
+    Revision:
+      ccze--0.1--patch-157
+
+    * debian/control (Description): Rewrote.
+
+    modified files:
+     ChangeLog debian/control
+
+
 2003-02-05 13:44:30 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-156
 
     Summary:

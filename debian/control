@@ -8,6 +8,7 @@ Build-Depends: libpcre3-dev, libncurses5-dev
 Package: ccze
 Architecture: any
 Depends: ${shlibs:Depends}
-Description: A roboust, modular log coloriser in C.
- CCZE is a roboust and modular log colorizer, written to be a drop-in
- replacement for `colorize'.
+Description: A roboust, modular log coloriser.
+ CCZE is a roboust and modular log colorizer, with plugins for apm,
+ exim, fetchmail, httpd, postfix, procmail, squid, syslog, ulogd,
+ vsftpd, xferlog and more.
