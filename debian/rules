@@ -4,7 +4,6 @@
 
 PACKAGE		:= ccze
 PKGDIR		:= ${CURDIR}/debian/${PACKAGE}
-PKGDIR_D	:= ${CURDIR}/debian/colorize
 
 CFLAGS		?= -g
 BGT		:= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
@@ -15,13 +14,6 @@ CFLAGS		+= -O0
 else
 CFLAGS		+= -O2
 endif
-
-ifneq (,$(findstring compat,${DEB_BUILD_OPTIONS}))
-COMPAT		:= binary-colorize
-else
-COMPAT		:=
-endif
-COMPAT_VERSION	:= 0.3.1-3
 
 config.status: configure
 	test -e debian/control
@@ -39,7 +31,7 @@ clean:
 	test -e debian/control && test "x`whoami`" = "xroot"
 	rm -rf debian/${PACKAGE}.substvars ${PKGDIR} debian/files
 	-${MAKE} distclean
-	rm -rf ${PKGDIR} ${PKGDIR_D}
+	rm -rf ${PKGDIR}
 
 install: build
 	test -e debian/control && test "x`whoami`" = "xroot"
@@ -88,22 +80,10 @@ endif
 ## Build the binary package
 	dpkg --build ${PKGDIR} ..
 
-# This target is not built by default, because the version number is
-# hardcoded, and is not supposed to change.
-binary-colorize:
-	test -e debian/control && test "x`whoami`" = "xroot"
-## Install stuff to DEBIAN/
-	install -d ${PKGDIR_D}/DEBIAN
-## Generate DEBIAN/control
-	dpkg-gencontrol -isp -pcolorize -P${PKGDIR_D} -v${COMPAT_VERSION}
-## Build the binary package
-	dpkg --build ${PKGDIR_D} ..
-
-binary-indep: ${COMPAT}
+binary-indep:
 binary-arch: binary-ccze
 
 binary: binary-indep binary-arch
 
-.PHONY: binary binary-arch binary-indep clean build install binary-ccze \
-	binary-colorize
+.PHONY: binary binary-arch binary-indep clean build install binary-ccze
 .SUFFIXES:

@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-09 13:02:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-170
+
+    Summary:
+      colorize built from another source
+    Revision:
+      ccze--0.1--patch-170
+
+    * debian/control (ccze): Replaces: colorize (<= 0.3.1-2)
+      (colorize): Removed.
+    * debian/rules: Removed colorize building code.
+
+    modified files:
+     ChangeLog debian/control debian/rules
+
+
 2003-02-08 22:53:05 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-169
 
     Summary:
