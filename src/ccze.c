@@ -41,6 +41,7 @@ struct
   int convdate;
   int wcol;
   int slookup;
+  int remfac;
   char *rcfile;
   char **pluginlist;
   size_t pluginlist_alloc, pluginlist_len;
@@ -59,6 +60,8 @@ static struct argp_option options[] = {
    "(such as scroll, wordcolor and lookups)", 1},
   {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
   {"plugin", 'p', "PLUGIN", 0, "Load PLUGIN", 1},
+  {"remove-facility", 'r', NULL, 0,
+   "remove syslog-ng's facility from start of the lines", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -104,6 +107,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
     case 'F':
       ccze_config.rcfile = arg;
+      break;
+    case 'r':
+      ccze_config.remfac = 1;
       break;
     case 'o':
       subopts = optarg;
@@ -215,6 +221,7 @@ main (int argc, char **argv)
       
   ccze_config.scroll = 1;
   ccze_config.convdate = 0;
+  ccze_config.remfac = 0;
   ccze_config.wcol = 1;
   ccze_config.slookup = 1;
   ccze_config.rcfile = NULL;
@@ -282,9 +289,17 @@ main (int argc, char **argv)
       int status = 0;
       char *rest = NULL;
       char *tmp = strchr (subject, '\n');
-
+      unsigned int remfac_tmp;
+      
       tmp[0] = '\0';
 
+      if (ccze_config.remfac && (sscanf (subject, "<%u>", &remfac_tmp) > 0))
+	{
+	  tmp = strdup (strchr (subject, '>') + 1);
+	  free (subject);
+	  subject = tmp;
+	}
+            
       i = 0;
       while (plugins[i])
 	{

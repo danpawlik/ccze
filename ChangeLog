@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-29 17:30:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-67
+
+    Summary:
+      --remove-facility
+    Revision:
+      ccze--0.1--patch-67
+
+    * src/ccze.c: Implemented --remove-facility a'la colorize.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-09-29 17:18:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-66
 
     Summary:
