@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-20 15:06:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-194
+
+    Summary:
+      Fixed a typo
+    Revision:
+      ccze--0.1--patch-194
+
+    * src/Makefile.in (ccze-compat.o): Depend on .c, not on itself.
+
+    modified files:
+     ChangeLog src/Makefile.in
+
+
 2003-02-20 15:01:37 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-193
 
     Summary:
