@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-10 09:46:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-177
+
+    Summary:
+      Exim added to the testsuite
+    Revision:
+      ccze--0.1--patch-177
+
+    * testsuite/exim.in: New file.
+    * testsuite/exim.out: Likewise.
+    * testsuite/Makefile.in (EXTRA_DIST): Added them.
+    * testsuite/color.test (SUBTESTS): Added exim.
+
+    new files:
+     testsuite/.arch-ids/exim.in.id testsuite/.arch-ids/exim.ok.id
+     testsuite/exim.in testsuite/exim.ok
+
+    modified files:
+     ChangeLog testsuite/Makefile.in testsuite/color.test
+
+
 2003-02-10 09:18:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-176
 
     Summary:
