@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 14:24:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-236
+
+    Summary:
+      Fixed compile-time warnings
+    Revision:
+      ccze--0.1--patch-236
+
+    * src/ccze.c (ccze_newline): Added a default ccze_mode_t handler.
+      (ccze_addstr_internal): Likewise.
+      (ccze_main): Use sigint_handler() when doing the plugin listing.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-03-29 14:18:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-235
 
     Summary:

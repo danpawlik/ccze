@@ -336,6 +336,8 @@ ccze_newline (void)
     case CCZE_MODE_CURSES:
       addstr ("\n");
       break;
+    default:
+      break;
     }
 }
 
@@ -435,6 +437,8 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
     case CCZE_MODE_CURSES:
       attrset (ccze_color (col));
       addstr (str);
+      break;
+    default:
       break;
     }
 }
@@ -618,7 +622,10 @@ ccze_main (void)
   ccze_plugin_argv_finalise ();
 
   if (ccze_config.mode == CCZE_MODE_PLUGIN_LIST)
-    return ccze_plugin_list_fancy ();
+    {
+      ccze_plugin_list_fancy ();
+      sigint_handler (0);
+    }
   
   ccze_plugin_setup ();
   
