@@ -128,6 +128,7 @@ typedef enum
 
 typedef struct
 {
+  int abi_version;
   void *dlhandle;
   char *name;
   char **argv;
@@ -139,8 +140,10 @@ typedef struct
 
 char **ccze_plugin_argv_get (const char *name);
 
+#define CCZE_ABI_VERSION 1
 #define CCZE_DEFINE_PLUGIN(name,type) \
-ccze_plugin_t ccze_##name##_info = { NULL, \
+ccze_plugin_t ccze_##name##_info = { CCZE_ABI_VERSION, \
+				     NULL, \
 				     # name, NULL, \
 				     ccze_##name##_setup, \
 				     ccze_##name##_shutdown, \

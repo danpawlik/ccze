@@ -112,6 +112,12 @@ _ccze_plugin_load (const char *name, const char *path)
       dlclose (dlhandle);
       return;
     }
+  if (plugin->abi_version != CCZE_ABI_VERSION)
+    {
+      dlclose (dlhandle);
+      return;
+    }
+  
   plugin->dlhandle = dlhandle;
   
   ccze_plugin_add (plugin);

@@ -2,6 +2,30 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-05 15:57:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-216
+
+    Summary:
+      CCZE_ABI_VERSION
+    Revision:
+      ccze--0.1--patch-216
+
+    * src/ccze.h (CCZE_ABI_VERSION): New constant.
+      (ccze_plugin_t): The first member is now an int: abi_version.
+    * src/ccze-plugin.c (_ccze_plugin_load): Do not load the plugin if
+      abi_version does not match.
+    
+    This is a safety barrier. Old plugins had a `void *dlhandle' as their
+    first member, initialised to NULL, thus resulting in a zero abi_version
+    when opened with this later CCZE, therefore, getting rejected instead of
+    causing a segfault later on.
+    
+    Obviously, when the structure changes incompatibly, CCZE_ABI_VERSION
+    will get bumped.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c src/ccze.h
+
+
 2003-03-05 15:10:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-215
 
     Summary:
