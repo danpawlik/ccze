@@ -32,12 +32,12 @@ else
 	fi
 fi
 
-if test -f ${testname}.ok; then
-	TEST_OK_LIST=${TEST_OK_LIST-${testname}.ok}
+if test -f ${srcdir}/${testname}.ok; then
+	TEST_OK_LIST=${TEST_OK_LIST-${srcdir}/${testname}.ok}
 fi
 
-if test -f ${testname}.errok; then
-	TEST_ERROK_LIST=${TEST_ERROK_LIST-${testname}.ok}
+if test -f ${srcdir}/${testname}.errok; then
+	TEST_ERROK_LIST=${TEST_ERROK_LIST-${srcdir}/${testname}.errok}
 fi
 
 # Test against expected output
@@ -80,7 +80,7 @@ esac
 
 for f in ${TEST_ERROK_LIST}; do
 	if test -f $f; then
-		if ${CMP} -s ${testname}.err ${testname}.errok; then
+		if ${CMP} -s ${testname}.err $f; then
 			TEST_ERROK=yes
 		fi
 	fi

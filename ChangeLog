@@ -2,6 +2,26 @@
 # arch-tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-04-26 14:10:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-10
+
+    Summary:
+      Fixed the testsuite
+    Revision:
+      ccze--0.3--patch-10
+
+    * testsuite/do-test: Compare with ${srcdir}/${testname}.ok and .errok,
+      instead of ./${testname}.ok. This way make check will not silently
+      pass in a separate objtree.
+    * testsuite/bug-httpd.ok: Regenerated.
+    * testsuite/bug-procmailsubj.ok: Likewise.
+    * testsuite/bug-procmailsubj.test: Add -p procmail to the CCZE
+      commandline.
+
+    modified files:
+     ChangeLog testsuite/bug-httpd.ok testsuite/bug-procmailsubj.ok
+     testsuite/bug-procmailsubj.test testsuite/do-test
+
+
 2003-04-26 12:45:07 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-9
 
     Summary:
