@@ -2,6 +2,27 @@
 # arch-tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-04-26 11:48:06 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-8
+
+    Summary:
+      Raw ANSI supports background colors
+    Revision:
+      ccze--0.3--patch-8
+
+    * src/ccze-color.c (RAW_ANSI_BOLD): Added one more zero to the end.
+      (RAW_ANSI_UNDERLINE): Likewise.
+      (RAW_ANSI_REVERSE): Likewise.
+      (RAW_ANSI_BLINK): Likewise.
+    * src/ccze.c (ccze_addstr_internal): Added support for ANSI background
+      setting, underline, reverse and blink (though they probably don't
+      work :)
+    
+    Fixes #0000034.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze.c
+
+
 2003-04-24 18:38:19 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-7
 
     Summary:

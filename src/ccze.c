@@ -48,7 +48,7 @@
 #define ESC 0x1b
 
 /* ccze somehow swaped cyan and magenta */
-static int ccze_raw_ansi_color[] = {30,31,32,33,34,36,35,37};
+static int ccze_raw_ansi_color[] = {30, 31, 32, 33, 34, 36, 35, 37};
 
 ccze_config_t ccze_config = {
   .scroll = 1,
@@ -449,25 +449,36 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
     case CCZE_MODE_RAW_ANSI:
       if (str)
 	{
-	  int c = ccze_color(col);
+	  int c = ccze_color (col);
 
 	  printf("%c[22m", ESC); /* default */
 
-	  if (c & 0x100)
-	    printf("%c[1m", ESC);
-
-#if 0
-	  if (c & A_UNDERLINE)
-	    printf("%c[4m", ESC);
-
-	  if (c & A_BLINK)
-	    printf("%c[5m", ESC);
-
-	  if (c & A_REVERSE)
-	    printf("%c[7m", ESC);
-#endif
+	  if (c & 0x1000) /* Bold */
+	    {
+	      printf("%c[1m", ESC);
+	      c ^= 0x1000;
+	    }
 	  
-	  printf("%c[%dm%s", ESC, ccze_raw_ansi_color[c & 0xf], str);
+	  if (c & 0x2000) /* Underline */
+	    {
+	      printf("%c[4m", ESC);
+	      c ^= 0x2000;
+	    }
+	  
+	  if (c & 0x4000) /* Reverse */
+	    {
+	      printf("%c[5m", ESC);
+	      c ^= 0x4000;
+	    }
+	  
+	  if (c & 0x8000) /* Blink */
+	    {
+	      printf("%c[7m", ESC);
+	      c ^= 0x8000;
+	    }
+	  
+	  printf("%c[%dm%c[%dm%s%c[0m", ESC, ccze_raw_ansi_color[c & 0xf], ESC,
+		 ccze_raw_ansi_color[c >> 8] + 10, str, ESC);
 	}
       break;
     case CCZE_MODE_DEBUG:
