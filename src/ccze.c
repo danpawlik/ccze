@@ -383,8 +383,10 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
       if (ccze_config.debug)
 	{
 	  if (str)
-	    printf ("<%s>%s</%s>", ccze_color_lookup_name (col),
-		    str, ccze_color_lookup_name (col));
+	    {
+	      char *cn = ccze_color_lookup_name (col);
+	      printf ("<%s>%s</%s>", cn, str, cn);
+	    }
 	}
       else
 	{

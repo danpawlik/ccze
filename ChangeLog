@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-12 22:13:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-184
+
+    Summary:
+      Fixed an ICC warning
+    Revision:
+      ccze--0.1--patch-184
+
+    * src/ccze.c (ccze_addstr_internal): Use a temporary variable to hold
+      the result of ccze_color_lookup_name().
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-02-12 21:57:46 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-183
 
     Summary:
