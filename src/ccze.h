@@ -123,6 +123,7 @@ typedef enum
 {
   CCZE_PLUGIN_TYPE_FULL,
   CCZE_PLUGIN_TYPE_PARTIAL,
+  CCZE_PLUGIN_TYPE_ANY
 } ccze_plugin_type_t;
 
 typedef struct

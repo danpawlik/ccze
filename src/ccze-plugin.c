@@ -255,7 +255,8 @@ ccze_plugin_run (ccze_plugin_t **pluginset, char *subject, size_t subjlen,
   
   while (pluginset[i])
     {
-      if (pluginset[i]->type == type)
+      if (pluginset[i]->type == type ||
+	  pluginset[i]->type == CCZE_PLUGIN_TYPE_ANY)
 	if ((*handled = (*(pluginset[i]->handler))
 	     (subject, subjlen, rest)) != 0)
 	  {

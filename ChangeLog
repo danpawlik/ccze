@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-03 15:23:09 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-207
+
+    Summary:
+      CCZE_PLUGIN_TYPE_ANY
+    Revision:
+      ccze--0.1--patch-207
+
+    * src/ccze.h (ccze_plugin_type_t): Added CCZE_PLUGIN_TYPE_ANY.
+    * src/ccze-plugin.c (ccze_plugin_run): Run the plugin if it is _ANY,
+      regardless of `type'.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c src/ccze.h
+
+
 2003-03-03 14:15:45 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-206
 
     Summary:
