@@ -104,4 +104,4 @@ ccze_sulog_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (sulog, FULL);
+CCZE_DEFINE_PLUGIN (sulog, FULL, "Coloriser for su(1) logs.");

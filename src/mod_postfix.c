@@ -117,4 +117,4 @@ ccze_postfix_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (postfix, PARTIAL);
+CCZE_DEFINE_PLUGIN (postfix, PARTIAL, "Coloriser for postfix(1) sub-logs.");

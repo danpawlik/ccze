@@ -2,6 +2,34 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 14:18:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-235
+
+    Summary:
+      Added support for listing plugins
+    Revision:
+      ccze--0.1--patch-235
+
+    * src/ccze-private.h (ccze_mode_t): Added a CCZE_MODE_PLUGIN_LIST mode.
+      (ccze_plugin_list_fancy): New prototype.
+    * src/ccze.c (parse_opt): Handle --list-plugins.
+      (main): Added support for the new CCZE_MODE_PLUGIN_LIST mode.
+    * src/ccze.h (ccze_plugin_t): Added a new `desc' member.
+      [CCZE_ABI_VERSION]: Bumped to 2.
+      [CCZE_DEFINE_PLUGIN]: Take a third argument: desc.
+    * src/ccze-plugin.c (ccze_plugin_list_fancy): New function.
+    
+    All plugins updated to CCZE_ABI_VERSION 2 requirements.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c src/ccze-private.h src/ccze.c
+     src/ccze.h src/mod_apm.c src/mod_distcc.c src/mod_exim.c
+     src/mod_fetchmail.c src/mod_httpd.c src/mod_icecast.c
+     src/mod_oops.c src/mod_php.c src/mod_postfix.c
+     src/mod_procmail.c src/mod_proftpd.c src/mod_squid.c
+     src/mod_sulog.c src/mod_super.c src/mod_syslog.c
+     src/mod_ulogd.c src/mod_vsftpd.c src/mod_xferlog.c
+
+
 2003-03-29 13:28:15 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-234
 
     Summary:

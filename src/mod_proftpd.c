@@ -178,4 +178,5 @@ ccze_proftpd_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (proftpd, FULL);
+CCZE_DEFINE_PLUGIN (proftpd, FULL,
+		    "Coloriser for proftpd access and auth logs.");

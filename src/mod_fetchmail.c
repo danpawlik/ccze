@@ -94,4 +94,5 @@ ccze_fetchmail_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (fetchmail, PARTIAL);
+CCZE_DEFINE_PLUGIN (fetchmail, PARTIAL,
+		    "Coloriser for fetchmail(1) sub-logs.");

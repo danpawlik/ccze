@@ -186,4 +186,4 @@ ccze_icecast_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (icecast, FULL);
+CCZE_DEFINE_PLUGIN (icecast, FULL, "Coloriser for Icecast(8) logs.");

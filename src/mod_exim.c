@@ -127,4 +127,4 @@ ccze_exim_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (exim, FULL);
+CCZE_DEFINE_PLUGIN (exim, FULL, "Coloriser for exim logs.");

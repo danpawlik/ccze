@@ -100,4 +100,4 @@ ccze_vsftpd_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (vsftpd, FULL);
+CCZE_DEFINE_PLUGIN (vsftpd, FULL, "Coloriser for vsftpd(8) logs.");

@@ -113,4 +113,4 @@ ccze_oops_handle (const char *str, size_t length, char **rest)
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (oops, FULL);
+CCZE_DEFINE_PLUGIN (oops, FULL, "Coloriser for oops proxy logs.");

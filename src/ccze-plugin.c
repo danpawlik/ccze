@@ -416,3 +416,39 @@ ccze_plugin_name_get (void)
 {
   return plugin_running;
 }
+
+int
+ccze_plugin_list_fancy (void)
+{
+  size_t i;
+
+  printf ("Available plugins:\n\n");
+  printf ("%-10s| %-8s| %s\n", "Name", "Type", "Description");
+  printf ("------------------------------------------------------------\n");
+
+  for (i = 0; i < plugins_len; i++)
+    {
+      if (plugins[i])
+	{
+	  char *type;
+
+	  switch (plugins[i]->type)
+	    {
+	    case CCZE_PLUGIN_TYPE_FULL:
+	      type = "Full";
+	      break;
+	    case CCZE_PLUGIN_TYPE_PARTIAL:
+	      type = "Partial";
+	      break;
+	    case CCZE_PLUGIN_TYPE_ANY:
+	      type = "Any";
+	      break;
+	    }
+	  printf ("%-10s| %-8s| %s\n", plugins[i]->name, type,
+		  (plugins[i]->desc) ? plugins[i]->desc : "Undocumented.");
+	}
+    }
+  plugin_running = NULL;
+
+  return 0;
+}

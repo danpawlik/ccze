@@ -53,6 +53,7 @@ void ccze_plugin_run (ccze_plugin_t **pluginset, char *subject,
 		      ccze_plugin_type_t type, int *handled,
 		      int *status);
 void ccze_plugin_load_all_builtins (void);
+int ccze_plugin_list_fancy (void);
 
 /* ccze-wordcolor.c */
 void ccze_wordcolor_process (const char *msg, int wcol, int slookup);
@@ -65,7 +66,8 @@ typedef enum
   CCZE_MODE_CURSES,
   CCZE_MODE_RAW_ANSI,
   CCZE_MODE_HTML,
-  CCZE_MODE_DEBUG
+  CCZE_MODE_DEBUG,
+  CCZE_MODE_PLUGIN_LIST
 } ccze_mode_t;
 
 typedef struct

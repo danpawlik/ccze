@@ -154,12 +154,13 @@ typedef struct
   ccze_plugin_shutdown_t shutdown;
   ccze_plugin_handle_t handler;
   ccze_plugin_type_t type;
+  char *desc;
 } ccze_plugin_t;
 
 char **ccze_plugin_argv_get (const char *name);
 const char *ccze_plugin_name_get (void);
 
-#define CCZE_ABI_VERSION 1
+#define CCZE_ABI_VERSION 2
 
 #define CCZE_DEFINE_PLUGINS(plugins...) \
 char *ccze_plugin_list[] = { plugins, NULL }
@@ -171,14 +172,14 @@ char ccze_default_plugin[] = # name
 #define __default_plugin(name)
 #endif
 
-#define CCZE_DEFINE_PLUGIN(name,type) \
+#define CCZE_DEFINE_PLUGIN(name,type,desc) \
 ccze_plugin_t ccze_##name##_info = { CCZE_ABI_VERSION, \
 				     NULL, \
 				     # name, NULL, \
 				     ccze_##name##_setup, \
 				     ccze_##name##_shutdown, \
 				     ccze_##name##_handle, \
-				     CCZE_PLUGIN_TYPE_##type } \
+				     CCZE_PLUGIN_TYPE_##type, desc } \
 __default_plugin (name)
 
 #endif /* !_CCZE_H */

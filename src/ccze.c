@@ -88,6 +88,7 @@ static struct argp_option options[] = {
   {"argument", 'a', "PLUGIN=ARGS...", 0, "Add ARGUMENTS to PLUGIN", 1},
   {"debug", 'd', NULL, OPTION_HIDDEN, "Turn on debugging.", 1},
   {"raw-ansi", 'A', NULL, 0, "Generate raw ANSI output", 1},
+  {"list-plugins", 'l', NULL, 0, "List available plugins", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -218,6 +219,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
     case 'd':
       ccze_config.mode = CCZE_MODE_DEBUG;
+      break;
+    case 'l':
+      ccze_config.mode = CCZE_MODE_PLUGIN_LIST;
       break;
     case 'F':
       ccze_config.rcfile = strdup (arg);
@@ -585,6 +589,7 @@ ccze_main (void)
 	      "</head>\n<body bgcolor=\"%s\">\n\n",
 	      argp_program_version, ccze_cssbody_color ());
     }
+  
   signal (SIGINT, sigint_handler);
   signal (SIGHUP, sighup_handler);
   
@@ -611,6 +616,10 @@ ccze_main (void)
     }
 
   ccze_plugin_argv_finalise ();
+
+  if (ccze_config.mode == CCZE_MODE_PLUGIN_LIST)
+    return ccze_plugin_list_fancy ();
+  
   ccze_plugin_setup ();
   
   while ((getline (&subject, &subjlen, stdin) != -1) && !sighup_received)
