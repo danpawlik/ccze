@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-14 10:48:24 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-31
+
+    Summary:
+      An strtok() replacement
+    Revision:
+      ccze--0.1--patch-31
+
+    * src/ccze-wordcolor.c (_my_strbrk): New function. Works almost like
+      strtok(), but does not eat multiple delimiters.
+      (ccze_wordcolor_process): Use it.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c
+
+
 2002-09-14 10:07:15 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-30
 
     Summary:

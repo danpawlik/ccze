@@ -78,7 +78,36 @@ _stolower (const char *str)
   return newstr;
 }
 
-/* FIXME: strtok cuts multiple spaces, which is not good! */
+static char *_strbrk_string;
+static size_t _strbrk_string_len;
+
+static char *
+_my_strbrk (char *str, char delim)
+{
+  char *found;
+      
+  if (str)
+    {
+      _strbrk_string = str;
+      _strbrk_string_len = strlen (str);
+      found = str;
+    }
+  else
+    found = _strbrk_string + 1;
+  
+  if (!_strbrk_string_len)
+    return NULL;
+  while (_strbrk_string_len >= 1 &&
+	 *_strbrk_string != delim)
+    {
+      _strbrk_string++;
+      _strbrk_string_len--;
+    }
+  if (_strbrk_string_len > 0)
+    *_strbrk_string = '\0';
+  return found;
+}
+
 void
 ccze_wordcolor_process (const char *msg, int wcol, int slookup)
 {
@@ -96,7 +125,7 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
       return;
     }
   
-  word = xstrdup (strtok (msg2, " "));
+  word = xstrdup (_my_strbrk (msg2, ' '));
   if (!word)
     {
       CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
@@ -213,7 +242,7 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
       
       free (lword);
       free (word);
-    } while ((word = xstrdup (strtok (NULL, " "))) != NULL);
+    } while ((word = xstrdup (_my_strbrk (NULL, ' '))) != NULL);
 
   free (msg2);
   
