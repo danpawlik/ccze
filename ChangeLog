@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 13:57:34 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-46
+
+    Summary:
+      Load $SYSCONFDIR/cczerc and ~/.cczerc too
+    Revision:
+      ccze--0.1--patch-46
+
+    * src/ccze.c (main): Try loading $SYCONFDIR/cczerc and ~/.cczerc too.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-09-18 13:53:31 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-45
 
     Summary:

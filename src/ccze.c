@@ -195,13 +195,18 @@ main (int argc, char **argv)
   ccze_color_init ();
   endwin();
   ccze_color_load (SYSCONFDIR "/colorizerc");
+  ccze_color_load (SYSCONFDIR "/cczerc");
   home = getenv ("HOME");
   if (home)
     {
       asprintf (&homerc, "%s/.colorizerc", home);
       ccze_color_load (homerc);
       free (homerc);
+      asprintf (&homerc, "%s/.cczerc", home);
+      ccze_color_load (homerc);
+      free (homerc);
     }
+  
   ccze_wordcolor_setup ();
 
   plugins = ccze_plugin_load_all ();
