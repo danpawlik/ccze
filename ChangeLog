@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-29 22:48:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-101
+
+    Summary:
+      Fixed a stupid but in src/Makefile.in
+    Revision:
+      ccze--0.1--patch-101
+
+    * src/Makefile.in (install): It is `ifdef PLUGIN_SHOBJS', not `ifdef
+      ${PLUGIN_SHOBJS}'. This fixes the install problems reported by a few
+      people. Thanks to ciga for helping me track this down.
+      (uninstall): Likewise.
+    * THANKS: Added `ciga' and IRC nicks for the others.
+
+    modified files:
+     ChangeLog THANKS src/Makefile.in
+
+
 2002-11-21 17:29:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-100
 
     Summary:
