@@ -1,3 +1,11 @@
+ccze (0.1.91-1) unstable; urgency=low
+
+  * The `Like Gods of the Sun' release.
+    + Shared objects are linked to the appropriate libraries.
+    + Support for colorising ulogd and apmd logs.
+
+ -- Gergely Nagy <algernon@bonehunter.rulez.org>  Tue, 19 Nov 2002 18:36:40 +0100
+
 ccze (0.1.80-1) unstable; urgency=low
 
   * The `Stance of Evander Sinque' release.

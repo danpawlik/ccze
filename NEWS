@@ -1,5 +1,13 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.91 [Like Gods of the Sun] -- 2002.11.19.
+
+Major restructuring in the plugin code: cleaner, better, lighter. The
+new design allows sub-colorisers, to colorise syslog messages (with
+the date, host and that kind of stuff handled by the syslog module)
+for example. Two such plugins are included: one for ulogd, another for
+apmd.
+
 * CCZE 0.1.80 [The Stance of Evander Sinque] -- 2002.10.12.
 
 This is mainly a minor convenience-enhanced release. The major change
