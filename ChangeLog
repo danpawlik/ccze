@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-20 13:48:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-56
+
+    Summary:
+      Scan ~/.ccze/ for plugins too
+    Revision:
+      ccze--0.1--patch-56
+
+    * src/ccze-plugin.c (_ccze_plugin_load_set): New function.
+      (ccze_plugin_load_all): Utilise _ccze_plugin_load_set() to load
+      plugins from under ~/.ccze/ and PLUGIN_LIBPATH.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2002-09-20 13:09:18 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-55
 
     Summary:

@@ -107,43 +107,86 @@ _ccze_plugin_select (const struct dirent *de)
   return 0;
 }
 
+static int
+_ccze_plugin_loaded (const char *name, ccze_plugin_t **plugins,
+		     size_t plugins_len)
+{
+  size_t i;
+  
+  for (i = 0; i < plugins_len; i++)
+    {
+      if (!strcmp (plugins[i]->name, name))
+	return 1;
+    }
+  return 0;
+}
+
+static void
+_ccze_plugin_load_set (struct dirent ***namelist, ccze_plugin_t ***plugins,
+		       size_t *plugins_alloc, size_t *plugins_len, int nn)
+{
+  int m, n = nn;
+  ccze_plugin_t *plugin;
+
+  m = 0;
+  while (m < n)
+    {
+      char *tmp = strdup ((*namelist)[m]->d_name);
+      char *tmp2 = strstr (tmp, ".so");
+      tmp2[0] = '\0';
+
+      if (!_ccze_plugin_loaded (tmp, *plugins, *plugins_len))
+	{
+	  plugin = ccze_plugin_load (tmp);
+	  free (tmp);
+	  if (plugin)
+	    {
+	      (*plugins)[*plugins_len] = plugin;
+	      (*plugins_len)++;
+	      if ((*plugins_len) >= (*plugins_alloc))
+		{
+		  (*plugins_alloc) *= 2;
+		  (*plugins) = (ccze_plugin_t **)realloc
+		    ((*plugins), (*plugins_alloc) * sizeof (ccze_plugin_t *));
+		}
+	    }
+	}
+      free ((*namelist)[m]);
+      m++;
+    }
+  free (*namelist);
+}
+		       
 ccze_plugin_t **
 ccze_plugin_load_all (void)
 {
   struct dirent **namelist;
-  int n, m;
-  ccze_plugin_t **plugins, *plugin;
+  int n;
+  ccze_plugin_t **plugins;
   size_t plugins_alloc, plugins_len;
-
+  char *homeplugs, *home;
+  
   plugins_alloc = 10;
   plugins_len = 0;
-  plugins = (ccze_plugin_t **)calloc (plugins_alloc, sizeof (ccze_plugin_t *));
+  plugins = (ccze_plugin_t **)calloc (plugins_alloc,
+				      sizeof (ccze_plugin_t *));
+
+  if ((home = getenv ("HOME")) != NULL)
+    {
+      asprintf (&homeplugs, "%s/.ccze/", home);
+      n = scandir (homeplugs, &namelist, _ccze_plugin_select, alphasort);
+      if (n != -1)
+	_ccze_plugin_load_set (&namelist, &plugins, &plugins_alloc,
+			       &plugins_len, n);
+      free (homeplugs);
+    }
 
   n = scandir (PLUGIN_LIBPATH, &namelist, _ccze_plugin_select, alphasort);
-  m = 0;
-  while (m < n)
-    {
-      char *tmp = strdup (namelist[m]->d_name);
-      char *tmp2 = strstr (tmp, ".so");
-      tmp2[0] = '\0';
-      
-      plugin = ccze_plugin_load (tmp);
-      free (tmp);
-      if (plugin)
-	{
-	  plugins[plugins_len] = plugin;
-	  plugins_len++;
-	  if (plugins_len >= plugins_alloc)
-	    {
-	      plugins_alloc *= 2;
-	      plugins = (ccze_plugin_t **)realloc (plugins, plugins_alloc *
-						   sizeof (ccze_plugin_t *));
-	    }
-	}
-      free (namelist[m]);
-      m++;
-    }
+  if (n != -1)
+    _ccze_plugin_load_set (&namelist, &plugins, &plugins_alloc,
+			   &plugins_len, n);
+
   plugins[plugins_len] = NULL;
-  free (namelist);
+  
   return plugins;
 }
