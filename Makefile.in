@@ -12,7 +12,7 @@ EXTRA_DIST	= Rules.mk.in configure configure.ac system.h.in \
 		AUTHORS README NEWS INSTALL TODO THANKS
 
 ## -- Generic rules -- ##
-all install uninstall info dvi html:
+all install uninstall:
 	${MAKE} -C src $@
 
 TAGS::

@@ -12,11 +12,9 @@ VPATH		= ${srcdir}
 prefix		= @prefix@
 exec_prefix	= @exec_prefix@
 sysconfdir	= @sysconfdir@
-pkgconfdir	= ${sysconfdir}/${PROGRAM}
 bindir		= @bindir@
 mandir		= @mandir@
 man1dir		= ${mandir}/man1
-infodir		= @infodir@
 
 CC		= @CC@
 CFLAGS		= @CFLAGS@
@@ -25,9 +23,6 @@ TAR		= tar
 GZIP		= gzip
 TAR_OPTIONS	=
 GZIP_ENV	= --best
-
-MAKEINFO	= @MAKEINFO@
-TEXI2DVI	= @TEXI2DVI@
 
 ETAGS		= etags
 
@@ -46,8 +41,7 @@ endif
 builddir	= @builddir@
 
 PATCHLEVEL	= $(shell head -5 ${top_srcdir}/ChangeLog | tail -1 | sed -e "s,^.*patch-,,g")
-DISTFILES	= ${SOURCES} ${HEADERS} ${HTML_FILES} ${MAN} \
-		Makefile.in ${EXTRA_DIST}
+DISTFILES	= ${SOURCES} ${HEADERS} ${MAN} Makefile.in ${EXTRA_DIST}
 
 INCLUDES	= -I. -I${srcdir} -I${top_builddir}
 DEFINES		= -DPATCHLEVEL=\"${PATCHLEVEL}\" -DSYSCONFDIR=\"${sysconfdir}\" \
@@ -74,10 +68,6 @@ TAGS:: ${SOURCES} ${HEADERS}
 
 .c.o:
 	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
-.texi.dvi:
-	${TEXI2DVI} $< -o $@
-%.html: %.texi
-	${MAKEINFO} $< -o $@ --html --no-split --no-headers
 
 mostlyclean clean::
 	rm -f *~ ${PROGRAM} ${OBJECTS} TAGS
@@ -103,6 +93,6 @@ ${builddir}/Makefile: ${srcdir}/Makefile.in ${top_builddir}/config.status
 
 ## -- ${MAKE} control -- ##
 .PHONY: all install clean distclean mostlyclean uninstall maintainer-clean \
-	distdir dist distcheck html info dvi
-.SUFFIXES: .c.o.texi.info.dvi.html
+	distdir dist distcheck
+.SUFFIXES: .c.o
 .DEFAULT: all

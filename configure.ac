@@ -53,30 +53,6 @@ case ${GCCVER} in
 esac
 AC_SUBST(WFLAGS_3X)
 
-AC_MSG_CHECKING(for new enough texinfo)
-TIVER=$(makeinfo --version 2>/dev/null | head -1 | cut -d" " -f 4)
-case ${TIVER} in
-	4.*)
-		tiok="yes";;
-	*)
-		tiok="no";;
-esac
-if [[ "${tiok}" = "yes" ]]; then
-	TISUB=$(echo ${TIVER} | cut -d "." -f 2)
-	[[ ${TISUB} -lt 2 ]] && tiok="no"
-fi
-if [[ ${tiok} != "no" ]]; then
-	MAKEINFO=makeinfo
-	TEXI2DVI=texi2dvi
-	AC_MSG_RESULT(ok)
-else
-	MAKEINFO='${top_srcdir}/utils/touch'
-	TEXI2DVI='${top_srcdir}/utils/touch'
-	AC_MSG_RESULT(not found)
-fi
-AC_SUBST(MAKEINFO)
-AC_SUBST(TEXI2DVI)
-
 AC_PROG_CC
 AC_PROG_INSTALL
 
