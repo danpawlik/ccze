@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 11:11:39 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-229
+
+    Summary:
+      Whoops..! Corrected Ciga's name.
+    Revision:
+      ccze--0.1--patch-229
+
+    * THANKS: Write Ciga's name in english-style, like all others.
+    
+    Noticed by himself.
+
+    modified files:
+     ChangeLog THANKS
+
+
 2003-03-20 22:52:15 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-228
 
     Summary:
