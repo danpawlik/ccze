@@ -1,5 +1,20 @@
 .\" Hey Emacs! This is -*- nroff -*-!
-.TH CCZE 1 "2002-12-02" "CCZE @VERSION@" CCZE
+.\" Copyright (C) 2002, 2003 Gergely Nagy <algernon@@bonehunter.rulez.org>
+.\"
+.\" Permission is granted to make and distribute verbatim copies of this
+.\" manual provided the copyright notice and this permission notice are
+.\" preserved on all copies.
+.\"
+.\" Permission is granted to copy and distribute modified versions of this
+.\" manual under the conditions for verbatim copying, provided that the
+.\" entire resulting derived work is distributed under the terms of a
+.\" permission notice identical to this one.
+.\"
+.\" Permission is granted to copy and distribute translations of this
+.\" manual into another language, under the above conditions for modified
+.\" versions, except that this permission notice may be stated in a
+.\" translation approved by the Author.
+.TH CCZE 1 "2003-03-10" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -25,6 +40,10 @@ oops and squid logs, for example).
 .B \-F, \-\-rcfile \fIrcfile\fB
 Read \fIrcfile\fR as a configuration file upon startup, instead of the
 default ones.
+.TP
+.B \-h, \-\-html
+Instead of colorising the input onto the console, output it in HTML
+format instead.
 .TP
 .B \-o, \-\-options \fIOPTIONS...\fB
 \fBCCZE\fR is able to toggle some of its features with this

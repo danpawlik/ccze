@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze.h -- Common macros for CCZE
- * Copyright (C) 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *

@@ -2,6 +2,28 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-09 22:53:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-107
+
+    Summary:
+      HTML output
+    Revision:
+      ccze--0.1--patch-107
+
+    * src/ccze.c (parse_opt): Handle 'h'.
+      (ccze_newline): Updated to work when ccze_config.html is true.
+      (ccze_space): Likewise.
+      (ccze_addstr): Likewise.
+      (sigint_handler): Likewise.
+      (main): Likewise.
+      (ccze_color_to_name_html): New function.
+      (ccze_color_to_html): Likewise.
+    * doc/ccze.1.in: Documented --html.
+
+    modified files:
+     ChangeLog doc/ccze.1.in src/ccze-color.c src/ccze-color.h
+     src/ccze-dump.c src/ccze.c src/ccze.h
+
+
 2003-01-09 20:36:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-106
 
     Summary:
