@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-05 01:12:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-154
+
+    Summary:
+      THANKS update
+    Revision:
+      ccze--0.1--patch-154
+
+    * THANKS: Added Alan Schmitt.
+
+    modified files:
+     ChangeLog THANKS
+
+
 2003-02-05 01:03:23 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-153
 
     Summary:
