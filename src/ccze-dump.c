@@ -29,7 +29,7 @@
 #include "ccze-color.c"
 #include "ccze-compat.h"
 
-static ccze_config_t ccze_config = {
+ccze_config_t ccze_config = {
   .scroll = 1,
   .convdate = 0,
   .remfac = 0,

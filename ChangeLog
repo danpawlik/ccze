@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 12:49:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-232
+
+    Summary:
+      Fixed ICC warnings
+    Revision:
+      ccze--0.1--patch-232
+
+    * src/ccze.h [CCZE_DEFINE_PLUGIN]: Do not put a coma after the struct.
+      [!BUILTIN] [__default_plugin]: Start with a coma.
+    * src/ccze-cssdump.c: Do not declare ccze_config static.
+    * src/ccze-dump.c: Likewise.
+
+    modified files:
+     ChangeLog src/ccze-cssdump.c src/ccze-dump.c src/ccze.h
+
+
 2003-03-29 12:28:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-231
 
     Summary:

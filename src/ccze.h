@@ -165,7 +165,7 @@ const char *ccze_plugin_name_get (void);
 char *ccze_plugin_list[] = { plugins, NULL }
 
 #if !defined(BUILTIN)
-#define __default_plugin(name) \
+#define __default_plugin(name) ; \
 char ccze_default_plugin[] = # name
 #else
 #define __default_plugin(name)
@@ -178,7 +178,7 @@ ccze_plugin_t ccze_##name##_info = { CCZE_ABI_VERSION, \
 				     ccze_##name##_setup, \
 				     ccze_##name##_shutdown, \
 				     ccze_##name##_handle, \
-				     CCZE_PLUGIN_TYPE_##type }; \
+				     CCZE_PLUGIN_TYPE_##type } \
 __default_plugin (name)
 
 #endif /* !_CCZE_H */

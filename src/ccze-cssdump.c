@@ -38,7 +38,7 @@ static struct argp_option options[] = {
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 
-static ccze_config_t ccze_config = {
+ccze_config_t ccze_config = {
   .scroll = 1,
   .convdate = 0,
   .remfac = 0,
