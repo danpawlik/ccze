@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-04-01 14:44:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-4
+
+    Summary:
+      Fixed double module loading
+    Revision:
+      ccze--0.3--patch-4
+
+    * src/ccze_plugin.c (_ccze_plugin_allow): Use _ccze_plugin_loaded() to
+      check if the module is already loaded.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2003-03-30 11:56:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-3
 
     Summary:
