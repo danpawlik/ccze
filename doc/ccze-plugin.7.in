@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE\-PLUGIN 1 "2003-02-12" "CCZE @VERSION@" CCZE
+.TH CCZE\-PLUGIN 1 "2003-03-02" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer, plugin infrastructure
 .SH SYNOPSIS
@@ -28,6 +28,8 @@ ccze \- A robust log colorizer, plugin infrastructure
 .BI "size_t " length ", char **" rest );
 
 .BI "CCZE_DEFINE_PLUGIN (" name ", " type );
+
+.BI "char **ccze_plugin_argv_get (const char *" name ");"
 .SH DESCRIPTION
 This manual page attempts to outline the internals of CCZE plugins:  how
 they work, how they are implemented, and how to add new ones.
@@ -78,19 +80,38 @@ is a full plugin, on which \fIulogd\fR, a partial plugin relies.  The
 \fIsyslog\fR plugin processes the raw input from the logfile, adds colour to
 most of it, save the actual message sent by a process, that is left to
 subsequent plugins, like \fIulogd\fR.
+
+There is another helper function, \fIccze_plugin_argv_get\fR. One can pass
+arguments to CCZE plugins, and this is the function to retrieve them. It
+simply returns a NULL\-terminated array, with each entry containing an
+argument.
 .SH EXAMPLE
 .nf
 #include <ccze.h>
 #include <stddef.h>
 #include <string.h>
 
+static char **ccze_foo_argv;
+
 static int
 ccze_foo_handle (const char *str, size_t length, char **rest)
 {
+  int i = 1;
+
   if (strstr (str, "foo"))
     {
       ccze_addstr (CCZE_COLOR_GOODWORD, str);
       return 1;
+    }
+
+  while (ccze_foo_argv[i])
+    {
+      if (strstr (str, ccze_foo_argv[i]))
+        {
+          ccze_addstr (CCZE_COLOR_GOODWORD, str);
+          return 1;
+        }
+      i++;
     }
   return 0;
 }
@@ -98,6 +119,7 @@ ccze_foo_handle (const char *str, size_t length, char **rest)
 static void
 ccze_foo_startup (void)
 {
+  ccze_foo_argv = ccze_plugin_argv_get ("foo");
 }
 
 static void

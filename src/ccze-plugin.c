@@ -34,6 +34,8 @@
 
 static ccze_plugin_t **plugins;
 static size_t plugins_alloc, plugins_len;
+static ccze_plugin_t **plugin_args;
+static size_t plugin_args_alloc, plugin_args_len;
 
 static int
 _ccze_plugin_allow (const char *name)
@@ -82,6 +84,15 @@ ccze_plugin_init (void)
 					   sizeof (ccze_plugin_t *));
 }
 
+void
+ccze_plugin_argv_init (void)
+{
+  plugin_args_alloc = 10;
+  plugin_args_len = 0;
+  plugin_args = (ccze_plugin_t **)ccze_calloc (plugin_args_alloc,
+					       sizeof (ccze_plugin_t *));
+}
+
 static void
 _ccze_plugin_load (const char *name, const char *path)
 {
@@ -102,6 +113,8 @@ _ccze_plugin_load (const char *name, const char *path)
       return;
     }
   plugin->dlhandle = dlhandle;
+  plugin->argv = (char **)ccze_calloc (1, sizeof (char *));
+  plugin->argv[0] = strdup (name);
   
   ccze_plugin_add (plugin);
 }
@@ -136,16 +149,25 @@ _ccze_plugin_select (const struct dirent *de)
   return 0;
 }
 
-static int
-_ccze_plugin_loaded (const char *name)
+static ccze_plugin_t *
+_ccze_plugin_find (const char *name)
 {
   size_t i;
   
   for (i = 0; i < plugins_len; i++)
     {
       if (!strcmp (plugins[i]->name, name))
-	return 1;
+	return plugins[i];
     }
+  return NULL;
+}
+
+static int
+_ccze_plugin_loaded (const char *name)
+{
+  if (_ccze_plugin_find (name))
+    return 1;
+
   return 0;
 }
 
@@ -218,6 +240,7 @@ ccze_plugin_shutdown (void)
       if (plugins[i])
 	{
 	  (*(plugins[i]->shutdown)) ();
+	  free (plugins[i]->argv);
 	  if (plugins[i]->dlhandle)
 	    dlclose (plugins[i]->dlhandle);
 	}
@@ -243,4 +266,80 @@ ccze_plugin_run (ccze_plugin_t **pluginset, char *subject, size_t subjlen,
 	  }
       i++;
     }
+}
+
+char **
+ccze_plugin_argv_get (const char *name)
+{
+  ccze_plugin_t *p = _ccze_plugin_find (name);
+
+  if (!p)
+    return NULL;
+  return p->argv;
+}
+
+int
+ccze_plugin_argv_set (const char *name, const char *args)
+{
+  ccze_plugin_t *p = NULL;
+  size_t i, j = 1;
+  char *args_copy, *arg;
+
+  if (!args || !name)
+    return -1;
+  
+  for (i = 0; i < plugin_args_len; i++)
+    {
+      if (!strcmp (plugin_args[i]->name, name))
+	p = plugin_args[i];
+    }
+
+  if (p)
+    {
+      free (p->argv);
+      p->argv = NULL;
+    }
+  else
+    {
+      p = (ccze_plugin_t *)ccze_malloc (sizeof (ccze_plugin_t));
+      p->name = strdup (name);
+      p->argv = NULL;
+      i = plugin_args_len++;
+      if (plugin_args_len >= plugin_args_alloc)
+	{
+	  plugin_args_alloc *= 2;
+	  plugin_args = (ccze_plugin_t **)ccze_realloc
+	    (plugin_args, plugin_args_alloc * sizeof (ccze_plugin_t *));
+	}
+    }
+
+  args_copy = strdup (args);
+  arg = strtok (args_copy, " \t\n");
+  do
+    {
+      p->argv = (char **)ccze_realloc (p->argv, (j + 1) * sizeof (char *));
+      p->argv[j++] = strdup (arg);
+    } while ((arg = strtok (NULL, " \t\n")) != NULL);
+  p->argv = (char **)ccze_realloc (p->argv, (j + 1) * sizeof (char *));
+  p->argv[j] = NULL;
+  plugin_args[i] = p;
+  free (args_copy);
+  
+  return 1;
+}
+
+void
+ccze_plugin_argv_finalise (void)
+{
+  ccze_plugin_t *p;
+  size_t i;
+
+  for (i = 0; i < plugin_args_len; i++)
+    {
+      p = _ccze_plugin_find (plugin_args[i]->name);
+      if (p)
+	p->argv = plugin_args[i]->argv;
+      free (plugin_args[i]);
+    }
+  free (plugin_args);
 }

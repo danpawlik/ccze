@@ -128,15 +128,18 @@ typedef struct
 {
   void *dlhandle;
   char *name;
+  char **argv;
   ccze_plugin_startup_t startup;
   ccze_plugin_shutdown_t shutdown;
   ccze_plugin_handle_t handler;
   ccze_plugin_type_t type;
 } ccze_plugin_t;
 
+char **ccze_plugin_argv_get (const char *name);
+
 #define CCZE_DEFINE_PLUGIN(name,type) \
 ccze_plugin_t ccze_##name##_info = { NULL, \
-				     # name, \
+				     # name, NULL, \
 				     ccze_##name##_setup, \
 				     ccze_##name##_shutdown, \
 				     ccze_##name##_handle, \

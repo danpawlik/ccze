@@ -38,6 +38,9 @@ char *ccze_cssbody_color (void);
 
 /* ccze-plugin.c */
 void ccze_plugin_init (void);
+void ccze_plugin_argv_init (void);
+int ccze_plugin_argv_set (const char *name, const char *args);
+void ccze_plugin_argv_finalise (void);
 ccze_plugin_t **ccze_plugins (void);
 void ccze_plugin_load_all (void);
 void ccze_plugin_load (const char *name);

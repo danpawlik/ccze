@@ -2,6 +2,42 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-02 17:20:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-202
+
+    Summary:
+      Support for passing arguments to plugins
+    Revision:
+      ccze--0.1--patch-202
+
+    * src/ccze.h (ccze_plugin_t): Added an ->argv member.
+      (CCZE_DEFINE_PLUGIN): Modified accordingly.
+      (ccze_plugin_argv_get): New function prototype.
+    * src/ccze-private.h (ccze_plugin_argv_init): New function prototype.
+      (ccze_plugin_argv_set): Likewise.
+      (ccze_plugin_argv_finalise): Likewise.
+    * src/ccze-plugin.c (ccze_plugin_argv_init): New function.
+      (ccze_plugin_argv_set): Likewise.
+      (ccze_plugin_argv_finalise): Likewise.
+      (ccze_plugin_argv_get): Likewise.
+      (_ccze_plugin_load): Initialise ->argv.
+      (_ccze_plugin_find): New function.
+      (_ccze_plugin_loaded): Use it.
+      (ccze_plugin_shutdown): Free ->argv.
+    * src/ccze.c (options): Added --argument.
+      (parse_opt): Handle it.
+      (ccze_main): Call ccze_plugin_init() earlier, and
+      ccze_plugin_argv_finalise() after loading the plugins.
+      (main): Call ccze_plugin_argv_init().
+    * src/Makefile.in (ccze-dump): Depend on ccze-color.c too.
+      (ccze-cssdump): Likewise.
+    * doc/ccze.1: Documented --argument.
+    * doc/ccze-plugin.7.in: Documented ccze_plugin_argv_get().
+
+    modified files:
+     ChangeLog doc/ccze-plugin.7.in doc/ccze.1.in src/Makefile.in
+     src/ccze-plugin.c src/ccze-private.h src/ccze.c src/ccze.h
+
+
 2003-02-25 09:38:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-201
 
     Summary:

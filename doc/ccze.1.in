@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-02-12" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-03-02" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -32,6 +32,10 @@ and features.
 These programs follow the usual GNU command line syntax, with long
 options starting with two dashes (`-'). A summary of options is
 included below.
+.TP
+.B \-a, \-\-argument \fIPLUGIN=ARGUMENTS\fB
+Use this option to pass \fIARGUMENTS\fR to the specified
+\fIPLUGIN\fR.
 .TP
 .B \-c, \-\-color \fIKEY=COLOR\fB
 Set the color of the keyword \fIKEY\fR to \fICOLOR\fR, like one would
@@ -169,6 +173,8 @@ colors used by the program to his liking. See the comments in the
 beginning of \fI@sysconfdir@/cczerc\fR for a description on the files'
 structure.
 .RE
+.SH "NOTES"
+At the moment, there are no plugins which support arguments.
 .SH "SEE ALSO"
 .BR colorize (1)
 .SH AUTHOR

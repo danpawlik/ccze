@@ -81,6 +81,7 @@ static struct argp_option options[] = {
   {"remove-facility", 'r', NULL, 0,
    "remove syslog-ng's facility from start of the lines", 1},
   {"color", 'c', "KEY=COLOR,...", 0, "Set the color of KEY to COLOR", 1},
+  {"argument", 'a', "PLUGIN=ARGS...", 0, "Add ARGUMENTS to PLUGIN", 1},
   {"debug", 'd', NULL, OPTION_HIDDEN, "Turn on debugging.", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
@@ -161,7 +162,7 @@ xstrdup (const char *str)
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
 {
-  char *subopts, *value;
+  char *subopts, *value, *plugin;
   
   switch (key)
     {
@@ -181,6 +182,12 @@ parse_opt (int key, char *arg, struct argp_state *state)
 				       sizeof (char *));
 	    }
 	}
+      break;
+    case 'a':
+      plugin = strtok (optarg, "=");
+      value = strtok (NULL, "\n");
+      ccze_plugin_argv_set (plugin, value);
+      fprintf (stderr, "%s->%s\n", plugin, value);
       break;
     case 'p':
       subopts = arg;
@@ -455,6 +462,7 @@ ccze_main (void)
 
   sighup_received = 0;
   ccze_color_init ();
+  ccze_plugin_init ();
 
   if (ccze_config.rcfile)
     ccze_color_load (ccze_config.rcfile);
@@ -535,7 +543,6 @@ ccze_main (void)
   
   ccze_wordcolor_setup ();
 
-  ccze_plugin_init ();
   if (ccze_config.pluginlist_len == 0)
     ccze_plugin_load_all ();
   else
@@ -548,13 +555,15 @@ ccze_main (void)
   ccze_plugin_finalise ();
       
   i = 0;
-  plugins = ccze_plugins();
+  plugins = ccze_plugins ();
   if (!plugins[0])
     {
       endwin ();
       fprintf (stderr, "ccze: No plugins found. Exiting.\n");
       exit (1);
     }
+
+  ccze_plugin_argv_finalise ();
   
   while (plugins[i])
     (*(plugins[i++]->startup))();
@@ -619,6 +628,7 @@ main (int argc, char **argv)
 						 sizeof (char *));
   ccze_config.color_argv = (char **)ccze_calloc (ccze_config.color_argv_alloc,
 						 sizeof (char *));
+  ccze_plugin_argv_init ();
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 
   do
