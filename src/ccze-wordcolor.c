@@ -245,8 +245,6 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
       free (pre);
     } while ((word = xstrdup (_my_strbrk (NULL, ' '))) != NULL);
 
-  free (word);
-  free (lword);
   free (msg2);
   
   return;
