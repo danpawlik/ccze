@@ -14,6 +14,7 @@ EXTRA_DIST	= Rules.mk.in configure configure.ac system.h.in \
 ## -- Generic rules -- ##
 all install uninstall:
 	${MAKE} -C doc $@
+	${MAKE} -C etc $@
 	${MAKE} -C src $@
 
 TAGS::
@@ -21,11 +22,13 @@ TAGS::
 
 mostlyclean clean::
 	${MAKE} -C doc $@
+	${MAKE} -C etc $@
 	${MAKE} -C src $@
 	rm -rf *~ ++* ,,* gmon.out bb.out
 
 distclean:: clean
 	${MAKE} -C doc $@
+	${MAKE} -C etc $@
 	${MAKE} -C src $@
 	rm -rf config.cache config.status config.log \
 	       autom4te.cache system.h Makefile Rules.mk *~
@@ -38,6 +41,7 @@ dist:
 	test -z "${distdir}" || rm -rf "${distdir}"
 	${MAKE} distdir
 	${MAKE} -C doc distdir
+	${MAKE} -C etc distdir
 	${MAKE} -C src distdir
 	${TAR} ${TAR_OPTIONS} -cf - ${PACKAGE}-${VERSION} | ${GZIP} ${GZIP_ENV} >${PACKAGE}-${VERSION}.tar.gz
 	test -z "${distdir}" || rm -rf "${distdir}"

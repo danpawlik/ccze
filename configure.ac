@@ -87,6 +87,7 @@ AC_CONFIG_FILES([
 Rules.mk
 Makefile
 doc/Makefile
+etc/Makefile
 src/Makefile
 ])
 

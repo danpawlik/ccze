@@ -2,6 +2,29 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 14:41:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-50
+
+    Summary:
+      Introducing: etc/cczerc
+    Revision:
+      ccze--0.1--patch-50
+
+    * etc/cczerc: New file.
+    * etc/Makefile.in: New file.
+    * configure.ac: Generate etc/Makefile.
+    * Makefile.in: Recurse into etc/ too.
+
+    new files:
+     etc/.arch-ids/=id etc/.arch-ids/Makefile.in.id
+     etc/.arch-ids/cczerc.id etc/Makefile.in etc/cczerc
+
+    modified files:
+     ChangeLog Makefile.in configure.ac
+
+    new directories:
+     etc/.arch-ids etc
+
+
 2002-09-18 14:30:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-49
 
     Summary:
