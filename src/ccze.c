@@ -344,22 +344,18 @@ main (int argc, char **argv)
 	  free (subject);
 	  subject = tmp;
 	}
-            
-      i = 0;
-      while (plugins[i])
-	{
-	  if ((handled = (*(plugins[i++]->handler))
-	       (subject, subjlen, &rest)) != 0)
-	    {
-	      status = handled;
-	      break;
-	    }
-	}
 
+      ccze_plugin_run (plugins, subject, subjlen, &rest,
+		       CCZE_PLUGIN_TYPE_FULL, &handled, &status);
+      
       if (rest)
 	{
-	  ccze_wordcolor_process (rest, ccze_config.wcol,
-				  ccze_config.slookup);
+	  handled = 0;
+	  ccze_plugin_run (plugins, rest, strlen (rest), NULL,
+			   CCZE_PLUGIN_TYPE_PARTIAL, &handled, &status);
+	  if (handled == 0)
+	    ccze_wordcolor_process (rest, ccze_config.wcol,
+				    ccze_config.slookup);
 	  CCZE_NEWLINE ();
 	  free (rest);
 	}

@@ -193,3 +193,23 @@ ccze_plugin_shutdown (void)
     }
   free (plugins);
 }
+
+void
+ccze_plugin_run (ccze_plugin_t **pluginset, char *subject, size_t subjlen,
+		 char **rest, ccze_plugin_type_t type, int *handled,
+		 int *status)
+{
+  int i = 0;
+  
+  while (pluginset[i])
+    {
+      if (pluginset[i]->type == type)
+	if ((*handled = (*(pluginset[i]->handler))
+	     (subject, subjlen, rest)) != 0)
+	  {
+	    *status = *handled;
+	    break;
+	  }
+      i++;
+    }
+}

@@ -32,34 +32,15 @@ static void ccze_ulogd_setup (void);
 static void ccze_ulogd_shutdown (void);
 static int ccze_ulogd_handle (const char *str, size_t length, char **rest);
 
-static pcre *reg_ulogd, *reg_ulogd_sub;
-static pcre_extra *hints_ulogd;
+static pcre *reg_ulogd;
 
 static char *
-ccze_ulogd_process (const char *str, int *offsets, int match)
+ccze_ulogd_process (const char *msg)
 {
-  char *date = NULL, *host = NULL, *chain = NULL;
-  char *msg = NULL, *word, *field, *value, *tmp;
+  char *word, *tmp, *field, *value;
+  char *msg2 = xstrdup (msg);
   
-  pcre_get_substring (str, offsets, match, 1, (const char **)&date);
-  pcre_get_substring (str, offsets, match, 2, (const char **)&host);
-  pcre_get_substring (str, offsets, match, 4, (const char **)&chain);
-  pcre_get_substring (str, offsets, match, 5, (const char **)&msg);
-
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
-  ccze_space ();
-
-  CCZE_ADDSTR (CCZE_COLOR_HOST, host);
-  ccze_space ();
-  
-  CCZE_ADDSTR (CCZE_COLOR_CHAIN, chain);
-  ccze_space ();
-
-  free (date);
-  free (host);
-  free (chain);
-
-  word = xstrdup (ccze_strbrk (msg, ' '));
+  word = xstrdup (ccze_strbrk (msg2, ' '));
   do
     {
       if ((tmp = strchr (word, '=')) != NULL)
@@ -77,8 +58,8 @@ ccze_ulogd_process (const char *str, int *offsets, int match)
 	  ccze_space ();
 	}
     } while ((word = xstrdup (ccze_strbrk (NULL, ' '))) != NULL);
-  free (msg);
-
+  free (msg2);
+  
   return NULL;
 }
 
@@ -88,11 +69,7 @@ ccze_ulogd_setup (void)
   const char *error;
   int errptr;
 
-  reg_ulogd = pcre_compile ("^(\\S*\\s{1,2}\\d{1,2}\\s\\d\\d:\\d\\d:\\d\\d)"
-			     "\\s(\\S+)\\s((\\S+:?)\\s(.*))$", 0, &error,
-			     &errptr, NULL);
-  hints_ulogd = pcre_study (reg_ulogd, 0, &error);
-  reg_ulogd_sub = pcre_compile
+  reg_ulogd = pcre_compile
     ("(IN|OUT|MAC|TTL|SRC|TOS|PREC|SPT)=", 0, &error,
      &errptr, NULL);
 }
@@ -101,24 +78,24 @@ static void
 ccze_ulogd_shutdown (void)
 {
   free (reg_ulogd);
-  free (hints_ulogd);
-  free (reg_ulogd_sub);
 }
 
 static int
 ccze_ulogd_handle (const char *str, size_t length, char **rest)
 {
-  int match, offsets[99];
-    
-  if (((match = pcre_exec (reg_ulogd, hints_ulogd, str, length,
-			   0, 0, offsets, 99)) >= 0) &&
-      (pcre_exec (reg_ulogd_sub, NULL, str, length, 0, 0, NULL, 0) >= 0))
+  int offsets[10];
+  
+  if (pcre_exec (reg_ulogd, NULL, str, length, 0, 0, offsets, 2) >= 0)
     {
-      *rest = ccze_ulogd_process (str, offsets, match);
+      if (rest)
+	*rest = ccze_ulogd_process (str);
+      else
+	ccze_ulogd_process (str);
+      
       return 1;
     }
   
   return 0;
 }
 
-CCZE_DEFINE_PLUGIN (ulogd, "ulogd", FULL);
+CCZE_DEFINE_PLUGIN (ulogd, "ulogd", PARTIAL);

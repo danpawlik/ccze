@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-18 21:41:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-87
+
+    Summary:
+      Implemented partial coloriser plugin support
+    Revision:
+      ccze--0.1--patch-87
+
+    * src/ccze-plugin.h (ccze_plugin_run): New prototype.
+    * src/ccze-plugin.c (ccze_plugin_run): New function.
+    * src/ccze.c (main): Use it, and if there are pending stuff after all
+      full plugins were run, filter the rest of the input through the
+      partial ones, and only then through wordcolor.
+    * src/ccze-ulogd.c: Converted to a partial plugin. Yay!
+
+    modified files:
+     ChangeLog src/ccze-plugin.c src/ccze-plugin.h src/ccze-ulogd.c
+     src/ccze.c
+
+
 2002-11-18 21:12:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-86
 
     Summary:
