@@ -23,6 +23,7 @@
 #define _CCZE_H 1
 
 #include "ccze-color.h"
+#include <curses.h>
 
 #define CCZE_ADDSTR(col,str) { attrset (ccze_color (col)) ; addstr (str); }
 #define ccze_space() CCZE_ADDSTR (CCZE_COLOR_DEFAULT, " ")
