@@ -1,5 +1,5 @@
-ccze (0-0) experimental; urgency=low
+ccze (0.1.70-1) unstable; urgency=low
 
-  * UNRELEASED.
+  * The `Edenbeast' release.
 
- -- Gergely Nagy <algernon@debian.org>  Mon,  9 Sep 2002 16:27:18 +0200
+ -- Gergely Nagy <algernon@debian.org>  Thu,  3 Oct 2002 15:33:48 +0200

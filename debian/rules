@@ -5,9 +5,15 @@
 PACKAGE		 = ccze
 PKGDIR		 = ${CURDIR}/debian/${PACKAGE}
 
-CFLAGS		?= -Wno-error -O2 -g
+CFLAGS		?= -Wno-error -g
 BGT		:= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 HGT		:= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
+
+ifneq (,$(findstring noopt,${DEB_BUILD_OPTIONS}))
+CFLAGS		+= -O0
+else
+CFLAGS		+= -O2
+endif
 
 config.status: configure
 	test -e debian/control
@@ -59,7 +65,8 @@ endif
 			${PKGDIR}/usr/bin/ccze ${PKGDIR}/usr/lib/ccze/*.so
 ## Install stuff to DEBIAN/
 	install -d ${PKGDIR}/DEBIAN
-	install -m 0644 debian/maint/conffiles ${PKGDIR}/DEBIAN
+	cd ${PKGDIR} >/dev/null ;\
+	 find etc -type f -printf "/%p\n" >DEBIAN/conffiles
 ## Generate DEBIAN/md5sums
 	cd ${PKGDIR} >/dev/null ;\
 	 find * -type f ! -regex '^DEBIAN/.*' -print0 | xargs -r0 md5sum > DEBIAN/md5sums

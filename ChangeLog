@@ -2,6 +2,35 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-03 13:43:28 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-70
+
+    Summary:
+      The `Edenbeast' release
+    Revision:
+      ccze--0.1--patch-70
+
+      All are welcome here
+      To the Eden Feast
+      Enter if you will
+      This is Edenbeast
+    
+    * debian/maint/conffiles: Removed.
+    * debian/rules: Support DEB_BUILD_OPTIONS=noopt, and generate
+      DEBIAN/conffiles.
+    * NEWS: Added release notes.
+    * debian/changelog: Likewise.
+
+    removed files:
+     debian/maint/.arch-ids/=id debian/maint/.arch-ids/conffiles.id
+     debian/maint/conffiles
+
+    modified files:
+     ChangeLog NEWS debian/changelog debian/rules
+
+    removed directories:
+     debian/maint/.arch-ids debian/maint
+
+
 2002-10-01 12:25:53 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-69
 
     Summary:
