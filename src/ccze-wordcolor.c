@@ -92,10 +92,18 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
   if (!wcol)
     {
       CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
+      free (msg2);
       return;
     }
   
   word = xstrdup (strtok (msg2, " "));
+  if (!word)
+    {
+      CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
+      free (msg2);
+      return;
+    }
+  
   do
     {
       size_t wlen;
