@@ -66,6 +66,7 @@ struct argp_state;
 typedef error_t (*argp_parser_t) (int key, char *arg,
 				  struct argp_state *state);
 #define ARGP_ERR_UNKNOWN        E2BIG
+#define OPTION_HIDDEN		0x2
 struct argp
 {
   const struct argp_option *options;

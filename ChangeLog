@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-12 18:51:31 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-181
+
+    Summary:
+      argp fixes
+    Revision:
+      ccze--0.1--patch-181
+
+    * src/ccze.c (options): Removed the first NULL entry.
+    * src/ccze-compat.h (OPTION_HIDDEN): New constant.
+    * src/ccze-compat.c (argp_parse): Do not treat -h specially, it is used
+      by something else. Also, do not show hidden options in -h output.
+      As a consequence, all references to -h were changed to -?.
+
+    modified files:
+     ChangeLog src/ccze-compat.c src/ccze-compat.h src/ccze.c
+
+
 2003-02-12 17:53:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-180
 
     Summary:

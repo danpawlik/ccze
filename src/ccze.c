@@ -72,7 +72,6 @@ const char *argp_program_name = "ccze";
 const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
-  {NULL, 0, NULL, 0, "", 1},
   {"rcfile", 'F', "FILE", 0, "Read configuration from FILE", 1},
   {"html", 'h', NULL, 0, "Generate HTML output", 1},
   {"options", 'o', "OPTIONS...", 0, "Toggle some options\n"

@@ -78,7 +78,6 @@ argp_parse (const struct argp *argps, int argc, char **argv,
       optionssize += 5;
       XSREALLOC (options, char, optionssize);
     }
-  options[optionspos++] = 'h';
   options[optionspos++] = 'V';
   options[optionspos++] = '?';
   options[optionspos] = '\0';
@@ -88,10 +87,9 @@ argp_parse (const struct argp *argps, int argc, char **argv,
       switch (c)
 	{
 	case '?':
-	case 'h':
-	  if (optopt != c && (optopt != '?' && c != 'h'))
+	  if ((optopt != c) && (optopt != '?'))
 	    {
-	      fprintf (stderr, "Try `%s -h' for more information.\n",
+	      fprintf (stderr, "Try `%s -?' for more information.\n",
 		       argp_program_name);
 	      exit (1);
 	    }
@@ -100,8 +98,11 @@ argp_parse (const struct argp *argps, int argc, char **argv,
 	  optpos = 0;
 	  while (argps->options[optpos].name != NULL)
 	    {
-	      printf ("  -%c %s\t\t%s\n", argps->options[optpos].key,
-		      argps->options[optpos].arg, argps->options[optpos].doc);
+	      if (!(argps->options[optpos].flags & OPTION_HIDDEN))
+		printf ("  -%c %s\t\t%s\n", argps->options[optpos].key,
+			(argps->options[optpos].arg) ?
+			argps->options[optpos].arg : "",
+			argps->options[optpos].doc);
 	      optpos++;
 	    }
 	  printf ("\nReport bugs to %s.\n", argp_program_bug_address);
@@ -129,7 +130,7 @@ argp_error (const struct argp_state *state, char *fmt, ...)
   va_start (ap, fmt);
   fprintf (stderr, "%s: ", argp_program_name);
   vfprintf (stderr, fmt, ap);
-  fprintf (stderr, "\nTry `%s -h' for more information.\n", argp_program_name);
+  fprintf (stderr, "\nTry `%s -?' for more information.\n", argp_program_name);
   exit (1);
 }
 #endif
