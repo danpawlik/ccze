@@ -66,7 +66,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
 static char *
 ccze_dump_color_get_attrib (int color)
 {
-  char *str = (char *)calloc (100, sizeof (char));
+  char *str = (char *)ccze_calloc (100, sizeof (char));
   
   if (color & A_BOLD)
     strcat (str, "bold ");

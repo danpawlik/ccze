@@ -176,9 +176,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	    {
 	      ccze_config.color_argv_alloc *= 2;
 	      ccze_config.color_argv =
-		(char **)realloc (ccze_config.color_argv,
-				  ccze_config.color_argv_alloc *
-				  sizeof (char *));
+		(char **)ccze_realloc (ccze_config.color_argv,
+				       ccze_config.color_argv_alloc *
+				       sizeof (char *));
 	    }
 	}
       break;
@@ -193,9 +193,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	    {
 	      ccze_config.pluginlist_alloc *= 2;
 	      ccze_config.pluginlist =
-		(char **)realloc (ccze_config.pluginlist,
-				  ccze_config.pluginlist_alloc *
-				  sizeof (char *));
+		(char **)ccze_realloc (ccze_config.pluginlist,
+				       ccze_config.pluginlist_alloc *
+				       sizeof (char *));
 	    }
 	}
       break;
@@ -323,7 +323,7 @@ ccze_str_htmlencode (const char *src)
     char *buf, *dest;
     unsigned char c;
 
-    dest = (char *)malloc (strlen (src) * 5 + 1);
+    dest = (char *)ccze_malloc (strlen (src) * 5 + 1);
 
     if (!dest)
       return NULL;
@@ -614,10 +614,10 @@ int
 main (int argc, char **argv)
 {
       
-  ccze_config.pluginlist = (char **)calloc (ccze_config.pluginlist_alloc,
-					    sizeof (char *));
-  ccze_config.color_argv = (char **)calloc (ccze_config.color_argv_alloc,
-					    sizeof (char *));
+  ccze_config.pluginlist = (char **)ccze_calloc (ccze_config.pluginlist_alloc,
+						 sizeof (char *));
+  ccze_config.color_argv = (char **)ccze_calloc (ccze_config.color_argv_alloc,
+						 sizeof (char *));
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 
   do

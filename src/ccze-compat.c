@@ -19,6 +19,8 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include <ccze.h>
+
 #include "system.h"
 #include "ccze-compat.h"
 
@@ -35,13 +37,45 @@
 #include <unistd.h>
 
 #define XSREALLOC(ptr, type, nmemb) \
-	ptr = (type*) realloc (ptr, nmemb * sizeof (type))
+	ptr = (type*)ccze_realloc (ptr, nmemb * sizeof (type))
+
+#if malloc == rpl_malloc
+#undef malloc
+#undef realloc
+#endif
+
+void *
+ccze_malloc (size_t size)
+{
+  register void *value = malloc (size);
+  if (value == 0)
+    exit (2);
+  return value;
+}
+
+void *
+ccze_realloc (void *ptr, size_t size)
+{
+  register void *value = realloc (ptr, size);
+  if (value == 0)
+    exit (2);
+  return value;
+}
+
+void *
+ccze_calloc (size_t nmemb, size_t size)
+{
+  register void *value = calloc (nmemb, size);
+  if (value == 0)
+    exit (2);
+  return value;
+}
 
 #ifndef HAVE_STRNDUP
 char *
 strndup (const char *s, size_t size)
 {
-  char *ns = (char *)malloc (size + 1);
+  char *ns = (char *)ccze_malloc (size + 1);
   memcpy (ns, s, size);
   ns[size] = '\0';
   return ns;
@@ -58,10 +92,10 @@ argp_parse (const struct argp *argps, int argc, char **argv,
   struct argp_state *state;
   int c;
   
-  state = (struct argp_state *)malloc (sizeof (struct argp_state));
+  state = (struct argp_state *)ccze_malloc (sizeof (struct argp_state));
   state->input = input;
 
-  options = (char *)calloc (optionssize, sizeof (char *));
+  options = (char *)ccze_calloc (optionssize, sizeof (char *));
   while (argps->options[optpos].name != NULL)
   {
     if (optionspos >= optionssize)
@@ -203,7 +237,7 @@ scandir (const char *dir, struct dirent ***namelist,
     {
       if (select == NULL || (select != NULL && (*select) (entry)))
 	{
-	  *namelist = (struct dirent **)realloc
+	  *namelist = (struct dirent **)ccze_realloc
 	    ((void *) (*namelist),
 	     (size_t)((i + 1) * sizeof (struct dirent *)));
 	  if (*namelist == NULL)
@@ -211,7 +245,7 @@ scandir (const char *dir, struct dirent ***namelist,
 
 	  entrysize = sizeof (struct dirent) -
 	    sizeof (entry->d_name) + strlen (entry->d_name) + 1;
-	  (*namelist)[i] = (struct dirent *)malloc (entrysize);
+	  (*namelist)[i] = (struct dirent *)ccze_malloc (entrysize);
 	  if ((*namelist)[i] == NULL)
 	    return -1;
          memcpy ((*namelist)[i], entry, entrysize);
@@ -266,7 +300,7 @@ getdelim (char **lineptr, size_t *n, int delim, FILE *stream)
   /* Allocate the line the first time.  */
   if (*lineptr == NULL)
     {
-      *lineptr = malloc (line_size);
+      *lineptr = ccze_malloc (line_size);
       if (*lineptr == NULL)
 	return -1;
       *n = line_size;
@@ -277,7 +311,7 @@ getdelim (char **lineptr, size_t *n, int delim, FILE *stream)
       /* Check if more memory is needed.  */
       if (indx >= *n)
 	{
-	  *lineptr = realloc (*lineptr, *n + line_size);
+	  *lineptr = ccze_realloc (*lineptr, *n + line_size);
 	  if (*lineptr == NULL)
 	    return -1;
 	  *n += line_size;
@@ -294,7 +328,7 @@ getdelim (char **lineptr, size_t *n, int delim, FILE *stream)
   /* Make room for the null character.  */
   if (indx >= *n)
     {
-      *lineptr = realloc (*lineptr, *n + line_size);
+      *lineptr = ccze_realloc (*lineptr, *n + line_size);
       if (*lineptr == NULL)
        return -1;
       *n += line_size;
@@ -318,7 +352,7 @@ asprintf(char **ptr, const char *fmt, ...)
   size_t size = 1024;
   int n;
   
-  if ((*ptr = malloc (size)) == NULL)
+  if ((*ptr = ccze_malloc (size)) == NULL)
     return -1;
 
   while (1)
@@ -335,7 +369,7 @@ asprintf(char **ptr, const char *fmt, ...)
       else           /* glibc 2.0 */
 	size *= 2;
 
-      if ((*ptr = realloc (*ptr, size)) == NULL)
+      if ((*ptr = ccze_realloc (*ptr, size)) == NULL)
 	return -1;
     }
 }

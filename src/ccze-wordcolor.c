@@ -21,7 +21,6 @@
 
 #include <ccze.h>
 #include <ctype.h>
-#include <curses.h>
 #include <netdb.h>
 #include <pwd.h>
 #include <string.h>

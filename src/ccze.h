@@ -26,8 +26,13 @@
 # include "system.h"
 #endif
 #include <pcre.h>
-#include <curses.h>
+#include <ncurses.h>
 #include <stddef.h>
+
+/* Compatibility */
+void *ccze_malloc (size_t size);
+void *ccze_realloc (void *ptr, size_t size);
+void *ccze_calloc (size_t nmemb, size_t size);
 
 /* Colors */
 typedef enum

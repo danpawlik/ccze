@@ -2,6 +2,35 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-20 11:40:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-192
+
+    Summary:
+      True64 port
+    Revision:
+      ccze--0.1--patch-192
+
+    * src/ccze.h: #include <ncurses.h>
+      (ccze_malloc): New prototype.
+      (ccze_realloc): Likewise.
+      (ccze_calloc): Likewise.
+    * src/ccze-compat.c: #include <ccze.h>
+      (ccze_malloc): New function.
+      (ccze_realloc): Likewise.
+      (ccze_calloc): Likewise.
+    
+    All malloc/realloc/calloc users updated.
+    
+    * src/ccze-wordcolor.c: Do not #include <curses.h>, ccze.h does that
+      for us.
+    * src/Makefile.in (ccze-compat.o): New dependency-target.
+    * THANKS: Added Erik Braun.
+
+    modified files:
+     ChangeLog THANKS src/Makefile.in src/ccze-compat.c
+     src/ccze-dump.c src/ccze-plugin.c src/ccze-wordcolor.c
+     src/ccze.c src/ccze.h
+
+
 2003-02-13 17:59:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-191
 
     Summary:

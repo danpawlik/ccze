@@ -68,7 +68,7 @@ ccze_plugin_add (ccze_plugin_t *plugin)
   if (plugins_len >= plugins_alloc)
     {
       plugins_alloc *= 2;
-      plugins = (ccze_plugin_t **)realloc
+      plugins = (ccze_plugin_t **)ccze_realloc
 	(plugins, plugins_alloc * sizeof (ccze_plugin_t *));
     }
 }
@@ -78,7 +78,8 @@ ccze_plugin_init (void)
 {
   plugins_alloc = 10;
   plugins_len = 0;
-  plugins = (ccze_plugin_t **)calloc (plugins_alloc, sizeof (ccze_plugin_t *));
+  plugins = (ccze_plugin_t **)ccze_calloc (plugins_alloc,
+					   sizeof (ccze_plugin_t *));
 }
 
 static void
