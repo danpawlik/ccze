@@ -279,6 +279,13 @@ main (int argc, char **argv)
       
   i = 0;
   plugins = ccze_plugins();
+  if (!plugins[0])
+    {
+      endwin ();
+      fprintf (stderr, "ccze: No plugins found. Exiting.\n");
+      exit (1);
+    }
+  
   while (plugins[i])
     (*(plugins[i++]->startup))();
         

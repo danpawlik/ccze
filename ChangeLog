@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-12 20:28:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-73
+
+    Summary:
+      Exit if no plugins were found
+    Revision:
+      ccze--0.1--patch-73
+
+    * src/ccze.c (main): Exit if no plugins could be loaded.
+    
+    Thanks to Istvan Karaszi for the idea.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-10-04 10:35:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-72
 
     Summary:
