@@ -125,7 +125,7 @@ ccze_squid_access_log_process (const char *str, int *offsets, int match)
 
   CCZE_ADDSTR (_ccze_proxy_hierarch (hierar), hierar);
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "/");
-  CCZE_ADDSTR (CCZE_COLOR_HOST, host);
+  CCZE_ADDSTR (CCZE_COLOR_HOST, fhost);
   ccze_space ();
 
   CCZE_ADDSTR (CCZE_COLOR_CTYPE, ctype);
@@ -252,7 +252,7 @@ ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre **r_store,
 
   *r_access = pcre_compile
     ("^(\\d{9,10}\\.\\d{3})(\\s+)(\\d+)\\s(\\S+)\\s(\\w+)\\/(\\d{3})"
-     "\\s(\\d+)\\s(\\w+)\\s(\\S+)\\s(\\S+)\\s(\\w+)\\/(\\S+)\\s(\\S*)$",
+     "\\s(\\d+)\\s(\\w+)\\s(\\S+)\\s(\\S+)\\s(\\w+)\\/([\\d\\.]+|-)\\s(.*)",
      0, &error, &errptr, NULL);
   *h_access = pcre_study (*r_access, 0, &error);
 
