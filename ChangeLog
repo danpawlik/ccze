@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-12 22:33:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-185
+
+    Summary:
+      Corrected ccze-plugin.7 SYNOPSIS
+    Revision:
+      ccze--0.1--patch-185
+
+    * doc/ccze-plugin.7 (SYNOPSIS): Include existing, non-obsolete headers
+      only. Also moved the CCZE_DEFINE_PLUGIN call to the end.
+
+    modified files:
+     ChangeLog doc/ccze-plugin.7.in
+
+
 2003-02-12 22:13:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-184
 
     Summary:

@@ -14,17 +14,11 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE\-PLUGIN 1 "2003-01-24" "CCZE @VERSION@" CCZE
+.TH CCZE\-PLUGIN 1 "2003-02-12" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer, plugin infrastructure
 .SH SYNOPSIS
 .B #include <ccze.h>
-.br
-.B #include <ccze-color.h>
-.br
-.B #include <ccze-plugin.h>
-
-.BI "CCZE_DEFINE_PLUGIN (" name ", " quoted\-name ", " type );
 
 .BI "typedef void (*" ccze_plugin_startup_t ") (void);"
 .br
@@ -32,6 +26,8 @@ ccze \- A robust log colorizer, plugin infrastructure
 .br
 .BI "typedef int (*" ccze_plugin_handle_t ") (const char *" str ,
 .BI "size_t " length ", char **" rest );
+
+.BI "CCZE_DEFINE_PLUGIN (" name ", " quoted\-name ", " type );
 .SH DESCRIPTION
 This manual page attempts to outline the internals of CCZE plugins:  how
 they work, how they are implemented, and how to add new ones.
