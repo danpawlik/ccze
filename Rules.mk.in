@@ -1,0 +1,106 @@
+## Rules.mk -- Common variables and rules for all Makefiles  -*- Makefile -*-
+
+SHELL		= /bin/sh
+
+PACKAGE		= ccze
+VERSION		= 0.1.${PATCHLEVEL}
+
+PROGRAM		= ${PACKAGE}
+VPATH		= ${srcdir}
+
+## -- User modifiable variables -- ##
+prefix		= @prefix@
+exec_prefix	= @exec_prefix@
+sysconfdir	= @sysconfdir@
+pkgconfdir	= ${sysconfdir}/${PROGRAM}
+bindir		= @bindir@
+mandir		= @mandir@
+man1dir		= ${mandir}/man1
+infodir		= @infodir@
+
+CC		= @CC@
+CFLAGS		= @CFLAGS@
+LDFLAGS		= @LDFLAGS@
+TAR		= tar
+GZIP		= gzip
+TAR_OPTIONS	=
+GZIP_ENV	= --best
+
+MAKEINFO	= @MAKEINFO@
+TEXI2DVI	= @TEXI2DVI@
+
+ETAGS		= etags
+
+INSTALL		= @INSTALL@
+INSTALL_PROGRAM	= @INSTALL_PROGRAM@
+INSTALL_DATA	= @INSTALL_DATA@
+INSTALL_DIR	= @INSTALL@ -d
+EXTRAVERSION	=
+
+## -- Private variables -- ##
+ifeq (${subdir},)
+top_builddir	= .
+else
+top_builddir	= ..
+endif
+builddir	= @builddir@
+
+PATCHLEVEL	= $(shell head -5 ${top_srcdir}/ChangeLog | tail -1 | sed -e "s,^.*patch-,,g")
+DISTFILES	= ${SOURCES} ${HEADERS} ${HTML_FILES} ${MAN} \
+		Makefile.in ${EXTRA_DIST}
+
+INCLUDES	= -I. -I${srcdir} -I${top_builddir}
+DEFINES		= -DPATCHLEVEL=\"${PATCHLEVEL}\" -DEXTRAVERSION=\"${EXTRAVERSION}\" \
+		-DSYSCONFDIR=\"${sysconfdir}\" -D_GNU_SOURCE=1
+WFLAGS		= -Werror -Wshadow -Wpointer-arith -Waggregate-return \
+		-Wstrict-prototypes -Wmissing-prototypes -Wcast-qual \
+		-Wbad-function-cast -Wsign-compare -Wchar-subscripts \
+		-Wcomment -Wformat -Wformat-nonliteral -Wformat-security \
+		-Wimplicit -Wmain -Wmissing-braces -Wparentheses \
+		-Wreturn-type -Wswitch -Wunused -Wmulticharacter \
+		-Wmissing-noreturn -Wmissing-declarations @WFLAGS_3X@
+WFLAGS_3X	= -Wsequence-point -Wdiv-by-zero -W -Wno-unused-parameter
+ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${WFLAGS} ${CFLAGS}
+
+OBJECTS		= ${SOURCES:.c=.o}
+
+## -- Generic rules -- ##
+all:
+
+TAGS:: ${SOURCES} ${HEADERS}
+	test -z "${SOURCES}${HEADERS}" || ${ETAGS} ${SOURCES} ${HEADERS}
+
+.c.o:
+	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
+.texi.dvi:
+	${TEXI2DVI} $< -o $@
+%.html: %.texi
+	${MAKEINFO} $< -o $@ --html --no-split --no-headers
+
+mostlyclean clean::
+	rm -f *~ ${PROGRAM} ${OBJECTS} TAGS
+	test -z "${CLEANFILES}" || rm -rf ${CLEANFILES}
+distclean:: clean
+	rm -f Makefile
+	test -z "${DISTCLEANFILES}" || rm -rf ${DISTCLEANFILES}
+maintainer-clean:: distclean
+	test -z "${MAINTCLEANFILEs}" || rm -rf ${MAINTCLEANFILES}
+
+distdir = ${top_builddir}/${PACKAGE}-${VERSION}/${subdir}
+distdir: ${DISTFILES}
+	${INSTALL_DIR} ${distdir}
+	@list='${DISTFILES}'; for f in $$list; do \
+		echo cp -p ${srcdir}/$$f ${distdir}/$$f ;\
+		cp -p ${srcdir}/$$f ${distdir}/$$f ;\
+	done
+
+${top_builddir}/Rules.mk: ${top_srcdir}/Rules.mk.in ${top_builddir}/config.status
+	cd ${top_builddir} && ./config.status
+${builddir}/Makefile: ${srcdir}/Makefile.in ${top_builddir}/config.status
+	cd ${top_builddir} && ./config.status
+
+## -- ${MAKE} control -- ##
+.PHONY: all install clean distclean mostlyclean uninstall maintainer-clean \
+	distdir dist distcheck html info dvi
+.SUFFIXES: .c.o.texi.info.dvi.html
+.DEFAULT: all
