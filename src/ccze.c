@@ -23,10 +23,11 @@
 #include <pcre.h>
 
 #include <argp.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "ccze.h"
 #include "ccze-httpd.h"
@@ -40,8 +41,8 @@ struct
   int scroll;
 } ccze_config;
 
-static const char *argp_program_version = "ccze/0.1";
-static const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
+const char *argp_program_version = "ccze/0.1";
+const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
   {NULL, 0, NULL, 0, "", 1},
   {"scroll", 's', NULL, 0, "Enable scrolling", 1},
@@ -88,6 +89,22 @@ ccze_http_action (const char *method)
     return CCZE_COLOR_UNKNOWN;
 }
 
+static void sigint_handler (int sig) __attribute__ ((noreturn));
+static void
+sigint_handler (int sig)
+{
+  endwin ();
+  exit (0);
+}
+
+static void
+sigwinch_handler (int sig)
+{
+  endwin ();
+  refresh ();
+  signal (SIGWINCH, sigwinch_handler);
+}
+
 int
 main (int argc, char **argv)
 {
@@ -103,6 +120,8 @@ main (int argc, char **argv)
   argp_parse (&argp, argc, argv, 0, 0, NULL);
   
   initscr ();
+  signal (SIGINT, sigint_handler);
+  signal (SIGWINCH, sigwinch_handler);
   nonl ();
   if (ccze_config.scroll)
     {
@@ -204,7 +223,6 @@ main (int argc, char **argv)
     }
 
   refresh ();
-  endwin ();
 
   free (regc_syslog);
   free (hints_syslog);
@@ -218,6 +236,8 @@ main (int argc, char **argv)
   free (hints_vsftpd_log);
   free (regc_squid_cache_log);
   free (hints_squid_cache_log);
-    
+  
+  sigint_handler (0);
+  
   return 0;
 }

@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-12 21:20:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-8
+
+    Summary:
+      Signal handlers
+    Revision:
+      ccze--0.1--patch-8
+
+    * src/ccze.c (sigint_handler): New function.
+      (sigwinch_handler): New function.
+      (main): Use them.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-09-12 16:16:18 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-7
 
     Summary:
