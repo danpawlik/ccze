@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-25 09:38:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-201
+
+    Summary:
+      FAQ
+    Revision:
+      ccze--0.1--patch-201
+
+    * FAQ: New file.
+    * Makefile.in (EXTRA_DIST): Added it.
+    * ccze.spec.in (%files): Include it among the %docs.
+    * debian/rules (install): Install it.
+
+    new files:
+     .arch-ids/FAQ.id FAQ
+
+    modified files:
+     ChangeLog Makefile.in ccze.spec.in debian/rules
+
+
 2003-02-21 10:41:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-200
 
     Summary:

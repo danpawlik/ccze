@@ -36,7 +36,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog NEWS README THANKS TODO
+%doc AUTHORS ChangeLog NEWS README THANKS TODO FAQ
 %config %{_sysconfdir}/cczerc
 %{_bindir}/ccze
 %{_bindir}/ccze-cssdump
@@ -46,6 +46,8 @@ rm -rf %{buildroot}
 %{_mandir}/man7/ccze-plugin.7*
 
 %changelog
+* Tue Feb 25 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+- Include FAQ.
 * Thu Feb 20 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
 - Use %{buildroot}, %configure and %makeinstall.
 - Improved description.

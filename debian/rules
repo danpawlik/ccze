@@ -37,7 +37,7 @@ install: build
 	test -e debian/control && test "x`whoami`" = "xroot"
 	install -d ${PKGDIR}/usr/share/doc/${PACKAGE} ${PKGDIR}/etc
 	${MAKE} install DESTDIR=${PKGDIR}
-	install -m 0644 NEWS THANKS TODO \
+	install -m 0644 NEWS THANKS TODO FAQ \
 		${PKGDIR}/usr/share/doc/${PACKAGE}/
 	src/ccze-dump >${PKGDIR}/etc/cczerc
 
