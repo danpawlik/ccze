@@ -9,7 +9,7 @@ include Rules.mk
 ## -- Private variables -- ##
 EXTRA_DIST	= Rules.mk.in configure configure.ac system.h.in \
 		COPYING ChangeLog install-sh config.guess config.sub \
-		AUTHORS README NEWS INSTALL TODO THANKS ccze.spec.in \
+		AUTHORS README NEWS INSTALL THANKS ccze.spec.in \
 		ccze.spec ccze.plugins FAQ ChangeLog-0.1 ChangeLog-0.2
 DISTCLEANFILES	= ccze.spec
 
