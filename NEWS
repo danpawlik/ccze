@@ -1,5 +1,16 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.2.0 [Mephisto] -- 2003-03-29
+
+Mephisto features raw ANSI output support, without the use of
+nCurses. This adds support for scrollback, both on console and in
+xterms. Also, it allows one to send CCZE to the background, and mix
+various logs and options on one terminal.
+
+A new coloriser for Pure-FTPD's Stats log format was added, and the
+httpd module was modified to handle Pure-FTPD's CLF format, and bad
+HTTP requests.
+
 * CCZE 0.1.228 [Largo] -- 2003-03-20
 
 This release features many many internal enhancements, mostly for the

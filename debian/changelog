@@ -1,3 +1,12 @@
+ccze (0.2.0-1) unstable; urgency=low
+
+  * The `Mephisto' release.
+    + New, raw ANSI output method.
+    + This adds scrollback and backgrounding support.
+    (Closes: #181117, #181891)
+
+ -- Gergely Nagy <algernon@bonehunter.rulez.org>  Sat, 29 Mar 2003 18:36:10 +0100
+
 ccze (0.1.228-1) unstable; urgency=low
 
   * The `Largo' release.

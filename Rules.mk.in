@@ -3,8 +3,8 @@
 SHELL		= /bin/sh
 
 PACKAGE		= ccze
-VERSION		= 0.1.${PATCHLEVEL}
-DIST		= stable
+VERSION		= 0.3.${PATCHLEVEL}
+DIST		= devel
 
 PROGRAM		= ${PACKAGE}
 VPATH		= ${srcdir}

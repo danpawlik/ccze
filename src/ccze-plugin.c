@@ -430,7 +430,7 @@ ccze_plugin_list_fancy (void)
     {
       if (plugins[i])
 	{
-	  char *type;
+	  char *type = "Unknown";
 
 	  switch (plugins[i]->type)
 	    {
