@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-10 17:49:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-179
+
+    Summary:
+      -o nolookups fix
+    Revision:
+      ccze--0.1--patch-179
+
+    * src/ccze-wordcolor.c (ccze_wordcolor_process_one): Wrap all the
+      slookup stuff in one if branch. Solves the -d -o nolookups problem.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c
+
+
 2003-02-10 17:42:39 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-178
 
     Summary:

@@ -145,15 +145,18 @@ ccze_wordcolor_process_one (char *word, int slookup)
   /** Signal **/
   else if (pcre_exec (reg_sig, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
     col = CCZE_COLOR_SIGNAL;
-  /** Service **/
-  else if (slookup && getservbyname (lword, NULL))
-    col = CCZE_COLOR_SERVICE;
-  /** Protocol **/
-  else if (slookup && getprotobyname (lword))
-    col = CCZE_COLOR_PROT;
-  /** User **/
-  else if (slookup && getpwnam (lword))
-    col = CCZE_COLOR_USER;
+  else if (slookup)
+    {
+      /** Service **/
+      if (getservbyname (lword, NULL))
+	col = CCZE_COLOR_SERVICE;
+      /** Protocol **/
+      else if (getprotobyname (lword))
+	col = CCZE_COLOR_PROT;
+      /** User **/
+      else if (getpwnam (lword))
+	col = CCZE_COLOR_USER;
+    }
   /* Host + IP (postfix) */
   else if (pcre_exec (reg_hostip, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
     {
