@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 13:53:31 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-45
+
+    Summary:
+      Check for fcntl.h
+    Revision:
+      ccze--0.1--patch-45
+
+    * configure.ac: AC_CHECK_HEADERS([fcntl.h]).
+
+    modified files:
+     ChangeLog configure.ac
+
+
 2002-09-18 13:26:12 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-44
 
     Summary:

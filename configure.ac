@@ -60,7 +60,7 @@ dnl * Headers
 dnl **********************
 AC_HEADER_STDC
 AC_HEADER_DIRENT
-AC_CHECK_HEADERS([netdb.h])
+AC_CHECK_HEADERS([netdb.h fcntl.h])
 
 dnl **********************
 dnl * Typedefs & co
