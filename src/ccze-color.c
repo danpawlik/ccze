@@ -48,14 +48,14 @@ typedef struct _ccze_colorname_t
   int value;
 } ccze_colorname_t;
 static ccze_colorname_t ccze_colorname_map[] = {
-  {"black", BLACK},
-  {"red", RED},
-  {"green", GREEN},
-  {"yellow", YELLOW},
-  {"blue", BLUE},
-  {"cyan", CYAN},
-  {"magenta", MAGENTA},
-  {"white", WHITE}
+  {"black", 0},
+  {"red", 1},
+  {"green", 2},
+  {"yellow", 3},
+  {"blue", 4},
+  {"cyan", 5},
+  {"magenta", 6},
+  {"white", 7}
 };
 
 typedef struct _ccze_color_keyword_t
@@ -167,8 +167,8 @@ ccze_color_load (const char *fn)
     return;
   while (getline (&line, &len, fp) != -1)
     {
-      char *tmp, *keyword, *color, *pre = NULL;
-      int ncolor, nkeyword;
+      char *tmp, *keyword, *color, *pre = NULL, *bg;
+      int ncolor, nkeyword, nbg;
       
       tmp = strstr (line, "#");
       if (tmp)
@@ -181,7 +181,8 @@ ccze_color_load (const char *fn)
 	continue;
       
       color = strtok (NULL, " \t\n");
-      if (color && !strcmp (color, "bold"))
+      if (color && (!strcmp (color, "bold") || !strcmp (color, "underline") ||
+		    !strcmp (color, "reverse") || !strcmp (color, "blink")))
 	{
 	  pre = color;
 	  color = strtok (NULL, " \t\n");
@@ -190,7 +191,17 @@ ccze_color_load (const char *fn)
 	continue;
       if ((ncolor = _ccze_colorname_map_lookup (color)) == -1)
 	continue;
-      
+
+      bg = strtok (NULL, " \t\n");
+      if (bg)
+	{
+	  if (strstr (bg, "on_") == bg)
+	    nbg = _ccze_colorname_map_lookup (&bg[3]);
+	  else
+	    nbg = _ccze_colorname_map_lookup (bg);
+	  ncolor += nbg*8;
+	}
+            
       if (pre)
 	{
 	  if (!strcmp (pre, "bold"))
@@ -202,7 +213,11 @@ ccze_color_load (const char *fn)
 	  else if (!strcmp (pre, "blink"))
 	    ncolor |= A_BLINK;
 	}
-      ccze_color_table[nkeyword] = ncolor;
+      
+      if (color[0] == '\'')
+	ccze_color_table[nkeyword] = ncolor;
+      else
+	ccze_color_table[nkeyword] = COLOR_PAIR (ncolor);
     }
   free (line);
   fclose (fp);
@@ -245,7 +260,7 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_WARNING] = (RED);
   ccze_color_table[CCZE_COLOR_PROXY_DIRECT] = (BOLD WHITE);
   ccze_color_table[CCZE_COLOR_PROXY_PARENT] = (BOLD YELLOW);
-  ccze_color_table[CCZE_COLOR_SWAPNUM] = (BLUE);
+  ccze_color_table[CCZE_COLOR_SWAPNUM] = COLOR_PAIR (4 + 7*8);
   ccze_color_table[CCZE_COLOR_PROXY_CREATE] = (BOLD WHITE);
   ccze_color_table[CCZE_COLOR_PROXY_SWAPIN] = (BOLD WHITE);
   ccze_color_table[CCZE_COLOR_PROXY_SWAPOUT] = (BOLD WHITE);

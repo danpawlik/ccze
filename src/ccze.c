@@ -44,6 +44,9 @@ struct
   char *rcfile;
 } ccze_config;
 
+static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
+			 COLOR_BLUE, COLOR_CYAN, COLOR_MAGENTA, COLOR_WHITE};
+ 
 static ccze_plugin_t **plugins;
 
 const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
@@ -167,7 +170,7 @@ main (int argc, char **argv)
 {
   char *subject = NULL;
   size_t subjlen = 0;
-  int i;
+  int i, j;
   char *homerc, *home;
   
   ccze_config.scroll = 1;
@@ -189,15 +192,9 @@ main (int argc, char **argv)
     }
   
   start_color ();
-  init_pair (0, COLOR_BLACK, COLOR_BLACK);
-  init_pair (1, COLOR_RED, COLOR_BLACK);
-  init_pair (2, COLOR_GREEN, COLOR_BLACK);
-  init_pair (3, COLOR_YELLOW, COLOR_BLACK);
-  init_pair (4, COLOR_BLUE, COLOR_BLACK);
-  init_pair (5, COLOR_CYAN, COLOR_BLACK);
-  init_pair (6, COLOR_MAGENTA, COLOR_BLACK);
-  init_pair (7, COLOR_WHITE, COLOR_BLACK);
-
+  for (i = 0; i < 8; i++)
+    for (j = 0; j < 8; j++)
+      init_pair (i*8 + j, colors[j], colors[i]);
   ccze_color_init ();
 
   if (ccze_config.rcfile)

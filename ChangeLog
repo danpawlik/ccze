@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 15:25:35 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-51
+
+    Summary:
+      Background color support
+    Revision:
+      ccze--0.1--patch-51
+
+    * src/ccze.c (main): Set up all the colors, with backgrounds.
+    * src/ccze-color.c (ccze_colorname_map): Use numbers instead of
+      COLOR_PAIR()s.
+      (ccze_color_load): Catch "bold", "underline", "reverse" and "blink"
+      pre-tags. Parse further for the background color (and accept both
+      <color> and on_<color).
+      (ccze_color_init): Initialise CCZE_COLOR_SWAPNUM to blue on_white.
+    * TODO: Removed relevant entry.
+
+    modified files:
+     ChangeLog TODO src/ccze-color.c src/ccze.c
+
+
 2002-09-18 14:41:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-50
 
     Summary:
