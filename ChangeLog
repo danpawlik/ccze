@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-01 12:25:53 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-69
+
+    Summary:
+      Removed --scroll
+    Revision:
+      ccze--0.1--patch-69
+
+    * src/ccze.c (options): Removed --scroll, as it is unused.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-10-01 12:23:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-68
 
     Summary:
