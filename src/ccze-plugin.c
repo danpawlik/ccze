@@ -36,9 +36,22 @@ ccze_plugin_load (const char *name)
 {
   ccze_plugin_t *plugin;
   char *tmp;
+  char *home;
   
   plugin = (ccze_plugin_t *)malloc (sizeof (ccze_plugin_t));
-  asprintf (&tmp, PLUGIN_LIBPATH "%s.so", name);
+
+  if ((home = getenv ("HOME")) != NULL)
+    {
+      asprintf (&tmp, "%s/.ccze/%s.so", home, name);
+      if (access (tmp, F_OK))
+	{
+	  free (tmp);
+	  asprintf (&tmp, PLUGIN_LIBPATH "%s.so", name);
+	}
+    }
+  else
+    asprintf (&tmp, PLUGIN_LIBPATH "%s.so", name);
+
   plugin->dlhandle = dlopen (tmp, RTLD_LAZY);
   free (tmp);
   if (dlerror () || !plugin->dlhandle)

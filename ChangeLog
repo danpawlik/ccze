@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-20 13:09:18 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-55
+
+    Summary:
+      Search for plugins under ~/.ccze/
+    Revision:
+      ccze--0.1--patch-55
+
+    * src/ccze-plugin.c (ccze_plugin_load): Check if the plugin exists under
+      ~/.ccze, and only load from the global area if not.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2002-09-18 16:01:14 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-54
 
     Summary:
