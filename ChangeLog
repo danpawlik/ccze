@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 22:27:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-164
+
+    Summary:
+      Fixed mod_php copyright year
+    Revision:
+      ccze--0.1--patch-164
+
+    * src/mod_php.c: Fixed the copyright year, it is 2003 only.
+
+    modified files:
+     ChangeLog src/mod_php.c
+
+
 2003-02-07 22:20:35 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-163
 
     Summary:
