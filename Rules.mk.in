@@ -69,7 +69,7 @@ TAGS:: ${SOURCES} ${HEADERS}
 
 .c.o:
 	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
-%.so: ccze-%.c ccze.h
+%.so: ccze-%.c ccze.h ccze-plugin.h
 	${CC} -fPIC -DPIC ${ALL_CFLAGS} ${ALL_LDFLAGS} -o $@ $< -shared
 
 mostlyclean clean::

@@ -25,11 +25,12 @@
 #include <stdlib.h>
 
 #include "ccze.h"
+#include "ccze-plugin.h"
 #include "ccze-wordcolor.h"
 
-void ccze_ulogd_setup (void);
-void ccze_ulogd_shutdown (void);
-int ccze_ulogd_handle (const char *str, size_t length, char **rest);
+static void ccze_ulogd_setup (void);
+static void ccze_ulogd_shutdown (void);
+static int ccze_ulogd_handle (const char *str, size_t length, char **rest);
 
 static pcre *reg_ulogd, *reg_ulogd_sub;
 static pcre_extra *hints_ulogd;
@@ -81,7 +82,7 @@ ccze_ulogd_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-void
+static void
 ccze_ulogd_setup (void)
 {
   const char *error;
@@ -96,7 +97,7 @@ ccze_ulogd_setup (void)
      &errptr, NULL);
 }
 
-void
+static void
 ccze_ulogd_shutdown (void)
 {
   free (reg_ulogd);
@@ -104,7 +105,7 @@ ccze_ulogd_shutdown (void)
   free (reg_ulogd_sub);
 }
 
-int
+static int
 ccze_ulogd_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
@@ -119,3 +120,5 @@ ccze_ulogd_handle (const char *str, size_t length, char **rest)
   
   return 0;
 }
+
+CCZE_DEFINE_PLUGIN (ulogd, "ulogd", FULL);

@@ -25,10 +25,11 @@
 #include <stdlib.h>
 
 #include "ccze.h"
+#include "ccze-plugin.h"
 
-void ccze_procmail_setup (void);
-void ccze_procmail_shutdown (void);
-int ccze_procmail_handle (const char *str, size_t length, char **rest);
+static void ccze_procmail_setup (void);
+static void ccze_procmail_shutdown (void);
+static int ccze_procmail_handle (const char *str, size_t length, char **rest);
 
 static pcre *reg_procmail;
 static pcre_extra *hints_procmail;
@@ -93,7 +94,7 @@ ccze_procmail_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-void
+static void
 ccze_procmail_setup (void)
 {
   const char *error;
@@ -105,14 +106,14 @@ ccze_procmail_setup (void)
   hints_procmail = pcre_study (reg_procmail, 0, &error);
 }
 
-void
+static void
 ccze_procmail_shutdown (void)
 {
   free (reg_procmail);
   free (hints_procmail);
 }
 
-int
+static int
 ccze_procmail_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
@@ -126,3 +127,5 @@ ccze_procmail_handle (const char *str, size_t length, char **rest)
   
   return 0;
 }
+
+CCZE_DEFINE_PLUGIN (procmail, "procmail", FULL);

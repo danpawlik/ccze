@@ -25,10 +25,11 @@
 #include <stdlib.h>
 
 #include "ccze.h"
+#include "ccze-plugin.h"
 
-void ccze_squid_setup (void);
-void ccze_squid_shutdown (void);
-int ccze_squid_handle (const char *str, size_t length, char **rest);
+static void ccze_squid_setup (void);
+static void ccze_squid_shutdown (void);
+static int ccze_squid_handle (const char *str, size_t length, char **rest);
 
 static pcre *reg_squid_access, *reg_squid_store, *reg_squid_cache;
 static pcre_extra *hints_squid_access, *hints_squid_store, *hints_squid_cache;
@@ -248,7 +249,7 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-void
+static void
 ccze_squid_setup (void)
 {
   const char *error;
@@ -273,7 +274,7 @@ ccze_squid_setup (void)
   hints_squid_store = pcre_study (reg_squid_store, 0, &error);
 }
 
-void
+static void
 ccze_squid_shutdown (void)
 {
   free (reg_squid_access);
@@ -284,7 +285,7 @@ ccze_squid_shutdown (void)
   free (hints_squid_store);
 }
 
-int
+static int
 ccze_squid_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
@@ -312,3 +313,5 @@ ccze_squid_handle (const char *str, size_t length, char **rest)
 
   return 0;
 }
+
+CCZE_DEFINE_PLUGIN (squid, "squid", FULL);

@@ -22,18 +22,33 @@
 #ifndef _CCZE_PLUGIN_H
 #define _CCZE_PLUGIN_H 1
 
-typedef void *(*ccze_plugin_startup_t) (void);
-typedef void *(*ccze_plugin_shutdown_t) (void);
+#define CCZE_DEFINE_PLUGIN(name,quoted,type) \
+ccze_plugin_t ccze_##name##_info = { NULL, \
+				     quoted, \
+				     ccze_##name##_setup, \
+				     ccze_##name##_shutdown, \
+				     ccze_##name##_handle, \
+				     CCZE_PLUGIN_TYPE_##type }
+
+typedef void (*ccze_plugin_startup_t) (void);
+typedef void (*ccze_plugin_shutdown_t) (void);
 typedef int (*ccze_plugin_handle_t) (const char *str, size_t length,
 				     char **rest);
 
-typedef struct _ccze_plugin_t
+typedef enum
+{
+  CCZE_PLUGIN_TYPE_FULL,
+  CCZE_PLUGIN_TYPE_PARTIAL,
+} ccze_plugin_type_t;
+
+typedef struct
 {
   void *dlhandle;
   char *name;
   ccze_plugin_startup_t startup;
   ccze_plugin_shutdown_t shutdown;
   ccze_plugin_handle_t handler;
+  ccze_plugin_type_t type;
 } ccze_plugin_t;
 
 void ccze_plugin_init (void);

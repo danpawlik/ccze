@@ -2,6 +2,35 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-18 21:12:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-86
+
+    Summary:
+      Plugin support revamped once again
+    Revision:
+      ccze--0.1--patch-86
+
+    * src/ccze-plugin.h (CCZE_DEFINE_PLUGIN): New macro.
+      (ccze_plugin_startup_t): It is void, not void *.
+      (ccze_plugin_shutdown_t): Likewise.
+      (ccze_plugin_type_t): New enum.
+      (ccze_plugin_t): Added a `type' member.
+    * src/ccze-plugin.c (_ccze_plugin_load): dlsym the newly introduced
+      ccze_foo_info symbol, and nothing else.
+      (ccze_plugin_shutdown): Since ccze_plugin_t is dlsym()ed now, we
+      must not free nor ->name, or the struct itself.
+    * Rules.mk.in (%.so): Depend on ccze-plugin.h too.
+    * src/Makefile.in (ulogd.so): Likewise.
+      
+    All users and modules updated accordingly.
+
+    modified files:
+     ChangeLog Rules.mk.in src/Makefile.in src/ccze-exim.c
+     src/ccze-httpd.c src/ccze-plugin.c src/ccze-plugin.h
+     src/ccze-procmail.c src/ccze-squid.c src/ccze-sulog.c
+     src/ccze-super.c src/ccze-syslog.c src/ccze-ulogd.c
+     src/ccze-vsftpd.c
+
+
 2002-11-18 18:24:29 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-85
 
     Summary:

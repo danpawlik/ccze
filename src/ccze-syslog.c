@@ -25,10 +25,11 @@
 #include <stdlib.h>
 
 #include "ccze.h"
+#include "ccze-plugin.h"
 
-void ccze_syslog_setup (void);
-void ccze_syslog_shutdown (void);
-int ccze_syslog_handle (const char *str, size_t length, char **rest);
+static void ccze_syslog_setup (void);
+static void ccze_syslog_shutdown (void);
+static int ccze_syslog_handle (const char *str, size_t length, char **rest);
 
 static pcre *reg_syslog;
 static pcre_extra *hints_syslog;
@@ -98,7 +99,7 @@ ccze_syslog_process (const char *str, int *offsets, int match)
   return toret;
 }
 
-void
+static void
 ccze_syslog_setup (void)
 {
   const char *error;
@@ -110,14 +111,14 @@ ccze_syslog_setup (void)
   hints_syslog = pcre_study (reg_syslog, 0, &error);
 }
 
-void
+static void
 ccze_syslog_shutdown (void)
 {
   free (reg_syslog);
   free (hints_syslog);
 }
 
-int
+static int
 ccze_syslog_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
@@ -131,3 +132,5 @@ ccze_syslog_handle (const char *str, size_t length, char **rest)
   
   return 0;
 }
+
+CCZE_DEFINE_PLUGIN (syslog, "syslog", FULL);

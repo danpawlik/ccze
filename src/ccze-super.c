@@ -24,10 +24,11 @@
 #include <stdlib.h>
 
 #include "ccze.h"
+#include "ccze-plugin.h"
 
-void ccze_super_setup (void);
-void ccze_super_shutdown (void);
-int ccze_super_handle (const char *str, size_t length, char **rest);
+static void ccze_super_setup (void);
+static void ccze_super_shutdown (void);
+static int ccze_super_handle (const char *str, size_t length, char **rest);
 
 static pcre *reg_super;
 static pcre_extra *hints_super;
@@ -58,7 +59,7 @@ ccze_super_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-void
+static void
 ccze_super_setup (void)
 {
   const char *error;
@@ -70,14 +71,14 @@ ccze_super_setup (void)
   hints_super = pcre_study (reg_super, 0, &error);
 }
 
-void
+static void
 ccze_super_shutdown (void)
 {
   free (reg_super);
   free (hints_super);
 }
 
-int
+static int
 ccze_super_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
@@ -91,3 +92,5 @@ ccze_super_handle (const char *str, size_t length, char **rest)
   
   return 0;
 }
+
+CCZE_DEFINE_PLUGIN (super, "super", FULL);

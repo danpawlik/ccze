@@ -60,51 +60,22 @@ _ccze_plugin_load (const char *name, const char *path)
 {
   ccze_plugin_t *plugin;
   char *tmp;
-    
-  plugin = (ccze_plugin_t *)malloc (sizeof (ccze_plugin_t));
-  plugin->dlhandle = dlopen (path, RTLD_LAZY);
-  if (dlerror () || !plugin->dlhandle)
-    {
-      free (plugin);
-      return;
-    }
+  void *dlhandle;
 
-  plugin->name = strdup (name);
-  asprintf (&tmp, "ccze_%s_setup", name);
-  plugin->startup = (ccze_plugin_startup_t)dlsym (plugin->dlhandle,
-						  tmp);
-  free (tmp);
-  if (dlerror ())
-    {
-      free (plugin->name);
-      dlclose (plugin->dlhandle);
-      free (plugin);
-      return;
-    }
-  
-  asprintf (&tmp, "ccze_%s_shutdown", name);
-  plugin->shutdown = (ccze_plugin_shutdown_t)dlsym (plugin->dlhandle,
-						    tmp);
-  free (tmp);
-  if (dlerror ())
-    {
-      free (plugin->name);
-      dlclose (plugin->dlhandle);
-      free (plugin);
-      return;
-    }
-  
-  asprintf (&tmp, "ccze_%s_handle", name);
-  plugin->handler = (ccze_plugin_handle_t)dlsym (plugin->dlhandle, tmp);
-  free (tmp);
-  if (dlerror ())
-    {
-      free (plugin->name);
-      dlclose (plugin->dlhandle);
-      free (plugin);
-      return;
-    }
+  dlhandle = dlopen (path, RTLD_LAZY);
+  if (dlerror () || !dlhandle)
+    return;
 
+  asprintf (&tmp, "ccze_%s_info", name);
+  plugin = (ccze_plugin_t *)dlsym (dlhandle, tmp);
+  free (tmp);
+  if (dlerror () || !plugin)
+    {
+      dlclose (dlhandle);
+      return;
+    }
+  plugin->dlhandle = dlhandle;
+  
   _ccze_plugin_add (plugin);
 }
 
@@ -218,9 +189,7 @@ ccze_plugin_shutdown (void)
   for (i = 0; i < plugins_len; i++)
     {
       (*(plugins[i]->shutdown)) ();
-      free (plugins[i]->name);
       dlclose (plugins[i]->dlhandle);
-      free (plugins[i]);
     }
   free (plugins);
 }

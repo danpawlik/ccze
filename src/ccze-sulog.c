@@ -24,10 +24,11 @@
 #include <stdlib.h>
 
 #include "ccze.h"
+#include "ccze-plugin.h"
 
-void ccze_sulog_setup (void);
-void ccze_sulog_shutdown (void);
-int ccze_sulog_handle (const char *str, size_t length, char **rest);
+static void ccze_sulog_setup (void);
+static void ccze_sulog_shutdown (void);
+static int ccze_sulog_handle (const char *str, size_t length, char **rest);
 
 static pcre *reg_sulog;
 static pcre_extra *hints_sulog;
@@ -73,7 +74,7 @@ ccze_sulog_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-void
+static void
 ccze_sulog_setup (void)
 {
   const char *error;
@@ -85,14 +86,14 @@ ccze_sulog_setup (void)
   hints_sulog = pcre_study (reg_sulog, 0, &error);
 }
 
-void
+static void
 ccze_sulog_shutdown (void)
 {
   free (reg_sulog);
   free (hints_sulog);
 }
 
-int
+static int
 ccze_sulog_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
@@ -106,3 +107,5 @@ ccze_sulog_handle (const char *str, size_t length, char **rest)
   
   return 0;
 }
+
+CCZE_DEFINE_PLUGIN (sulog, "sulog", FULL);
