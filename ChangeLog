@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-12 16:16:18 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-7
+
+    Summary:
+      addstr -> CCZE_ADDSTR
+    Revision:
+      ccze--0.1--patch-7
+
+    * src/ccze.h (CCZE_ADDSTR): Surround the macro with {}, so it can be
+      safely used in an if-branch.
+      (CCZE_NEWLINE): New macro.
+    * src/ccze-procmail.c (ccze_procmail_process): Use them.
+    * src/ccze-squid.c (ccze_squid_access_log_process): Likewise.
+    * src/ccze.c (main): Likewise.
+
+    modified files:
+     ChangeLog src/ccze-procmail.c src/ccze-squid.c src/ccze.c
+     src/ccze.h
+
+
 2002-09-12 16:09:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-6
 
     Summary:

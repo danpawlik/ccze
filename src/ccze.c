@@ -192,22 +192,17 @@ main (int argc, char **argv)
       /** Common. Goodword coloring should come here **/
       if (rest)
 	{
-	  attrset (CCZE_COLOR_DEFAULT);
-	  addstr (rest);
-	  addstr ("\n");
+	  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, rest);
+	  CCZE_NEWLINE ();
 	  free (rest);
 	}
 
       if (handled == CCZE_MATCH_NONE)
-	{
-	  attrset (CCZE_COLOR_DEFAULT);
-	  addstr (subject);
-	}
+	CCZE_ADDSTR (CCZE_COLOR_DEFAULT, subject);
             
       refresh ();
     }
 
-  addstr ("\n");
   refresh ();
   endwin ();
 

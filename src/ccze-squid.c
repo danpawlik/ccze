@@ -115,7 +115,7 @@ ccze_squid_access_log_process (const char *str, int *offsets, int match)
 
   CCZE_ADDSTR (CCZE_COLOR_CTYPE, ctype);
 
-  addstr ("\n");
+  CCZE_NEWLINE ();
 
   free (date);
   free (espace);

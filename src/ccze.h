@@ -66,8 +66,9 @@
 #define CCZE_COLOR_PROXY_DIRECT (BOLD WHITE)
 #define CCZE_COLOR_PROXY_PARENT (BOLD YELLOW)
 
-#define CCZE_ADDSTR(col,str) attrset (col) ; addstr (str)
+#define CCZE_ADDSTR(col,str) { attrset (col) ; addstr (str); }
 #define ccze_space() CCZE_ADDSTR (CCZE_COLOR_DEFAULT, " ")
+#define CCZE_NEWLINE() addstr ("\n")
 
 enum
 {
