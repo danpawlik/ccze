@@ -22,6 +22,7 @@
 #include <curses.h>
 
 #include <argp.h>
+#include <dlfcn.h>
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,14 +31,9 @@
 #include <unistd.h>
 
 #include "ccze.h"
-#include "ccze-httpd.h"
-#include "ccze-procmail.h"
-#include "ccze-squid.h"
-#include "ccze-sulog.h"
-#include "ccze-super.h"
 #include "ccze-syslog.h"
-#include "ccze-vsftpd.h"
 #include "ccze-wordcolor.h"
+#include "ccze-plugin.h"
 
 struct
 {
@@ -46,6 +42,8 @@ struct
   int wcol;
   int slookup;
 } ccze_config;
+
+static ccze_plugin_t **plugins;
 
 const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
@@ -132,17 +130,23 @@ static void sigint_handler (int sig) __attribute__ ((noreturn));
 static void
 sigint_handler (int sig)
 {
+  int i = 0;
+  
   endwin ();
 
   ccze_wordcolor_shutdown ();
-  ccze_vsftpd_shutdown ();
   ccze_syslog_shutdown ();
-  ccze_super_shutdown ();
-  ccze_sulog_shutdown ();  
-  ccze_squid_shutdown ();
-  ccze_procmail_shutdown ();
-  ccze_httpd_shutdown ();
 
+  while (plugins[i])
+    {
+      (*(plugins[i]->shutdown)) ();
+      free (plugins[i]->name);
+      dlclose (plugins[i]->dlhandle);
+      free (plugins[i]);
+      i++;
+    }
+  free (plugins);
+  
   exit (0);
 }
 
@@ -159,13 +163,14 @@ main (int argc, char **argv)
 {
   char *subject = NULL;
   size_t subjlen = 0;
-    
+  int i;
+  
   ccze_config.scroll = 1;
   ccze_config.convdate = 0;
   ccze_config.wcol = 1;
   ccze_config.slookup = 1;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
-  
+
   initscr ();
   signal (SIGINT, sigint_handler);
   signal (SIGWINCH, sigwinch_handler);
@@ -185,45 +190,38 @@ main (int argc, char **argv)
   init_pair (5, COLOR_CYAN,    COLOR_BLACK);
   init_pair (6, COLOR_MAGENTA, COLOR_BLACK);
   init_pair (7, COLOR_WHITE,   COLOR_BLACK);
-
-  ccze_httpd_setup ();
-  ccze_procmail_setup ();
-  ccze_squid_setup ();
-  ccze_sulog_setup ();
-  ccze_super_setup ();
+  
   ccze_syslog_setup ();
-  ccze_vsftpd_setup ();
   ccze_wordcolor_setup ();
-      
+
+  plugins = ccze_plugin_load_all ();
+
+  i = 0;
+  while (plugins[i])
+    (*(plugins[i++]->startup))();
+        
   while (getline (&subject, &subjlen, stdin) != -1)
     {
-      int handled = CCZE_MATCH_NONE;
-      int status = CCZE_MATCH_NONE;
+      int handled = 0;
+      int status = 0;
       char *rest = NULL;
       char *tmp = strchr (subject, '\n');
 
       tmp[0] = '\0';
-      
-      if ((handled = ccze_procmail_handle (subject, subjlen, &rest)) !=
-	  CCZE_MATCH_NONE)
-	status = handled;
-      else if ((handled = ccze_httpd_handle (subject, subjlen, &rest)) !=
-	       CCZE_MATCH_NONE)
-	status = handled;
-      else if ((handled = ccze_squid_handle (subject, subjlen, &rest)) !=
-	       CCZE_MATCH_NONE)
-	status = handled;
-      else if ((handled = ccze_vsftpd_handle (subject, subjlen, &rest)) !=
-	       CCZE_MATCH_NONE)
-	status = handled;
-      else if ((handled = ccze_sulog_handle (subject, subjlen, &rest)) !=
-	       CCZE_MATCH_NONE)
-	status = handled;
-      else if ((handled = ccze_super_handle (subject, subjlen, &rest)) !=
-	       CCZE_MATCH_NONE)
-	status = handled;
-      else if ((handled = ccze_syslog_handle (subject, subjlen, &rest)) !=
-	       CCZE_MATCH_NONE)
+
+      i = 0;
+      while (plugins[i])
+	{
+	  if ((handled = (*(plugins[i++]->handler))
+	       (subject, subjlen, &rest)) != 0)
+	    {
+	      status = handled;
+	      break;
+	    }
+	}
+
+      if (status == 0 && (handled = ccze_syslog_handle
+			  (subject, subjlen, &rest)) != 0)
 	status = handled;
                         
       if (rest)
@@ -234,7 +232,7 @@ main (int argc, char **argv)
 	  free (rest);
 	}
 
-      if (status == CCZE_MATCH_NONE)
+      if (status == 0)
 	{
 	  ccze_wordcolor_process (subject, ccze_config.wcol,
 				  ccze_config.slookup);
@@ -247,7 +245,7 @@ main (int argc, char **argv)
   refresh ();
 
   free (subject);
-       
+
   sigint_handler (0);
   
   return 0;

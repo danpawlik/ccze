@@ -85,21 +85,6 @@
 #define ccze_space() CCZE_ADDSTR (CCZE_COLOR_DEFAULT, " ")
 #define CCZE_NEWLINE() addstr ("\n")
 
-enum
-{
-  CCZE_MATCH_NONE,
-  CCZE_MATCH_PROCMAIL_LOG,
-  CCZE_MATCH_SYSLOG,
-  CCZE_MATCH_HTTPD_ACCESS_LOG,
-  CCZE_MATCH_HTTPD_ERROR_LOG,
-  CCZE_MATCH_SQUID_ACCESS_LOG,
-  CCZE_MATCH_SQUID_CACHE_LOG,
-  CCZE_MATCH_SQUID_STORE_LOG,
-  CCZE_MATCH_VSFTPD_LOG,
-  CCZE_MATCH_SULOG,
-  CCZE_MATCH_SUPER
-};
-
 int ccze_http_action (const char *method);
 void ccze_print_date (const char *date);
 

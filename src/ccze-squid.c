@@ -290,22 +290,22 @@ ccze_squid_handle (const char *str, size_t length, char **rest)
 			  length, 0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_squid_access_log_process (str, offsets, match);
-      return CCZE_MATCH_SQUID_ACCESS_LOG;
+      return 1;
     }
   
   if ((match = pcre_exec (reg_squid_store, hints_squid_store, str,
 			  length, 0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_squid_store_log_process (str, offsets, match);
-      return CCZE_MATCH_SQUID_STORE_LOG;
+      return 1;
     }
   
   if ((match = pcre_exec (reg_squid_cache, hints_squid_cache, str,
 			  length, 0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_squid_cache_log_process (str, offsets, match);
-      return CCZE_MATCH_SQUID_CACHE_LOG;
+      return 1;
     }
 
-  return CCZE_MATCH_NONE;
+  return 0;
 }

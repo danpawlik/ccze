@@ -98,8 +98,8 @@ ccze_sulog_handle (const char *str, size_t length, char **rest)
 			  0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_sulog_process (str, offsets, match);
-      return CCZE_MATCH_SULOG;
+      return 1;
     }
   
-  return CCZE_MATCH_NONE;
+  return 0;
 }

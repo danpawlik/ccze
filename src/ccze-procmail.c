@@ -118,8 +118,8 @@ ccze_procmail_handle (const char *str, size_t length, char **rest)
 			  0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_procmail_process (str, offsets, match);
-      return CCZE_MATCH_PROCMAIL_LOG;
+      return 1;
     }
   
-  return CCZE_MATCH_NONE;
+  return 0;
 }

@@ -162,14 +162,14 @@ ccze_httpd_handle (const char *str, size_t length, char **rest)
 			  str, length, 0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_httpd_access_log_process (str, offsets, match);
-      return CCZE_MATCH_HTTPD_ACCESS_LOG;
+      return 1;
     }
   if ((match = pcre_exec (reg_httpd_error, hints_httpd_error,
 			  str, length, 0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_httpd_error_log_process (str, offsets, match);
-      return CCZE_MATCH_HTTPD_ERROR_LOG;
+      return 1;
     }
 
-  return CCZE_MATCH_NONE;
+  return 0;
 }

@@ -2,6 +2,50 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-16 16:56:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-39
+
+    Summary:
+      Modularisation
+    Revision:
+      ccze--0.1--patch-39
+
+    * src/ccze-plugin.h: New file.
+    * src/ccze-plugin.c: Likewise.
+    * src/ccze.h: Removed the CCZE_MATCH_* enum. All users updated.
+    * src/ccze.c: Adapted to the new plugin-handling scheme.
+    * src/ccze-super.c: New file (forgot to add earlier).
+    * src/ccze-super.h: Likewise.
+    * src/Makefile.in (SOURCES): Reorganised.
+      (HEADERS): Likewise.
+      (PLUGINS): New variable.
+      (PLUGIN_OBJS): Likewise.
+      (CLEANFILES): Added ${PLUGIN_OBJS}.
+      (OBJECTS): Moved here from Rules.mk.in.
+      (install): Install plugins too.
+      (uninstall): Uninstall plugins too.
+      (all): Depend on ${PLUGIN_OBJS}.
+      (${PROGRAM}): Link with -rdynamic.
+    * Rules.mk.in (libdir): New variable.
+      (pkglibdir): Likewise.
+      (DEFINES): Pass on -DPKGLIBDIR.
+      (OBJECTS): Moved to src/Makefile.in.
+      (%.so): New target.
+    * configure.ac: Added AC_HEADER_DIRENT and -ldl checks.
+    * TODO: Removed relevant entry.
+
+    new files:
+     src/.arch-ids/ccze-plugin.c.id src/.arch-ids/ccze-plugin.h.id
+     src/.arch-ids/ccze-super.c.id src/.arch-ids/ccze-super.h.id
+     src/ccze-plugin.c src/ccze-plugin.h src/ccze-super.c
+     src/ccze-super.h
+
+    modified files:
+     ChangeLog Rules.mk.in TODO configure.ac src/Makefile.in
+     src/ccze-httpd.c src/ccze-procmail.c src/ccze-squid.c
+     src/ccze-sulog.c src/ccze-syslog.c src/ccze-vsftpd.c
+     src/ccze.c src/ccze.h
+
+
 2002-09-16 10:09:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-38
 
     Summary:

@@ -94,8 +94,8 @@ ccze_vsftpd_handle (const char *str, size_t length, char **rest)
 			  0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_vsftpd_log_process (str, offsets, match);
-      return CCZE_MATCH_VSFTPD_LOG;
+      return 1;
     }
   
-  return CCZE_MATCH_NONE;
+  return 0;
 }

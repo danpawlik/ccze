@@ -123,8 +123,8 @@ ccze_syslog_handle (const char *str, size_t length, char **rest)
 			  0, 0, offsets, 99)) >= 0)
     {
       *rest = ccze_syslog_process (str, offsets, match);
-      return CCZE_MATCH_SYSLOG;
+      return 1;
     }
   
-  return CCZE_MATCH_NONE;
+  return 0;
 }
