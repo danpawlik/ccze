@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 09:31:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-15
+
+    Summary:
+      Minor leak fix
+    Revision:
+      ccze--0.1--patch-15
+
+    * src/ccze-sulog.c (ccze_sulog_process): free() islogin.
+
+    modified files:
+     ChangeLog src/ccze-sulog.c
+
+
 2002-09-13 09:26:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-14
 
     Summary:

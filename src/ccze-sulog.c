@@ -59,6 +59,7 @@ ccze_sulog_process (const char *str, int *offsets, int match)
   CCZE_NEWLINE ();
 
   free (date);
+  free (islogin);
   free (tty);
   free (fromuser);
   free (touser);
