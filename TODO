@@ -1,5 +1,10 @@
 # -*- outline -*-
 
+* Bugfixes and cleanups
+** The plugin loading code is a mess
+*** It has lots of duplicate code
+*** It has no design at all
+
 * New features
 ** Support for more kinds of logs
 
