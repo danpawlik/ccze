@@ -23,6 +23,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "ccze-compat.h"
+
 static void ccze_postfix_setup (void);
 static void ccze_postfix_shutdown (void);
 static int ccze_postfix_handle (const char *str, size_t length, char **rest);

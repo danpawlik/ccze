@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-02 15:48:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-148
+
+    Summary:
+      Compatibility..
+    Revision:
+      ccze--0.1--patch-148
+
+    * src/ccze.c: #include "ccze-compat.h"
+    * src/ccze-wordcolor.c: Likewise.
+    * src/mod_postfix.c: Likewise.
+    * src/mod_syslog.c: Likewise.
+    * src/mod_ulogd.c: Likewise.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c src/ccze.c src/mod_postfix.c
+     src/mod_syslog.c src/mod_ulogd.c
+
+
 2003-02-01 22:20:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-147
 
     Summary:

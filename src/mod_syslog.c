@@ -23,6 +23,8 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "ccze-compat.h"
+
 static void ccze_syslog_setup (void);
 static void ccze_syslog_shutdown (void);
 static int ccze_syslog_handle (const char *str, size_t length, char **rest);

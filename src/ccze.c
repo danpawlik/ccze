@@ -34,6 +34,7 @@
 #include <unistd.h>
 
 #include "ccze-private.h"
+#include "ccze-compat.h"
 
 #define BLACK COLOR_PAIR (0)
 #define RED COLOR_PAIR (1)

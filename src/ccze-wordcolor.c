@@ -28,6 +28,7 @@
 #include <stdlib.h>
 
 #include "ccze-private.h"
+#include "ccze-compat.h"
 
 static pcre *reg_pre, *reg_post, *reg_host, *reg_mac, *reg_email;
 static pcre *reg_uri, *reg_size, *reg_ver, *reg_time, *reg_addr;
