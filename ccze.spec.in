@@ -1,0 +1,53 @@
+%define version @VERSION@
+%define release 1
+
+Summary: A robust log colorizer
+Name: ccze
+Version: %{version}
+Release: %{release}
+Vendor: Generic
+Packager: Andreas Brenk <ab@aegisnet.biz>
+URL: http://bonehunter.rulez.org/CCZE.html
+Copyright: GPL
+Group: Applications/Text
+Source: ftp://bonehunter.rulez.org/pub/ccze/stable/ccze-%{version}.tar.gz
+BuildRoot: %{_tmppath}/%{name}-root
+BuildPrereq: ncurses-devel >= 5.0, pcre-devel >= 3.1
+
+%description
+CCZE is a fast log colorizer written in C, intended to be a drop-in replacement
+for the well-known colorize.pl.
+
+%prep
+%setup -q
+
+%build
+./configure \
+	--prefix=%{_prefix} \
+	--sysconfdir=%{_sysconfdir} \
+	--mandir=%{_mandir}
+make CFLAGS="${RPM_OPT_FLAGS} -I/usr/include/pcre"
+
+%install
+rm -rf $RPM_BUILD_ROOT
+make install DESTDIR=${RPM_BUILD_ROOT}
+install -d ${RPM_BUILD_ROOT}%{_sysconfdir}
+install -m 644 etc/cczerc ${RPM_BUILD_ROOT}%{_sysconfdir}/cczerc
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(-,root,root,-)
+%doc AUTHORS ChangeLog NEWS README THANKS TODO
+%config %{_sysconfdir}/cczerc
+%{_bindir}/ccze
+%dir %{_libdir}/ccze
+%{_libdir}/ccze/*
+%attr(0644,root,root) %{_mandir}/man1/ccze.1*
+
+%changelog
+* Tue Nov 19 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+- Simplified and made it version-neultral.
+* Sun Nov 17 2002 Andreas Brenk <ab@aegisnet.biz>
+- Initial creation

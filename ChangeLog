@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-19 17:32:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-90
+
+    Summary:
+      ccze.spec.in
+    Revision:
+      ccze--0.1--patch-90
+
+    * ccze.spec.in: New file, based on the work of Andreas Brenk.
+    * Makefile.in: Added support for generating ccze.spec.
+      (dist): Depend on ccze.spec.
+
+    new files:
+     .arch-ids/ccze.spec.in.id ccze.spec.in
+
+    modified files:
+     ChangeLog Makefile.in
+
+
 2002-11-19 17:06:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-89
 
     Summary:
