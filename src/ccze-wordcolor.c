@@ -269,14 +269,15 @@ ccze_wordcolor_setup (void)
 			   "(\\w*::\\w+)+)(:\\d{1,5})?)$", 0, &error,
 			   &errptr, NULL);
   reg_hostip = pcre_compile ("^(((\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|"
-			     "(([a-z0-9-_]+)+)|(localhost)|"
+			     "(([a-z0-9-_\\.]+)+)|(localhost)|"
 			     "(\\w*::\\w+)+)(:\\d{1,5})?)"
 			     "\\[",
 			     0, &error,  &errptr, NULL);
   reg_mac = pcre_compile ("^([0-9a-f]{2}:){5}[0-9a-f]{2}$", 0, &error,
 			  &errptr, NULL);
-  reg_email = pcre_compile ("^[a-z0-9-_]+@([a-z0-9-_\\.]+)+(\\.[a-z]{2,4})+",
-			    0, &error, &errptr, NULL);
+  reg_email = pcre_compile
+    ("^[a-z0-9-_=\\+]+@([a-z0-9-_\\.]+)+(\\.[a-z]{2,4})+", 0,
+     &error, &errptr, NULL);
   reg_email2 = pcre_compile ("(\\.[a-z]{2,4})+$", 0, &error, &errptr, NULL);
   reg_uri = pcre_compile ("^\\w{2,}:\\/\\/(\\S+\\/?)+$", 0, &error,
 			  &errptr, NULL);
@@ -293,8 +294,9 @@ ccze_wordcolor_setup (void)
 			  "bus|poll|prof|sys|trap|urg|vtalrm|xcpu|xfsz|iot|"
 			  "emt|stkflt|io|cld|pwr|info|lost|winch|unused)", 0,
 			  &error, &errptr, NULL);
-  reg_msgid = pcre_compile ("^[a-z0-9-_\\.\\$]+@([a-z0-9-_\\.]+)+(\\.?[a-z]+)+",
-			    0, &error, &errptr, NULL);
+  reg_msgid = pcre_compile
+    ("^[a-z0-9-_\\.\\$=\\+]+@([a-z0-9-_\\.]+)+(\\.?[a-z]+)+", 0, &error,
+     &errptr, NULL);
 }
 
 void

@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-31 08:57:37 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-146
+
+    Summary:
+      Minor wordcolor fixes
+    Revision:
+      ccze--0.1--patch-146
+
+    * src/ccze-wordcolor.c (ccze_wordcolor_setup): Allow dots in reg_hostip,
+      and `=' and '+' in reg_email and reg_msgid.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c
+
+
 2003-01-31 08:49:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-145
 
     Summary:
