@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 11:09:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-20
+
+    Summary:
+      Remove trailing \n from input
+    Revision:
+      ccze--0.1--patch-20
+
+    * src/ccze.c (main): Remove the trailing \n from the input, so our
+      regexps which use $ will work again.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-09-13 10:21:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-19
 
     Summary:

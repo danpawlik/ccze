@@ -156,14 +156,14 @@ main (int argc, char **argv)
   ccze_sulog_setup (&regc_sulog, &hints_sulog);
   ccze_super_setup (&regc_super, &hints_super);
     
-  while (1)
+  while (getline (&subject, &subjlen, stdin) != -1)
     {
       int handled = CCZE_MATCH_NONE;
       char *rest = NULL;
-            
-      if (getline (&subject, &subjlen, stdin) == -1)
-	break;
+      char *tmp = strchr (subject, '\n');
 
+      tmp[0] = '\0';
+      
       /** Procmail **/
       if ((match = pcre_exec (regc_procmail_log, hints_procmail_log,
 			      subject, subjlen, 0, 0, offsets, 99)) >= 0)
