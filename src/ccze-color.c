@@ -50,10 +50,10 @@
 static int ccze_color_table [CCZE_COLOR_LAST + 1];
 
 static char *ccze_csscolor_normal_map[] = {
-  "black", "red", "#00C000", "brown", "blue", "darkcyan",
+  "black", "darkred", "#00C000", "brown", "blue", "darkcyan",
   "darkmagenta", "grey" };
 static char *ccze_csscolor_bold_map[] = {
-  "black", "lightred", "lime", "yellow", "slateblue",
+  "black", "red", "lime", "yellow", "slateblue",
   "cyan", "magenta", "white" };
 static char *ccze_cssbody = "#404040";
 

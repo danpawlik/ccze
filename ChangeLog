@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 22:20:35 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-163
+
+    Summary:
+      Fixed CSS
+    Revision:
+      ccze--0.1--patch-163
+
+    * src/ccze-color.c (ccze_csscolor_normal_map): red->darkred.
+      (ccze_csscolor_bold_map): lightred->red.
+
+    modified files:
+     ChangeLog src/ccze-color.c
+
+
 2003-02-07 22:16:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-162
 
     Summary:
