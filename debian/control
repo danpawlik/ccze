@@ -12,3 +12,12 @@ Description: A roboust, modular log coloriser.
  CCZE is a roboust and modular log colorizer, with plugins for apm,
  exim, fetchmail, httpd, postfix, procmail, squid, syslog, ulogd,
  vsftpd, xferlog and more.
+
+Package: colorize
+Architecture: all
+Depends: ccze
+Description: Dummy package for transition to ccze.
+ This dummy package provides a transition from colorize to ccze, which
+ supersedes it.
+ .
+ After the upgrade completed, this package may be safely removed.

@@ -2,10 +2,11 @@
 ## Written by Gergely Nagy <algernon@debian.org>
 ## This is under GPL v2.
 
-PACKAGE		 = ccze
-PKGDIR		 = ${CURDIR}/debian/${PACKAGE}
+PACKAGE		:= ccze
+PKGDIR		:= ${CURDIR}/debian/${PACKAGE}
+PKGDIR_D	:= ${CURDIR}/debian/colorize
 
-CFLAGS		?= -Wno-error -g
+CFLAGS		?= -g
 BGT		:= $(shell dpkg-architecture -qDEB_BUILD_GNU_TYPE)
 HGT		:= $(shell dpkg-architecture -qDEB_HOST_GNU_TYPE)
 
@@ -31,7 +32,7 @@ clean:
 	test -e debian/control && test "x`whoami`" = "xroot"
 	rm -rf debian/${PACKAGE}.substvars ${PKGDIR} debian/files
 	-${MAKE} distclean
-	rm -rf ${PKGDIR}
+	rm -rf ${PKGDIR} ${PKGDIR_D}
 
 install: build
 	test -e debian/control && test "x`whoami`" = "xroot"
@@ -80,10 +81,22 @@ endif
 ## Build the binary package
 	dpkg --build ${PKGDIR} ..
 
+# This target is not built by default, because the version number is
+# hardcoded, and is not supposed to change.
+binary-colorize:
+	test -e debian/control && test "x`whoami`" = "xroot"
+## Install stuff to DEBIAN/
+	install -d ${PKGDIR_D}/DEBIAN
+## Generate DEBIAN/control
+	dpkg-gencontrol -isp -pcolorize -P${PKGDIR_D} -v0.3.1-3
+## Build the binary package
+	dpkg --build ${PKGDIR_D} ..
+
 binary-indep:
 binary-arch: binary-ccze
 
 binary: binary-indep binary-arch
 
-.PHONY: binary binary-arch binary-indep clean build install binary-ccze
+.PHONY: binary binary-arch binary-indep clean build install binary-ccze \
+	binary-colorize
 .SUFFIXES:

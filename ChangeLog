@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 15:08:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-158
+
+    Summary:
+      colorize->ccze transition
+    Revision:
+      ccze--0.1--patch-158
+
+    * debian/control: Added a dummy colorize control info.
+    * debian/rules (binary-colorize): New target.
+      (clean): remove ${PKGDIR_D} too.
+      (.PHONY): Added binary-colorize.
+
+    modified files:
+     ChangeLog debian/control debian/rules
+
+
 2003-02-07 08:10:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-157
 
     Summary:
