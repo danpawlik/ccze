@@ -49,8 +49,6 @@ struct
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
 			 COLOR_BLUE, COLOR_CYAN, COLOR_MAGENTA, COLOR_WHITE};
  
-static ccze_plugin_t **plugins;
-
 const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
@@ -150,21 +148,10 @@ static void sigint_handler (int sig) __attribute__ ((noreturn));
 static void
 sigint_handler (int sig)
 {
-  int i = 0;
-  
   endwin ();
 
   ccze_wordcolor_shutdown ();
-
-  while (plugins[i])
-    {
-      (*(plugins[i]->shutdown)) ();
-      free (plugins[i]->name);
-      dlclose (plugins[i]->dlhandle);
-      free (plugins[i]);
-      i++;
-    }
-  free (plugins);
+  ccze_plugin_shutdown ();
   
   exit (0);
 }
@@ -184,8 +171,8 @@ main (int argc, char **argv)
   size_t subjlen = 0;
   int i, j;
   char *homerc, *home;
-  size_t plugins_alloc, plugins_len = 0;
-    
+  ccze_plugin_t **plugins;
+      
   ccze_config.scroll = 1;
   ccze_config.convdate = 0;
   ccze_config.wcol = 1;
@@ -233,28 +220,19 @@ main (int argc, char **argv)
     }
 
   ccze_wordcolor_setup ();
+
+  ccze_plugin_init ();
   if (ccze_config.pluginlist_len == 0)
-    plugins = ccze_plugin_load_all ();
+    ccze_plugin_load_all ();
   else
     {
-      ccze_plugin_t *plugin;
-      
-      plugins_len = 0;
-      plugins_alloc = 10;
-      plugins = (ccze_plugin_t **)calloc (plugins_alloc, sizeof (ccze_plugin_t *));
       while (ccze_config.pluginlist_len-- > 0)
-	{
-	  plugin = ccze_plugin_load (ccze_config.pluginlist[ccze_config.pluginlist_len]);
-	  plugins[plugins_len++] = plugin;
-	  if (plugins_len >= plugins_alloc)
-	    {
-	      plugins_alloc *= 2;
-	      plugins = (ccze_plugin_t **)realloc (plugins, plugins_alloc * sizeof (ccze_plugin_t *));
-	    }
-	}
+	ccze_plugin_load (ccze_config.pluginlist[ccze_config.pluginlist_len]);
     }
-    
+  ccze_plugin_finalise ();
+      
   i = 0;
+  plugins = ccze_plugins();
   while (plugins[i])
     (*(plugins[i++]->startup))();
         

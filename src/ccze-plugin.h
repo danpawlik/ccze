@@ -36,7 +36,11 @@ typedef struct _ccze_plugin_t
   ccze_plugin_handle_t handler;
 } ccze_plugin_t;
 
-ccze_plugin_t *ccze_plugin_load (const char *name);
-ccze_plugin_t **ccze_plugin_load_all (void);
+void ccze_plugin_init (void);
+ccze_plugin_t **ccze_plugins (void);
+void ccze_plugin_load_all (void);
+void ccze_plugin_load (const char *name);
+void ccze_plugin_shutdown (void);
+void ccze_plugin_finalise (void);
 
 #endif /* !_CCZE_PLUGIN_H */

@@ -2,6 +2,41 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-28 14:41:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-60
+
+    Summary:
+      Plugin architecture cleanup and redesign
+    Revision:
+      ccze--0.1--patch-60
+
+    * src/ccze-plugin.h (ccze_plugin_init): New prototype.
+      (ccze_plugins): Likewise.
+      (ccze_plugin_shutdown): Likewise.
+      (ccze_plugin_finalise): Likewise.
+      (ccze_plugin_load): Changed prototype.
+      (ccze_plugin_load_all): Likewise.
+    * src/ccze_plugin.c (_ccze_plugin_add): New helper function.
+      (ccze_plugin_init): New function.
+      (ccze_plugin_finalise): Likewise.
+      (ccze_plugin_shutdown): Likewise.
+      (ccze_plugins): Likewise.
+      (ccze_plugin_load): Adapted to new plugin design.
+      (ccze_plugin_load_all): Likewise.
+      (_ccze_plugin_loaded): Likewise.
+      (_ccze_plugin_load_set): Likewise.
+    * src/ccze.c (sigint_handler): Use sigint_handler().
+      (main): Adapted to the new plugin design.
+    * TODO: Plugin stuff is done.
+    
+    This new design is actually rather simple: there is one "global"
+    ccze_plugin_t ** in src/ccze_plugin.c, and that module does all the
+    hard job. This way no code is duplicated unnecessarily, less arguments
+    are passed around, and in general it is Far Better(tm).
+
+    modified files:
+     ChangeLog TODO src/ccze-plugin.c src/ccze-plugin.h src/ccze.c
+
+
 2002-09-24 16:35:05 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-59
 
     Summary:

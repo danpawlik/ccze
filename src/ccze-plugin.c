@@ -31,7 +31,31 @@
 
 #define PLUGIN_LIBPATH PKGLIBDIR "/"
 
-ccze_plugin_t *
+static ccze_plugin_t **plugins;
+static size_t plugins_alloc, plugins_len;
+
+static void
+_ccze_plugin_add (ccze_plugin_t *plugin)
+{
+  plugins[plugins_len] = plugin;
+  plugins_len++;
+  if (plugins_len >= plugins_alloc)
+    {
+      plugins_alloc *= 2;
+      plugins = (ccze_plugin_t **)realloc
+	(plugins, plugins_alloc * sizeof (ccze_plugin_t *));
+    }
+}
+
+void
+ccze_plugin_init (void)
+{
+  plugins_alloc = 10;
+  plugins_len = 0;
+  plugins = (ccze_plugin_t **)calloc (plugins_alloc, sizeof (ccze_plugin_t *));
+}
+
+void
 ccze_plugin_load (const char *name)
 {
   ccze_plugin_t *plugin;
@@ -57,7 +81,7 @@ ccze_plugin_load (const char *name)
   if (dlerror () || !plugin->dlhandle)
     {
       free (plugin);
-      return NULL;
+      return;
     }
 
   plugin->name = strdup (name);
@@ -70,7 +94,7 @@ ccze_plugin_load (const char *name)
       free (plugin->name);
       dlclose (plugin->dlhandle);
       free (plugin);
-      return NULL;
+      return;
     }
   
   asprintf (&tmp, "ccze_%s_shutdown", name);
@@ -82,7 +106,7 @@ ccze_plugin_load (const char *name)
       free (plugin->name);
       dlclose (plugin->dlhandle);
       free (plugin);
-      return NULL;
+      return;
     }
   
   asprintf (&tmp, "ccze_%s_handle", name);
@@ -93,10 +117,10 @@ ccze_plugin_load (const char *name)
       free (plugin->name);
       dlclose (plugin->dlhandle);
       free (plugin);
-      return NULL;
+      return;
     }
-    
-  return plugin;
+
+  _ccze_plugin_add (plugin);
 }
 
 static int
@@ -108,8 +132,7 @@ _ccze_plugin_select (const struct dirent *de)
 }
 
 static int
-_ccze_plugin_loaded (const char *name, ccze_plugin_t **plugins,
-		     size_t plugins_len)
+_ccze_plugin_loaded (const char *name)
 {
   size_t i;
   
@@ -122,11 +145,9 @@ _ccze_plugin_loaded (const char *name, ccze_plugin_t **plugins,
 }
 
 static void
-_ccze_plugin_load_set (struct dirent ***namelist, ccze_plugin_t ***plugins,
-		       size_t *plugins_alloc, size_t *plugins_len, int nn)
+_ccze_plugin_load_set (struct dirent ***namelist, int nn)
 {
   int m, n = nn;
-  ccze_plugin_t *plugin;
 
   m = 0;
   while (m < n)
@@ -135,58 +156,59 @@ _ccze_plugin_load_set (struct dirent ***namelist, ccze_plugin_t ***plugins,
       char *tmp2 = strstr (tmp, ".so");
       tmp2[0] = '\0';
 
-      if (!_ccze_plugin_loaded (tmp, *plugins, *plugins_len))
-	{
-	  plugin = ccze_plugin_load (tmp);
-	  free (tmp);
-	  if (plugin)
-	    {
-	      (*plugins)[*plugins_len] = plugin;
-	      (*plugins_len)++;
-	      if ((*plugins_len) >= (*plugins_alloc))
-		{
-		  (*plugins_alloc) *= 2;
-		  (*plugins) = (ccze_plugin_t **)realloc
-		    ((*plugins), (*plugins_alloc) * sizeof (ccze_plugin_t *));
-		}
-	    }
-	}
+      if (!_ccze_plugin_loaded (tmp))
+	ccze_plugin_load (tmp);
+      free (tmp);
       free ((*namelist)[m]);
       m++;
     }
   free (*namelist);
 }
 		       
-ccze_plugin_t **
+void
 ccze_plugin_load_all (void)
 {
   struct dirent **namelist;
   int n;
-  ccze_plugin_t **plugins;
-  size_t plugins_alloc, plugins_len;
   char *homeplugs, *home;
   
-  plugins_alloc = 10;
-  plugins_len = 0;
-  plugins = (ccze_plugin_t **)calloc (plugins_alloc,
-				      sizeof (ccze_plugin_t *));
-
   if ((home = getenv ("HOME")) != NULL)
     {
       asprintf (&homeplugs, "%s/.ccze/", home);
       n = scandir (homeplugs, &namelist, _ccze_plugin_select, alphasort);
       if (n != -1)
-	_ccze_plugin_load_set (&namelist, &plugins, &plugins_alloc,
-			       &plugins_len, n);
+	_ccze_plugin_load_set (&namelist, n);
       free (homeplugs);
     }
 
   n = scandir (PLUGIN_LIBPATH, &namelist, _ccze_plugin_select, alphasort);
   if (n != -1)
-    _ccze_plugin_load_set (&namelist, &plugins, &plugins_alloc,
-			   &plugins_len, n);
+    _ccze_plugin_load_set (&namelist, n);
+}
 
+void
+ccze_plugin_finalise (void)
+{
   plugins[plugins_len] = NULL;
-  
+}
+
+ccze_plugin_t **
+ccze_plugins (void)
+{
   return plugins;
+}
+
+void
+ccze_plugin_shutdown (void)
+{
+  size_t i;
+
+  for (i = 0; i < plugins_len; i++)
+    {
+      (*(plugins[i]->shutdown)) ();
+      free (plugins[i]->name);
+      dlclose (plugins[i]->dlhandle);
+      free (plugins[i]);
+    }
+  free (plugins);
 }
