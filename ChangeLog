@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 14:30:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-49
+
+    Summary:
+      Support --rcfile
+    Revision:
+      ccze--0.1--patch-49
+
+    * src/ccze-color.c (ccze_color_load): Stat the file before opening,
+      and bail out if it is not a regular file.
+    * src/ccze.c (ccze_config): Added an `rcfile' member.
+      (options): Added `--rcfile'.
+      (parse_opts): Recognise it.
+      (main): Initialise ccze_config.rcfile to NULL, and only load any
+      other files if it is still NULL after parsing.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze.c
+
+
 2002-09-18 14:05:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-48
 
     Summary:

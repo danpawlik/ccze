@@ -41,6 +41,7 @@ struct
   int convdate;
   int wcol;
   int slookup;
+  char *rcfile;
 } ccze_config;
 
 static ccze_plugin_t **plugins;
@@ -49,6 +50,7 @@ const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
   {NULL, 0, NULL, 0, "", 1},
+  {"rcfile", 'F', "FILE", 0, "Read configuration from FILE", 1},
   {"scroll", 's', NULL, 0, "Enable scrolling", 1},
   {"no-scroll", -100, NULL, 0, "Disable scrolling", 1},
   {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
@@ -65,6 +67,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
 {
   switch (key)
     {
+    case 'F':
+      ccze_config.rcfile = arg;
+      break;
     case 's':
       ccze_config.scroll = 1;
       break;
@@ -169,6 +174,7 @@ main (int argc, char **argv)
   ccze_config.convdate = 0;
   ccze_config.wcol = 1;
   ccze_config.slookup = 1;
+  ccze_config.rcfile = NULL;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 
   initscr ();
@@ -193,21 +199,26 @@ main (int argc, char **argv)
   init_pair (7, COLOR_WHITE, COLOR_BLACK);
 
   ccze_color_init ();
-  ccze_color_load (SYSCONFDIR "/colorizerc");
-  ccze_color_load (SYSCONFDIR "/cczerc");
-  home = getenv ("HOME");
-  if (home)
-    {
-      asprintf (&homerc, "%s/.colorizerc", home);
-      ccze_color_load (homerc);
-      free (homerc);
-      asprintf (&homerc, "%s/.cczerc", home);
-      ccze_color_load (homerc);
-      free (homerc);
-    }
-  
-  ccze_wordcolor_setup ();
 
+  if (ccze_config.rcfile)
+    ccze_color_load (ccze_config.rcfile);
+  else
+    {
+      ccze_color_load (SYSCONFDIR "/colorizerc");
+      ccze_color_load (SYSCONFDIR "/cczerc");
+      home = getenv ("HOME");
+      if (home)
+	{
+	  asprintf (&homerc, "%s/.colorizerc", home);
+	  ccze_color_load (homerc);
+	  free (homerc);
+	  asprintf (&homerc, "%s/.cczerc", home);
+	  ccze_color_load (homerc);
+	  free (homerc);
+	}
+    }
+
+  ccze_wordcolor_setup ();
   plugins = ccze_plugin_load_all ();
 
   i = 0;

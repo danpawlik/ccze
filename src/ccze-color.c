@@ -156,7 +156,12 @@ ccze_color_load (const char *fn)
   FILE *fp;
   char *line = NULL;
   size_t len;
+  struct stat stb;
 
+  stat (fn, &stb);
+  if (!S_ISREG (stb.st_mode))
+    return;
+  
   fp = fopen (fn, "r");
   if (!fp)
     return;
