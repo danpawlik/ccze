@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 14:05:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-48
+
+    Summary:
+      Minor memory-leak fix
+    Revision:
+      ccze--0.1--patch-48
+
+    * src/ccze-plugin.c (ccze_plugin_load_all): In the while() loop, free()
+      namelist[m], and after the loop, free() namelist itself too.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2002-09-18 14:00:06 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-47
 
     Summary:

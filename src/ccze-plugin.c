@@ -127,8 +127,10 @@ ccze_plugin_load_all (void)
 						   sizeof (ccze_plugin_t *));
 	    }
 	}
+      free (namelist[m]);
       m++;
     }
   plugins[plugins_len] = NULL;
+  free (namelist);
   return plugins;
 }
