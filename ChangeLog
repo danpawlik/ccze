@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-05 12:51:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-214
+
+    Summary:
+      Typo fixes
+    Revision:
+      ccze--0.1--patch-214
+
+    * debian/control (Description): roboust -> robust.
+
+    modified files:
+     ChangeLog debian/control
+
+
 2003-03-05 12:46:16 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-213
 
     Summary:
