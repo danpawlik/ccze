@@ -14,7 +14,7 @@ ALL_LDFLAGS	= ${LDFLAGS} ${LIBS}
 
 SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
 		$(addprefix ccze-,$(addsuffix .c, ${ALL_PLUGINS})) \
-		ccze-dump.c
+		ccze-dump.c ccze-cssdump.c
 HEADERS		= ccze.h ccze-color.h ccze-plugin.h ccze-wordcolor.h
 ALL_PLUGINS	= @ALL_PLUGINS@
 S_PLUGINS	= @S_PLUGINS@
@@ -22,13 +22,13 @@ SH_PLUGINS	= $(filter-out ${S_PLUGINS},${ALL_PLUGINS})
 PLUGIN_SHOBJS	= $(addsuffix .so,${SH_PLUGINS})
 PLUGIN_SOBJS	= $(addsuffix .o,$(addprefix ccze-,${S_PLUGINS}))
 PLUGIN_OBJS	= ${PLUGIN_SHOBJS} ${PLUGIN_SOBJS}
-CLEANFILES	= ccze-dump
+CLEANFILES	= ccze-dump ccze-cssdump
 DISTCLEANFILES	= ccze-builtins.c
 OBJECTS		= ccze.o ccze-color.o ccze-plugin.o ccze-wordcolor.o \
 		ccze-builtins.o
 
 ## -- Standard targets -- ##
-all: ${PROGRAM} ${PLUGIN_SHOBJS} ccze-dump
+all: ${PROGRAM} ${PLUGIN_SHOBJS} ccze-dump ccze-cssdump
 
 install: all
 	${INSTALL} -d ${DESTDIR}${bindir}
@@ -51,8 +51,8 @@ endif
 ## -- Specific targets -- ##
 ${PROGRAM}: ${OBJECTS} ${PLUGIN_SOBJS}
 	${CC} -rdynamic ${ALL_CFLAGS} -o $@ $^ ${ALL_LDFLAGS}
-ccze-dump: ccze-dump.c ccze-color.c ccze.h ccze-color.h
-	${CC} ${ALL_CFLAGS} -o $@ ccze-dump.c
+ccze-dump ccze-cssdump: %: %.c ccze-color.c ccze.h ccze-color.h
+	${CC} ${ALL_CFLAGS} -o $@ $<
 ccze-builtins.c: Makefile
 	echo '#include "ccze.h"' >$@
 	echo '#include "ccze-plugin.h"' >>$@

@@ -183,6 +183,17 @@ ccze_color_strip_attrib (int color)
   return mycolor;
 }
 
+char *
+ccze_color_lookup_name (ccze_color_t color)
+{
+  size_t cidx;
+  
+  for (cidx = 0; cidx < sizeof (ccze_color_keyword_map); cidx++)
+    if (ccze_color_keyword_map[cidx].idx == color)
+      return ccze_color_keyword_map[cidx].keyword;
+  return NULL;
+}
+
 int
 ccze_color (ccze_color_t idx)
 {

@@ -2,6 +2,32 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-12 16:44:48 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-109
+
+    Summary:
+      ccze-cssdump
+    Revision:
+      ccze--0.1--patch-109
+
+    * src/ccze-color.h (ccze_color_lookup_name): New prototype.
+    * src/ccze-color.c (ccze_color_lookup_name): New function, moved here
+      from src/ccze-dump.c::ccze_dump_lookup_name().
+    * src/ccze-dump.c (ccze_dump_lookup_name): Moved to src/ccze-color.c.
+      (main): Use the new name.
+    * src/ccze-cssdump.c: New file.
+    * src/Makefile.in (SOURCES): Added ccze-cssdump.c.
+      (CLEANFILES): Added ccze-cssdump.
+      (all): Likewise.
+      (ccze-dump, ccze-cssdump): Merged the two and generalised them.
+
+    new files:
+     src/.arch-ids/ccze-cssdump.c.id src/ccze-cssdump.c
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze-color.c src/ccze-color.h
+     src/ccze-dump.c
+
+
 2003-01-11 02:56:45 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-108
 
     Summary:

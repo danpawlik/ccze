@@ -41,17 +41,6 @@ ccze_dump_color_get_attrib (int color)
 }
 
 static char *
-ccze_dump_lookup_name (ccze_color_t color)
-{
-  size_t cidx;
-  
-  for (cidx = 0; cidx < sizeof (ccze_color_keyword_map); cidx++)
-    if (ccze_color_keyword_map[cidx].idx == color)
-      return ccze_color_keyword_map[cidx].keyword;
-  return NULL;
-}
-
-static char *
 ccze_dump_color_to_name (int color)
 {
   int my_color = ccze_color_strip_attrib (color);
@@ -117,7 +106,7 @@ main (void)
       int color = ccze_color (cidx);
       char line[256];
       
-      strcpy (line, ccze_dump_lookup_name (cidx));
+      strcpy (line, ccze_color_lookup_name (cidx));
       memset (&line[strlen(line)], ' ', 16 - strlen (line));
       line[16]='\0';
       strcat (line, ccze_dump_color_get_attrib (color));
