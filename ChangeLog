@@ -2,6 +2,30 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 01:41:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-128
+
+    Summary:
+      Added ICC support to the build system
+    Revision:
+      ccze--0.1--patch-128
+
+    * Rules.mk.in (INCLUDES): Moved to src/Makefile.in.
+      (DEFINES): Likewise.
+      (WFLAGS): Likewise.
+      (WFLAGS_3X): Likewise.
+      (ALL_CFLAGS): Likewise.
+      (LIBS): Likewise.
+    * src/Makefile.in (WFLAGS): Made it a substvar, but moved the former
+      contents to...
+      (WFLAGS_GCC): ...here.
+      (WFLAGS_ICC): New variable.
+    * configure.ac: Enhanced the compiler version check. (Lifted from thy
+      0.4.34)
+
+    modified files:
+     ChangeLog Rules.mk.in configure.ac src/Makefile.in
+
+
 2003-01-19 01:29:54 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-127
 
     Summary:

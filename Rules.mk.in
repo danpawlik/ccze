@@ -46,22 +46,6 @@ builddir	= @builddir@
 PATCHLEVEL	= $(shell head -5 ${top_srcdir}/ChangeLog | tail -1 | sed -e "s,^.*patch-,,g")
 DISTFILES	= ${SOURCES} ${HEADERS} Makefile.in ${EXTRA_DIST}
 
-INCLUDES	= -I. -I${srcdir} -I${top_builddir}
-DEFINES		= -DPATCHLEVEL=\"${PATCHLEVEL}\" -DSYSCONFDIR=\"${sysconfdir}\" \
-		-D_GNU_SOURCE=1 -DPKGLIBDIR=\"${pkglibdir}\"
-WFLAGS		= -Werror -Wshadow -Wpointer-arith -Waggregate-return \
-		-Wstrict-prototypes -Wmissing-prototypes -Wcast-qual \
-		-Wbad-function-cast -Wsign-compare -Wchar-subscripts \
-		-Wcomment -Wformat -Wformat-nonliteral -Wformat-security \
-		-Wimplicit -Wmain -Wmissing-braces -Wparentheses \
-		-Wreturn-type -Wswitch -Wmulticharacter \
-		-Wmissing-noreturn -Wmissing-declarations @WFLAGS_3X@
-WFLAGS_3X	= -Wsequence-point -Wdiv-by-zero -W -Wunused \
-		-Wno-unused-parameter -Wno-unused-function
-ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${WFLAGS} ${CFLAGS}
-
-LIBS		= @LIBS@
-
 ## -- Generic rules -- ##
 all:
 
