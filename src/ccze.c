@@ -45,6 +45,11 @@
 #define MAGENTA COLOR_PAIR (6)
 #define WHITE COLOR_PAIR (7)
 
+#define ESC 0x1b
+
+/* ccze somehow swaped cyan and magenta */
+static int ccze_raw_ansi_color[] = {30,31,32,33,34,36,35,37};
+
 ccze_config_t ccze_config = {
   .scroll = 1,
   .convdate = 0,
@@ -59,7 +64,8 @@ ccze_config_t ccze_config = {
   .color_argv_len = 0,
   .color_argv_alloc = 10,
   .html = 0,
-  .debug = 0
+  .debug = 0,
+  .raw_ansi = 0
 };
 
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
@@ -83,6 +89,7 @@ static struct argp_option options[] = {
   {"color", 'c', "KEY=COLOR,...", 0, "Set the color of KEY to COLOR", 1},
   {"argument", 'a', "PLUGIN=ARGS...", 0, "Add ARGUMENTS to PLUGIN", 1},
   {"debug", 'd', NULL, OPTION_HIDDEN, "Turn on debugging.", 1},
+  {"raw-ansi", 'A', NULL, 0, "Generate raw ANSI output", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -208,6 +215,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
     case 'h':
       ccze_config.html = 1;
       break;
+    case 'A':
+      ccze_config.raw_ansi = 1;
+      break;
     case 'd':
       ccze_config.debug = 1;
       break;
@@ -316,7 +326,7 @@ ccze_newline (void)
     printf ("<br>\n");
   else
     {
-      if (ccze_config.debug)
+      if (ccze_config.debug || ccze_config.raw_ansi)
 	printf ("\n");
       else
 	addstr ("\n");
@@ -384,6 +394,31 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
 	  free (d);
 	}
     }
+  else if (ccze_config.raw_ansi)
+    {
+      if (str)
+	{
+	  int c = ccze_color(col);
+
+	  printf("%c[22m", ESC); /* default */
+
+	  if (c & 0x100)
+	    printf("%c[1m", ESC);
+
+#if 0
+	  if (c & A_UNDERLINE)
+	    printf("%c[4m", ESC);
+
+	  if (c & A_BLINK)
+	    printf("%c[5m", ESC);
+
+	  if (c & A_REVERSE)
+	    printf("%c[7m", ESC);
+#endif
+	  
+	  printf("%c[%dm%s", ESC, ccze_raw_ansi_color[c & 0xf], str);
+	}
+    }
   else
     {
       if (ccze_config.debug)
@@ -421,10 +456,12 @@ static void sigint_handler (int sig) __attribute__ ((noreturn));
 static void
 sigint_handler (int sig)
 {
-  if (!ccze_config.html && !ccze_config.debug)
+  if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
     endwin ();
   else if (ccze_config.html)
     printf ("\n</body>\n</html>\n");
+  else if (ccze_config.raw_ansi)
+    printf("%c[0m", ESC);
 
   if (sig)
     {
@@ -487,7 +524,7 @@ ccze_main (void)
       free (ccze_config.color_argv[--ccze_config.color_argv_len]);
     }
   
-  if (!ccze_config.html && !ccze_config.debug)
+  if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
     {
       initscr ();
       signal (SIGWINCH, sigwinch_handler);
@@ -610,11 +647,11 @@ ccze_main (void)
 	  ccze_newline ();
 	}
 
-      if (!ccze_config.html && !ccze_config.debug)
+      if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
 	refresh ();
     }
 
-  if (!ccze_config.html && !ccze_config.debug)
+  if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
     refresh ();
 }
 

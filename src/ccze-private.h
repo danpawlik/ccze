@@ -76,6 +76,7 @@ typedef struct
   int pluginlist_alloc, pluginlist_len;
   char **color_argv;
   int color_argv_alloc, color_argv_len;
+  int raw_ansi;
 } ccze_config_t;
 
 extern ccze_config_t ccze_config;

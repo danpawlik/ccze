@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-03-06" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-03-29" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -36,6 +36,10 @@ included below.
 .B \-a, \-\-argument \fIPLUGIN=ARGUMENTS\fB
 Use this option to pass \fIARGUMENTS\fR to the specified
 \fIPLUGIN\fR. The argument list is whitespace separated.
+.TP
+.B \-A, \-\-raw\-ansi
+If one wants to enable raw ANSI color sequences instead of using
+curses, this option does just that.
 .TP
 .B \-c, \-\-color \fIKEY=COLOR\fB
 Set the color of the keyword \fIKEY\fR to \fICOLOR\fR, like one would

@@ -38,11 +38,28 @@ static struct argp_option options[] = {
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 
+static ccze_config_t ccze_config = {
+  .scroll = 1,
+  .convdate = 0,
+  .remfac = 0,
+  .wcol = 1,
+  .slookup = 1,
+  .rcfile = NULL,
+  .cssfile = NULL,
+  .transparent = 1,
+  .pluginlist_len = 0,
+  .pluginlist_alloc = 10,
+  .color_argv_len = 0,
+  .color_argv_alloc = 10,
+  .html = 0,
+  .debug = 0,
+  .raw_ansi = 0
+};
+
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
 static struct argp argp =
   {options, parse_opt, 0, "ccze -- cheer up 'yer logs.", NULL, NULL, NULL};
 
-static char *ccze_rcfile = NULL;
 static int ccze_loaddefs = 0;
 
 static error_t
@@ -51,7 +68,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
   switch (key)
     {
     case 'F':
-      ccze_rcfile = arg;
+      ccze_config.rcfile = arg;
       break;
     case 'l':
       ccze_loaddefs = 1;
@@ -69,8 +86,8 @@ main (int argc, char *argv[])
   
   ccze_color_init ();
 
-  if (ccze_rcfile)
-    ccze_color_load (ccze_rcfile);
+  if (ccze_config.rcfile)
+    ccze_color_load (ccze_config.rcfile);
   else if (ccze_loaddefs)
     {
       char *home, *homerc;

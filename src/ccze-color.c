@@ -41,6 +41,19 @@
 #define MAGENTA COLOR_PAIR (6)
 #define WHITE COLOR_PAIR (7)
 
+#define RAW_ANSI_BOLD 0x100
+#define RAW_ANSI_UNDERLINE 0x200
+#define RAW_ANSI_REVERSE 0x400
+#define RAW_ANSI_BLINK 0x800
+#define RAW_ANSI_BLACK 0
+#define RAW_ANSI_RED 1
+#define RAW_ANSI_GREEN 2
+#define RAW_ANSI_YELLOW 3
+#define RAW_ANSI_BLUE 4
+#define RAW_ANSI_CYAN 5
+#define RAW_ANSI_MAGENTA 6
+#define RAW_ANSI_WHITE 7
+
 #define CCZE_KEYWORD_R(k,c,s) k, c, s
 
 #if CCZE_DUMP
@@ -376,24 +389,34 @@ ccze_color_parse (char *line)
   if (bg)
     {
       if (!csskey && (nbg = _ccze_colorname_map_lookup (bg)) != -1)
-	ncolor += nbg*8;
+      {
+	if (ccze_config.raw_ansi)
+	  ncolor += (nbg << 8);
+	else
+	  ncolor += nbg*8;
+      }
     }
       
   if (color[0] == '\'')
     rcolor = ncolor;
   else
-    rcolor = COLOR_PAIR (ncolor);
+  {
+    if (ccze_config.raw_ansi)
+      rcolor = ncolor;
+    else
+      rcolor = COLOR_PAIR (ncolor);
+  }
 
   if (pre)
     {
       if (!strcmp (pre, "bold"))
-	rcolor |= A_BOLD;
+	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_BOLD : A_BOLD;
       else if (!strcmp (pre, "underline"))
-	rcolor |= A_UNDERLINE;
+	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_UNDERLINE : A_UNDERLINE;
       else if (!strcmp (pre, "reverse"))
-	rcolor |= A_REVERSE;
+	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_REVERSE : A_REVERSE;
       else if (!strcmp (pre, "blink"))
-	rcolor |= A_BLINK;
+	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_BLINK : A_BLINK;
     }
 
   if (!csskey)
@@ -448,9 +471,97 @@ ccze_cssbody_color (void)
   return ccze_cssbody;
 }
 
+static void
+ccze_color_init_raw_ansi (void)
+{
+  ccze_color_table[CCZE_COLOR_DATE] = (RAW_ANSI_BOLD | RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_HOST] = (RAW_ANSI_BOLD | RAW_ANSI_BLUE);
+  ccze_color_table[CCZE_COLOR_PROC] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_PID] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_PIDB] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_DEFAULT] = (RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_EMAIL] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_SUBJECT] = (RAW_ANSI_MAGENTA);
+  ccze_color_table[CCZE_COLOR_DIR] = (RAW_ANSI_BOLD | RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_SIZE] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_USER] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_HTTPCODES] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_GETSIZE] = (RAW_ANSI_MAGENTA);
+  ccze_color_table[CCZE_COLOR_HTTP_GET] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_HTTP_POST] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_HTTP_HEAD] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_HTTP_PUT] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_HTTP_CONNECT] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_HTTP_TRACE] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_UNKNOWN] = ccze_color_table[CCZE_COLOR_DEFAULT];
+  ccze_color_table[CCZE_COLOR_GETTIME] = (RAW_ANSI_BOLD | RAW_ANSI_MAGENTA);
+  ccze_color_table[CCZE_COLOR_URI] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_IDENT] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_CTYPE] = (RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_ERROR] = (RAW_ANSI_BOLD | RAW_ANSI_RED);
+  ccze_color_table[CCZE_COLOR_PROXY_MISS] = (RAW_ANSI_RED);
+  ccze_color_table[CCZE_COLOR_PROXY_HIT] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_PROXY_DENIED] = (RAW_ANSI_BOLD | RAW_ANSI_RED);
+  ccze_color_table[CCZE_COLOR_PROXY_REFRESH] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_PROXY_SWAPFAIL] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_DEBUG] = (RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_WARNING] = (RAW_ANSI_RED);
+  ccze_color_table[CCZE_COLOR_PROXY_DIRECT] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_PROXY_PARENT] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_SWAPNUM] = ccze_color_table[CCZE_COLOR_DEFAULT]; /* XXX */
+  ccze_color_table[CCZE_COLOR_PROXY_CREATE] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_PROXY_SWAPIN] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_PROXY_SWAPOUT] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_PROXY_RELEASE] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_MAC] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_VERSION] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_ADDRESS] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_NUMBERS] = (RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_SIGNAL] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_SERVICE] = (RAW_ANSI_BOLD | RAW_ANSI_MAGENTA);
+  ccze_color_table[CCZE_COLOR_PROT] = (RAW_ANSI_MAGENTA);
+  ccze_color_table[CCZE_COLOR_BADWORD] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_GOODWORD] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_SYSTEMWORD] = (RAW_ANSI_BOLD | RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_INCOMING] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_OUTGOING] = (RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_UNIQN] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_REPEAT] = (RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_FIELD] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_CHAIN] = (RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_PERCENTAGE] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_FTPCODES] = (RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_KEYWORD] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+
+  ccze_color_table[CCZE_COLOR_STATIC_BLACK] = (RAW_ANSI_BLACK);
+  ccze_color_table[CCZE_COLOR_STATIC_RED] = (RAW_ANSI_RED);
+  ccze_color_table[CCZE_COLOR_STATIC_GREEN] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_STATIC_YELLOW] = (RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_STATIC_BLUE] = (RAW_ANSI_BLUE);
+  ccze_color_table[CCZE_COLOR_STATIC_CYAN] = (RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_STATIC_MAGENTA] = (RAW_ANSI_MAGENTA);
+  ccze_color_table[CCZE_COLOR_STATIC_WHITE] = (RAW_ANSI_WHITE);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_BLACK] = (RAW_ANSI_BOLD | RAW_ANSI_BLACK);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_RED] = (RAW_ANSI_BOLD | RAW_ANSI_RED);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_GREEN] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_YELLOW] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_BLUE] = (RAW_ANSI_BOLD | RAW_ANSI_BLUE);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_CYAN] = (RAW_ANSI_BOLD | RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_MAGENTA] = (RAW_ANSI_BOLD | RAW_ANSI_MAGENTA);
+  ccze_color_table[CCZE_COLOR_STATIC_BOLD_WHITE] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
+      
+  ccze_color_table[CCZE_COLOR_LAST] = (RAW_ANSI_CYAN);
+}
+
 void
 ccze_color_init (void)
 {
+  if (ccze_config.raw_ansi)
+    {
+      ccze_color_init_raw_ansi ();
+      return;
+    }
+  
   ccze_color_table[CCZE_COLOR_DATE] = (BOLD CYAN);
   ccze_color_table[CCZE_COLOR_HOST] = (BOLD BLUE);
   ccze_color_table[CCZE_COLOR_PROC] = (GREEN);

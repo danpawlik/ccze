@@ -2,6 +2,45 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 12:17:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-230
+
+    Summary:
+      raw ANSI output mode
+    Revision:
+      ccze--0.1--patch-230
+
+    * src/ccze-private.h (ccze_config_t): Added a new `raw_ansi' member.
+    * src/ccze.c (ccze_raw_ansi_color): New variable.
+      (ccze_config_t): Initialise raw_ansi to off.
+      (parse_opt): Accept --raw-ansi, -A.
+      (ccze_newline): Output only a `\n' in raw_ansi mode.
+      (ccze_addstr_internal): Added support for outputting raw ANSI
+      sequences.
+      (sigint_handler): Likewise.
+      (main): Likewise.
+    * src/ccze-color.c (ccze_color_parse): Added support for raw ANSI
+      sequences.
+      (ccze_color_init_raw_ansi): New function.
+      (ccze_color_init): Use it, if appropriate.
+    * src/ccze-cssdump (ccze_config): New variable. Since
+      ccze_color_parse() needs this.
+      (parse_opt): Use ccze_config.rcfile.
+      (main): Likewise.
+    * src/ccze-dump (ccze_config): New variable. Since ccze_color_parse()
+      needs this.
+      (parse_opt): Use ccze_config.rcfile.
+      (main): Likewise.
+    * THANKS: Added Thomas Graf.
+    * doc/ccze.1.in (OPTIONS): Document --raw-ansi, -A.
+    
+    Patch heavily based on the work of Thomas Graf.
+
+    modified files:
+     ChangeLog THANKS doc/ccze.1.in src/ccze-color.c
+     src/ccze-cssdump.c src/ccze-dump.c src/ccze-private.h
+     src/ccze.c
+
+
 2003-03-29 11:11:39 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-229
 
     Summary:
