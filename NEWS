@@ -1,5 +1,10 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.72 [Base Level Erotica] -- 2002.10.04.
+
+Brown paper-bag release, as I broke all the modules in 0.1.64. Apart
+from this fix, this release is the same as 0.1.70 yesterday.
+
 * CCZE 0.1.70 [Edenbeast] -- 2002.10.03.
 
 Initial public release.
