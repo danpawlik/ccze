@@ -1,4 +1,4 @@
-.TH CCZE 1 "2002-10-01" ccze ccze
+.TH CCZE 1 "2002-10-01" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -63,7 +63,7 @@ Show version of program.
 .SH PLUGINS
 Different programs have different kind of logs, and every kind of log
 \fBccze\fR supports is implemented via a plug\-in. They are by default
-located under \fI/usr/lib/ccze\fR and \fI$HOME/.ccze\fR (so they can
+located under \fI@pkglibdir@\fR and \fI$HOME/.ccze\fR (so they can
 be overridden by the user easily).
 
 At the moment, the following modules are bundled with the official
@@ -96,16 +96,16 @@ For coloring generic syslog messages. (See \fIsyslogd\fR(8))
 For coloring \fIvsftpd.log\fR files. (See \fIvsftpd\fR(8))
 .SH FILES
 .TP
-.IR /etc/colorizerc ", " $HOME/.colorizerc
+.IR @sysconfdir@/colorizerc ", " $HOME/.colorizerc
 .RS
 These files are the default configuration files for \fBcolorize\fR,
 and are parsed by \fBccze\fR for the sake of full compatibility.
 .RE
-.IR /etc/cczerc ", " $HOME/.cczerc
+.IR @sysconfdir@/cczerc ", " $HOME/.cczerc
 .RS
 This two are the main configuration files, in which one can change the
 colors used by the program to his liking. See the comments in the
-beginning of \fI/etc/cczerc\fR for a description on the files'
+beginning of \fI@sysconfdir@/cczerc\fR for a description on the files'
 structure.
 .RE
 .SH "SEE ALSO"

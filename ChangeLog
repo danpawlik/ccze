@@ -2,6 +2,33 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-12 20:56:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-75
+
+    Summary:
+      Automatically generate the manual page
+    Revision:
+      ccze--0.1--patch-75
+
+    * doc/ccze.1: Renamed to...
+    * doc/ccze.1.in: ...this, and replaced all configurable paths with an
+      appropriate magic word.
+    * doc/Makefile.in (DISTCLEANFILES): Added ${MAN}.
+      (EXTRA_DIST): Added ${MAN}.in.
+      (all): Depend on ${MAN}.
+      (${MAN}): New target.
+    * Rules.mk.in (DISTFILES): Removed ${MAN}.
+
+    modified files:
+     ChangeLog Rules.mk.in doc/Makefile.in doc/ccze.1.in
+
+    renamed files:
+     doc/.arch-ids/ccze.1.id
+       ==> doc/.arch-ids/ccze.1.in.id
+     doc/ccze.1
+       ==> doc/ccze.1.in
+
+
+
 2002-10-12 20:46:14 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-74
 
     Summary:

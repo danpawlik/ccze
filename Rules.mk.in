@@ -43,7 +43,7 @@ endif
 builddir	= @builddir@
 
 PATCHLEVEL	= $(shell head -5 ${top_srcdir}/ChangeLog | tail -1 | sed -e "s,^.*patch-,,g")
-DISTFILES	= ${SOURCES} ${HEADERS} ${MAN} Makefile.in ${EXTRA_DIST}
+DISTFILES	= ${SOURCES} ${HEADERS} Makefile.in ${EXTRA_DIST}
 
 INCLUDES	= -I. -I${srcdir} -I${top_builddir}
 DEFINES		= -DPATCHLEVEL=\"${PATCHLEVEL}\" -DSYSCONFDIR=\"${sysconfdir}\" \

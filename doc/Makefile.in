@@ -11,9 +11,17 @@ include ../Rules.mk
 
 ## -- Private variables -- ##
 MAN		= ccze.1
+DISTCLEANFILES	= ${MAN}
+EXTRA_DIST	= ${MAN}.in
 
 ## -- Generic rules -- ##
-all: ;
+all: ${MAN}
+
+${MAN}: ${MAN}.in ${top_srcdir}/ChangeLog
+	sed -e "s,@VERSION\@,${VERSION},g" \
+	    -e "s,@sysconfdir\@,${sysconfdir},g" \
+	    -e "s,@pkglibdir\@,${pkglibdir},g" \
+	<${MAN}.in >${MAN}T && mv -f ${MAN}T ${MAN}
 
 install: all
 	${INSTALL} -d ${DESTDIR}${man1dir}
