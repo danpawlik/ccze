@@ -32,20 +32,20 @@ _ccze_proxy_action (const char *action)
 {
   if (strstr (action, "ERR") == action)
     return CCZE_COLOR_ERROR;
-  else if (strstr (action, "MISS"))
+  if (strstr (action, "MISS"))
     return CCZE_COLOR_PROXY_MISS;
-  else if (strstr (action, "HIT"))
+  if (strstr (action, "HIT"))
     return CCZE_COLOR_PROXY_HIT;
-  else if (strstr (action, "DENIED"))
+  if (strstr (action, "DENIED"))
     return CCZE_COLOR_PROXY_DENIED;
-  else if (strstr (action, "REFRESH"))
+  if (strstr (action, "REFRESH"))
     return CCZE_COLOR_PROXY_REFRESH;
-  else if (strstr (action, "SWAPFAIL"))
+  if (strstr (action, "SWAPFAIL"))
     return CCZE_COLOR_PROXY_SWAPFAIL;
-  else if (strstr (action, "NONE"))
+  if (strstr (action, "NONE"))
     return CCZE_COLOR_DEBUG;
-  else
-    return CCZE_COLOR_UNKNOWN;
+
+  return CCZE_COLOR_UNKNOWN;
 }
 
 static int
@@ -53,14 +53,29 @@ _ccze_proxy_hierarch (const char *hierar)
 {
   if (strstr (hierar, "NO") == hierar)
     return CCZE_COLOR_WARNING;
-  else if (strstr (hierar, "DIRECT"))
+  if (strstr (hierar, "DIRECT"))
     return CCZE_COLOR_PROXY_DIRECT;
-  else if (strstr (hierar, "PARENT"))
+  if (strstr (hierar, "PARENT"))
     return CCZE_COLOR_PROXY_PARENT;
-  else if (strstr (hierar, "MISS"))
+  if (strstr (hierar, "MISS"))
     return CCZE_COLOR_PROXY_MISS;
-  else
-    return CCZE_COLOR_UNKNOWN;
+
+  return CCZE_COLOR_UNKNOWN;
+}
+
+static int
+_ccze_proxy_tag (const char *tag)
+{
+  if (strstr (tag, "CREATE"))
+    return CCZE_COLOR_PROXY_CREATE;
+  if (strstr (tag, "SWAPIN"))
+    return CCZE_COLOR_PROXY_SWAPIN;
+  if (strstr (tag, "SWAPOUT"))
+    return CCZE_COLOR_PROXY_SWAPOUT;
+  if (strstr (tag, "RELEASE"))
+    return CCZE_COLOR_PROXY_RELEASE;
+
+  return CCZE_COLOR_UNKNOWN;
 }
 
 char *
@@ -177,8 +192,7 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
   
   CCZE_ADDSTR (CCZE_COLOR_DATE, date);
   ccze_space();
-  /* FIXME: Need to colorise this too */
-  addstr (tag);
+  CCZE_ADDSTR (_ccze_proxy_tag (tag), tag);
   ccze_space();
   CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapnum);
   ccze_space();
