@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE\-PLUGIN 1 "2003-03-04" "CCZE @VERSION@" CCZE
+.TH CCZE-PLUGIN 7 "2003-03-04" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer, plugin infrastructure
 .SH SYNOPSIS
@@ -61,7 +61,7 @@ informational structure.
 
 The \fIstartup\fR function must be of type \fBccze_plugin_startup_t\fR. This
 is called right after the module is loaded.  Its purpose is to initialise
-all kinds of module-specific global variables, such as the regular
+all kinds of module\-specific global variables, such as the regular
 expressions.
 
 The \fIshutdown\fR function is its counterpart: this is used to deallocate

@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-04 18:51:24 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-211
+
+    Summary:
+      Manual page corrections
+    Revision:
+      ccze--0.1--patch-211
+
+    * doc/ccze.1.in: Escaped some more `-' chars.
+    * doc/ccze-cssdump.1.in: Likewise.
+    * doc/ccze-plugin.7.in: Likewise, and corrected the section too.
+
+    modified files:
+     ChangeLog doc/ccze-cssdump.1.in doc/ccze-plugin.7.in
+     doc/ccze.1.in
+
+
 2003-03-04 17:07:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-210
 
     Summary:

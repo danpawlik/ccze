@@ -24,7 +24,7 @@ ccze\-cssdump \- Dump CCZE color setup into CSS format
 This manual page documents briefly the
 .B ccze\-cssdump
 utility, which is a simple tool to dump the color setup of CCZE into
-Cascading Style Sheet format, to be used later by \fBccze -h -o
+Cascading Style Sheet format, to be used later by \fBccze \-h \-o
 cssfile\fR.
 .SH OPTIONS
 This program follows the usual GNU command line syntax, with long

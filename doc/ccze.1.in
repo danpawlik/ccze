@@ -23,14 +23,14 @@ ccze \- A robust log colorizer
 .SH DESCRIPTION
 This manual page documents briefly the
 .B ccze
-utility, which is a drop-in replacement for
+utility, which is a drop\-in replacement for
 .BR colorize ,
-but written in C, to be faster and less resource-hungry. The goal was
+but written in C, to be faster and less resource\-hungry. The goal was
 to be fully backwards compatible, yet superior with respect to speed
 and features.
 .SH OPTIONS
 These programs follow the usual GNU command line syntax, with long
-options starting with two dashes (`-'). A summary of options is
+options starting with two dashes (`\-'). A summary of options is
 included below.
 .TP
 .B \-a, \-\-argument \fIPLUGIN=ARGUMENTS\fB
@@ -76,9 +76,9 @@ deal. If one is piping a long log through \fBccze\fR, this option
 might be turned off to speed up the process.
 
 With the \fItransparent\fR option, one can make CCZE treat black
-background colors as transparent - that means, a black background will
-appear transparent in a similar X terminal. If turned off, it will
-appear as black.
+background colors as transparent \- that means, a black background
+will appear transparent in a similar X terminal. If turned off, it
+will appear as black.
 
 If \fIcssfile\fR is set, then CCZE will not inline the Cascading Style
 Sheet information into the outputted HTML, but include a link to the
@@ -121,7 +121,7 @@ For coloring exim's \fImain.log\fR. (See \fIexim\fR(8))
 For coloring fetchmail's log files. (See \fIfetchmail\fR(1))
 .TP
 .IR httpd
-For coloring apache-style \fIaccess.log\fR and \fIerror.log\fR
+For coloring apache\-style \fIaccess.log\fR and \fIerror.log\fR
 files. (See \fIapache\fR(8))
 .TP
 .IR icecast
