@@ -47,7 +47,7 @@
 #define CCZE_KEYWORD(k,c,d) k, c
 #endif
 
-static int ccze_color_table [CCZE_COLOR_LAST];
+static int ccze_color_table [CCZE_COLOR_LAST + 1];
 
 static char *ccze_csscolor_normal_map[] = {
   "black", "red", "#00C000", "brown", "blue", "darkcyan",
@@ -176,7 +176,7 @@ ccze_color_to_name_simple (int color)
 }
 
 static char *
-ccze_color_to_name_css (int color, int realcolor)
+ccze_color_to_name_css (int color, ccze_color_t realcolor)
 {
   if (ccze_color (realcolor) & A_BOLD)
     return ccze_csscolor_bold_map[PAIR_NUMBER (color)];
@@ -213,7 +213,7 @@ ccze_color_lookup_name (ccze_color_t color)
 }
 
 char *
-ccze_color_to_css (int cidx)
+ccze_color_to_css (ccze_color_t cidx)
 {
   int my_color = ccze_color_strip_attrib (ccze_color (cidx));
   char *str, *tmp;
@@ -223,12 +223,13 @@ ccze_color_to_css (int cidx)
   else
     {
       int i,j;
+      char *ci, *cj;
 
       j = (my_color >> 8) % 8;
       i = (my_color >> 8) / 8;
-      asprintf (&tmp, "\tcolor: %s\n\ttext-background: %s\n",
-		ccze_color_to_name_css (COLOR_PAIR (j), cidx),
-		ccze_color_to_name_css (COLOR_PAIR (i), cidx));
+      ci = ccze_color_to_name_css (COLOR_PAIR (i), cidx);
+      cj = ccze_color_to_name_css (COLOR_PAIR (j), cidx);
+      asprintf (&tmp, "\tcolor: %s\n\ttext-background: %s\n", cj, ci);
     }
 
   if (ccze_color (cidx) & A_UNDERLINE)

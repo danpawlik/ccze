@@ -40,7 +40,7 @@ ccze_procmail_process (const char *str, int *offsets, int match)
   char *header = NULL, *value = NULL, *space1 = NULL;
   char *space2 = NULL, *extra = NULL;
   int handled = 0;
-  int col = 0;
+  ccze_color_t col = CCZE_COLOR_UNKNOWN;
 
   pcre_get_substring (str, offsets, match, 1, (const char **)&space1);
   pcre_get_substring (str, offsets, match, 2, (const char **)&header);

@@ -34,7 +34,7 @@ static int ccze_httpd_handle (const char *str, size_t length, char **rest);
 static pcre *reg_httpd_access, *reg_httpd_error;
 static pcre_extra *hints_httpd_access, *hints_httpd_error;
 
-static int
+static ccze_color_t
 _ccze_httpd_error (const char *level)
 {
   if (strstr (level, "debug") || strstr (level, "info") ||
@@ -105,7 +105,7 @@ static char *
 ccze_httpd_error_log_process (const char *str, int *offsets, int match)
 {
   char *date, *level, *msg;
-  int lcol;
+  ccze_color_t lcol;
   
   pcre_get_substring (str, offsets, match, 1, (const char **)&date);
   pcre_get_substring (str, offsets, match, 2, (const char **)&level);

@@ -83,7 +83,7 @@ ccze_apm_setup (void)
   int errptr;
 
   reg_apm = pcre_compile
-    ("Battery: (-?\\d*)\%, ((.*)charging) \\((-?\\d*)\% ([^ ]*) "
+    ("Battery: (-?\\d*)%, ((.*)charging) \\((-?\\d*)% ([^ ]*) "
      "(\\d*:\\d*:\\d*)\\), (\\d*:\\d*:\\d*) (.*)", 0, &error, &errptr, NULL);
 }
 

@@ -49,7 +49,7 @@
 #define MAGENTA COLOR_PAIR (6)
 #define WHITE COLOR_PAIR (7)
 
-struct
+static struct
 {
   int scroll;
   int convdate;
@@ -77,7 +77,9 @@ struct
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
 			 COLOR_BLUE, COLOR_CYAN, COLOR_MAGENTA, COLOR_WHITE};
 
+#ifndef HAVE_ARGP_PARSE
 const char *argp_program_name = "ccze";
+#endif
 const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
@@ -232,7 +234,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
   return 0;
 }
 
-int
+ccze_color_t
 ccze_http_action (const char *method)
 {
   if (!strcasecmp ("GET", method))
@@ -291,7 +293,7 @@ ccze_space (void)
 }
 
 void
-ccze_addstr (int col, const char *str)
+ccze_addstr (ccze_color_t col, const char *str)
 {
   if (ccze_config.html)
     {

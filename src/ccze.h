@@ -32,11 +32,11 @@
 #include "ccze-color.h"
 #include <curses.h>
 
-int ccze_http_action (const char *method);
+ccze_color_t ccze_http_action (const char *method);
 void ccze_print_date (const char *date);
 char *ccze_strbrk (char *str, char delim);
 char *xstrdup (const char *str);
-void ccze_addstr (int col, const char *str);
+void ccze_addstr (ccze_color_t col, const char *str);
 void ccze_newline (void);
 void ccze_space (void);
 

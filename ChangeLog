@@ -2,6 +2,45 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 01:29:54 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-127
+
+    Summary:
+      Minor fixes & cleanups
+    Revision:
+      ccze--0.1--patch-127
+
+    * src/ccze.h (ccze_addstr): Takes a ccze_color_t, not an int.
+      (ccze_http_action): Returns ccze_color_t, not an int.
+    * src/ccze.c (ccze_config): Made this static.
+      [!HAVE_ARGP_PARSE] (argp_program_name): Only define in this case.
+      (ccze_http_action): Changed to match the fixed prototype.
+      (ccze_addstr): Likewise.
+    * src/ccze-color.h (ccze_color_to_css): Take a ccze_color_t, not an
+      int.
+    * src/ccze-color.c (ccze_color_to_css): Changed to match the fixed
+      prototype. Also fixed the asprintf() call, so ICC won't emit a
+      warning anymore.
+      (ccze_color_table): Increased its size.
+      (ccze_color_to_name_css): Take an int and a ccze_color_t, not two
+    * src/ccze-wordcolor.c (ccze_wordcolor_process_one): Changed the type
+      of `col' from int to ccze_color_t.
+    * src/ccze-apm.c (ccze_apm_setup): Unescape `%'.
+    * src/ccze-httpd.c (_ccze_httpd_error): Return ccze_color_t.
+      (ccze_httpd_error_log_process): Changed the type of `lcol' from int
+      to ccze_color_t.
+    * src/ccze-procmail.c (ccze_procmail_process): Changed the type of
+      `col' to ccze_color_t.
+    * src/ccze-squid.c (_ccze_proxy_action): Return ccze_color_t.
+      (_ccze_proxy_hierarch): Likewise.
+      (_ccze_proxy_tag): Likewise.
+    * src/ccze-dump.c: Fixed all the various ICC warnings.
+
+    modified files:
+     ChangeLog src/ccze-apm.c src/ccze-color.c src/ccze-color.h
+     src/ccze-dump.c src/ccze-httpd.c src/ccze-procmail.c
+     src/ccze-squid.c src/ccze-wordcolor.c src/ccze.c src/ccze.h
+
+
 2003-01-19 00:28:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-126
 
     Summary:

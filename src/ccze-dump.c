@@ -90,19 +90,19 @@ ccze_dump_color_to_name (int color)
   else
     {
       int i,j;
-      char * str;
+      char *str, *cj, *ci;
 
       j = (my_color >> 8) % 8;
       i = (my_color >> 8) / 8;
-      asprintf (&str, "%s on_%s",
-		ccze_color_to_name_simple (COLOR_PAIR (j)),
-		ccze_color_to_name_simple (COLOR_PAIR (i)));
+      cj = ccze_color_to_name_simple (COLOR_PAIR (j));
+      ci = ccze_color_to_name_simple (COLOR_PAIR (i));
+      asprintf (&str, "%s on_%s", cj, ci);
       return str;
     }
 }
 
 static char *
-ccze_dump_color_comment (ccze_color_t cidx)
+ccze_dump_color_comment (int cidx)
 {
   return ccze_color_keyword_map[cidx].comment;
 }
@@ -124,6 +124,7 @@ main (int argc, char *argv[])
   ccze_color_t cidx;
   char line[256];
   int color;
+  size_t llen;
   
   argp_parse (&argp, argc, argv, 0, 0, NULL);
   
@@ -169,13 +170,15 @@ main (int argc, char *argv[])
   for (cidx = CCZE_COLOR_DATE; cidx < CCZE_COLOR_LAST; cidx++)
     {
       color = ccze_color (cidx);
-      
+
       strcpy (line, ccze_color_lookup_name (cidx));
-      memset (&line[strlen(line)], ' ', 16 - strlen (line));
+      llen = strlen (line);
+      memset (&line[llen], ' ', 16 - llen);
       line[16]='\0';
       strcat (line, ccze_dump_color_get_attrib (color));
       strcat (line, ccze_dump_color_to_name (color));
-      memset (&line[strlen(line)], ' ', 42 - strlen (line));
+      llen = strlen (line);
+      memset (&line[llen], ' ', 42 - llen);
       line[40]='#';
       line[42]='\0';
       strcat (line, ccze_dump_color_comment (ccze_dump_color_to_idx (cidx)));
@@ -185,24 +188,28 @@ main (int argc, char *argv[])
 
   /* CSS codes */
   printf ("\n# CSS codes for the HTML output\n");
-  for (cidx = 0; cidx < 8; cidx++)
+  for (color = 0; color < 8; color++)
     {
       strcpy (line, "css");
-      strcat (line, ccze_colorname_map[cidx].name);
-      memset (&line[strlen(line)], ' ', 16 - strlen (line));
+      strcat (line, ccze_colorname_map[color].name);
+      llen = strlen (line);
+      memset (&line[llen], ' ', 16 - llen);
       line[16]='\0';
-      strcat (line, ccze_csscolor_normal_map[cidx]);
+      strcat (line, ccze_csscolor_normal_map[color]);
       printf ("%s\n", line);
 
       strcpy (line, "cssbold");
-      strcat (line, ccze_colorname_map[cidx].name);
-      memset (&line[strlen(line)], ' ', 16 - strlen (line));
+      strcat (line, ccze_colorname_map[color].name);
+      llen = strlen (line);
+      memset (&line[llen], ' ', 16 - llen);
       line[16]='\0';
-      strcat (line, ccze_csscolor_bold_map[cidx]);
+      strcat (line, ccze_csscolor_bold_map[color]);
       printf ("%s\n", line);
     }
+
   strcpy (line, "cssbody");
-  memset (&line[strlen(line)], ' ', 16 - strlen (line));
+  llen = strlen (line);
+  memset (&line[llen], ' ', 16 - llen);
   line[16]='\0';
   strcat (line, ccze_cssbody_color ());
   printf ("%s\n", line);

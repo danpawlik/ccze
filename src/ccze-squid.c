@@ -34,7 +34,7 @@ static int ccze_squid_handle (const char *str, size_t length, char **rest);
 static pcre *reg_squid_access, *reg_squid_store, *reg_squid_cache;
 static pcre_extra *hints_squid_access, *hints_squid_store, *hints_squid_cache;
 
-static int
+static ccze_color_t
 _ccze_proxy_action (const char *action)
 {
   if (strstr (action, "ERR") == action)
@@ -55,7 +55,7 @@ _ccze_proxy_action (const char *action)
   return CCZE_COLOR_UNKNOWN;
 }
 
-static int
+static ccze_color_t
 _ccze_proxy_hierarch (const char *hierar)
 {
   if (strstr (hierar, "NO") == hierar)
@@ -70,7 +70,7 @@ _ccze_proxy_hierarch (const char *hierar)
   return CCZE_COLOR_UNKNOWN;
 }
 
-static int
+static ccze_color_t
 _ccze_proxy_tag (const char *tag)
 {
   if (strstr (tag, "CREATE"))

@@ -74,7 +74,7 @@ ccze_wordcolor_process_one (char *word, int slookup)
 {
   size_t wlen;
   int offsets[99];
-  int col;
+  ccze_color_t col;
   int match;
   char *pre = NULL, *post = NULL, *tmp, *lword;
 
