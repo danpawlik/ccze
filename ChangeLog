@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-12 17:45:50 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-112
+
+    Summary:
+      Command-line args support for ccze-dump and -cssdump
+    Revision:
+      ccze--0.1--patch-112
+
+    * src/ccze-dump.c: Added command-line argument support.
+    * src/ccze-cssdump.c: Likewise.
+
+    modified files:
+     ChangeLog src/ccze-cssdump.c src/ccze-dump.c
+
+
 2003-01-12 17:27:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-111
 
     Summary:

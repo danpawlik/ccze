@@ -21,7 +21,40 @@
 
 #define CCZE_DUMP 1
 #include "ccze-color.c"
-#include <ncurses.h>
+#include <argp.h>
+
+const char *argp_program_version = "ccze-dump (ccze 0.1." PATCHLEVEL ")";
+const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
+static struct argp_option options[] = {
+  {NULL, 0, NULL, 0, "", 1},
+  {"rcfile", 'F', "FILE", 0, "Read configuration from FILE", 1},
+  {"load", 'l', NULL, 0, "Load default configuration files", 1},
+  {NULL, 0, NULL, 0,  NULL, 0}
+};
+
+static error_t parse_opt (int key, char *arg, struct argp_state *state);
+static struct argp argp =
+  {options, parse_opt, 0, "ccze -- cheer up 'yer logs.", NULL, NULL, NULL};
+
+static char *ccze_rcfile = NULL;
+static int ccze_loaddefs = 0;
+
+static error_t
+parse_opt (int key, char *arg, struct argp_state *state)
+{
+  switch (key)
+    {
+    case 'F':
+      ccze_rcfile = arg;
+      break;
+    case 'l':
+      ccze_loaddefs = 1;
+      break;
+    default:
+      return ARGP_ERR_UNKNOWN;
+    }
+  return 0;
+}
 
 static char *
 ccze_dump_color_get_attrib (int color)
@@ -79,11 +112,33 @@ ccze_dump_color_to_idx (ccze_color_t color)
 }
 
 int
-main (void)
+main (int argc, char *argv[])
 {
   ccze_color_t cidx;
+
+  argp_parse (&argp, argc, argv, 0, 0, NULL);
   
   ccze_color_init ();
+
+  if (ccze_rcfile)
+    ccze_color_load (ccze_rcfile);
+  else if (ccze_loaddefs)
+    {
+      char *home, *homerc;
+      
+      ccze_color_load (SYSCONFDIR "/colorizerc");
+      ccze_color_load (SYSCONFDIR "/cczerc");
+      home = getenv ("HOME");
+      if (home)
+	{
+	  asprintf (&homerc, "%s/.colorizerc", home);
+	  ccze_color_load (homerc);
+	  free (homerc);
+	  asprintf (&homerc, "%s/.cczerc", home);
+	  ccze_color_load (homerc);
+	  free (homerc);
+	}
+    }
 
   printf ("# Configuration file for ccze\n#\n");
   printf ("# Available 'pre' attributes: bold, underline, underscore, "
