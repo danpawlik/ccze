@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-12 22:24:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-9
+
+    Summary:
+      Squid store.log colorisation, take #1
+    Revision:
+      ccze--0.1--patch-9
+
+    * src/ccze.h (CCZE_COLOR_SWAPNUM): New colour.
+      (CCZE_MATCH_SQUID_STORE_LOG): New enum member.
+    * src/ccze-squid.h (ccze_squid_store_log_process): New prototype.
+      (ccze_squid_setup): Take two new arguments.
+    * src/ccze-squid.c (ccze_squid_store_log_process): New function.
+      (ccze_squid_setup): Setup store.log regexps too.
+    * src/ccze.c (main): Support store.log colorisation.
+
+    modified files:
+     ChangeLog src/ccze-squid.c src/ccze-squid.h src/ccze.c
+     src/ccze.h
+
+
 2002-09-12 21:20:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-8
 
     Summary:

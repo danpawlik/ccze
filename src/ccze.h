@@ -65,6 +65,7 @@
 #define CCZE_COLOR_WARNING (RED)
 #define CCZE_COLOR_PROXY_DIRECT (BOLD WHITE)
 #define CCZE_COLOR_PROXY_PARENT (BOLD YELLOW)
+#define CCZE_COLOR_SWAPNUM (BLUE)
 
 #define CCZE_ADDSTR(col,str) { attrset (col) ; addstr (str); }
 #define ccze_space() CCZE_ADDSTR (CCZE_COLOR_DEFAULT, " ")
@@ -78,7 +79,8 @@ enum
   CCZE_MATCH_HTTPD_ACCESS_LOG,
   CCZE_MATCH_SQUID_ACCESS_LOG,
   CCZE_MATCH_VSFTPD_LOG,
-  CCZE_MATCH_SQUID_CACHE_LOG
+  CCZE_MATCH_SQUID_CACHE_LOG,
+  CCZE_MATCH_SQUID_STORE_LOG
 };
 
 int ccze_http_action (const char *method);

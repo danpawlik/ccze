@@ -112,9 +112,10 @@ main (int argc, char **argv)
   int match, offsets[99];
   pcre *regc_syslog, *regc_procmail_log, *regc_httpd_access_log;
   pcre *regc_squid_access_log, *regc_vsftpd_log, *regc_squid_cache_log;
+  pcre *regc_squid_store_log;
   pcre_extra *hints_syslog, *hints_procmail_log, *hints_httpd_access_log;
   pcre_extra *hints_squid_access_log, *hints_vsftpd_log;
-  pcre_extra *hints_squid_cache_log;
+  pcre_extra *hints_squid_cache_log, *hints_squid_store_log;
   
   ccze_config.scroll = 1;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
@@ -140,7 +141,8 @@ main (int argc, char **argv)
   init_pair (7, COLOR_WHITE,   COLOR_BLACK);
 
   ccze_squid_setup (&regc_squid_access_log, &regc_squid_cache_log,
-		    &hints_squid_access_log, &hints_squid_cache_log);
+		    &regc_squid_store_log, &hints_squid_access_log,
+		    &hints_squid_cache_log, &hints_squid_store_log);
   ccze_syslog_setup (&regc_syslog, &hints_syslog);
   ccze_procmail_setup (&regc_procmail_log, &hints_procmail_log);
   ccze_httpd_setup (&regc_httpd_access_log, &hints_httpd_access_log);
@@ -181,6 +183,15 @@ main (int argc, char **argv)
 	  handled = CCZE_MATCH_SQUID_ACCESS_LOG;
 	}
 
+      /** Squid store.log **/
+      if ((match = pcre_exec (regc_squid_store_log, hints_squid_store_log,
+			      subject, strlen (subject), 0, 0, offsets,
+			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+	{
+	  rest = ccze_squid_store_log_process (subject, offsets, match);
+	  handled = CCZE_MATCH_SQUID_STORE_LOG;
+	}
+      
       /** Squid cache.log **/
       if ((match = pcre_exec (regc_squid_cache_log, hints_squid_cache_log,
 			      subject, strlen (subject), 0, 0, offsets,

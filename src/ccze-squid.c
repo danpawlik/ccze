@@ -149,9 +149,67 @@ ccze_squid_cache_log_process (const char *str, int *offsets, int match)
   return other;
 }
 
+char *
+ccze_squid_store_log_process (const char *str, int *offsets, int match)
+{
+  char *date, *tag, *swapnum, *swapname, *swapsum, *space1, *hcode;
+  char *hdate, *lmdate, *expire, *ctype, *size, *read, *method;
+  char *uri;
+    
+  pcre_get_substring (str, offsets, match, 1, (const char **)&date);
+  pcre_get_substring (str, offsets, match, 2, (const char **)&tag);
+  pcre_get_substring (str, offsets, match, 3, (const char **)&swapnum);
+  pcre_get_substring (str, offsets, match, 4, (const char **)&swapname);
+  pcre_get_substring (str, offsets, match, 5, (const char **)&swapsum);
+  pcre_get_substring (str, offsets, match, 6, (const char **)&space1);
+  pcre_get_substring (str, offsets, match, 7, (const char **)&hcode);
+  pcre_get_substring (str, offsets, match, 8, (const char **)&hdate);
+  pcre_get_substring (str, offsets, match, 9, (const char **)&lmdate);
+  pcre_get_substring (str, offsets, match, 10, (const char **)&expire);
+  pcre_get_substring (str, offsets, match, 11, (const char **)&ctype);
+  pcre_get_substring (str, offsets, match, 12, (const char **)&size);
+  pcre_get_substring (str, offsets, match, 13, (const char **)&read);
+  pcre_get_substring (str, offsets, match, 14, (const char **)&method);
+  pcre_get_substring (str, offsets, match, 15, (const char **)&uri);
+  
+  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_space();
+  /* FIXME: Need to colorise this too */
+  addstr (tag);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapnum);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapname);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapsum);
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space1);
+  CCZE_ADDSTR (CCZE_COLOR_HTTPCODES, hcode);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_DATE, hdate);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_DATE, lmdate);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_DATE, expire);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_CTYPE, ctype);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_GETSIZE, size);
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "/");
+  CCZE_ADDSTR (CCZE_COLOR_GETSIZE, read);
+  ccze_space();
+  CCZE_ADDSTR (ccze_http_action (method), method);
+  ccze_space();
+  CCZE_ADDSTR (CCZE_COLOR_URI, uri);
+
+  CCZE_NEWLINE ();
+  
+  return NULL;
+}
+
 void
-ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre_extra **h_access,
-		  pcre_extra **h_cache)
+ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre **r_store,
+		  pcre_extra **h_access, pcre_extra **h_cache,
+		  pcre_extra **h_store)
 {
   const char *error;
   int errptr;
@@ -166,4 +224,13 @@ ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre_extra **h_access,
     ("^(\\d{4}\\/\\d{2}\\/\\d{2}\\s(\\d{2}:){2}\\d{2}\\|)\\s(.*)$", 0,
      &error, &errptr, NULL);
   *h_cache = pcre_study (*r_cache, 0, &error);
+
+  *r_store = pcre_compile
+    ("^(\\d{9,10}\\.\\d{3})\\s(\\w+)\\s(\\w+)\\s+(\\d+)\\s([\\dA-F]+)"
+     "(\\s+)(\\d{3})\\s(\\d{9,10})\\s(\\d{9,10})\\s(\\d{9,10})\\s"
+     "(\\S+)\\s(\\d+)\\/(\\d+)\\s(\\S+)\\s(.*)",
+     
+     0, &error,
+     &errptr, NULL);
+  *h_store = pcre_study (*r_store, 0, &error);
 }

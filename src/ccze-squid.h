@@ -26,7 +26,9 @@
 
 char *ccze_squid_access_log_process (const char *str, int *offsets, int match);
 char *ccze_squid_cache_log_process (const char *str, int *offsets, int match);
-void ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre_extra **h_access,
-		       pcre_extra **h_cache);
+char *ccze_squid_store_log_process (const char *str, int *offsets, int match);
+void ccze_squid_setup (pcre **r_access, pcre **r_cache, pcre **r_store,
+		       pcre_extra **h_access, pcre_extra **h_cache,
+		       pcre_extra **h_store);
 
 #endif /* !_CCZE_SQUID_H */
