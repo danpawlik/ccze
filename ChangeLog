@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-15 16:23:48 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-35
+
+    Summary:
+      HTTPd access.log colorisation enhancements
+    Revision:
+      ccze--0.1--patch-35
+
+    * src/ccze-httpd.c (ccze_httpd_access_log_process): Extract the
+      optional vhost, and put `other' on the output queue as-is.
+      (ccze_httpd_setup): The access.log regexp was tuned up a bit, to
+      support vhost and timezone elements.
+
+    modified files:
+     ChangeLog src/ccze-httpd.c
+
+
 2002-09-14 11:37:36 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-34
 
     Summary:

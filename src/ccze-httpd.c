@@ -30,20 +30,24 @@
 char *
 ccze_httpd_access_log_process (const char *str, int *offsets, int match)
 {
-  char *host, *user, *date, *full_action, *method, *http_code;
+  char *host, *vhost, *user, *date, *full_action, *method, *http_code;
   char *gsize, *other;
 
-  pcre_get_substring (str, offsets, match, 1, (const char **)&host);
-  pcre_get_substring (str, offsets, match, 2, (const char **)&user);
-  pcre_get_substring (str, offsets, match, 3, (const char **)&date);
-  pcre_get_substring (str, offsets, match, 4, (const char **)&full_action);
-  pcre_get_substring (str, offsets, match, 5, (const char **)&method);
-  pcre_get_substring (str, offsets, match, 6, (const char **)&http_code);
-  pcre_get_substring (str, offsets, match, 7, (const char **)&gsize);
-  pcre_get_substring (str, offsets, match, 8, (const char **)&other);
+  pcre_get_substring (str, offsets, match, 1, (const char **)&vhost);
+  pcre_get_substring (str, offsets, match, 2, (const char **)&host);
+  pcre_get_substring (str, offsets, match, 3, (const char **)&user);
+  pcre_get_substring (str, offsets, match, 4, (const char **)&date);
+  pcre_get_substring (str, offsets, match, 5, (const char **)&full_action);
+  pcre_get_substring (str, offsets, match, 6, (const char **)&method);
+  pcre_get_substring (str, offsets, match, 7, (const char **)&http_code);
+  pcre_get_substring (str, offsets, match, 8, (const char **)&gsize);
+  pcre_get_substring (str, offsets, match, 9, (const char **)&other);
 
+  CCZE_ADDSTR (CCZE_COLOR_HOST, vhost);
+  ccze_space();
   CCZE_ADDSTR (CCZE_COLOR_HOST, host);
-  ccze_space ();
+  if (host[0])
+    ccze_space ();
   CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "-");
   ccze_space ();
 
@@ -62,6 +66,9 @@ ccze_httpd_access_log_process (const char *str, int *offsets, int match)
   CCZE_ADDSTR (CCZE_COLOR_GETSIZE, gsize);
   ccze_space ();
 
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, other);
+  CCZE_NEWLINE ();
+  
   free (host);
   free (user);
   free (date);
@@ -69,8 +76,8 @@ ccze_httpd_access_log_process (const char *str, int *offsets, int match)
   free (full_action);
   free (http_code);
   free (gsize);
-  
-  return other;
+
+  return NULL;
 }
 
 static int
@@ -123,10 +130,10 @@ ccze_httpd_setup (pcre **r_access, pcre **r_error,
   int errptr;
 
   *r_access = pcre_compile
-    ("^(\\S*)\\s-\\s(\\S+)\\s(\\[\\d{1,2}\\/\\S*"
-     "\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}.{0,6}\\])\\s"
-     "(\"([A-Z]{3,})\\s[^\"]+\")\\s(\\d{3})\\s(\\d+|-)\\s(.*)$", 0,
-     &error, &errptr, NULL);
+    ("^(\\S*)\\s(\\S*)?\\s?-\\s(\\S+)\\s(\\[\\d{1,2}\\/\\S*"
+     "\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}.{0,6}[^\\]]*\\])\\s"
+     "(\"([A-Z]{3,})\\s[^\"]+\")\\s(\\d{3})\\s(\\d+|-)\\s(.*)$",
+     0, &error, &errptr, NULL);
   *h_access = pcre_study (*r_access, 0, &error);
 
   *r_error = pcre_compile
