@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 14:42:26 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-133
+
+    Summary:
+      Fixed a segmentation fault
+    Revision:
+      ccze--0.1--patch-133
+
+    * src/ccze.c (main): In the main loop if subject did not had a trailing
+      newline, do not try to replace it with a \0.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-01-19 14:39:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-132
 
     Summary:

@@ -471,8 +471,9 @@ main (int argc, char **argv)
       char *rest = NULL, *rest2 = NULL;
       char *tmp = strchr (subject, '\n');
       unsigned int remfac_tmp;
-      
-      tmp[0] = '\0';
+
+      if (tmp)
+	tmp[0] = '\0';
 
       if (ccze_config.remfac && (sscanf (subject, "<%u>", &remfac_tmp) > 0))
 	{
