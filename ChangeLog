@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-20 15:01:37 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-193
+
+    Summary:
+      Add a generator meta-tag to the HTML output
+    Revision:
+      ccze--0.1--patch-193
+
+    * src/ccze.c (ccze_main): Add a generator meta-tag to the HTML output.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-02-20 11:40:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-192
 
     Summary:

@@ -509,7 +509,8 @@ ccze_main (void)
     {
       printf
 	("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//Transitional//EN\">\n"
-	 "<html>\n<head>\n");
+	 "<html>\n<head>\n<meta name=\"generator\" content=\"%s\">\n",
+	 argp_program_version);
 
       if (ccze_config.cssfile)
 	printf ("<link rel=\"stylesheet\" href=\"%s\">\n",
