@@ -124,7 +124,15 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
       free (msg2);
       return;
     }
-  
+
+  if ((strstr (msg, "last message repeated") && strstr (msg, "times")) ||
+      (strstr (msg, "-- MARK --")))
+    {
+      CCZE_ADDSTR (CCZE_COLOR_REPEAT, msg);
+      free (msg2);
+      return;
+    }
+
   word = xstrdup (_my_strbrk (msg2, ' '));
   if (!word)
     {

@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-12 20:46:14 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-74
+
+    Summary:
+      "last message..." and "-- MARK --" coloring
+    Revision:
+      ccze--0.1--patch-74
+
+    * src/ccze-color.h (ccze_color_t): Added CCZE_COLOR_REPEAT.
+    * src/ccze-color.c (ccze_color_keyword_map): Added `repeat'.
+      (ccze_color_init): Initialise CCZE_COLOR_REPEAT to white.
+    * src/ccze-wordcolor.c (ccze_wordcolor_process): Color "last message
+      ..." and "-- MARK --" messages with CCZE_COLOR_REPEAT.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-color.h
+     src/ccze-wordcolor.c
+
+
 2002-10-12 20:28:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-73
 
     Summary:
