@@ -1,3 +1,19 @@
+ccze (0.2.1-1) unstable; urgency=low
+
+  * The `Fireflower' release.
+    + Transparency and background-colour support for the ANSI output mode.
+    
+ -- Gergely Nagy <algernon@bonehunter.rulez.org>  Tue, 13 May 2003 19:43:16 +0200
+
+ccze (0.2.0-1) unstable; urgency=low
+
+  * The `Mephisto' release.
+    + New, raw ANSI output method.
+    + This adds scrollback and backgrounding support.
+    (Closes: #181117, #181891)
+
+ -- Gergely Nagy <algernon@bonehunter.rulez.org>  Sat, 29 Mar 2003 18:36:10 +0100
+
 ccze (0.1.228-1) unstable; urgency=low
 
   * The `Largo' release.

@@ -1,8 +1,8 @@
 #! /bin/sh
-## bug-procmailsubj.test -- Check if a one-word subject in procmailrc is ok
+## bug-procmailsubj2.test -- Check if procmail subject is colored ok
 ## -*- sh -*-
 ## Copyright (C) 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
-## Sample data from Morten Brix Pedersen.
+## Sample data from Alan Schmitt.
 ##
 ## This file is part of CCZE.
 ##
@@ -20,7 +20,7 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-DESCRIPTION="Verify if a single-word subject in procmailrc is recognised."
+DESCRIPTION="Verify if a multi-word subject is correctly colorised"
 PROG_CMDLINE="-F /dev/null -p syslog,procmail -o nolookups -d"
 
 # Common definitions

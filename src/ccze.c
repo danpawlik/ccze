@@ -48,7 +48,7 @@
 #define ESC 0x1b
 
 /* ccze somehow swaped cyan and magenta */
-static int ccze_raw_ansi_color[] = {30,31,32,33,34,36,35,37};
+static int ccze_raw_ansi_color[] = {30, 31, 32, 33, 34, 36, 35, 37};
 
 ccze_config_t ccze_config = {
   .scroll = 1,
@@ -73,7 +73,7 @@ static volatile sig_atomic_t sighup_received = 0;
 #ifndef HAVE_ARGP_PARSE
 const char *argp_program_name = "ccze";
 #endif
-const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
+const char *argp_program_version = "ccze 0.2." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
   {"rcfile", 'F', "FILE", 0, "Read configuration from FILE", 1},
@@ -89,6 +89,8 @@ static struct argp_option options[] = {
   {"debug", 'd', NULL, OPTION_HIDDEN, "Turn on debugging.", 1},
   {"raw-ansi", 'A', NULL, 0, "Generate raw ANSI output", 1},
   {"list-plugins", 'l', NULL, 0, "List available plugins", 1},
+  {"mode", 'm', "MODE", 0, "Change the output mode\n"
+   "(Available modes are curses, ansi and html.)", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -122,6 +124,23 @@ static char *o_subopts[] = {
   [CCZE_O_SUBOPT_TRANSPARENT] = "transparent",
   [CCZE_O_SUBOPT_NOTRANSPARENT] = "notransparent",
   [CCZE_O_SUBOPT_END] = NULL
+};
+
+enum
+{
+  CCZE_M_SUBOPT_CURSES,
+  CCZE_M_SUBOPT_ANSI,
+  CCZE_M_SUBOPT_HTML,
+  CCZE_M_SUBOPT_DEBUG,
+  CCZE_M_SUBOPT_END
+};
+
+static char *m_subopts[] = {
+  [CCZE_M_SUBOPT_CURSES] = "curses",
+  [CCZE_M_SUBOPT_ANSI] = "ansi",
+  [CCZE_M_SUBOPT_HTML] = "html",
+  [CCZE_M_SUBOPT_DEBUG] = "debug",
+  [CCZE_M_SUBOPT_END] = NULL
 };
 
 static char *empty_subopts[] = { NULL };
@@ -228,6 +247,30 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
     case 'r':
       ccze_config.remfac = 1;
+      break;
+    case 'm':
+      subopts = optarg;
+      while (*subopts != '\0')
+	{
+	  switch (getsubopt (&subopts, m_subopts, &value))
+	    {
+	    case CCZE_M_SUBOPT_CURSES:
+	      ccze_config.mode = CCZE_MODE_CURSES;
+	      break;
+	    case CCZE_M_SUBOPT_ANSI:
+	      ccze_config.mode = CCZE_MODE_RAW_ANSI;
+	      break;
+	    case CCZE_M_SUBOPT_HTML:
+	      ccze_config.mode = CCZE_MODE_HTML;
+	      break;
+	    case CCZE_M_SUBOPT_DEBUG:
+	      ccze_config.mode = CCZE_MODE_DEBUG;
+	      break;
+	    default:
+	      argp_error (state, "unrecognised mode: `%s'", value);
+	      break;
+	    }
+	}
       break;
     case 'o':
       subopts = optarg;
@@ -406,25 +449,37 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
     case CCZE_MODE_RAW_ANSI:
       if (str)
 	{
-	  int c = ccze_color(col);
+	  int c = ccze_color (col);
 
 	  printf("%c[22m", ESC); /* default */
 
-	  if (c & 0x100)
-	    printf("%c[1m", ESC);
-
-#if 0
-	  if (c & A_UNDERLINE)
-	    printf("%c[4m", ESC);
-
-	  if (c & A_BLINK)
-	    printf("%c[5m", ESC);
-
-	  if (c & A_REVERSE)
-	    printf("%c[7m", ESC);
-#endif
+	  if (c & 0x1000) /* Bold */
+	    {
+	      printf("%c[1m", ESC);
+	      c ^= 0x1000;
+	    }
 	  
-	  printf("%c[%dm%s", ESC, ccze_raw_ansi_color[c & 0xf], str);
+	  if (c & 0x2000) /* Underline */
+	    {
+	      printf("%c[4m", ESC);
+	      c ^= 0x2000;
+	    }
+	  
+	  if (c & 0x4000) /* Reverse */
+	    {
+	      printf("%c[5m", ESC);
+	      c ^= 0x4000;
+	    }
+	  
+	  if (c & 0x8000) /* Blink */
+	    {
+	      printf("%c[7m", ESC);
+	      c ^= 0x8000;
+	    }
+
+	  if (c >> 8 > 0 || !ccze_config.transparent)
+	    printf("%c[%dm", ESC, ccze_raw_ansi_color[c >> 8] + 10);
+	  printf ("%c[%dm%s%c[0m", ESC, ccze_raw_ansi_color[c & 0xf], str, ESC);
 	}
       break;
     case CCZE_MODE_DEBUG:

@@ -3,7 +3,7 @@
 SHELL		= /bin/sh
 
 PACKAGE		= ccze
-VERSION		= 0.1.${PATCHLEVEL}
+VERSION		= 0.2.${PATCHLEVEL}
 DIST		= stable
 
 PROGRAM		= ${PACKAGE}

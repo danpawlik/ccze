@@ -37,7 +37,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc AUTHORS ChangeLog NEWS README THANKS TODO FAQ
+%doc AUTHORS ChangeLog ChangeLog-0.1 NEWS README THANKS FAQ
 %config %{_sysconfdir}/cczerc
 %{_bindir}/ccze
 %{_bindir}/ccze-cssdump

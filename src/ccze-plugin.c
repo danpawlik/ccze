@@ -36,12 +36,36 @@ static ccze_plugin_t **plugin_args;
 static size_t plugin_args_alloc, plugin_args_len;
 static char *plugin_running = NULL;
 
+static ccze_plugin_t *
+_ccze_plugin_find (const char *name)
+{
+  size_t i;
+  
+  for (i = 0; i < plugins_len; i++)
+    {
+      if (!strcmp (plugins[i]->name, name))
+	return plugins[i];
+    }
+  return NULL;
+}
+
+static int
+_ccze_plugin_loaded (const char *name)
+{
+  if (_ccze_plugin_find (name))
+    return 1;
+
+  return 0;
+}
+
 static int
 _ccze_plugin_allow (const char *name)
 {
   int i = 0;
   int rval = 0;
 
+  if (_ccze_plugin_loaded (name))
+    return 0;
   if (ccze_config.pluginlist_len == 0)
     return 1;
   
@@ -90,28 +114,6 @@ ccze_plugin_argv_init (void)
   plugin_args_len = 0;
   plugin_args = (ccze_plugin_t **)ccze_calloc (plugin_args_alloc,
 					       sizeof (ccze_plugin_t *));
-}
-
-static ccze_plugin_t *
-_ccze_plugin_find (const char *name)
-{
-  size_t i;
-  
-  for (i = 0; i < plugins_len; i++)
-    {
-      if (!strcmp (plugins[i]->name, name))
-	return plugins[i];
-    }
-  return NULL;
-}
-
-static int
-_ccze_plugin_loaded (const char *name)
-{
-  if (_ccze_plugin_find (name))
-    return 1;
-
-  return 0;
 }
 
 static void
@@ -430,7 +432,7 @@ ccze_plugin_list_fancy (void)
     {
       if (plugins[i])
 	{
-	  char *type;
+	  char *type = "Unknown";
 
 	  switch (plugins[i]->type)
 	    {
