@@ -186,10 +186,10 @@ ccze_plugin_load_all (void)
   
   if ((home = getenv ("HOME")) != NULL)
     {
-      asprintf (&homeplugs, "%s/.ccze/", home);
+      asprintf (&homeplugs, "%s/.ccze", home);
       n = scandir (homeplugs, &namelist, _ccze_plugin_select, alphasort);
       if (n != -1)
-	_ccze_plugin_load_set (&namelist, n, home);
+	_ccze_plugin_load_set (&namelist, n, homeplugs);
       free (homeplugs);
     }
 
