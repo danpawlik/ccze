@@ -76,6 +76,7 @@ static struct
 
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
 			 COLOR_BLUE, COLOR_CYAN, COLOR_MAGENTA, COLOR_WHITE};
+static volatile sig_atomic_t sighup_received = 0;
 
 #ifndef HAVE_ARGP_PARSE
 const char *argp_program_name = "ccze";
@@ -394,9 +395,12 @@ sigint_handler (int sig)
     endwin ();
   else
     printf ("\n</body>\n</html>\n");
-  
-  ccze_wordcolor_shutdown ();
-  ccze_plugin_shutdown ();
+
+  if (sig)
+    {
+      ccze_wordcolor_shutdown ();
+      ccze_plugin_shutdown ();
+    }
   
   exit (0);
 }
@@ -409,21 +413,23 @@ sigwinch_handler (int sig)
   signal (SIGWINCH, sigwinch_handler);
 }
 
-int
-main (int argc, char **argv)
+static void
+sighup_handler (int sig)
+{
+  sighup_received = 1;
+  signal (SIGHUP, sighup_handler);
+}
+
+static void
+ccze_main (void)
 {
   char *subject = NULL;
   size_t subjlen = 0;
   int i, j;
   char *homerc, *home;
   ccze_plugin_t **plugins;
-      
-  ccze_config.pluginlist = (char **)calloc (ccze_config.pluginlist_alloc,
-					    sizeof (char *));
-  ccze_config.color_argv = (char **)calloc (ccze_config.color_argv_alloc,
-					    sizeof (char *));
-  argp_parse (&argp, argc, argv, 0, 0, NULL);
 
+  sighup_received = 0;
   ccze_color_init ();
 
   if (ccze_config.rcfile)
@@ -492,6 +498,7 @@ main (int argc, char **argv)
 	      argp_program_version, ccze_cssbody_color ());
     }
   signal (SIGINT, sigint_handler);
+  signal (SIGHUP, sighup_handler);
   
   ccze_wordcolor_setup ();
 
@@ -518,7 +525,7 @@ main (int argc, char **argv)
   while (plugins[i])
     (*(plugins[i++]->startup))();
         
-  while (getline (&subject, &subjlen, stdin) != -1)
+  while ((getline (&subject, &subjlen, stdin) != -1) && !sighup_received)
     {
       int handled = 0;
       int status = 0;
@@ -568,8 +575,24 @@ main (int argc, char **argv)
 
   if (!ccze_config.html)
     refresh ();
+}
 
-  free (subject);
+int
+main (int argc, char **argv)
+{
+      
+  ccze_config.pluginlist = (char **)calloc (ccze_config.pluginlist_alloc,
+					    sizeof (char *));
+  ccze_config.color_argv = (char **)calloc (ccze_config.color_argv_alloc,
+					    sizeof (char *));
+  argp_parse (&argp, argc, argv, 0, 0, NULL);
+
+  do
+    {
+      ccze_main ();
+      ccze_wordcolor_shutdown ();
+      ccze_plugin_shutdown ();
+    } while (sighup_received);
 
   sigint_handler (0);
   

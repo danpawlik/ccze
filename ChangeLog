@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-04 16:51:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-149
+
+    Summary:
+      SIGHUP handler
+    Revision:
+      ccze--0.1--patch-149
+
+    * src/ccze.c (sigint_handler): Only do the freeing if sig is non-zero.
+      (sighup_handler): New function.
+      (ccze_main): Moved most of main() here.
+      (main): Use ccze_main().
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-02-02 15:48:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-148
 
     Summary:
