@@ -1,5 +1,5 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
- * ccze-apm.c -- apm colorizers for CCZE
+ * mod_apm.c -- apm colorizers for CCZE
  * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.

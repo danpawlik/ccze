@@ -1,5 +1,5 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
- * ccze-super.c -- super-related colorizers for CCZE
+ * mod_super.c -- super-related colorizers for CCZE
  * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.

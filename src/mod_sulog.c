@@ -1,5 +1,5 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
- * ccze-sulog.c -- su-related colorizers for CCZE
+ * mod_sulog.c -- su-related colorizers for CCZE
  * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.

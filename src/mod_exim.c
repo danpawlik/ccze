@@ -1,5 +1,5 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
- * ccze-exim.c -- Exim log-coloriser module for CCZE
+ * mod_exim.c -- Exim log-coloriser module for CCZE
  * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.

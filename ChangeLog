@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-28 11:16:07 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-140
+
+    Summary:
+      Cosmetic fixup
+    Revision:
+      ccze--0.1--patch-140
+
+    Updated the internal filename reference in all the modules.
+
+    modified files:
+     ChangeLog src/mod_apm.c src/mod_exim.c src/mod_fetchmail.c
+     src/mod_httpd.c src/mod_procmail.c src/mod_squid.c
+     src/mod_sulog.c src/mod_super.c src/mod_syslog.c
+     src/mod_ulogd.c src/mod_vsftpd.c
+
+
 2003-01-25 12:45:08 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-139
 
     Summary:
