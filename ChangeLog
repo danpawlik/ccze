@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-08 16:47:47 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-168
+
+    Summary:
+      mod_oops
+    Revision:
+      ccze--0.1--patch-168
+
+    * src/mod_oops.c: New file.
+    * ccze.plugins: Added oops.
+    * doc/ccze.1.in (PLUGINS): Document it.
+    * TODO: Removed relevant entry.
+
+    new files:
+     src/.arch-ids/mod_oops.c.id src/mod_oops.c
+
+    modified files:
+     ChangeLog TODO ccze.plugins doc/ccze.1.in
+
+
 2003-02-07 23:33:44 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-167
 
     Summary:

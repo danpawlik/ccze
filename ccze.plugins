@@ -3,6 +3,7 @@ exim
 fetchmail
 httpd
 icecast
+oops
 php
 postfix
 procmail

@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-02-07" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-02-08" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -121,6 +121,8 @@ files. (See \fIapache\fR(8))
 .IR icecast
 For coloring \fIicecast/icecast.log\fR and \fIicecast/usage.log\fR
 files. (See \fIicecast\fR(8))
+.IR
+For coloring \fIoops/oops.log\fR files.
 .IR php
 For coloring \fIphp.log\fR files.
 .TP
