@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-20 14:56:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-98
+
+    Summary:
+      Fixed all-static installation
+    Revision:
+      ccze--0.1--patch-98
+
+    * src/Makefile.in (install): Only install plugins if there are any.
+      (uninstall): Only uninstall plugins if there are any.
+
+    modified files:
+     ChangeLog src/Makefile.in
+
+
 2002-11-20 14:39:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-97
 
     Summary:
