@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-08 11:39:34 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-223
+
+    Summary:
+      Fixed src/ccze.o dependencies
+    Revision:
+      ccze--0.1--patch-223
+
+    * src/Makefile.in (ccze.o): Depend on ${top_srcdir}/ChangeLog too. So it
+      picks up the new version number ASAP after a commit.
+
+    modified files:
+     ChangeLog src/Makefile.in
+
+
 2003-03-08 10:30:23 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-222
 
     Summary:
