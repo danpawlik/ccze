@@ -193,7 +193,6 @@ main (int argc, char **argv)
   init_pair (7, COLOR_WHITE, COLOR_BLACK);
 
   ccze_color_init ();
-  endwin();
   ccze_color_load (SYSCONFDIR "/colorizerc");
   ccze_color_load (SYSCONFDIR "/cczerc");
   home = getenv ("HOME");

@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-18 14:00:06 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-47
+
+    Summary:
+      Removed a debugging statement
+    Revision:
+      ccze--0.1--patch-47
+
+    * src/ccze.c (main): The endwin() after ccze_color_init() accidentally
+      creeped in from my development tree. Removed.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-09-18 13:57:34 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-46
 
     Summary:
