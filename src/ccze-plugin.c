@@ -38,7 +38,7 @@ static size_t plugins_alloc, plugins_len;
 static int
 _ccze_plugin_allow (const char *name)
 {
-  size_t i = 0;
+  int i = 0;
   int rval = 0;
 
   if (ccze_config.pluginlist_len == 0)

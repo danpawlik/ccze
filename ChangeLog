@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-09 19:08:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-173
+
+    Summary:
+      Fixed a compile warning
+    Revision:
+      ccze--0.1--patch-173
+
+    * src/ccze-plugin.c (_ccze_plugin_allow): `i' should be `int', not
+      `size_t'. ccze_config.pluginlist_len was changed a few commits ago.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2003-02-09 18:49:31 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-172
 
     Summary:
