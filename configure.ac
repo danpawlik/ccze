@@ -74,6 +74,7 @@ dnl * Library functions
 dnl **********************
 AC_FUNC_MALLOC
 AC_FUNC_STRFTIME
+AC_FUNC_STAT
 AC_CHECK_FUNCS([memset strcasecmp strchr strdup strndup strstr])
 
 AC_CHECK_LIB(pcre, pcre_exec, [], [AC_ERROR(PCRE library not found)])
