@@ -1,5 +1,17 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.150 [The Cardinal Sin] -- 2002-02-04.
+
+Since the last release, a great deal of code cleanup took place,
+resulting in most of the modules' sources getting renamed. As usual,
+bugs were fixed during this process, so certain characters will get
+escaped in the HTML output.
+
+Also, a full-blown coloriser module was added for xferlog files, and a
+syslog-subcoloriser for postfix logs.
+
+CCZE also handles SIGHUP nicely, by effectively restarting itself.
+
 * CCZE 0.1.134 [Song of the Dispossessed] -- 2002-01-19.
 
 Colours (even the background of the outputted HTML) can now be changed
