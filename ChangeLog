@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-01 22:20:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-147
+
+    Summary:
+      Code cleanups
+    Revision:
+      ccze--0.1--patch-147
+
+    * src/ccze-worcolor.c (ccze_wordcolor_process_one): Use a temporary
+      variable to hold the length of `host' and `ip' (in the hostip
+      branch)
+    * src/mod_postfix.c (_ccze_postfix_process_one): Likewise for `s' and
+      `field'.
+    
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c src/mod_postfix.c
+
+
 2003-01-31 08:57:37 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-146
 
     Summary:

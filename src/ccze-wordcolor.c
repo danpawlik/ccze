@@ -157,9 +157,12 @@ ccze_wordcolor_process_one (char *word, int slookup)
   else if (pcre_exec (reg_hostip, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
     {
       char *host, *ip;
-
+      size_t hostlen, iplen;
+      
       host = strndup (word, strchr (word, '[') - (word));
-      ip = strndup (&word[strlen (host) + 1], strlen (word) - strlen (host) - 1);
+      hostlen = strlen (host);
+      iplen = strlen (word) - hostlen - 1;
+      ip = strndup (&word[strlen (host) + 1], iplen);
       ccze_addstr (CCZE_COLOR_HOST, host);
       ccze_addstr (CCZE_COLOR_PIDB, "[");
       ccze_addstr (CCZE_COLOR_HOST, ip);

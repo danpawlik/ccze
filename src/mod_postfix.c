@@ -39,7 +39,9 @@ _ccze_postfix_process_one (const char *s, char **rest)
     return 1;
 
   field = strndup (s, strchr (s, '=') - s);
-  value = strndup (&s[strlen (field) + 1], strlen (s) - strlen (field) - 1);
+  i = strlen (s);
+  i -= strlen (field) + 1;
+  value = strndup (&s[strlen (field) + 1], i);
   
   ccze_addstr (CCZE_COLOR_FIELD, field);
   ccze_addstr (CCZE_COLOR_DEFAULT, "=");
