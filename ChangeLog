@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-05 20:38:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-217
+
+    Summary:
+      Got rid of PLUGIN_LIBPATH
+    Revision:
+      ccze--0.1--patch-217
+
+    * src/ccze-plugin.c [PLUGIN_LIBPATH]: Got rid of this ancient relic. Use
+      PKGLIBDIR instead.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2003-03-05 15:57:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-216
 
     Summary:

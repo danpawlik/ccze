@@ -30,8 +30,6 @@
 
 #include "ccze-private.h"
 
-#define PLUGIN_LIBPATH PKGLIBDIR
-
 static ccze_plugin_t **plugins;
 static size_t plugins_alloc, plugins_len;
 static ccze_plugin_t **plugin_args;
@@ -135,11 +133,11 @@ ccze_plugin_load (const char *name)
       if (access (path, F_OK))
 	{
 	  free (path);
-	  asprintf (&path, PLUGIN_LIBPATH "/%s.so", name);
+	  asprintf (&path, PKGLIBDIR "/%s.so", name);
 	}
     }
   else
-    asprintf (&path, PLUGIN_LIBPATH "/%s.so", name);
+    asprintf (&path, PKGLIBDIR "/%s.so", name);
 
   _ccze_plugin_load (name, path);
   free (path);
@@ -217,9 +215,9 @@ ccze_plugin_load_all (void)
       free (homeplugs);
     }
 
-  n = scandir (PLUGIN_LIBPATH, &namelist, _ccze_plugin_select, alphasort);
+  n = scandir (PKGLIBDIR, &namelist, _ccze_plugin_select, alphasort);
   if (n != -1)
-    _ccze_plugin_load_set (&namelist, n, PLUGIN_LIBPATH);
+    _ccze_plugin_load_set (&namelist, n, PKGLIBDIR);
 }
 
 void
