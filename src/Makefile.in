@@ -13,7 +13,7 @@ include ../Rules.mk
 ALL_LDFLAGS	= ${LDFLAGS} ${LIBS}
 
 SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
-		$(addprefix ccze-,$(addsuffix .c, ${PLUGINS})) \
+		$(addprefix ccze-,$(addsuffix .c, ${ALL_PLUGINS})) \
 		ccze-dump.c
 HEADERS		= ccze.h ccze-color.h ccze-plugin.h ccze-wordcolor.h
 ALL_PLUGINS	= @ALL_PLUGINS@
