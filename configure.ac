@@ -84,8 +84,6 @@ AC_C_VOLATILE
 AC_TYPE_SIZE_T
 AC_TYPE_SIGNAL
 
-AC_CHECK_TYPE(error_t, int)
-
 dnl **********************
 dnl * Library functions
 dnl **********************
