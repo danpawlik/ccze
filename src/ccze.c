@@ -19,9 +19,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include "system.h"
+
 #include <curses.h>
 
+#ifdef HAVE_ARGP_H
 #include <argp.h>
+#endif
 #include <dlfcn.h>
 #include <signal.h>
 #include <stdio.h>
@@ -31,6 +35,7 @@
 #include <unistd.h>
 
 #include "ccze.h"
+#include "ccze-compat.h"
 #include "ccze-color.h"
 #include "ccze-wordcolor.h"
 #include "ccze-plugin.h"
@@ -71,7 +76,8 @@ struct
 
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
 			 COLOR_BLUE, COLOR_CYAN, COLOR_MAGENTA, COLOR_WHITE};
- 
+
+const char *argp_program_name = "ccze";
 const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {

@@ -19,10 +19,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
+#include "system.h"
 #include "ccze-color.c"
+#include "ccze-compat.h"
 
+#ifdef HAVE_ARGP_H
 #include <argp.h>
+#endif
 
+const char *argp_program_name = "ccze-cssdump";
 const char *argp_program_version = "ccze-cssdump (ccze 0.1." PATCHLEVEL ")";
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {

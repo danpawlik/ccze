@@ -2,6 +2,31 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 20:09:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-123
+
+    Summary:
+      Portability
+    Revision:
+      ccze--0.1--patch-123
+
+    * src/ccze-compat.h: New file.
+    * src/ccze-compat.c: Likewise.
+    * configure.ac: A set of new checks.
+    * src/ccze-color.c: #include "ccze-compat.h"
+    * src/ccze-cssdump.c: Likewise.
+    * src/ccze-dump.c: Likewise.
+    * src/ccze.c: Likewise.
+    * src/Makefile.in: Adjust accordingly.
+
+    new files:
+     src/.arch-ids/ccze-compat.h.id src/.arch-ids/ccze-compat.c.id
+     src/ccze-compat.h src/ccze-compat.c
+
+    modified files:
+     ChangeLog configure.ac src/Makefile.in src/ccze-color.c
+     src/ccze-cssdump.c src/ccze-dump.c src/ccze.c
+
+
 2003-01-13 16:14:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-122
 
     Summary:

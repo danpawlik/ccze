@@ -29,6 +29,7 @@
 #include <unistd.h>
 
 #include "ccze-color.h"
+#include "ccze-compat.h"
 
 #define BOLD A_BOLD |
 #define BLACK COLOR_PAIR (0)

@@ -20,9 +20,16 @@
  */
 
 #define CCZE_DUMP 1
-#include "ccze-color.c"
-#include <argp.h>
 
+#include "system.h"
+#include "ccze-color.c"
+#include "ccze-compat.h"
+
+#ifdef HAVE_ARGP_H
+#include <argp.h>
+#endif
+
+const char *argp_program_name = "ccze-dump";
 const char *argp_program_version = "ccze-dump (ccze 0.1." PATCHLEVEL ")";
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
