@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-03-30" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-04-24" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -197,6 +197,10 @@ This two are the main configuration files, in which one can change the
 colors used by the program to his liking. See the comments in the
 beginning of \fI@sysconfdir@/cczerc\fR for a description on the files'
 structure.
+
+If neither of these files exist on your system, consider using the
+\fBccze\-dump\fR utility in the source tree, which dumps the default
+color set to standard output.
 .RE
 .SH "SEE ALSO"
 .BR colorize (1)
