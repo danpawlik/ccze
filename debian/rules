@@ -20,6 +20,7 @@ config.status: configure
 	CFLAGS="${CFLAGS}" ./configure --prefix=/usr --sysconfdir=/etc \
 				       --mandir=/usr/share/man \
 				       --build=${BGT} --host=${HGT} \
+				       --with-builtins=all \
 				       ${CONFIG_FLAGS}
 
 build: config.status
@@ -38,7 +39,7 @@ install: build
 	${MAKE} install DESTDIR=${PKGDIR}
 	install -m 0644 NEWS THANKS TODO \
 		${PKGDIR}/usr/share/doc/${PACKAGE}/
-	install -m 0644 etc/cczerc ${PKGDIR}/etc/
+	src/ccze-dump >${PKGDIR}/etc/cczerc
 
 binary-ccze: install
 	test -e debian/control && test "x`whoami`" = "xroot"
@@ -54,7 +55,7 @@ binary-ccze: install
 ## Strip binaries
 ifeq (,$(findstring nostrip,${DEB_BUILD_OPTIONS}))
 	strip --remove-section=.comment --remove-section=.note \
-		${PKGDIR}/usr/bin/ccze ${PKGDIR}/usr/lib/ccze/*.so
+		${PKGDIR}/usr/bin/ccze
 endif
 ## Fix permissions
 	find ${PKGDIR} -print0 2>/dev/null | xargs -0r chown \
@@ -63,7 +64,7 @@ endif
 		chmod go=rX,u+rw,a-s
 ## Generate ${shlibs:Depends}
 	dpkg-shlibdeps -Tdebian/${PACKAGE}.substvars -dDepends \
-			${PKGDIR}/usr/bin/ccze ${PKGDIR}/usr/lib/ccze/*.so
+			${PKGDIR}/usr/bin/ccze
 ## Install stuff to DEBIAN/
 	install -d ${PKGDIR}/DEBIAN
 	cd ${PKGDIR} >/dev/null ;\

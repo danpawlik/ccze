@@ -2,6 +2,65 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-20 14:07:07 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-95
+
+    Summary:
+      Added support for built-in plugins
+    Revision:
+      ccze--0.1--patch-95
+
+    * src/ccze-plugin.h (ccze_plugin_add): New prototype.
+      (ccze_plugin_load_all_builtins): Likewise.
+    * src/ccze-plugin.c (_ccze_plugin_add): Exported, and renamed to...
+      (ccze_plugin_add): ...this.
+      (ccze_plugin_shutdown): Check if plugins[i] is NULL before
+      dereferencing it.
+    * src/ccze-wordcolor.c (ccze_wordcolor_process): Bail out early if
+      `msg' is NULL.
+    * src/ccze.c (main): Call ccze_plugin_load_all_builtins() before
+      _finalise().
+    * src/Makefile.in (ALL_PLUGINS): New substvar.
+      (S_PLUGINS): Likewise.
+      (SH_PLUGINS): New variable.
+      (PLUGIN_SHOBJS): Likewise.
+      (PLUGIN_SOBJS): Likewise.
+      (PLUGIN_OBJS): This should be the aggregate of _SHOBJS and _SOBJS.
+      (CLEANFILES): Only clean `ccze-dump', the rest is taken care of by
+      Rules.mk.in.
+      (DISTCLEANFILES): Added ccze-builtins.c.
+      (OBJECTS): Added ccze-builtins.o.
+      (all): Depend on ${PLUGIN_SHOBJS}, not on ${PLUGIN_OBJS}.
+      (install): Only install plugins if there are any, and in that case,
+      ${PLUGIN_SHOBJS} only.
+      (${PROGRAM}): Depend on ${PLUGIN_SOBJS}.
+      (ccze-builtin.c): New rule.
+      (ccze-ulogd.o): Likewise.
+    * Makefile.in: Eradicate all traces of etc/.
+    * Rules.mk.in (clean): Remove *.o, *.so and *.da automatically.
+    * configure.ac: Support --with-builtins.
+      (AC_OUTPUT): Removed etc/Makefile.
+    * ccze.spec.in: Use src/ccze-dump and --with-builtins=all.
+    * debian/rules: Likewise.
+    * TODO: Remove relevant entry.
+    * doc/ccze.1.in (PLUGINS): Remove .so suffix.
+    * etc/Makefile.in: Removed.
+    * etc/cczerc: Likewise.
+    * etc/: Likewise.
+
+    removed files:
+     etc/.arch-ids/=id etc/.arch-ids/Makefile.in.id
+     etc/.arch-ids/cczerc.id etc/Makefile.in etc/cczerc
+
+    modified files:
+     ChangeLog Makefile.in Rules.mk.in TODO ccze.spec.in
+     configure.ac debian/rules doc/ccze.1.in src/Makefile.in
+     src/ccze-plugin.c src/ccze-plugin.h src/ccze-wordcolor.c
+     src/ccze.c
+
+    removed directories:
+     etc/.arch-ids etc
+
+
 2002-11-19 22:44:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-94
 
     Summary:

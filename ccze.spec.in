@@ -25,14 +25,15 @@ for the well-known colorize.pl.
 ./configure \
 	--prefix=%{_prefix} \
 	--sysconfdir=%{_sysconfdir} \
-	--mandir=%{_mandir}
+	--mandir=%{_mandir} \
+	--with-builtins=all
 make CFLAGS="${RPM_OPT_FLAGS} -I/usr/include/pcre"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=${RPM_BUILD_ROOT}
 install -d ${RPM_BUILD_ROOT}%{_sysconfdir}
-install -m 644 etc/cczerc ${RPM_BUILD_ROOT}%{_sysconfdir}/cczerc
+src/ccze-dump >${RPM_BUILD_ROOT}%{_sysconfdir}/cczerc
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -42,11 +43,14 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
 %config %{_sysconfdir}/cczerc
 %{_bindir}/ccze
-%dir %{_libdir}/ccze
-%{_libdir}/ccze/*
 %attr(0644,root,root) %{_mandir}/man1/ccze.1*
+%attr(0644,root,root) %{_mandir}/man7/ccze-plugin.7*
 
 %changelog
+* Wed Nov 20 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+- Build all modules statically.
+* Tue Nov 19 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+- Use src/ccze-dump to generate the default configuration file.
 * Tue Nov 19 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
 - Simplified and made it version-neultral.
 * Sun Nov 17 2002 Andreas Brenk <ab@aegisnet.biz>

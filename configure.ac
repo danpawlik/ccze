@@ -83,13 +83,27 @@ AC_CHECK_LIB(ncurses, initscr, [], [AC_ERROR(NCurses library not found)])
 AC_CHECK_LIB(dl, dlopen, [], [AC_ERROR(dlopen() not found)])
 
 dnl **********************
+dnl * Plugins
+dnl **********************
+ALL_PLUGINS="apm exim httpd procmail squid sulog super syslog ulogd vsftpd"
+AC_SUBST(ALL_PLUGINS)
+AC_ARG_WITH(builtins,
+	   [  --with-builtins=LIST    Build the listed plugins into the binary],
+	   [case $withval in
+		all)
+			S_PLUGINS=$ALL_PLUGINS;;
+		*)
+			S_PLUGINS="$(echo $withval | sed 's/,/ /g')";;
+	   esac], [S_PLUGINS=""])
+AC_SUBST(S_PLUGINS)
+
+dnl **********************
 dnl * Output
 dnl **********************
 AC_CONFIG_FILES([
 Rules.mk
 Makefile
 doc/Makefile
-etc/Makefile
 src/Makefile
 ])
 

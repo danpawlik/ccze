@@ -55,11 +55,13 @@ void ccze_plugin_init (void);
 ccze_plugin_t **ccze_plugins (void);
 void ccze_plugin_load_all (void);
 void ccze_plugin_load (const char *name);
+void ccze_plugin_add (ccze_plugin_t *plugin);
 void ccze_plugin_shutdown (void);
 void ccze_plugin_finalise (void);
 void ccze_plugin_run (ccze_plugin_t **pluginset, char *subject,
 		      size_t subjlen, char **rest,
 		      ccze_plugin_type_t type, int *handled,
 		      int *status);
+void ccze_plugin_load_all_builtins (void);
 
 #endif /* !_CCZE_PLUGIN_H */

@@ -16,20 +16,25 @@ SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
 		$(addprefix ccze-,$(addsuffix .c, ${PLUGINS})) \
 		ccze-dump.c
 HEADERS		= ccze.h ccze-color.h ccze-plugin.h ccze-wordcolor.h
-PLUGINS		= apm exim httpd procmail squid sulog super syslog \
-		ulogd vsftpd
-PLUGIN_OBJS	= $(addsuffix .so,${PLUGINS})
-CLEANFILES	= ${OBJECTS:.o=.da} ${PLUGIN_OBJS} ccze-dump
-OBJECTS		= ccze.o ccze-color.o ccze-plugin.o ccze-wordcolor.o
+ALL_PLUGINS	= @ALL_PLUGINS@
+S_PLUGINS	= @S_PLUGINS@
+SH_PLUGINS	= $(filter-out ${S_PLUGINS},${ALL_PLUGINS})
+PLUGIN_SHOBJS	= $(addsuffix .so,${SH_PLUGINS})
+PLUGIN_SOBJS	= $(addsuffix .o,$(addprefix ccze-,${S_PLUGINS}))
+PLUGIN_OBJS	= ${PLUGIN_SHOBJS} ${PLUGIN_SOBJS}
+CLEANFILES	= ccze-dump
+DISTCLEANFILES	= ccze-builtins.c
+OBJECTS		= ccze.o ccze-color.o ccze-plugin.o ccze-wordcolor.o \
+		ccze-builtins.o
 
 ## -- Standard targets -- ##
-all: ${PROGRAM} ${PLUGIN_OBJS} ccze-dump
+all: ${PROGRAM} ${PLUGIN_SHOBJS} ccze-dump
 
 install: all
 	${INSTALL} -d ${DESTDIR}${bindir}
 	${INSTALL_PROGRAM} ${PROGRAM} ${DESTDIR}${bindir}/
 	${INSTALL} -d ${DESTDIR}${pkglibdir}
-	${INSTALL_DATA} ${PLUGIN_OBJS} ${DESTDIR}${pkglibdir}/
+	${INSTALL_DATA} ${PLUGIN_SHOBJS} ${DESTDIR}${pkglibdir}/
 
 install-strip:
 	${MAKE} INSTALL_PROGRAM='${INSTALL_PROGRAM} -s' \
@@ -40,10 +45,22 @@ uninstall:
 	rm -f $(addprefix ${DESTDIR}${pkglibdir}/,${PLUGIN_OBJS})
 
 ## -- Specific targets -- ##
-${PROGRAM}: ${OBJECTS}
+${PROGRAM}: ${OBJECTS} ${PLUGIN_SOBJS}
 	${CC} -rdynamic ${ALL_CFLAGS} -o $@ $^ ${ALL_LDFLAGS}
 ccze-dump: ccze-dump.c ccze-color.c ccze.h ccze-color.h
 	${CC} ${ALL_CFLAGS} -o $@ ccze-dump.c
+ccze-builtins.c: Makefile
+	echo '#include "ccze.h"' >$@
+	echo '#include "ccze-plugin.h"' >>$@
+	echo >>$@
+	for p in ${S_PLUGINS}; do \
+		echo "extern ccze_plugin_t *ccze_$${p}_info;" >>$@; \
+	done
+	echo -e '\nvoid\nccze_plugin_load_all_builtins (void)\n{' >>$@;
+	for p in ${S_PLUGINS}; do \
+		echo "  ccze_plugin_add (ccze_$${p}_info);" >>$@; \
+	done
+	echo "}" >>$@
 
 ## -- Dependencies -- ##
 ccze.o: ccze.c ${top_builddir}/system.h ccze.h ccze-color.h ccze-plugin.h \
@@ -53,4 +70,5 @@ ccze-plugin.o: ccze-plugin.c ${top_builddir}/system.h ccze.h ccze-plugin.h
 ccze-wordcolor.o: ccze-wordcolor.c ${top_builddir}/system.h ccze.h \
 		  ccze-wordcolor.h
 ulogd.so: ccze-ulogd.c ccze.h ccze-plugin.h ccze-wordcolor.h
+ccze-ulogd.o: ccze-ulogd.c ccze.h ccze-plugin.h ccze-wordcolor.h
 ${top_builddir}/system.h: ${top_builddir}/config.status

@@ -192,7 +192,12 @@ void
 ccze_wordcolor_process (const char *msg, int wcol, int slookup)
 {
   char *word;
-  char *msg2 = strdup (msg);
+  char *msg2;
+
+  if (msg)
+    msg2 = strdup (msg);
+  else
+    return;
 
   if (!wcol)
     {

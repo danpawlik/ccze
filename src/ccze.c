@@ -314,6 +314,7 @@ main (int argc, char **argv)
       while (ccze_config.pluginlist_len-- > 0)
 	ccze_plugin_load (ccze_config.pluginlist[ccze_config.pluginlist_len]);
     }
+  ccze_plugin_load_all_builtins ();
   ccze_plugin_finalise ();
       
   i = 0;

@@ -34,8 +34,8 @@
 static ccze_plugin_t **plugins;
 static size_t plugins_alloc, plugins_len;
 
-static void
-_ccze_plugin_add (ccze_plugin_t *plugin)
+void
+ccze_plugin_add (ccze_plugin_t *plugin)
 {
   plugins[plugins_len] = plugin;
   plugins_len++;
@@ -76,7 +76,7 @@ _ccze_plugin_load (const char *name, const char *path)
     }
   plugin->dlhandle = dlhandle;
   
-  _ccze_plugin_add (plugin);
+  ccze_plugin_add (plugin);
 }
 
 void
@@ -188,8 +188,11 @@ ccze_plugin_shutdown (void)
 
   for (i = 0; i < plugins_len; i++)
     {
-      (*(plugins[i]->shutdown)) ();
-      dlclose (plugins[i]->dlhandle);
+      if (plugins[i])
+	{
+	  (*(plugins[i]->shutdown)) ();
+	  dlclose (plugins[i]->dlhandle);
+	}
     }
   free (plugins);
 }

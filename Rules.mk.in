@@ -74,7 +74,7 @@ TAGS:: ${SOURCES} ${HEADERS}
 	${CC} -fPIC -DPIC ${ALL_CFLAGS} ${ALL_LDFLAGS} -o $@ $< -shared
 
 mostlyclean clean::
-	rm -f *~ ${PROGRAM} ${OBJECTS} TAGS
+	rm -f *~ *.o *.so *.da ${PROGRAM} TAGS
 	test -z "${CLEANFILES}" || rm -rf ${CLEANFILES}
 distclean:: clean
 	rm -f Makefile

@@ -17,12 +17,10 @@ DISTCLEANFILES	= ccze.spec
 all: all-recursive ccze.spec
 all-recursive:
 	${MAKE} -C doc all
-	${MAKE} -C etc all
 	${MAKE} -C src all
 
 install uninstall:
 	${MAKE} -C doc $@
-	${MAKE} -C etc $@
 	${MAKE} -C src $@
 
 TAGS::
@@ -30,13 +28,11 @@ TAGS::
 
 mostlyclean clean::
 	${MAKE} -C doc $@
-	${MAKE} -C etc $@
 	${MAKE} -C src $@
 	rm -rf *~ ++* ,,* gmon.out bb.out
 
 distclean:: clean
 	${MAKE} -C doc $@
-	${MAKE} -C etc $@
 	${MAKE} -C src $@
 	rm -rf config.cache config.status config.log \
 	       autom4te.cache system.h Makefile Rules.mk *~
@@ -49,7 +45,6 @@ dist: ccze.spec
 	test -z "${distdir}" || rm -rf "${distdir}"
 	${MAKE} distdir
 	${MAKE} -C doc distdir
-	${MAKE} -C etc distdir
 	${MAKE} -C src distdir
 	${TAR} ${TAR_OPTIONS} -cf - ${PACKAGE}-${VERSION} | ${GZIP} ${GZIP_ENV} >${PACKAGE}-${VERSION}.tar.gz
 	test -z "${distdir}" || rm -rf "${distdir}"

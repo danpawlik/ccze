@@ -1,5 +1,5 @@
 .\" Hey Emacs! This is -*- nroff -*-!
-.TH CCZE 1 "2002-11-18" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2002-11-20" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -70,36 +70,36 @@ be overridden by the user easily).
 At the moment, the following modules are bundled with the official
 release:
 .TP
-.IR apm.so
+.IR apm
 For coloring apmd's logs.
 .TP
-.IR exim.so
+.IR exim
 For coloring exim's \fImain.log\fR. (See \fIexim\fR(8))
 .TP
-.IR httpd.so
+.IR httpd
 For coloring apache-style \fIaccess.log\fR and \fIerror.log\fR
 files. (See \fIapache\fR(8))
 .TP
-.IR procmail.so
+.IR procmail
 For coloring procmail's log file. (See \fIprocmail\fR(1))
 .TP
-.IR squid.so
+.IR squid
 For coloring squid's \fIaccess.log\fR, \fIstore.log\fR and
 \fIcache.log\fR files. (See \fIsquid\fR(8))
 .TP
-.IR sulog.so
+.IR sulog
 For coloring \fIsulog\fR files. (See \fIsu\fR(1))
 .TP
-.IR super.so
+.IR super
 For coloring \fIsuper.log\fR files. (See \fIsuper\fR(1))
 .TP
-.IR syslog.so
+.IR syslog
 For coloring generic syslog messages. (See \fIsyslogd\fR(8))
 .TP
-.IR ulogd.so
+.IR ulogd
 For coloring ulogd logs.
 .TP
-.IR vsftpd.so
+.IR vsftpd
 For coloring \fIvsftpd.log\fR files. (See \fIvsftpd\fR(8))
 .SH FILES
 .TP
