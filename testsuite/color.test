@@ -27,8 +27,8 @@ if test -z "$srcdir"; then
 fi
 . $srcdir/defs
 
-SUBTESTS="apm exim procmail syslog"
-SUBTEST_PLUGINS="apm:syslog,apm"
+SUBTESTS="apm bug-wnum exim procmail syslog"
+SUBTEST_PLUGINS="apm:syslog,apm bug-wnum:syslog"
 
 for subtest in ${SUBTESTS}; do
 	subtest_plugins=$(echo ${SUBTEST_PLUGINS} | grep "$subtest:" | \

@@ -2,6 +2,33 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-08 10:30:23 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-222
+
+    Summary:
+      Fixed a minor word coloring bug
+    Revision:
+      ccze--0.1--patch-222
+
+    * src/ccze-wordcolor (ccze_wordcolor_setup): Changed the `reg_pre' and
+      `reg_post' regexps to be less greedy, and work even if the matched
+      string is shorter than three characters.
+    * testsuite/bug-wnum.in: New test-case input from Mark Szabo. Tests
+      for the problem mentioned and fixed by the above change.
+    * testsuite/bug-wnum.ok: The expected output from the test case.
+    * testsuite/color.test (SUBTESTS): Added bug-wnum.
+      (SUBTEST_PLUGINS): Added bug-wnum:syslog.
+    * testsuite/Makefile.in (EXTRA_DIST): Added bug-wnum.in and bug-wnum.ok.
+
+    new files:
+     testsuite/.arch-ids/bug-wnum.in.id
+     testsuite/.arch-ids/bug-wnum.ok.id testsuite/bug-wnum.in
+     testsuite/bug-wnum.ok
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c testsuite/Makefile.in
+     testsuite/color.test
+
+
 2003-03-06 16:46:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-221
 
     Summary:

@@ -263,9 +263,9 @@ ccze_wordcolor_setup (void)
   const char *error;
   int errptr;
 
-  reg_pre = pcre_compile ("^([`'\".,!?:;(\\[{<]+)([^`'\".,!?:;(\\[{<]\\S+)$",
+  reg_pre = pcre_compile ("^([`'\".,!?:;(\\[{<]+)([^`'\".,!?:;(\\[{<]\\S*)$",
 			  0, &error, &errptr, NULL);
-  reg_post = pcre_compile ("^(\\S+[^`'\".,!?:;)\\]}>])([`'\".,!?:;)\\]}>]+)$",
+  reg_post = pcre_compile ("^(\\S*[^`'\".,!?:;)\\]}>])([`'\".,!?:;)\\]}>]+)$",
 			   0, &error, &errptr, NULL);
   reg_host = pcre_compile ("^(((\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|"
 			   "(([a-z0-9-_]+\\.)+[a-z]{2,3})|(localhost)|"

@@ -14,7 +14,7 @@ TESTS_ENVIRONMENT       = top_builddir=$(top_builddir) \
 TESTS                   = version.test color.test
 EXTRA_DIST		= defs do-test \
 			syslog.in syslog.ok apm.in apm.ok exim.in exim.ok \
-			procmail.in procmail.ok
+			procmail.in procmail.ok bug-wnum.in bug-wnum.ok
 
 ## -- Standard targets -- ##
 all: ;
