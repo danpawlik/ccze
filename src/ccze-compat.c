@@ -200,6 +200,9 @@ argp_parse (const struct argp *argps, int argc, char **argv,
     }
   free (state);
   free (options);
+#if HAVE_GETOPT_LONG
+  free (longopts);
+#endif
   return 0;
 }
 

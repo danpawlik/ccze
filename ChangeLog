@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-21 09:09:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-199
+
+    Summary:
+      Minor mem-leak fix in argp_parse
+    Revision:
+      ccze--0.1--patch-199
+
+    * src/ccze-compat.c [HAVE_GETOPT_LONG] (argp_parse): Free `longopts'.
+
+    modified files:
+     ChangeLog src/ccze-compat.c
+
+
 2003-02-20 17:32:51 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-198
 
     Summary:
