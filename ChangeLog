@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-16 10:09:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-38
+
+    Summary:
+      TODO updates
+    Revision:
+      ccze--0.1--patch-38
+
+    * TODO: Added `Modularisation' entry.
+
+    modified files:
+     ChangeLog TODO
+
+
 2002-09-16 10:03:51 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-37
 
     Summary:

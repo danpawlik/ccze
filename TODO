@@ -3,5 +3,8 @@
 * New features
 ** Color-configuration support
 ** Support for more kinds of logs
+** Modularisation
+*** Only syslog and wordcolor should be built-in
+*** Remove the CCZE_MATCH_* enum, it is not used. A boolean is sufficient.
 
 * Documentation
