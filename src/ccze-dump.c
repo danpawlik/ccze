@@ -155,7 +155,8 @@ main (int argc, char *argv[])
 	  "names!)\n\n");
   printf ("# item          color                   # comment (what is "
 	  "color, or why it's that ;)\n\n");
-  
+
+  /* Dump colors */
   for (cidx = CCZE_COLOR_DATE; cidx < CCZE_COLOR_LAST; cidx++)
     {
       int color = ccze_color (cidx);
@@ -173,6 +174,28 @@ main (int argc, char *argv[])
       
       printf ("%s\n", line);      
     }
-  
+
+  /* CSS codes */
+  printf ("\n# CSS codes for the HTML output\n");
+  for (cidx = 0; cidx < 8; cidx++)
+    {
+      char line[256];
+
+      strcpy (line, "css");
+      strcat (line, ccze_colorname_map[cidx].name);
+      memset (&line[strlen(line)], ' ', 16 - strlen (line));
+      line[16]='\0';
+      strcat (line, ccze_csscolor_normal_map[cidx]);
+      printf ("%s\n", line);
+
+      strcpy (line, "cssbold");
+      strcat (line, ccze_colorname_map[cidx].name);
+      memset (&line[strlen(line)], ' ', 16 - strlen (line));
+      line[16]='\0';
+      strcat (line, ccze_csscolor_bold_map[cidx]);
+      printf ("%s\n", line);
+
+    }
+    
   return 0;
 }

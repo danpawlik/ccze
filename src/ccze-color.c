@@ -48,6 +48,13 @@
 
 static int ccze_color_table [CCZE_COLOR_LAST];
 
+static char *ccze_csscolor_normal_map[] = {
+  "black", "red", "#00C000", "brown", "blue", "darkcyan",
+  "darkmagenta", "grey" };
+static char *ccze_csscolor_bold_map[] = {
+  "black", "lightred", "lime", "yellow", "slateblue",
+  "cyan", "magenta", "white" };
+
 typedef struct
 {
   char *name;
@@ -170,50 +177,9 @@ static char *
 ccze_color_to_name_css (int color, int realcolor)
 {
   if (ccze_color (realcolor) & A_BOLD)
-    {
-      switch (color)
-	{
-	case BLACK:
-	  return "black";
-	case RED:
-	  return "lightred";
-	case GREEN:
-	  return "lime";
-	case YELLOW:
-	  return "yellow";
-	case BLUE:
-	  return "slateblue";
-	case CYAN:
-	  return "cyan";
-	case MAGENTA:
-	  return "magenta";
-	case WHITE:
-	  return "white";
-	}
-    }
+    return ccze_csscolor_bold_map[PAIR_NUMBER (color)];
   else
-    {
-      switch (color)
-	{
-	case BLACK:
-	  return "black";
-	case RED:
-	  return "red";
-	case GREEN:
-	  return "#00C000";
-	case YELLOW:
-	  return "brown";
-	case BLUE:
-	  return "blue";
-	case CYAN:
-	  return "darkcyan";
-	case MAGENTA:
-	  return "darkmagenta";
-	case WHITE:
-	  return "grey";
-	}
-    }
-  return NULL;
+    return ccze_csscolor_normal_map[PAIR_NUMBER (color)];
 }
 
 int
@@ -344,34 +310,46 @@ ccze_color_load (const char *fn)
   while (getline (&line, &len, fp) != -1)
     {
       char *tmp, *keyword, *color, *pre = NULL, *bg;
-      int ncolor, nkeyword, nbg, rcolor;
-      
-      tmp = strstr (line, "#");
-      if (tmp)
-	tmp[0]='\0';
+      int ncolor, nkeyword, nbg, rcolor, csskey = 0;
       
       keyword = strtok (line, " \t\n");
       if (!keyword)
 	continue;
-      if ((nkeyword = _ccze_color_keyword_lookup (keyword)) == -1)
-	continue;
-      
-      color = strtok (NULL, " \t\n");
-      if (color && (!strcmp (color, "bold") || !strcmp (color, "underline") ||
-		    !strcmp (color, "reverse") || !strcmp (color, "blink")))
+      if (strstr (keyword, "css") == keyword)
+	csskey = 1;
+      else
 	{
-	  pre = color;
-	  color = strtok (NULL, " \t\n");
+	  tmp = strstr (line, "#");
+	  if (tmp)
+	    tmp[0]='\0';
 	}
+
+      if (!csskey &&
+	  ((nkeyword = _ccze_color_keyword_lookup (keyword)) == -1))
+	continue;
+
+      color = strtok (NULL, " \t\n");
+      if (!csskey)
+	{
+	  if (color &&
+	      (!strcmp (color, "bold") || !strcmp (color, "underline") ||
+	       !strcmp (color, "reverse") || !strcmp (color, "blink")))
+	    {
+	      pre = color;
+	      color = strtok (NULL, " \t\n");
+	    }
+	}
+      
       if (!color)
 	continue;
-      if ((ncolor = _ccze_colorname_map_lookup (color)) == -1)
+
+      if (!csskey && (ncolor = _ccze_colorname_map_lookup (color)) == -1)
 	continue;
 
       bg = strtok (NULL, " \t\n");
       if (bg)
 	{
-	  if ((nbg = _ccze_colorname_map_lookup (bg)) != -1)
+	  if (!csskey && (nbg = _ccze_colorname_map_lookup (bg)) != -1)
 	    ncolor += nbg*8;
 	}
       
@@ -391,8 +369,25 @@ ccze_color_load (const char *fn)
 	  else if (!strcmp (pre, "blink"))
 	    rcolor |= A_BLINK;
 	}
-      
-      ccze_color_table[nkeyword] = rcolor;
+
+      if (!csskey)
+	ccze_color_table[nkeyword] = rcolor;
+      else
+	{
+	  int bold = 0;
+	  	  
+	  keyword += 3;
+	  if (strstr (keyword, "bold") == keyword)
+	    {
+	      keyword += 4;
+	      bold = 1;
+	    }
+	  ncolor = _ccze_colorname_map_lookup (keyword);
+	  if (bold)
+	    ccze_csscolor_bold_map[ncolor] = strdup (color);
+	  else
+	    ccze_csscolor_normal_map[ncolor] = strdup (color);
+	}
     }
   free (line);
   fclose (fp);

@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 14:29:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-118
+
+    Summary:
+      Customisable CSS codes
+    Revision:
+      ccze--0.1--patch-118
+
+    * src/ccze-color.c (ccze_csscolor_normal_map): New array.
+      (ccze_csscolor_bold_map): Likewise.
+      (ccze_color_to_name_css): Use these new maps.
+      (ccze_color_load): Added ability to put "css" tags into different
+      maps.
+    * src/ccze-dump.c (main): Added code to dump the css maps too.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-dump.c
+
+
 2003-01-13 13:36:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-117
 
     Summary:
