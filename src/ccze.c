@@ -302,29 +302,87 @@ ccze_newline (void)
     addstr ("\n");
 }
 
-void
-ccze_space (void)
+static char *
+ccze_str_htmlencode (const char *src)
 {
-  if (ccze_config.html)
-    ccze_addstr (CCZE_COLOR_DEFAULT, "&nbsp;");
-  else
-    ccze_addstr (CCZE_COLOR_DEFAULT, " ");
+    char *buf, *dest;
+    unsigned char c;
+
+    dest = (char *)malloc (strlen (src) * 5 + 1);
+
+    if (!dest)
+      return NULL;
+
+    buf = dest;
+    while ((c = *src++))
+      {
+        switch (c)
+	  {
+	  case '>':
+            *dest++ = '&';
+            *dest++ = 'g';
+            *dest++ = 't';
+            *dest++ = ';';
+            break;
+	  case '<':
+            *dest++ = '&';
+            *dest++ = 'l';
+            *dest++ = 't';
+            *dest++ = ';';
+            break;
+	  case '&':
+            *dest++ = '&';
+            *dest++ = 'a';
+            *dest++ = 'm';
+            *dest++ = 'p';
+            *dest++ = ';';
+            break;
+	  default:
+            *dest++ = c;
+	  }
+      }
+    *dest = '\0';
+    return buf;
 }
 
-void
-ccze_addstr (ccze_color_t col, const char *str)
+static void
+ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
 {
   if (ccze_config.html)
     {
       if (str)
-	printf ("<font class=\"ccze_%s\">%s</font>",
-		ccze_color_lookup_name (col), str);
+	{
+	  char *d;
+
+	  if (enc)
+	    d = ccze_str_htmlencode (str);
+	  else
+	    d = strdup (str);
+	  printf ("<font class=\"ccze_%s\">%s</font>",
+		  ccze_color_lookup_name (col), d);
+	  free (d);
+	}
     }
   else
     {
       attrset (ccze_color (col));
       addstr (str);
     }
+}
+
+void
+ccze_addstr (ccze_color_t col, const char *str)
+{
+  ccze_addstr_internal (col, str, 1);
+}
+
+void
+ccze_space (void)
+{
+  if (ccze_config.html)
+    ccze_addstr_internal (CCZE_COLOR_DEFAULT, "&nbsp;", 0);
+  else
+    ccze_addstr (CCZE_COLOR_DEFAULT, " ");
 }
 
 static void sigint_handler (int sig) __attribute__ ((noreturn));

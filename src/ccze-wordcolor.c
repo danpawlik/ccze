@@ -31,7 +31,7 @@
 
 static pcre *reg_pre, *reg_post, *reg_host, *reg_mac, *reg_email;
 static pcre *reg_uri, *reg_size, *reg_ver, *reg_time, *reg_addr;
-static pcre *reg_num, *reg_sig, *reg_email2;
+static pcre *reg_num, *reg_sig, *reg_email2, *reg_hostip, *reg_msgid;
 
 static char *words_bad[] = {
   "warn", "restart", "exit", "stop", "end", "shutting", "down", "close",
@@ -74,7 +74,7 @@ ccze_wordcolor_process_one (char *word, int slookup)
   size_t wlen;
   int offsets[99];
   ccze_color_t col;
-  int match;
+  int match, printed = 0;
   char *pre = NULL, *post = NULL, *tmp, *lword;
 
   col = CCZE_COLOR_DEFAULT;
@@ -120,6 +120,9 @@ ccze_wordcolor_process_one (char *word, int slookup)
 	   >= 0 && pcre_exec (reg_email2, NULL, lword, wlen, 0, 0,
 			      offsets,99) >= 0)
     col = CCZE_COLOR_EMAIL;
+  /** Message-ID **/
+  else if (pcre_exec (reg_msgid, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_EMAIL;
   /** URI **/
   else if (pcre_exec (reg_uri, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
     col = CCZE_COLOR_URI;
@@ -150,6 +153,22 @@ ccze_wordcolor_process_one (char *word, int slookup)
   /** User **/
   else if (slookup && getpwnam (lword))
     col = CCZE_COLOR_USER;
+  /* Host + IP (postfix) */
+  else if (pcre_exec (reg_hostip, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    {
+      char *host, *ip;
+
+      host = strndup (word, strchr (word, '[') - (word));
+      ip = strndup (&word[strlen (host) + 1], strlen (word) - strlen (host) - 1);
+      ccze_addstr (CCZE_COLOR_HOST, host);
+      ccze_addstr (CCZE_COLOR_PIDB, "[");
+      ccze_addstr (CCZE_COLOR_HOST, ip);
+      ccze_addstr (CCZE_COLOR_PIDB, "]");
+
+      free (host);
+      free (ip);
+      printed = 1;
+    }
   else
     { /* Good/Bad/System words */
       size_t i;
@@ -175,12 +194,14 @@ ccze_wordcolor_process_one (char *word, int slookup)
 	    col = CCZE_COLOR_SYSTEMWORD;
 	}
     }
-      
-  ccze_addstr (CCZE_COLOR_DEFAULT, pre);
-  ccze_addstr (col, word);
-  ccze_addstr (CCZE_COLOR_DEFAULT, post);
-  ccze_space ();
-      
+
+  if (!printed)
+    {
+      ccze_addstr (CCZE_COLOR_DEFAULT, pre);
+      ccze_addstr (col, word);
+      ccze_addstr (CCZE_COLOR_DEFAULT, post);
+    }
+  
   free (lword);
   free (word);
   free (post);
@@ -225,6 +246,7 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
   do
     {
       ccze_wordcolor_process_one (word, slookup);
+      ccze_space ();
     } while ((word = xstrdup (ccze_strbrk (NULL, ' '))) != NULL);
 
   free (msg2);
@@ -246,6 +268,11 @@ ccze_wordcolor_setup (void)
 			   "(([a-z0-9-_]+\\.)+[a-z]{2,3})|(localhost)|"
 			   "(\\w*::\\w+)+)(:\\d{1,5})?)$", 0, &error,
 			   &errptr, NULL);
+  reg_hostip = pcre_compile ("^(((\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|"
+			     "(([a-z0-9-_]+\\.)+[a-z]{2,3})|(localhost)|"
+			     "(\\w*::\\w+)+)(:\\d{1,5})?)"
+			     "\\[",
+			     0, &error,  &errptr, NULL);
   reg_mac = pcre_compile ("^([0-9a-f]{2}:){5}[0-9a-f]{2}$", 0, &error,
 			  &errptr, NULL);
   reg_email = pcre_compile ("^[a-z0-9-_]+@([a-z0-9-_\\.]+)+(\\.[a-z]{2,4})+",
@@ -266,6 +293,8 @@ ccze_wordcolor_setup (void)
 			  "bus|poll|prof|sys|trap|urg|vtalrm|xcpu|xfsz|iot|"
 			  "emt|stkflt|io|cld|pwr|info|lost|winch|unused)", 0,
 			  &error, &errptr, NULL);
+  reg_msgid = pcre_compile ("^[a-z0-9-_\\.\\$]+@([a-z0-9-_\\.]+)+(\\.?[a-z]+)+",
+			    0, &error, &errptr, NULL);
 }
 
 void
@@ -284,4 +313,6 @@ ccze_wordcolor_shutdown (void)
   free (reg_addr);
   free (reg_num);
   free (reg_sig);
+  free (reg_hostip);
+  free (reg_msgid);
 }

@@ -2,6 +2,27 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-28 17:16:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-142
+
+    Summary:
+      Word coloring enhancements and HTML-escaping
+    Revision:
+      ccze--0.1--patch-142
+
+    * src/ccze.c (ccze_str_htmlencode): New function.
+      (ccze_addstr): Renamed to, and made it a wrapper around...
+      (ccze_addstr_internal): ...this. Use ccze_str_htmlencode().
+      (ccze_space): Use ccze_addstr_internal when adding a HTML space.
+    * src/ccze-wordcolor.c (ccze_wordcolor_process_one): Process
+      Message-ID and HOST[IP] stuff too. Do not ccze_space()!
+      (ccze_wordcolor_process): Use the ccze_space() here.
+      (ccze_wordcolor_setup): Setup _msgid and _hostid.
+      (ccze_wordcolor_shutdown): Free them.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c src/ccze.c
+
+
 2003-01-28 12:10:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-141
 
     Summary:
