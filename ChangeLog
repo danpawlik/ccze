@@ -2,6 +2,28 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-09 13:57:34 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-171
+
+    Summary:
+      The `Mesmerism' release.
+    Revision:
+      ccze--0.1--patch-171
+
+      Remain in light
+      Renounce your fears
+      For you have been
+      Mesmerized
+    
+    * configure.ac: Call ourselves -stable.
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+    * debian/control (Description): Removed trailing dot from short
+      description.
+
+    modified files:
+     ChangeLog NEWS configure.ac debian/changelog debian/control
+
+
 2003-02-09 13:02:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-170
 
     Summary:

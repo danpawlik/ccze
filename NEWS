@@ -1,5 +1,15 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.171 [Mesmerism] -- 2002-02-09.
+
+This release brings colorisers for php.log, oops/oops.log,
+icecast/icecast.log and icecast/usage.log. Also, it is now possible to
+disable any of the built-in plugins, that is, they behave as loadable
+modules when --plugin is specified.
+
+For the benefit of transparent xterm users, CCZE defaults to not alter
+the background colour by default.
+
 * CCZE 0.1.150 [The Cardinal Sin] -- 2002-02-04.
 
 Since the last release, a great deal of code cleanup took place,
