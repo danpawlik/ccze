@@ -2,6 +2,51 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-28 20:27:50 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-64
+
+    Summary:
+      A big header cleanup
+    Revision:
+      ccze--0.1--patch-64
+
+    * src/ccze-exim.h: Removed.
+    * src/ccze-httpd.h: Likewise.
+    * src/ccze-procmail.h: Likewise.
+    * src/ccze-squid.h: Likewise.
+    * src/ccze-sulog.h: Likewise.
+    * src/ccze-super.h: Likewise.
+    * src/ccze-syslog.h: Likewise.
+    * src/ccze-vsftpd.h: Likewise.
+    * src/ccze-exim.c: Adjust to the removal of module headers.
+    * src/ccze-httpd.c: Likewise.
+    * src/ccze-procmail.c: Likewise.
+    * src/ccze-squid.c: Likewise.
+    * src/ccze-sulog.c: Likewise.
+    * src/ccze-super.c: Likewise.
+    * src/ccze-syslog.c: Likewise.
+    * src/ccze-vsftpd.c: Likewise.
+    * src/Makefile.in (HEADERS): Remove plugin headers.
+      (ccze-*.so): Removed.
+    * Rules.mk.in (%.so): Do not depend on ccze-%.h.
+      (.SUFFIXES): First empty it, then set it to ".c .o".
+      (WFLAGS): Remove -Wunused.
+
+    removed files:
+     src/.arch-ids/ccze-sulog.h.id src/.arch-ids/ccze-super.h.id
+     src/.arch-ids/ccze-exim.h.id src/.arch-ids/ccze-httpd.h.id
+     src/.arch-ids/ccze-procmail.h.id src/.arch-ids/ccze-squid.h.id
+     src/.arch-ids/ccze-syslog.h.id src/.arch-ids/ccze-vsftpd.h.id
+     src/ccze-sulog.h src/ccze-super.h src/ccze-exim.h
+     src/ccze-httpd.h src/ccze-procmail.h src/ccze-squid.h
+     src/ccze-syslog.h src/ccze-vsftpd.h
+
+    modified files:
+     ChangeLog Rules.mk.in src/Makefile.in src/ccze-exim.c
+     src/ccze-httpd.c src/ccze-procmail.c src/ccze-squid.c
+     src/ccze-sulog.c src/ccze-super.c src/ccze-syslog.c
+     src/ccze-vsftpd.c
+
+
 2002-09-28 16:41:06 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-63
 
     Summary:

@@ -53,7 +53,7 @@ WFLAGS		= -Werror -Wshadow -Wpointer-arith -Waggregate-return \
 		-Wbad-function-cast -Wsign-compare -Wchar-subscripts \
 		-Wcomment -Wformat -Wformat-nonliteral -Wformat-security \
 		-Wimplicit -Wmain -Wmissing-braces -Wparentheses \
-		-Wreturn-type -Wswitch -Wunused -Wmulticharacter \
+		-Wreturn-type -Wswitch -Wmulticharacter \
 		-Wmissing-noreturn -Wmissing-declarations @WFLAGS_3X@
 WFLAGS_3X	= -Wsequence-point -Wdiv-by-zero -W -Wno-unused-parameter
 ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${WFLAGS} ${CFLAGS}
@@ -68,7 +68,7 @@ TAGS:: ${SOURCES} ${HEADERS}
 
 .c.o:
 	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
-%.so: ccze-%.c ccze-%.h ccze.h
+%.so: ccze-%.c ccze.h
 	${CC} -fPIC -DPIC ${ALL_CFLAGS} -o $@ $< -shared
 
 mostlyclean clean::
@@ -96,5 +96,6 @@ ${builddir}/Makefile: ${srcdir}/Makefile.in ${top_builddir}/config.status
 ## -- ${MAKE} control -- ##
 .PHONY: all install clean distclean mostlyclean uninstall maintainer-clean \
 	distdir dist distcheck
-.SUFFIXES: .c.o.c.so
+.SUFFIXES:
+.SUFFIXES: .c .o
 .DEFAULT: all

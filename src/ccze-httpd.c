@@ -25,10 +25,23 @@
 #include <string.h>
 
 #include "ccze.h"
-#include "ccze-httpd.h"
 
 static pcre *reg_httpd_access, *reg_httpd_error;
 static pcre_extra *hints_httpd_access, *hints_httpd_error;
+
+static int
+_ccze_httpd_error (const char *level)
+{
+  if (strstr (level, "debug") || strstr (level, "info") ||
+      strstr (level, "notice"))
+    return CCZE_COLOR_DEBUG;
+  if (strstr (level, "warn"))
+    return CCZE_COLOR_WARNING;
+  if (strstr (level, "error") || strstr (level, "crit") ||
+      strstr (level, "alert") || strstr (level, "emerg"))
+    return CCZE_COLOR_ERROR;
+  return CCZE_COLOR_UNKNOWN;
+}
 
 static char *
 ccze_httpd_access_log_process (const char *str, int *offsets, int match)
@@ -83,20 +96,6 @@ ccze_httpd_access_log_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-static int
-_ccze_httpd_error (const char *level)
-{
-  if (strstr (level, "debug") || strstr (level, "info") ||
-      strstr (level, "notice"))
-    return CCZE_COLOR_DEBUG;
-  if (strstr (level, "warn"))
-    return CCZE_COLOR_WARNING;
-  if (strstr (level, "error") || strstr (level, "crit") ||
-      strstr (level, "alert") || strstr (level, "emerg"))
-    return CCZE_COLOR_ERROR;
-  return CCZE_COLOR_UNKNOWN;
-}
-
 static char *
 ccze_httpd_error_log_process (const char *str, int *offsets, int match)
 {
@@ -125,7 +124,7 @@ ccze_httpd_error_log_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-void
+static void
 ccze_httpd_setup (void)
 {
   const char *error;
@@ -144,7 +143,7 @@ ccze_httpd_setup (void)
   hints_httpd_error = pcre_study (reg_httpd_error, 0, &error);
 }
 
-void
+static void
 ccze_httpd_shutdown (void)
 {
   free (reg_httpd_access);
@@ -153,7 +152,7 @@ ccze_httpd_shutdown (void)
   free (hints_httpd_error);
 }
 
-int
+static int
 ccze_httpd_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];

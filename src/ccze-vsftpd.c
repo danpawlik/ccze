@@ -24,7 +24,6 @@
 #include <stdlib.h>
 
 #include "ccze.h"
-#include "ccze-vsftpd.h"
 
 static pcre *reg_vsftpd;
 static pcre_extra *hints_vsftpd;
@@ -65,7 +64,7 @@ ccze_vsftpd_log_process (const char *str, int *offsets, int match)
   return other;
 }
 
-void
+static void
 ccze_vsftpd_setup (void)
 {
   const char *error;
@@ -78,14 +77,14 @@ ccze_vsftpd_setup (void)
   hints_vsftpd = pcre_study (reg_vsftpd, 0, &error);
 }
 
-void
+static void
 ccze_vsftpd_shutdown (void)
 {
   free (reg_vsftpd);
   free (hints_vsftpd);
 }
 
-int
+static int
 ccze_vsftpd_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
