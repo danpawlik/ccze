@@ -22,6 +22,7 @@
 #include "ccze.h"
 #include "ccze-plugin.h"
 #include "ccze-wordcolor.h"
+#include "ccze-compat.h"
 
 #include <curses.h>
 #include <string.h>

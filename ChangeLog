@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 14:39:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-132
+
+    Summary:
+      FreeBSD compatibility
+    Revision:
+      ccze--0.1--patch-132
+
+    * src/ccze-compat.h: #include <sys/types.h>.
+    * src/ccze-plugin.c: Likewise.
+    * src/ccze-syslog.c: #include "ccze-compat.h"
+    * src/ccze-ulogd.c: Likewise.
+    * src/ccze-compat.c (getline): Fixed, so it does not segfault anymore.
+
+    modified files:
+     ChangeLog src/ccze-compat.c src/ccze-compat.h
+     src/ccze-plugin.c src/ccze-syslog.c src/ccze-ulogd.c
+
+
 2003-01-19 13:27:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-131
 
     Summary:

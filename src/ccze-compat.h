@@ -24,6 +24,7 @@
 
 #include "system.h"
 
+#include <sys/types.h>
 #include <errno.h>
 #include <stddef.h>
 #include <stdio.h>

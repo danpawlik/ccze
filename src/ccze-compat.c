@@ -253,12 +253,12 @@ getline(char **lineptr, size_t *n, FILE *stream)
 	    return -1;
 	  else
 	    {
-	      *lineptr[*n]='\0'; /* work around a bug (?) in fgets */
+	      (*lineptr)[*n]='\0'; /* work around a bug (?) in fgets */
 	      break;
 	    }
 	}
       *n = strlen(*lineptr);
-    } while (*n > 0 && *lineptr[*n - 1] != '\n');
+    } while (*n > 0 && (*lineptr)[*n] != '\n');
 
   return *n;
 }
