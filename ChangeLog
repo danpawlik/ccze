@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-09 19:37:05 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-105
+
+    Summary:
+      Use make's ifneq stuff
+    Revision:
+      ccze--0.1--patch-105
+
+    * src/Makefile.in (install): Use make's ifneq stuff instead of shell
+      trickery.
+      (uninstall): Likewise.
+
+    modified files:
+     ChangeLog src/Makefile.in
+
+
 2002-12-02 20:17:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-104
 
     Summary:

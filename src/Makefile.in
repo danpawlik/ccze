@@ -33,10 +33,10 @@ all: ${PROGRAM} ${PLUGIN_SHOBJS} ccze-dump
 install: all
 	${INSTALL} -d ${DESTDIR}${bindir}
 	${INSTALL_PROGRAM} ${PROGRAM} ${DESTDIR}${bindir}/
-	if [ ! -z "${PLUGIN_SHOBJS}" ]; then \
-		${INSTALL} -d ${DESTDIR}${pkglibdir} ;\
-		${INSTALL_DATA} ${PLUGIN_SHOBJS} ${DESTDIR}${pkglibdir}/ ;\
-	fi
+ifneq (${SH_PLUGINS},)
+		${INSTALL} -d ${DESTDIR}${pkglibdir}
+		${INSTALL_DATA} ${PLUGIN_SHOBJS} ${DESTDIR}${pkglibdir}/
+endif
 
 install-strip:
 	${MAKE} INSTALL_PROGRAM='${INSTALL_PROGRAM} -s' \
@@ -44,9 +44,9 @@ install-strip:
 
 uninstall:
 	rm -f ${DESTDIR}${bindir}/${PROGRAM}
-	if [ ! -z "${PLUGIN_SHOBJS}"; then \
-		rm -f $(addprefix ${DESTDIR}${pkglibdir}/,${PLUGIN_SHOBJS}); \
-	fi
+ifneq (${SH_PLUGINS},)
+		rm -f $(addprefix ${DESTDIR}${pkglibdir}/,${PLUGIN_SHOBJS})
+endif
 
 ## -- Specific targets -- ##
 ${PROGRAM}: ${OBJECTS} ${PLUGIN_SOBJS}
