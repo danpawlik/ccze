@@ -92,6 +92,7 @@ dnl * Typedefs & co
 dnl **********************
 AC_C_CONST
 AC_TYPE_SIZE_T
+AC_TYPE_SIGNAL
 
 dnl **********************
 dnl * Library functions
