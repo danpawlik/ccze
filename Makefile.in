@@ -9,7 +9,7 @@ include Rules.mk
 ## -- Private variables -- ##
 EXTRA_DIST	= Rules.mk.in configure configure.ac system.h.in \
 		COPYING ChangeLog install-sh config.guess config.sub \
-		AUTHORS README NEWS INSTALL TODO
+		AUTHORS README NEWS INSTALL TODO THANKS
 
 ## -- Generic rules -- ##
 all install uninstall info dvi html:
