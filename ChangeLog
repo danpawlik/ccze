@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 23:15:44 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-166
+
+    Summary:
+      icecast/usage.log colorisation
+    Revision:
+      ccze--0.1--patch-166
+
+    * src/mod_icecast.c (ccze_icecast_usage_process): New function.
+      (ccze_icecast_setup): Initialise reg_icecast_usage.
+      (ccze_icecast_shutdown): Free it.
+      (ccze_icecast_handle): Hande usage.log first.
+    * doc/ccze.1.in (PLUGINS): Corrected a typo. It is usage.log, not
+      user.log
+
+    modified files:
+     ChangeLog doc/ccze.1.in src/mod_icecast.c
+
+
 2003-02-07 22:43:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-165
 
     Summary:

@@ -119,7 +119,7 @@ files. (See \fIapache\fR(8))
 .TP
 .TP
 .IR icecast
-For coloring \fIicecast/icecast.log\fR and \fIicecast/user.log\fR
+For coloring \fIicecast/icecast.log\fR and \fIicecast/usage.log\fR
 files. (See \fIicecast\fR(8))
 .IR php
 For coloring \fIphp.log\fR files.
