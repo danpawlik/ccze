@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-12 21:20:36 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-78
+
+    Summary:
+      Getting rid of strndupa()
+    Revision:
+      ccze--0.1--patch-78
+
+    * src/ccze-color.c (_ccze_colorname_map_lookup): Get rid of
+      strndupa().
+
+    modified files:
+     ChangeLog src/ccze-color.c
+
+
 2002-10-12 21:16:26 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-77
 
     Summary:

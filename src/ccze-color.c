@@ -152,8 +152,10 @@ _ccze_colorname_map_lookup (const char *color)
 
   if (color[0] == '\'')
     {
-      char *tmp = strndupa (&color[1], strlen (color) - 2);
-      return ccze_color_table[_ccze_color_keyword_lookup (tmp)];
+      char *tmp = strndup (&color[1], strlen (color) - 2);
+      int rval = ccze_color_table[_ccze_color_keyword_lookup (tmp)];
+      free (tmp);
+      return rval;
     }
   
   for (i = 0; i < sizeof (ccze_colorname_map) / sizeof (ccze_colorname_t); i++)
