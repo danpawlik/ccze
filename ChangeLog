@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 13:27:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-131
+
+    Summary:
+      CC check reworded
+    Revision:
+      ccze--0.1--patch-131
+
+    * configure.ac: Reworded the C compiler check, look for `cc' first,
+      instead of `gcc'.
+
+    modified files:
+     ChangeLog configure.ac
+
+
 2003-01-19 02:31:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-130
 
     Summary:

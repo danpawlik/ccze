@@ -36,7 +36,7 @@ VERSION="$PACKAGE_VERSION"
 dnl **********************
 dnl * Programs
 dnl **********************
-AC_CHECK_TOOL(CC, gcc)
+AC_CHECK_TOOL(CC, cc)
 AC_PROG_CC
 
 WFLAGS=""
