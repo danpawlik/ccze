@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-12 17:53:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-180
+
+    Summary:
+      Fixed a typo
+    Revision:
+      ccze--0.1--patch-180
+
+    * testsuite/Makefile.in (EXTRA_DIST): It is `exim.ok', not `exim.out'.
+
+    modified files:
+     ChangeLog testsuite/Makefile.in
+
+
 2003-02-10 17:49:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-179
 
     Summary:
