@@ -22,6 +22,7 @@
 #include <curses.h>
 #include <pcre.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "ccze.h"
 #include "ccze-httpd.h"
@@ -72,16 +73,64 @@ ccze_httpd_access_log_process (const char *str, int *offsets, int match)
   return other;
 }
 
+static int
+_ccze_httpd_error (const char *level)
+{
+  if (strstr (level, "debug") || strstr (level, "info") ||
+      strstr (level, "notice"))
+    return CCZE_COLOR_DEBUG;
+  if (strstr (level, "warn"))
+    return CCZE_COLOR_WARNING;
+  if (strstr (level, "error") || strstr (level, "crit") ||
+      strstr (level, "alert") || strstr (level, "emerg"))
+    return CCZE_COLOR_ERROR;
+  return CCZE_COLOR_UNKNOWN;
+}
+
+char *
+ccze_httpd_error_log_process (const char *str, int *offsets, int match)
+{
+  char *date, *level, *msg;
+  int lcol;
+  
+  pcre_get_substring (str, offsets, match, 1, (const char **)&date);
+  pcre_get_substring (str, offsets, match, 2, (const char **)&level);
+  pcre_get_substring (str, offsets, match, 3, (const char **)&msg);
+
+  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_space ();
+
+  lcol = _ccze_httpd_error (level);
+  CCZE_ADDSTR (lcol, level);
+  ccze_space ();
+
+  CCZE_ADDSTR (lcol, msg);
+
+  CCZE_NEWLINE ();
+
+  free (date);
+  free (level);
+  free (msg);
+
+  return NULL;
+}
+
 void
-ccze_httpd_setup (pcre **r, pcre_extra **h)
+ccze_httpd_setup (pcre **r_access, pcre **r_error,
+		  pcre_extra **h_access, pcre_extra **h_error)
 {
   const char *error;
   int errptr;
 
-  *r = pcre_compile
+  *r_access = pcre_compile
     ("^(\\S*)\\s-\\s(\\S+)\\s(\\[\\d{1,2}\\/\\S*"
      "\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}.{0,6}\\])\\s"
      "(\"([A-Z]{3,})\\s[^\"]+\")\\s(\\d{3})\\s(\\d+|-)\\s(.*)$", 0,
      &error, &errptr, NULL);
-  *h = pcre_study (*r, 0, &error);
+  *h_access = pcre_study (*r_access, 0, &error);
+
+  *r_error = pcre_compile
+    ("^(\\[\\w{3}\\s\\w{3}\\s{1,2}\\d{1,2}\\s\\d{2}:\\d{2}:\\d{2}\\s"
+     "\\d{4}\\])\\s(\\[\\w*\\])\\s(.*)$", 0, &error, &errptr, NULL);
+  *h_error = pcre_study (*r_error, 0, &error);
 }

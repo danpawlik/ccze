@@ -112,11 +112,12 @@ main (int argc, char **argv)
   int match, offsets[99];
   pcre *regc_syslog, *regc_procmail_log, *regc_httpd_access_log;
   pcre *regc_squid_access_log, *regc_vsftpd_log, *regc_squid_cache_log;
-  pcre *regc_squid_store_log;
+  pcre *regc_squid_store_log, *regc_httpd_error_log;
   pcre_extra *hints_syslog, *hints_procmail_log, *hints_httpd_access_log;
   pcre_extra *hints_squid_access_log, *hints_vsftpd_log;
   pcre_extra *hints_squid_cache_log, *hints_squid_store_log;
-  
+  pcre_extra *hints_httpd_error_log;
+    
   ccze_config.scroll = 1;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
   
@@ -145,7 +146,8 @@ main (int argc, char **argv)
 		    &hints_squid_cache_log, &hints_squid_store_log);
   ccze_syslog_setup (&regc_syslog, &hints_syslog);
   ccze_procmail_setup (&regc_procmail_log, &hints_procmail_log);
-  ccze_httpd_setup (&regc_httpd_access_log, &hints_httpd_access_log);
+  ccze_httpd_setup (&regc_httpd_access_log, &regc_httpd_error_log,
+		    &hints_httpd_access_log, &hints_httpd_error_log);
   ccze_vsftpd_setup (&regc_vsftpd_log, &hints_vsftpd_log);
   
   while (1)
@@ -172,6 +174,15 @@ main (int argc, char **argv)
 	{
 	  rest = ccze_httpd_access_log_process (subject, offsets, match);
 	  handled = CCZE_MATCH_HTTPD_ACCESS_LOG;
+	}
+
+      /** HTTPD error.log **/
+      if ((match = pcre_exec (regc_httpd_error_log, hints_httpd_error_log,
+			      subject, strlen (subject), 0, 0, offsets,
+			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+	{
+	  rest = ccze_httpd_error_log_process (subject, offsets, match);
+	  handled = CCZE_MATCH_HTTPD_ERROR_LOG;
 	}
 
       /** Squid access.log **/
@@ -247,6 +258,10 @@ main (int argc, char **argv)
   free (hints_vsftpd_log);
   free (regc_squid_cache_log);
   free (hints_squid_cache_log);
+  free (regc_squid_store_log);
+  free (hints_squid_store_log);
+  free (regc_httpd_error_log);
+  free (hints_httpd_error_log);
   
   sigint_handler (0);
   

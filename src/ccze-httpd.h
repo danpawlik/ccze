@@ -26,6 +26,9 @@
 
 char *ccze_httpd_access_log_process (const char *str, int *offsets,
 				     int match);
-void ccze_httpd_setup (pcre **r, pcre_extra **h);
+char *ccze_httpd_error_log_process (const char *str, int *offsets,
+				    int match);
+void ccze_httpd_setup (pcre **r_access, pcre **r_error,
+		       pcre_extra **h_access, pcre_extra **h_error);
 
 #endif /* !_CCZE_HTTPD_H */
