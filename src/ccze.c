@@ -31,7 +31,6 @@
 #include <unistd.h>
 
 #include "ccze.h"
-#include "ccze-syslog.h"
 #include "ccze-wordcolor.h"
 #include "ccze-plugin.h"
 
@@ -135,7 +134,6 @@ sigint_handler (int sig)
   endwin ();
 
   ccze_wordcolor_shutdown ();
-  ccze_syslog_shutdown ();
 
   while (plugins[i])
     {
@@ -191,7 +189,6 @@ main (int argc, char **argv)
   init_pair (6, COLOR_MAGENTA, COLOR_BLACK);
   init_pair (7, COLOR_WHITE,   COLOR_BLACK);
   
-  ccze_syslog_setup ();
   ccze_wordcolor_setup ();
 
   plugins = ccze_plugin_load_all ();
@@ -220,10 +217,6 @@ main (int argc, char **argv)
 	    }
 	}
 
-      if (status == 0 && (handled = ccze_syslog_handle
-			  (subject, subjlen, &rest)) != 0)
-	status = handled;
-                        
       if (rest)
 	{
 	  ccze_wordcolor_process (rest, ccze_config.wcol,
