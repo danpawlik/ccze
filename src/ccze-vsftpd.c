@@ -44,20 +44,20 @@ ccze_vsftpd_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 5, (const char **)&user);
   pcre_get_substring (str, offsets, match, 6, (const char **)&other);
   
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, sspace);
+  ccze_addstr (CCZE_COLOR_DATE, date);
+  ccze_addstr (CCZE_COLOR_DEFAULT, sspace);
 
-  CCZE_ADDSTR (CCZE_COLOR_PIDB, "[");
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "pid ");
-  CCZE_ADDSTR (CCZE_COLOR_PID, pid);
-  CCZE_ADDSTR (CCZE_COLOR_PIDB, "]");
+  ccze_addstr (CCZE_COLOR_PIDB, "[");
+  ccze_addstr (CCZE_COLOR_DEFAULT, "pid ");
+  ccze_addstr (CCZE_COLOR_PID, pid);
+  ccze_addstr (CCZE_COLOR_PIDB, "]");
   ccze_space();
 
   if (*user)
     {
-      CCZE_ADDSTR (CCZE_COLOR_PIDB, "[");
-      CCZE_ADDSTR (CCZE_COLOR_USER, user);
-      CCZE_ADDSTR (CCZE_COLOR_PIDB, "]");
+      ccze_addstr (CCZE_COLOR_PIDB, "[");
+      ccze_addstr (CCZE_COLOR_USER, user);
+      ccze_addstr (CCZE_COLOR_PIDB, "]");
       ccze_space ();
     }
 

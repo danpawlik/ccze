@@ -68,11 +68,6 @@ all:
 TAGS:: ${SOURCES} ${HEADERS}
 	test -z "${SOURCES}${HEADERS}" || ${ETAGS} ${SOURCES} ${HEADERS}
 
-.c.o:
-	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
-%.so: ccze-%.c ccze.h ccze-plugin.h
-	${CC} -fPIC -DPIC ${ALL_CFLAGS} ${ALL_LDFLAGS} -o $@ $< -shared
-
 mostlyclean clean::
 	rm -f *~ *.o *.so *.da ${PROGRAM} TAGS
 	test -z "${CLEANFILES}" || rm -rf ${CLEANFILES}
@@ -99,5 +94,5 @@ ${builddir}/Makefile: ${srcdir}/Makefile.in ${top_builddir}/config.status
 .PHONY: all install clean distclean mostlyclean uninstall maintainer-clean \
 	distdir dist distcheck
 .SUFFIXES:
-.SUFFIXES: .c .o
+.SUFFIXES: .c .o .so
 .DEFAULT: all

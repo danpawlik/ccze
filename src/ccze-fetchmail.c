@@ -45,15 +45,15 @@ ccze_fetchmail_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 4, (const char **)&full);
   pcre_get_substring (str, offsets, match, 5, (const char **)&rest);
 
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, start);
+  ccze_addstr (CCZE_COLOR_DEFAULT, start);
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_EMAIL, addy);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, ":");
-  CCZE_ADDSTR (CCZE_COLOR_NUMBERS, current);
+  ccze_addstr (CCZE_COLOR_EMAIL, addy);
+  ccze_addstr (CCZE_COLOR_DEFAULT, ":");
+  ccze_addstr (CCZE_COLOR_NUMBERS, current);
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "of");
+  ccze_addstr (CCZE_COLOR_DEFAULT, "of");
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_NUMBERS, full);
+  ccze_addstr (CCZE_COLOR_NUMBERS, full);
   ccze_space ();
   
   free (start);

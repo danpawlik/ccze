@@ -2,6 +2,34 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 13:01:23 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-116
+
+    Summary:
+      Code cleanup
+    Revision:
+      ccze--0.1--patch-116
+
+    * src/ccze.h (CCZE_ADDSTR): Removed compatibility macro.
+      (CCZE_NEWLINE): Likewise.
+    
+    Updated all sources to use ccze_addstr() and ccze_newline().
+    
+    * Rules.mk.in (.c.o): Moved to src/Makefile.in.
+      (%.so): Likewise.
+      (.SUFFIXES): Added .so.
+    * src/Makefile.in (%.o): Moved here from Rules.mk.in.
+      (%.so): Likewise.
+      (ulogd.so): Removed.
+      (ccze-ulogd.o): Likewise.
+
+    modified files:
+     ChangeLog Rules.mk.in src/Makefile.in src/ccze-apm.c
+     src/ccze-exim.c src/ccze-fetchmail.c src/ccze-httpd.c
+     src/ccze-procmail.c src/ccze-squid.c src/ccze-sulog.c
+     src/ccze-super.c src/ccze-syslog.c src/ccze-ulogd.c
+     src/ccze-vsftpd.c src/ccze-wordcolor.c src/ccze.c src/ccze.h
+
+
 2003-01-13 12:31:35 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-115
 
     Summary:

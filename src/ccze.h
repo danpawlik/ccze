@@ -32,9 +32,6 @@
 #include "ccze-color.h"
 #include <curses.h>
 
-#define CCZE_ADDSTR ccze_addstr
-#define CCZE_NEWLINE ccze_newline
-
 int ccze_http_action (const char *method);
 void ccze_print_date (const char *date);
 char *ccze_strbrk (char *str, char delim);

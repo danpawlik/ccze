@@ -64,31 +64,31 @@ ccze_httpd_access_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 8, (const char **)&gsize);
   pcre_get_substring (str, offsets, match, 9, (const char **)&other);
 
-  CCZE_ADDSTR (CCZE_COLOR_HOST, vhost);
+  ccze_addstr (CCZE_COLOR_HOST, vhost);
   ccze_space();
-  CCZE_ADDSTR (CCZE_COLOR_HOST, host);
+  ccze_addstr (CCZE_COLOR_HOST, host);
   if (host[0])
     ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "-");
+  ccze_addstr (CCZE_COLOR_DEFAULT, "-");
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_USER, user);
+  ccze_addstr (CCZE_COLOR_USER, user);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_addstr (CCZE_COLOR_DATE, date);
   ccze_space ();
 
-  CCZE_ADDSTR (ccze_http_action (method), full_action);
+  ccze_addstr (ccze_http_action (method), full_action);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_HTTPCODES, http_code);
+  ccze_addstr (CCZE_COLOR_HTTPCODES, http_code);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_GETSIZE, gsize);
+  ccze_addstr (CCZE_COLOR_GETSIZE, gsize);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, other);
-  CCZE_NEWLINE ();
+  ccze_addstr (CCZE_COLOR_DEFAULT, other);
+  ccze_newline ();
   
   free (host);
   free (user);
@@ -111,16 +111,16 @@ ccze_httpd_error_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 2, (const char **)&level);
   pcre_get_substring (str, offsets, match, 3, (const char **)&msg);
 
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_addstr (CCZE_COLOR_DATE, date);
   ccze_space ();
 
   lcol = _ccze_httpd_error (level);
-  CCZE_ADDSTR (lcol, level);
+  ccze_addstr (lcol, level);
   ccze_space ();
 
-  CCZE_ADDSTR (lcol, msg);
+  ccze_addstr (lcol, msg);
 
-  CCZE_NEWLINE ();
+  ccze_newline ();
 
   free (date);
   free (level);

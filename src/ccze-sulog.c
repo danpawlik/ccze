@@ -44,26 +44,26 @@ ccze_sulog_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 4, (const char **)&fromuser);
   pcre_get_substring (str, offsets, match, 5, (const char **)&touser);
 
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "SU ");
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "SU ");
+  ccze_addstr (CCZE_COLOR_DATE, date);
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, islogin);
+  ccze_addstr (CCZE_COLOR_DEFAULT, islogin);
   ccze_space ();
   switch (tty[0])
     {
     case '?':
-      CCZE_ADDSTR (CCZE_COLOR_UNKNOWN, tty);
+      ccze_addstr (CCZE_COLOR_UNKNOWN, tty);
       break;
     default:
-      CCZE_ADDSTR (CCZE_COLOR_DIR, tty);
+      ccze_addstr (CCZE_COLOR_DIR, tty);
       break;
     }
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_USER, fromuser);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "-");
-  CCZE_ADDSTR (CCZE_COLOR_USER, touser);
+  ccze_addstr (CCZE_COLOR_USER, fromuser);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "-");
+  ccze_addstr (CCZE_COLOR_USER, touser);
   
-  CCZE_NEWLINE ();
+  ccze_newline ();
 
   free (date);
   free (islogin);

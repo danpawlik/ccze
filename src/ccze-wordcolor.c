@@ -177,9 +177,9 @@ ccze_wordcolor_process_one (char *word, int slookup)
 	}
     }
       
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, pre);
-  CCZE_ADDSTR (col, word);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, post);
+  ccze_addstr (CCZE_COLOR_DEFAULT, pre);
+  ccze_addstr (col, word);
+  ccze_addstr (CCZE_COLOR_DEFAULT, post);
   ccze_space ();
       
   free (lword);
@@ -201,7 +201,7 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
 
   if (!wcol)
     {
-      CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
+      ccze_addstr (CCZE_COLOR_DEFAULT, msg);
       free (msg2);
       return;
     }
@@ -209,7 +209,7 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
   if ((strstr (msg, "last message repeated") && strstr (msg, "times")) ||
       (strstr (msg, "-- MARK --")))
     {
-      CCZE_ADDSTR (CCZE_COLOR_REPEAT, msg);
+      ccze_addstr (CCZE_COLOR_REPEAT, msg);
       free (msg2);
       return;
     }
@@ -217,7 +217,7 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
   word = xstrdup (ccze_strbrk (msg2, ' '));
   if (!word)
     {
-      CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
+      ccze_addstr (CCZE_COLOR_DEFAULT, msg);
       free (msg2);
       free (word);
       return;

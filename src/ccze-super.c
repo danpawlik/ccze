@@ -44,17 +44,17 @@ ccze_super_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 4, (const char **)&suptag);
   pcre_get_substring (str, offsets, match, 5, (const char **)&other);
 
-  CCZE_ADDSTR (CCZE_COLOR_EMAIL, email);
+  ccze_addstr (CCZE_COLOR_EMAIL, email);
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space);
-  CCZE_ADDSTR (CCZE_COLOR_PROC, suptag);
+  ccze_addstr (CCZE_COLOR_DATE, date);
+  ccze_addstr (CCZE_COLOR_DEFAULT, space);
+  ccze_addstr (CCZE_COLOR_PROC, suptag);
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_PIDB, "(");
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, other);
-  CCZE_ADDSTR (CCZE_COLOR_PIDB, ")");
+  ccze_addstr (CCZE_COLOR_PIDB, "(");
+  ccze_addstr (CCZE_COLOR_DEFAULT, other);
+  ccze_addstr (CCZE_COLOR_PIDB, ")");
 
-  CCZE_NEWLINE ();
+  ccze_newline ();
   
   return NULL;
 }

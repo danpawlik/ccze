@@ -76,13 +76,13 @@ ccze_exim_process (const char *str, int *offsets, int match)
 
   if (uniqn && uniqn[0])
     {
-      CCZE_ADDSTR (CCZE_COLOR_UNIQN, uniqn);
+      ccze_addstr (CCZE_COLOR_UNIQN, uniqn);
       ccze_space();
     }
   
   if (action && action[0])
     {
-      CCZE_ADDSTR (color, action);
+      ccze_addstr (color, action);
       ccze_space();
     }
 

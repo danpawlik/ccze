@@ -47,14 +47,14 @@ ccze_ulogd_process (const char *msg)
 	{
 	  field = strndup (word, tmp - word);
 	  value = strdup (tmp + 1);
-	  CCZE_ADDSTR (CCZE_COLOR_FIELD, field);
-	  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "=");
+	  ccze_addstr (CCZE_COLOR_FIELD, field);
+	  ccze_addstr (CCZE_COLOR_DEFAULT, "=");
 	  ccze_wordcolor_process_one (value, 1);
 	  free (field);
 	}
       else
 	{
-	  CCZE_ADDSTR (CCZE_COLOR_FIELD, word);
+	  ccze_addstr (CCZE_COLOR_FIELD, word);
 	  ccze_space ();
 	}
     } while ((word = xstrdup (ccze_strbrk (NULL, ' '))) != NULL);

@@ -255,14 +255,14 @@ ccze_print_date (const char *date)
       ltime = atol (date);
       if (ltime < 0)
 	{
-	  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+	  ccze_addstr (CCZE_COLOR_DATE, date);
 	  return;
 	}
       strftime (tmp, sizeof (tmp) - 1, "%b %e %T", gmtime (&ltime));
-      CCZE_ADDSTR (CCZE_COLOR_DATE, tmp);
+      ccze_addstr (CCZE_COLOR_DATE, tmp);
     }
   else
-    CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+    ccze_addstr (CCZE_COLOR_DATE, date);
 }
 
 void
@@ -454,7 +454,7 @@ main (int argc, char **argv)
 	  else
 	    ccze_wordcolor_process (rest2, ccze_config.wcol,
 				    ccze_config.slookup);
-	  CCZE_NEWLINE ();
+	  ccze_newline ();
 	  free (rest);
 	  free (rest2);
 	}
@@ -463,7 +463,7 @@ main (int argc, char **argv)
 	{
 	  ccze_wordcolor_process (subject, ccze_config.wcol,
 				  ccze_config.slookup);
-	  CCZE_NEWLINE ();
+	  ccze_newline ();
 	}
 
       if (!ccze_config.html)

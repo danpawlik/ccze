@@ -72,20 +72,20 @@ ccze_procmail_process (const char *str, int *offsets, int match)
       return strdup (str);
     }
 
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space1);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, header);
+  ccze_addstr (CCZE_COLOR_DEFAULT, space1);
+  ccze_addstr (CCZE_COLOR_DEFAULT, header);
   ccze_space ();
 
-  CCZE_ADDSTR (col, value);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space2);
+  ccze_addstr (col, value);
+  ccze_addstr (CCZE_COLOR_DEFAULT, space2);
 
   if (!strcasecmp ("folder:", header))
     col = CCZE_COLOR_SIZE;
   else if (!strcasecmp ("from", header))
     col = CCZE_COLOR_DATE;
 
-  CCZE_ADDSTR (col, extra);
-  CCZE_NEWLINE();
+  ccze_addstr (col, extra);
+  ccze_newline();
     
   free (extra);
   free (header);

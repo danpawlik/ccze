@@ -106,38 +106,38 @@ ccze_squid_access_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 13, (const char **)&ctype);
 
   ccze_print_date (date);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, espace);
-  CCZE_ADDSTR (CCZE_COLOR_GETTIME, elaps);
+  ccze_addstr (CCZE_COLOR_DEFAULT, espace);
+  ccze_addstr (CCZE_COLOR_GETTIME, elaps);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_HOST, host);
+  ccze_addstr (CCZE_COLOR_HOST, host);
   ccze_space ();
 
-  CCZE_ADDSTR (_ccze_proxy_action (action), action);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "/");
-  CCZE_ADDSTR (CCZE_COLOR_HTTPCODES, httpc);
+  ccze_addstr (_ccze_proxy_action (action), action);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "/");
+  ccze_addstr (CCZE_COLOR_HTTPCODES, httpc);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_GETSIZE, gsize);
+  ccze_addstr (CCZE_COLOR_GETSIZE, gsize);
   ccze_space ();
 
-  CCZE_ADDSTR (ccze_http_action (method), method);
+  ccze_addstr (ccze_http_action (method), method);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_URI, uri);
+  ccze_addstr (CCZE_COLOR_URI, uri);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_IDENT, ident);
+  ccze_addstr (CCZE_COLOR_IDENT, ident);
   ccze_space ();
 
-  CCZE_ADDSTR (_ccze_proxy_hierarch (hierar), hierar);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "/");
-  CCZE_ADDSTR (CCZE_COLOR_HOST, fhost);
+  ccze_addstr (_ccze_proxy_hierarch (hierar), hierar);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "/");
+  ccze_addstr (CCZE_COLOR_HOST, fhost);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_CTYPE, ctype);
+  ccze_addstr (CCZE_COLOR_CTYPE, ctype);
 
-  CCZE_NEWLINE ();
+  ccze_newline ();
 
   free (date);
   free (espace);
@@ -164,7 +164,7 @@ ccze_squid_cache_log_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 1, (const char **)&date);
   pcre_get_substring (str, offsets, match, 3, (const char **)&other);
 
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_addstr (CCZE_COLOR_DATE, date);
   ccze_space();
 
   free (date);
@@ -199,33 +199,33 @@ ccze_squid_store_log_process (const char *str, int *offsets, int match)
 
   ccze_print_date (date);
   ccze_space();
-  CCZE_ADDSTR (_ccze_proxy_tag (tag), tag);
+  ccze_addstr (_ccze_proxy_tag (tag), tag);
   ccze_space();
-  CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapnum);
+  ccze_addstr (CCZE_COLOR_SWAPNUM, swapnum);
   ccze_space();
-  CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapname);
+  ccze_addstr (CCZE_COLOR_SWAPNUM, swapname);
   ccze_space();
-  CCZE_ADDSTR (CCZE_COLOR_SWAPNUM, swapsum);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space1);
-  CCZE_ADDSTR (CCZE_COLOR_HTTPCODES, hcode);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space2);
+  ccze_addstr (CCZE_COLOR_SWAPNUM, swapsum);
+  ccze_addstr (CCZE_COLOR_DEFAULT, space1);
+  ccze_addstr (CCZE_COLOR_HTTPCODES, hcode);
+  ccze_addstr (CCZE_COLOR_DEFAULT, space2);
   ccze_print_date (hdate);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space3);
+  ccze_addstr (CCZE_COLOR_DEFAULT, space3);
   ccze_print_date (lmdate);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, space4);
+  ccze_addstr (CCZE_COLOR_DEFAULT, space4);
   ccze_print_date (expire);
   ccze_space();
-  CCZE_ADDSTR (CCZE_COLOR_CTYPE, ctype);
+  ccze_addstr (CCZE_COLOR_CTYPE, ctype);
   ccze_space();
-  CCZE_ADDSTR (CCZE_COLOR_GETSIZE, size);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "/");
-  CCZE_ADDSTR (CCZE_COLOR_GETSIZE, read);
+  ccze_addstr (CCZE_COLOR_GETSIZE, size);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "/");
+  ccze_addstr (CCZE_COLOR_GETSIZE, read);
   ccze_space();
-  CCZE_ADDSTR (ccze_http_action (method), method);
+  ccze_addstr (ccze_http_action (method), method);
   ccze_space();
-  CCZE_ADDSTR (CCZE_COLOR_URI, uri);
+  ccze_addstr (CCZE_COLOR_URI, uri);
 
-  CCZE_NEWLINE ();
+  ccze_newline ();
 
   free (date);
   free (tag);

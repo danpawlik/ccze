@@ -47,23 +47,23 @@ ccze_apm_process (const char *str, int *offsets, int match)
   pcre_get_substring (str, offsets, match, 7, (const char **)&remain);
   pcre_get_substring (str, offsets, match, 8, (const char **)&stuff2);
         
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "Battery:");
+  ccze_addstr (CCZE_COLOR_DEFAULT, "Battery:");
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_PERCENTAGE, battery);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "%,");
+  ccze_addstr (CCZE_COLOR_PERCENTAGE, battery);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "%,");
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_SYSTEMWORD, charge);
+  ccze_addstr (CCZE_COLOR_SYSTEMWORD, charge);
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "(");
-  CCZE_ADDSTR (CCZE_COLOR_PERCENTAGE, rate);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "%");
+  ccze_addstr (CCZE_COLOR_DEFAULT, "(");
+  ccze_addstr (CCZE_COLOR_PERCENTAGE, rate);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "%");
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, stuff1);
+  ccze_addstr (CCZE_COLOR_DEFAULT, stuff1);
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DATE, elapsed);
-  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, "),");
+  ccze_addstr (CCZE_COLOR_DATE, elapsed);
+  ccze_addstr (CCZE_COLOR_DEFAULT, "),");
   ccze_space ();
-  CCZE_ADDSTR (CCZE_COLOR_DATE, remain);
+  ccze_addstr (CCZE_COLOR_DATE, remain);
   ccze_space ();
 
   free (battery);

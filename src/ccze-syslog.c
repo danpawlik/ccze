@@ -67,21 +67,21 @@ ccze_syslog_process (const char *str, int *offsets, int match)
 	}
     }
 
-  CCZE_ADDSTR (CCZE_COLOR_DATE, date);
+  ccze_addstr (CCZE_COLOR_DATE, date);
   ccze_space ();
 
-  CCZE_ADDSTR (CCZE_COLOR_HOST, host);
+  ccze_addstr (CCZE_COLOR_HOST, host);
   ccze_space ();
   
   if (process)
     {
-      CCZE_ADDSTR (CCZE_COLOR_PROC, process);
+      ccze_addstr (CCZE_COLOR_PROC, process);
       if (pid)
 	{
-	  CCZE_ADDSTR (CCZE_COLOR_PIDB, "[");
-	  CCZE_ADDSTR (CCZE_COLOR_PID, pid);
-	  CCZE_ADDSTR (CCZE_COLOR_PIDB, "]");
-	  CCZE_ADDSTR (CCZE_COLOR_PROC, ":");
+	  ccze_addstr (CCZE_COLOR_PIDB, "[");
+	  ccze_addstr (CCZE_COLOR_PID, pid);
+	  ccze_addstr (CCZE_COLOR_PIDB, "]");
+	  ccze_addstr (CCZE_COLOR_PROC, ":");
 	}
       ccze_space ();
       toret = strdup (msg);
