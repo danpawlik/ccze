@@ -48,7 +48,7 @@
 
 static int ccze_color_table [CCZE_COLOR_LAST];
 
-typedef struct _ccze_colorname_t
+typedef struct
 {
   char *name;
   int value;
@@ -72,7 +72,7 @@ static ccze_colorname_t ccze_colorname_map[] = {
   {"on_white", 7}
 };
 
-typedef struct _ccze_color_keyword_t
+typedef struct
 {
   char *keyword;
   ccze_color_t idx;

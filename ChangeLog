@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 13:36:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-117
+
+    Summary:
+      Yet more cleanup
+    Revision:
+      ccze--0.1--patch-117
+
+    * src/ccze-color.c: Use a cleaner typedef-style.
+
+    modified files:
+     ChangeLog src/ccze-color.c
+
+
 2003-01-13 13:01:23 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-116
 
     Summary:
