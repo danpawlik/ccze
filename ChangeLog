@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-12 15:11:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-3
+
+    Summary:
+      Some more configure checks
+    Revision:
+      ccze--0.1--patch-3
+
+    * configure.ac: Check for -lpcre and -lncurses.
+    * Rules.mk.in (LIBS): New variable.
+    * src/Makefile.in (ALL_LDFLAGS): Use ${LIBS} instead of the hardcoded
+      -lpcre -lncurses setup.
+
+    modified files:
+     ChangeLog Rules.mk.in configure.ac src/Makefile.in
+
+
 2002-09-12 14:45:28 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-2
 
     Summary:

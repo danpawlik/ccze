@@ -99,6 +99,9 @@ dnl **********************
 AC_FUNC_MALLOC
 AC_CHECK_FUNCS([memset strcasecmp strchr strdup strndup strstr])
 
+AC_CHECK_LIB(pcre, pcre_exec, [], [AC_ERROR(PCRE library not found)])
+AC_CHECK_LIB(ncurses, initscr, [], [AC_ERROR(NCurses library not found)])
+
 dnl **********************
 dnl * Output
 dnl **********************

@@ -10,7 +10,7 @@ subdir		= src
 include ../Rules.mk
 
 ## -- Private variables -- ##
-ALL_LDFLAGS	= ${LDFLAGS} -lpcre -lncurses
+ALL_LDFLAGS	= ${LDFLAGS} ${LIBS}
 
 SOURCES		= ccze.c
 CLEANFILES	= ${SOURCES:.c=.da}

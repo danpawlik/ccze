@@ -64,6 +64,8 @@ ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${WFLAGS} ${CFLAGS}
 
 OBJECTS		= ${SOURCES:.c=.o}
 
+LIBS		= @LIBS@
+
 ## -- Generic rules -- ##
 all:
 
