@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-30 00:56:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-144
+
+    Summary:
+      reg_hostip fixup
+    Revision:
+      ccze--0.1--patch-144
+
+    * src/ccze-wordcolor.c (ccze_wordcolor_setup): Modified reg_hostip to
+      match dotless hosts too.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c
+
+
 2003-01-28 17:37:26 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-143
 
     Summary:

@@ -269,7 +269,7 @@ ccze_wordcolor_setup (void)
 			   "(\\w*::\\w+)+)(:\\d{1,5})?)$", 0, &error,
 			   &errptr, NULL);
   reg_hostip = pcre_compile ("^(((\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3})|"
-			     "(([a-z0-9-_]+\\.)+[a-z]{2,3})|(localhost)|"
+			     "(([a-z0-9-_]+)+)|(localhost)|"
 			     "(\\w*::\\w+)+)(:\\d{1,5})?)"
 			     "\\[",
 			     0, &error,  &errptr, NULL);
