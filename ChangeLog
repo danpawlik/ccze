@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-20 15:28:00 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-196
+
+    Summary:
+      .spec update
+    Revision:
+      ccze--0.1--patch-196
+
+    * ccze.spec.in: Use %{buildroot}, %configure and %makeinstall. While
+      there, copied the long description from debian/control.
+
+    modified files:
+     ChangeLog ccze.spec.in
+
+
 2003-02-20 15:16:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-195
 
     Summary:

@@ -15,28 +15,24 @@ BuildRoot: %{_tmppath}/%{name}-root
 BuildPrereq: ncurses-devel >= 5.0, pcre-devel >= 3.1
 
 %description
-CCZE is a fast log colorizer written in C, intended to be a drop-in replacement
-for the well-known colorize.pl.
+CCZE is a roboust and modular log colorizer, with plugins for apm,
+exim, fetchmail, httpd, postfix, procmail, squid, syslog, ulogd,
+vsftpd, xferlog and more.
 
 %prep
 %setup -q
 
 %build
-./configure \
-	--prefix=%{_prefix} \
-	--sysconfdir=%{_sysconfdir} \
-	--mandir=%{_mandir} \
-	--with-builtins=all
-make CFLAGS="${RPM_OPT_FLAGS}"
+%configure --with-builtins=all
+make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=${RPM_BUILD_ROOT}
-install -d ${RPM_BUILD_ROOT}%{_sysconfdir}
-src/ccze-dump >${RPM_BUILD_ROOT}%{_sysconfdir}/cczerc
+%makeinstall
+install -d %{buildroot}/%{_sysconfdir}
+src/ccze-dump >%{buildroot}/%{_sysconfdir}/cczerc
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
@@ -50,6 +46,9 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man7/ccze-plugin.7*
 
 %changelog
+* Thu Feb 20 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+- Use %{buildroot}, %configure and %makeinstall.
+- Improved description.
 * Sat Jan 25 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
 - Include %{_includedir}/ccze.h
 * Mon Jan 13 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
