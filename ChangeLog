@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-06 08:12:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-219
+
+    Summary:
+      make all-recursive, clean and distclean in testsuite/ too
+    Revision:
+      ccze--0.1--patch-219
+
+    * Makefile.in (all-recursive): Descend into testsuite too.
+      (clean): Likewise.
+      (distclean): Likewise.
+
+    modified files:
+     ChangeLog Makefile.in
+
+
 2003-03-06 08:03:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-218
 
     Summary:

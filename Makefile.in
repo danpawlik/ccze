@@ -18,6 +18,7 @@ all: all-recursive ccze.spec
 all-recursive:
 	${MAKE} -C doc all
 	${MAKE} -C src all
+	${MAKE} -C testsuite all
 
 install uninstall:
 	${MAKE} -C doc $@
@@ -29,11 +30,13 @@ TAGS::
 mostlyclean clean::
 	${MAKE} -C doc $@
 	${MAKE} -C src $@
+	${MAKE} -C testsuite $@
 	rm -rf *~ ++* ,,* gmon.out bb.out
 
 distclean:: clean
 	${MAKE} -C doc $@
 	${MAKE} -C src $@
+	${MAKE} -C testsuite $@
 	rm -rf config.cache config.status config.log \
 	       autom4te.cache system.h Makefile Rules.mk *~
 
