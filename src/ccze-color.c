@@ -176,7 +176,7 @@ ccze_color_load (const char *fn)
   while (getline (&line, &len, fp) != -1)
     {
       char *tmp, *keyword, *color, *pre = NULL, *bg;
-      int ncolor, nkeyword, nbg;
+      int ncolor, nkeyword, nbg, rcolor;
       
       tmp = strstr (line, "#");
       if (tmp)
@@ -206,23 +206,25 @@ ccze_color_load (const char *fn)
 	  if ((nbg = _ccze_colorname_map_lookup (bg)) != -1)
 	    ncolor += nbg*8;
 	}
-            
+      
+      if (color[0] == '\'')
+	rcolor = ncolor;
+      else
+	rcolor = COLOR_PAIR (ncolor);
+
       if (pre)
 	{
 	  if (!strcmp (pre, "bold"))
-	    ncolor |= A_BOLD;
+	    rcolor |= A_BOLD;
 	  else if (!strcmp (pre, "underline"))
-	    ncolor |= A_UNDERLINE;
+	    rcolor |= A_UNDERLINE;
 	  else if (!strcmp (pre, "reverse"))
-	    ncolor |= A_REVERSE;
+	    rcolor |= A_REVERSE;
 	  else if (!strcmp (pre, "blink"))
-	    ncolor |= A_BLINK;
+	    rcolor |= A_BLINK;
 	}
       
-      if (color[0] == '\'')
-	ccze_color_table[nkeyword] = ncolor;
-      else
-	ccze_color_table[nkeyword] = COLOR_PAIR (ncolor);
+      ccze_color_table[nkeyword] = rcolor;
     }
   free (line);
   fclose (fp);
