@@ -48,7 +48,7 @@ static char *words_good[] = {
 };
 
 static char *words_error[] = {
-  "error", "crit", "invalid", "fail", "false"
+  "error", "crit", "invalid", "fail", "false", "alarm"
 };
 
 static char *words_system[] = {
@@ -227,7 +227,7 @@ ccze_wordcolor_setup (void)
 			    0, &error, &errptr, NULL);
   reg_uri = pcre_compile ("^\\w{2,}:\\/\\/(\\S+\\/?)+$", 0, &error,
 			  &errptr, NULL);
-  reg_size = pcre_compile ("^\\d+(\\.\\d+)?[k|K|m|M|g|G|t|T]i?B?(ytes?)?$",
+  reg_size = pcre_compile ("^\\d+(\\.\\d+)?[k|K|m|M|g|G|t|T]i?B?(ytes?)?",
 			   0, &error, &errptr, NULL);
   reg_ver = pcre_compile ("^v?(\\d+\\.){1}((\\d|[a-z])+\\.)*(\\d|[a-z])+$",
 			  0, &error, &errptr, NULL);
