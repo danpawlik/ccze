@@ -2,6 +2,35 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-04-08 13:48:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-6
+
+    Summary:
+      ChangeLog id update
+    Revision:
+      ccze--0.3--patch-6
+
+    Updated the changelog arch id to 1.0pre17 format.
+
+    new files:
+     .arch-ids/ChangeLog.id ChangeLog
+
+    removed files:
+     .arch-ids/ChangeLog.id ChangeLog
+
+
+2003-04-08 13:43:19 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-5
+
+    Summary:
+      TODO removed
+    Revision:
+      ccze--0.3--patch-5
+
+    * TODO: Removed. All users updated.
+
+    modified files:
+     Makefile.in ccze.spec.in debian/rules
+
+
 2003-04-01 14:44:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-4
 
     Summary:
