@@ -2,6 +2,31 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-12 16:06:44 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-5
+
+    Summary:
+      Splitting sources
+    Revision:
+      ccze--0.1--patch-5
+
+    Split up src/ccze.c into smaller parts, each one containing one or
+    more colorizer methods and a setup routine.
+
+    new files:
+     src/.arch-ids/ccze.h.id src/.arch-ids/ccze-httpd.h.id
+     src/.arch-ids/ccze-httpd.c.id src/.arch-ids/ccze-procmail.c.id
+     src/.arch-ids/ccze-procmail.h.id src/.arch-ids/ccze-squid.h.id
+     src/.arch-ids/ccze-squid.c.id src/.arch-ids/ccze-syslog.c.id
+     src/.arch-ids/ccze-syslog.h.id src/.arch-ids/ccze-vsftpd.c.id
+     src/.arch-ids/ccze-vsftpd.h.id src/ccze.h src/ccze-httpd.h
+     src/ccze-httpd.c src/ccze-procmail.c src/ccze-procmail.h
+     src/ccze-squid.h src/ccze-squid.c src/ccze-syslog.c
+     src/ccze-syslog.h src/ccze-vsftpd.c src/ccze-vsftpd.h
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze.c
+
+
 2002-09-12 15:13:47 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-4
 
     Summary:

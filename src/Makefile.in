@@ -12,7 +12,10 @@ include ../Rules.mk
 ## -- Private variables -- ##
 ALL_LDFLAGS	= ${LDFLAGS} ${LIBS}
 
-SOURCES		= ccze.c
+SOURCES		= ccze.c ccze-httpd.c ccze-procmail.c ccze-squid.c \
+		ccze-syslog.c ccze-vsftpd.c
+HEADERS		= ccze.h ccze-httpd.h ccze-procmail.h ccze-squid.h \
+		ccze-syslog.h ccze-vsftpd.h
 CLEANFILES	= ${SOURCES:.c=.da}
 
 ## -- Standard targets -- ##
@@ -33,5 +36,11 @@ ${PROGRAM}: ${OBJECTS}
 	${CC} ${ALL_CFLAGS} -o $@ $^ ${ALL_LDFLAGS}
 
 ## -- Dependencies -- ##
-ccze.o: ccze.c ${top_builddir}/system.h
+ccze.o: ccze.c ${top_builddir}/system.h ccze.h ccze-httpd.h ccze-procmail.h \
+	ccze-squid.h ccze-syslog.h ccze-vsftpd.h
+ccze-httpd.o: ccze-httpd.c ${top_builddir}/system.h ccze.h ccze-httpd.h
+ccze-procmail.o: ccze-procmail.c ${top_builddir}/system.h ccze.h ccze-procmail.h
+ccze-squid.o: ccze-squid.c ${top_builddir}/system.h ccze.h ccze-squid.h
+ccze-syslog.o: ccze-syslog.c $(top_builddir)/system.h ccze.h ccze-syslog.h
+ccze-vsftpd.o: ccze-vsftpd.c ${top_builddir}/system.h ccze.h ccze-vsftpd.h
 ${top_builddir}/system.h: ${top_builddir}/config.status
