@@ -55,4 +55,24 @@ void ccze_wordcolor_process (const char *msg, int wcol, int slookup);
 void ccze_wordcolor_setup (void);
 void ccze_wordcolor_shutdown (void);
 
+/* ccze.c */
+typedef struct
+{
+  int scroll;
+  int convdate;
+  int wcol;
+  int slookup;
+  int remfac;
+  int html;
+  int transparent;
+  char *rcfile;
+  char *cssfile;
+  char **pluginlist;
+  int pluginlist_alloc, pluginlist_len;
+  char **color_argv;
+  int color_argv_alloc, color_argv_len;
+} ccze_config_t;
+
+extern ccze_config_t ccze_config;
+
 #endif /* !_CCZE_PRIVATE_H */

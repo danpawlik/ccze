@@ -35,9 +35,34 @@
 static ccze_plugin_t **plugins;
 static size_t plugins_alloc, plugins_len;
 
+static int
+_ccze_plugin_allow (const char *name)
+{
+  size_t i = 0;
+  int rval = 0;
+
+  if (ccze_config.pluginlist_len == 0)
+    return 1;
+  
+  while (i < ccze_config.pluginlist_len)
+    {
+      if (!strcmp (ccze_config.pluginlist[i], name))
+	{
+	  rval = 1;
+	  break;
+	}
+      i++;
+    }
+
+  return rval;
+}
+
 void
 ccze_plugin_add (ccze_plugin_t *plugin)
 {
+  if (!_ccze_plugin_allow (plugin->name))
+    return;
+  
   plugins[plugins_len] = plugin;
   plugins_len++;
   if (plugins_len >= plugins_alloc)

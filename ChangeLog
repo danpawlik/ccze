@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 21:44:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-161
+
+    Summary:
+      Make builtin plugins behave correctly when -p is used.
+    Revision:
+      ccze--0.1--patch-161
+
+    * src/ccze-private.h (ccze_config_t): New typedef.
+    * src/ccze-plugin.c (_ccze_plugin_allow): New function.
+      (ccze_plugin_add): Use it.
+    * src/ccze.c (ccze_config_t): Use the new ccze_config_t type, and do not
+      make it static.
+      (ccze_main): When loading selected plugins, use a temporary variable,
+      don't clobber ccze_plugin.pluginlist_len.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c src/ccze-private.h src/ccze.c
+
+
 2003-02-07 21:10:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-160
 
     Summary:

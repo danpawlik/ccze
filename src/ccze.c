@@ -45,22 +45,7 @@
 #define MAGENTA COLOR_PAIR (6)
 #define WHITE COLOR_PAIR (7)
 
-static struct
-{
-  int scroll;
-  int convdate;
-  int wcol;
-  int slookup;
-  int remfac;
-  int html;
-  int transparent;
-  char *rcfile;
-  char *cssfile;
-  char **pluginlist;
-  size_t pluginlist_alloc, pluginlist_len;
-  char **color_argv;
-  size_t color_argv_alloc, color_argv_len;
-} ccze_config = {
+ccze_config_t ccze_config = {
   .scroll = 1,
   .convdate = 0,
   .remfac = 0,
@@ -527,8 +512,9 @@ ccze_main (void)
     ccze_plugin_load_all ();
   else
     {
-      while (ccze_config.pluginlist_len-- > 0)
-	ccze_plugin_load (ccze_config.pluginlist[ccze_config.pluginlist_len]);
+      int pl = ccze_config.pluginlist_len;
+      while (pl-- > 0)
+	ccze_plugin_load (ccze_config.pluginlist[pl]);
     }
   ccze_plugin_load_all_builtins ();
   ccze_plugin_finalise ();
