@@ -21,13 +21,13 @@
 
 #define CCZE_DUMP 1
 
-#include "system.h"
+#include <ccze.h>
+#ifdef HAVE_ARGP_H
+# include <argp.h>
+#endif
+
 #include "ccze-color.c"
 #include "ccze-compat.h"
-
-#ifdef HAVE_ARGP_H
-#include <argp.h>
-#endif
 
 const char *argp_program_name = "ccze-dump";
 const char *argp_program_version = "ccze-dump (ccze 0.1." PATCHLEVEL ")";

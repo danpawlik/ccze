@@ -25,7 +25,7 @@
 #include <ctype.h>
 #include <errno.h>
 #ifdef HAVE_GETOPT_H
-#include <getopt.h>
+# include <getopt.h>
 #endif
 #include <stdarg.h>
 #include <stddef.h>

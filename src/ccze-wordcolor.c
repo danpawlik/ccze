@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-wordcolor.c -- Word-coloriser functions
- * Copyright (C) 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -19,16 +19,15 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "ccze.h"
-#include "ccze-wordcolor.h"
-
+#include <ccze.h>
 #include <ctype.h>
 #include <curses.h>
 #include <netdb.h>
 #include <pwd.h>
 #include <string.h>
 #include <stdlib.h>
-#include PCRE_H
+
+#include "ccze-private.h"
 
 static pcre *reg_pre, *reg_post, *reg_host, *reg_mac, *reg_email;
 static pcre *reg_uri, *reg_size, *reg_ver, *reg_time, *reg_addr;

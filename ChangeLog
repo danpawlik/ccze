@@ -2,6 +2,34 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-23 17:43:46 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-135
+
+    Summary:
+      Internal cleanup, part one
+    Revision:
+      ccze--0.1--patch-135
+
+    All the public structures and functions are in ccze.h now, private
+    ones in ccze-private.h. All source files updated.
+
+    new files:
+     src/.arch-ids/ccze-private.h.id src/ccze-private.h
+
+    removed files:
+     src/.arch-ids/ccze-wordcolor.h.id
+     src/.arch-ids/ccze-plugin.h.id src/.arch-ids/ccze-color.h.id
+     src/ccze-wordcolor.h src/ccze-plugin.h src/ccze-color.h
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze-apm.c src/ccze-color.c
+     src/ccze-compat.c src/ccze-cssdump.c src/ccze-dump.c
+     src/ccze-exim.c src/ccze-fetchmail.c src/ccze-httpd.c
+     src/ccze-plugin.c src/ccze-procmail.c src/ccze-squid.c
+     src/ccze-sulog.c src/ccze-super.c src/ccze-syslog.c
+     src/ccze-ulogd.c src/ccze-vsftpd.c src/ccze-wordcolor.c
+     src/ccze.c src/ccze.h
+
+
 2003-01-19 18:13:09 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-134
 
     Summary:

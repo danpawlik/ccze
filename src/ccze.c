@@ -21,11 +21,10 @@
 
 #include "system.h"
 
-#include <curses.h>
-
 #ifdef HAVE_ARGP_H
-#include <argp.h>
+# include <argp.h>
 #endif
+#include <ccze.h>
 #include <dlfcn.h>
 #include <signal.h>
 #include <stdio.h>
@@ -34,11 +33,7 @@
 #include <time.h>
 #include <unistd.h>
 
-#include "ccze.h"
-#include "ccze-compat.h"
-#include "ccze-color.h"
-#include "ccze-wordcolor.h"
-#include "ccze-plugin.h"
+#include "ccze-private.h"
 
 #define BLACK COLOR_PAIR (0)
 #define RED COLOR_PAIR (1)

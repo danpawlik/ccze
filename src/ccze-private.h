@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
- * ccze-plugin.h -- Plugin interface for CCZE.
- * Copyright (C) 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * ccze-private.h -- Internal CCZE function prototypes
+ * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -19,38 +19,24 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef _CCZE_PLUGIN_H
-#define _CCZE_PLUGIN_H 1
+#ifndef _CCZE_PRIVATE_H
+#define _CCZE_PRIVATE_H 1
 
-#define CCZE_DEFINE_PLUGIN(name,quoted,type) \
-ccze_plugin_t ccze_##name##_info = { NULL, \
-				     quoted, \
-				     ccze_##name##_setup, \
-				     ccze_##name##_shutdown, \
-				     ccze_##name##_handle, \
-				     CCZE_PLUGIN_TYPE_##type }
+#include <ccze.h>
 
-typedef void (*ccze_plugin_startup_t) (void);
-typedef void (*ccze_plugin_shutdown_t) (void);
-typedef int (*ccze_plugin_handle_t) (const char *str, size_t length,
-				     char **rest);
+/* ccze-color.c */
+void ccze_color_init (void);
+void ccze_color_parse (char *line);
+void ccze_color_load (const char *fn);
 
-typedef enum
-{
-  CCZE_PLUGIN_TYPE_FULL,
-  CCZE_PLUGIN_TYPE_PARTIAL,
-} ccze_plugin_type_t;
+int ccze_color_strip_attrib (int color);
+char *ccze_color_to_name_simple (int color);
+char *ccze_color_lookup_name (ccze_color_t color);
+char *ccze_color_to_css (ccze_color_t cidx);
+void ccze_colors_to_css (void);
+char *ccze_cssbody_color (void);
 
-typedef struct
-{
-  void *dlhandle;
-  char *name;
-  ccze_plugin_startup_t startup;
-  ccze_plugin_shutdown_t shutdown;
-  ccze_plugin_handle_t handler;
-  ccze_plugin_type_t type;
-} ccze_plugin_t;
-
+/* ccze-plugin.c */
 void ccze_plugin_init (void);
 ccze_plugin_t **ccze_plugins (void);
 void ccze_plugin_load_all (void);
@@ -64,4 +50,9 @@ void ccze_plugin_run (ccze_plugin_t **pluginset, char *subject,
 		      int *status);
 void ccze_plugin_load_all_builtins (void);
 
-#endif /* !_CCZE_PLUGIN_H */
+/* ccze-wordcolor.c */
+void ccze_wordcolor_process (const char *msg, int wcol, int slookup);
+void ccze_wordcolor_setup (void);
+void ccze_wordcolor_shutdown (void);
+
+#endif /* !_CCZE_PRIVATE_H */

@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-apm.c -- apm colorizers for CCZE
- * Copyright (C) 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -19,13 +19,9 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#include "ccze.h"
-#include "ccze-plugin.h"
-
-#include <curses.h>
+#include <ccze.h>
 #include <string.h>
 #include <stdlib.h>
-#include PCRE_H
 
 static void ccze_apm_setup (void);
 static void ccze_apm_shutdown (void);

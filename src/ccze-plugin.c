@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-plugin.c -- Plugin interface for CCZE.
- * Copyright (C) 2002 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -20,6 +20,7 @@
  */
 
 #include <sys/types.h>
+#include <ccze.h>
 #include <dirent.h>
 #include <dlfcn.h>
 #include <stdio.h>
@@ -27,8 +28,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "ccze.h"
-#include "ccze-plugin.h"
+#include "ccze-private.h"
 
 #define PLUGIN_LIBPATH PKGLIBDIR
 

@@ -14,7 +14,7 @@ ALL_LDFLAGS	= ${LDFLAGS} ${LIBS}
 
 INCLUDES	= -I. -I${srcdir} -I${top_builddir}
 DEFINES		= -DPATCHLEVEL=\"${PATCHLEVEL}\" -DSYSCONFDIR=\"${sysconfdir}\" \
-		-D_GNU_SOURCE=1 -DPKGLIBDIR=\"${pkglibdir}\"
+		-D_GNU_SOURCE=1 -DPKGLIBDIR=\"${pkglibdir}\" -DHAVE_SYSTEM_H=1
 WFLAGS		= @WFLAGS@
 WFLAGS_GCC	= -Wshadow -Wpointer-arith -Waggregate-return \
 		-Wstrict-prototypes -Wmissing-prototypes -Wcast-qual \
@@ -33,8 +33,7 @@ LIBS		= @LIBS@
 SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
 		$(addprefix ccze-,$(addsuffix .c, ${ALL_PLUGINS})) \
 		ccze-dump.c ccze-cssdump.c ccze-compat.c
-HEADERS		= ccze.h ccze-color.h ccze-plugin.h ccze-wordcolor.h \
-		ccze-compat.h
+HEADERS		= ccze.h ccze-compat.h ccze-private.h
 ALL_PLUGINS	= @ALL_PLUGINS@
 S_PLUGINS	= @S_PLUGINS@
 SH_PLUGINS	= $(filter-out ${S_PLUGINS},${ALL_PLUGINS})
@@ -73,8 +72,8 @@ ${PROGRAM}: ${OBJECTS} ${PLUGIN_SOBJS}
 ccze-dump ccze-cssdump: %: %.o ccze-compat.o
 	${CC} ${ALL_CFLAGS} -o $@ $^
 ccze-builtins.c: Makefile
-	echo '#include "ccze.h"' >$@
-	echo '#include "ccze-plugin.h"' >>$@
+	echo '#include <ccze.h>' >$@
+	echo '#include "ccze-private.h"' >>$@
 	echo >>$@
 	for p in ${S_PLUGINS}; do \
 		echo "extern ccze_plugin_t ccze_$${p}_info;" >>$@; \
@@ -84,16 +83,15 @@ ccze-builtins.c: Makefile
 		echo "  ccze_plugin_add (&ccze_$${p}_info);" >>$@; \
 	done
 	echo "}" >>$@
-%.o: %.c ccze.h ccze-plugin.h ccze-color.h ccze-wordcolor.h ccze-compat.h
+%.o: %.c ccze.h ccze-compat.h
 	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
-%.so: ccze-%.c ccze.h ccze-plugin.h ccze-color.h ccze-wordcolor.h
+%.so: ccze-%.c ccze.h
 	${CC} -fPIC -DPIC ${ALL_CFLAGS} ${ALL_LDFLAGS} -o $@ $< -shared
 
 ## -- Dependencies -- ##
-ccze.o: ccze.c ${top_builddir}/system.h ccze.h ccze-color.h ccze-plugin.h \
-	ccze-wordcolor.h
-ccze-color.o: ccze-color.c ${top_builddir}/system.h ccze.h ccze-color.h
-ccze-plugin.o: ccze-plugin.c ${top_builddir}/system.h ccze.h ccze-plugin.h
+ccze.o: ccze.c ${top_builddir}/system.h ccze.h ccze-private.h
+ccze-color.o: ccze-color.c ${top_builddir}/system.h ccze.h ccze-private.h
+ccze-plugin.o: ccze-plugin.c ${top_builddir}/system.h ccze.h ccze-private.h
 ccze-wordcolor.o: ccze-wordcolor.c ${top_builddir}/system.h ccze.h \
-		  ccze-wordcolor.h
+		  ccze-private.h
 ${top_builddir}/system.h: ${top_builddir}/config.status
