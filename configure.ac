@@ -117,6 +117,49 @@ AC_SUBST(PCRE_CFLAGS)
 AC_SUBST(PCRE_LIBS)
 AC_MSG_RESULT(found)
 
+AC_MSG_CHECKING(whether we can use getsubopt())
+AC_RUN_IFELSE(AC_LANG_PROGRAM(
+[[#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+static char *empty_subopts[[]] = { NULL };
+]],
+[[  char *subopts = "something";
+  char *value;
+
+  getsubopt (&subopts, empty_subopts, &value);
+  exit (!value);]]), [use_getsubopt="linux"], [
+AC_RUN_IFELSE(AC_LANG_PROGRAM(
+[[#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+static char **empty_subopts[[]] = { NULL };
+extern char *suboptarg;
+]],
+[[  char *subopts = "something";
+  char *value;
+
+  getsubopt (&subopts, empty_subopts, &value);
+  exit (!suboptarg);]]), [use_getsubopt="freebsd"],
+[use_getsubopt="none"], [use_getsubopt="none"])], [use_getsubopt="none"])
+case ${use_getsubopt} in
+	linux)
+		AC_DEFINE_UNQUOTED(HAVE_GETSUBOPT_LINUX, 1,
+			Define this if you have linux-style getsubopt())
+		AC_MSG_RESULT(yes)
+		;;
+	freebsd)
+		AC_DEFINE_UNQUOTED(HAVE_GETSUBOPT_FBSD, 1,
+			Define this if you have FreeBSD-style getsubopt())
+		AC_MSG_RESULT(yes)
+		;;
+	none)
+		AC_MSG_RESULT(no)
+		;;
+esac
+
 dnl **********************
 dnl * Plugins
 dnl **********************

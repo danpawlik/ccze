@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-05 12:46:16 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-213
+
+    Summary:
+      ccze_getsubopt
+    Revision:
+      ccze--0.1--patch-213
+
+    * configure.ac: Check for FreeBSD and Linux-style getsubopt().
+    * src/ccze.c (ccze_getsubopt): New function.
+      (parse_opt): Use ccze_getsubopt().
+
+    modified files:
+     ChangeLog configure.ac src/ccze.c
+
+
 2003-03-04 18:54:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-212
 
     Summary:

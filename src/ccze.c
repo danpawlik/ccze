@@ -159,6 +159,25 @@ xstrdup (const char *str)
     return strdup (str);
 }
 
+#if HAVE_GETSUBOPT_LINUX
+static int
+ccze_getsubopt (char **subopts, char **value)
+{
+  return getsubopt (subopts, empty_subopts, value);
+}
+#endif
+#if HAVE_GETSUBOPT_FBSD
+extern char *suboptarg;
+static int
+ccze_getsubopt (char **subopts, char **value);
+{
+  int i = getsubopt (subopts, empty_subopts, value);
+  if (!*value)
+    *value = strdup (suboptarg);
+  return i;
+}
+#endif
+
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
 {
@@ -170,7 +189,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
       subopts = arg;
       while (*subopts != '\0')
 	{
-	  getsubopt (&subopts, empty_subopts, &value);
+	  ccze_getsubopt (&subopts, &value);
 	  ccze_config.color_argv[ccze_config.color_argv_len++] =
 	    strdup (value);
 	  if (ccze_config.color_argv_len >= ccze_config.color_argv_alloc)
@@ -192,7 +211,7 @@ parse_opt (int key, char *arg, struct argp_state *state)
       subopts = arg;
       while (*subopts != '\0')
 	{
-	  getsubopt (&subopts, empty_subopts, &value);
+	  ccze_getsubopt (&subopts, &value);
 	  ccze_config.pluginlist[ccze_config.pluginlist_len++] =
 	    strdup (value);
 	  if (ccze_config.pluginlist_len >= ccze_config.pluginlist_alloc)
