@@ -73,6 +73,7 @@ dnl **********************
 dnl * Library functions
 dnl **********************
 AC_FUNC_MALLOC
+AC_FUNC_REALLOC
 AC_FUNC_STRFTIME
 AC_FUNC_STAT
 AC_CHECK_FUNCS([memset strcasecmp strchr strdup strndup strstr])
