@@ -32,7 +32,7 @@
 
 static pcre *reg_pre, *reg_post, *reg_host, *reg_mac, *reg_email;
 static pcre *reg_uri, *reg_size, *reg_ver, *reg_time, *reg_addr;
-static pcre *reg_num, *reg_sig;
+static pcre *reg_num, *reg_sig, *reg_email2;
 
 static char *words_bad[] = {
   "warn", "restart", "exit", "stop", "end", "shutting", "down", "close",
@@ -176,7 +176,9 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
       else if (lword[0] == '/')
 	col = CCZE_COLOR_DIR;
       /** E-mail **/
-      else if (pcre_exec (reg_email, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+      else if (pcre_exec (reg_email, NULL, lword, wlen, 0, 0, offsets, 99)
+	       >= 0 && pcre_exec (reg_email2, NULL, lword, wlen, 0, 0,
+				  offsets,99) >= 0)
 	col = CCZE_COLOR_EMAIL;
       /** URI **/
       else if (pcre_exec (reg_uri, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
@@ -266,8 +268,9 @@ ccze_wordcolor_setup (void)
 			   &errptr, NULL);
   reg_mac = pcre_compile ("^([0-9a-f]{2}:){5}[0-9a-f]{2}$", 0, &error,
 			  &errptr, NULL);
-  reg_email = pcre_compile ("^[a-z0-9-_]+@([a-z0-9-_\\.]+)+(\\.[a-z]{2,3})?$",
+  reg_email = pcre_compile ("^[a-z0-9-_]+@([a-z0-9-_\\.]+)+(\\.[a-z]{2,4})+",
 			    0, &error, &errptr, NULL);
+  reg_email2 = pcre_compile ("(\\.[a-z]{2,4})+$", 0, &error, &errptr, NULL);
   reg_uri = pcre_compile ("^\\w{2,}:\\/\\/(\\S+\\/?)+$", 0, &error,
 			  &errptr, NULL);
   reg_size = pcre_compile ("^\\d+(\\.\\d+)?[k|m|g|t]i?b?(ytes?)?",
@@ -293,6 +296,7 @@ ccze_wordcolor_shutdown (void)
   free (reg_host);
   free (reg_mac);
   free (reg_email);
+  free (reg_email2);
   free (reg_uri);
   free (reg_size);
   free (reg_ver);

@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-17 14:44:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-42
+
+    Summary:
+      Workaround for a bug in pcre
+    Revision:
+      ccze--0.1--patch-42
+
+    * src/ccze-wordcolor.c (ccze_wordcolor_setup): Remove the '$' from
+      reg_email, and introduce reg_email2, containing the final part with
+      the $.
+      (ccze_wordcolor_process): Use reg_email2 together with
+      reg_email. This does not match exactly the same set as reg_email was
+      intended to match, but it is close enough.
+      (ccze_wordcolor_shutdown): free() reg_email2.
+
+    modified files:
+     ChangeLog src/ccze-wordcolor.c
+
+
 2002-09-16 19:54:22 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-41
 
     Summary:
