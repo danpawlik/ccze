@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 13:10:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-233
+
+    Summary:
+      Fixed plugin loading (well, setup)
+    Revision:
+      ccze--0.1--patch-233
+
+    * src/ccze-plugin.c (ccze_plugin_setup): Do not increment `i' while
+      calling ->startup.
+    
+    Problem noticed & debugged by Ciga.
+
+    modified files:
+     ChangeLog src/ccze-plugin.c
+
+
 2003-03-29 12:49:11 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-232
 
     Summary:

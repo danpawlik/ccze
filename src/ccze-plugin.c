@@ -282,7 +282,7 @@ ccze_plugin_setup (void)
       if (plugins[i])
 	{
 	  plugin_running = plugins[i]->name;
-	  (*(plugins[i++]->startup))();
+	  (*(plugins[i]->startup))();
 	}
     }
   plugin_running = NULL;
