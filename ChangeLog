@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-21 16:55:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-99
+
+    Summary:
+      Fixed src/Makefile.in::uninstall
+    Revision:
+      ccze--0.1--patch-99
+
+    * src/Makefile.in: It is `ifdef', not `ifeq'.
+
+    modified files:
+     ChangeLog src/Makefile.in
+
+
 2002-11-20 14:56:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-98
 
     Summary:

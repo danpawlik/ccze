@@ -44,7 +44,9 @@ install-strip:
 
 uninstall:
 	rm -f ${DESTDIR}${bindir}/${PROGRAM}
-	rm -f $(addprefix ${DESTDIR}${pkglibdir}/,${PLUGIN_OBJS})
+ifdef ${PLUGIN_SHOBJS}
+	rm -f $(addprefix ${DESTDIR}${pkglibdir}/,${PLUGIN_SHOBJS})
+endif
 
 ## -- Specific targets -- ##
 ${PROGRAM}: ${OBJECTS} ${PLUGIN_SOBJS}
