@@ -26,6 +26,10 @@
 
 #include "ccze.h"
 
+void ccze_exim_setup (void);
+void ccze_exim_shutdown (void);
+int ccze_exim_handle (const char *str, size_t length, char **rest);
+
 static pcre *reg_exim, *reg_exim_actiontype, *reg_exim_uniqn;
 static pcre_extra *hints_exim;
 
@@ -84,7 +88,7 @@ ccze_exim_process (const char *str, int *offsets, int match)
   return msg;
 }
 
-static void
+void
 ccze_exim_setup (void)
 {
   const char *error;
@@ -102,7 +106,7 @@ ccze_exim_setup (void)
 				 &errptr, NULL);
 }
 
-static void
+void
 ccze_exim_shutdown (void)
 {
   free (reg_exim);
@@ -111,7 +115,7 @@ ccze_exim_shutdown (void)
   free (reg_exim_uniqn);
 }
 
-static int
+int
 ccze_exim_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];

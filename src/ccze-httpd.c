@@ -26,6 +26,10 @@
 
 #include "ccze.h"
 
+void ccze_httpd_setup (void);
+void ccze_httpd_shutdown (void);
+int ccze_httpd_handle (const char *str, size_t length, char **rest);
+
 static pcre *reg_httpd_access, *reg_httpd_error;
 static pcre_extra *hints_httpd_access, *hints_httpd_error;
 
@@ -124,7 +128,7 @@ ccze_httpd_error_log_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-static void
+void
 ccze_httpd_setup (void)
 {
   const char *error;
@@ -143,7 +147,7 @@ ccze_httpd_setup (void)
   hints_httpd_error = pcre_study (reg_httpd_error, 0, &error);
 }
 
-static void
+void
 ccze_httpd_shutdown (void)
 {
   free (reg_httpd_access);
@@ -152,7 +156,7 @@ ccze_httpd_shutdown (void)
   free (hints_httpd_error);
 }
 
-static int
+int
 ccze_httpd_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];

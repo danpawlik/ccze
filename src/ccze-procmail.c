@@ -26,6 +26,10 @@
 
 #include "ccze.h"
 
+void ccze_procmail_setup (void);
+void ccze_procmail_shutdown (void);
+int ccze_procmail_handle (const char *str, size_t length, char **rest);
+
 static pcre *reg_procmail;
 static pcre_extra *hints_procmail;
 
@@ -89,7 +93,7 @@ ccze_procmail_process (const char *str, int *offsets, int match)
   return NULL;
 }
 
-static void
+void
 ccze_procmail_setup (void)
 {
   const char *error;
@@ -101,14 +105,14 @@ ccze_procmail_setup (void)
   hints_procmail = pcre_study (reg_procmail, 0, &error);
 }
 
-static void
+void
 ccze_procmail_shutdown (void)
 {
   free (reg_procmail);
   free (hints_procmail);
 }
 
-static int
+int
 ccze_procmail_handle (const char *str, size_t length, char **rest)
 {
   int match, offsets[99];
