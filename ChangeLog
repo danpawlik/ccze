@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 13:28:15 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-234
+
+    Summary:
+      Code cleanup
+    Revision:
+      ccze--0.1--patch-234
+
+    * src/ccze-private.h (ccze_mode_t): New typedef.
+      (ccze_config_t): Replace `html', `debug' and `raw_ansi' members with
+      `mode'.
+    
+    All users updated accordingly.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-cssdump.c src/ccze-dump.c
+     src/ccze-private.h src/ccze.c
+
+
 2003-03-29 13:10:13 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-233
 
     Summary:

@@ -51,9 +51,7 @@ ccze_config_t ccze_config = {
   .pluginlist_alloc = 10,
   .color_argv_len = 0,
   .color_argv_alloc = 10,
-  .html = 0,
-  .debug = 0,
-  .raw_ansi = 0
+  .mode = CCZE_MODE_HTML
 };
 
 static error_t parse_opt (int key, char *arg, struct argp_state *state);

@@ -63,9 +63,7 @@ ccze_config_t ccze_config = {
   .pluginlist_alloc = 10,
   .color_argv_len = 0,
   .color_argv_alloc = 10,
-  .html = 0,
-  .debug = 0,
-  .raw_ansi = 0
+  .mode = CCZE_MODE_CURSES
 };
 
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
@@ -213,13 +211,13 @@ parse_opt (int key, char *arg, struct argp_state *state)
 	}
       break;
     case 'h':
-      ccze_config.html = 1;
+      ccze_config.mode = CCZE_MODE_HTML;
       break;
     case 'A':
-      ccze_config.raw_ansi = 1;
+      ccze_config.mode = CCZE_MODE_RAW_ANSI;
       break;
     case 'd':
-      ccze_config.debug = 1;
+      ccze_config.mode = CCZE_MODE_DEBUG;
       break;
     case 'F':
       ccze_config.rcfile = strdup (arg);
@@ -322,14 +320,18 @@ ccze_print_date (const char *date)
 void
 ccze_newline (void)
 {
-  if (ccze_config.html)
-    printf ("<br>\n");
-  else
+  switch (ccze_config.mode)
     {
-      if (ccze_config.debug || ccze_config.raw_ansi)
-	printf ("\n");
-      else
-	addstr ("\n");
+    case CCZE_MODE_HTML:
+      printf ("<br>\n");
+      break;
+    case CCZE_MODE_DEBUG:
+    case CCZE_MODE_RAW_ANSI:
+      printf ("\n");
+      break;
+    case CCZE_MODE_CURSES:
+      addstr ("\n");
+      break;
     }
 }
 
@@ -379,8 +381,9 @@ ccze_str_htmlencode (const char *src)
 static void
 ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
 {
-  if (ccze_config.html)
+  switch (ccze_config.mode)
     {
+    case CCZE_MODE_HTML:
       if (str)
 	{
 	  char *d;
@@ -393,9 +396,8 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
 		  ccze_color_lookup_name (col), d);
 	  free (d);
 	}
-    }
-  else if (ccze_config.raw_ansi)
-    {
+      break;
+    case CCZE_MODE_RAW_ANSI:
       if (str)
 	{
 	  int c = ccze_color(col);
@@ -418,22 +420,18 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
 	  
 	  printf("%c[%dm%s", ESC, ccze_raw_ansi_color[c & 0xf], str);
 	}
-    }
-  else
-    {
-      if (ccze_config.debug)
+      break;
+    case CCZE_MODE_DEBUG:
+      if (str)
 	{
-	  if (str)
-	    {
-	      char *cn = ccze_color_lookup_name (col);
-	      printf ("<%s>%s</%s>", cn, str, cn);
-	    }
+	  char *cn = ccze_color_lookup_name (col);
+	  printf ("<%s>%s</%s>", cn, str, cn);
 	}
-      else
-	{
-	  attrset (ccze_color (col));
-	  addstr (str);
-	}
+      break;
+    case CCZE_MODE_CURSES:
+      attrset (ccze_color (col));
+      addstr (str);
+      break;
     }
 }
 
@@ -446,22 +444,35 @@ ccze_addstr (ccze_color_t col, const char *str)
 void
 ccze_space (void)
 {
-  if (ccze_config.html)
-    ccze_addstr_internal (CCZE_COLOR_DEFAULT, "&nbsp;", 0);
-  else
-    ccze_addstr (CCZE_COLOR_DEFAULT, " ");
+  switch (ccze_config.mode)
+    {
+    case CCZE_MODE_HTML:
+      ccze_addstr_internal (CCZE_COLOR_DEFAULT, "&nbsp;", 0);
+      break;
+    default:
+      ccze_addstr (CCZE_COLOR_DEFAULT, " ");
+      break;
+    }
 }
 
 static void sigint_handler (int sig) __attribute__ ((noreturn));
 static void
 sigint_handler (int sig)
 {
-  if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
-    endwin ();
-  else if (ccze_config.html)
-    printf ("\n</body>\n</html>\n");
-  else if (ccze_config.raw_ansi)
-    printf("%c[0m", ESC);
+  switch (ccze_config.mode)
+    {
+    case CCZE_MODE_CURSES:
+      endwin ();
+      break;
+    case CCZE_MODE_HTML:
+      printf ("\n</body>\n</html>\n");
+      break;
+    case CCZE_MODE_RAW_ANSI:
+      printf("%c[0m", ESC);
+      break;
+    default:
+      break;
+    }
 
   if (sig)
     {
@@ -524,7 +535,7 @@ ccze_main (void)
       free (ccze_config.color_argv[--ccze_config.color_argv_len]);
     }
   
-  if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
+  if (ccze_config.mode == CCZE_MODE_CURSES)
     {
       initscr ();
       signal (SIGWINCH, sigwinch_handler);
@@ -549,7 +560,7 @@ ccze_main (void)
 	for (j = 0; j < 8; j++)
 	  init_pair (i*8 + j, colors[j], colors[i]);
     }
-  else if (ccze_config.html)
+  else if (ccze_config.mode == CCZE_MODE_HTML)
     {
       printf
 	("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//Transitional//EN\">\n"
@@ -647,11 +658,11 @@ ccze_main (void)
 	  ccze_newline ();
 	}
 
-      if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
+      if (ccze_config.mode == CCZE_MODE_CURSES)
 	refresh ();
     }
 
-  if (!ccze_config.html && !ccze_config.debug && !ccze_config.raw_ansi)
+  if (ccze_config.mode == CCZE_MODE_CURSES)
     refresh ();
 }
 

@@ -60,6 +60,14 @@ void ccze_wordcolor_setup (void);
 void ccze_wordcolor_shutdown (void);
 
 /* ccze.c */
+typedef enum
+{
+  CCZE_MODE_CURSES,
+  CCZE_MODE_RAW_ANSI,
+  CCZE_MODE_HTML,
+  CCZE_MODE_DEBUG
+} ccze_mode_t;
+
 typedef struct
 {
   int scroll;
@@ -67,16 +75,15 @@ typedef struct
   int wcol;
   int slookup;
   int remfac;
-  int html;
   int transparent;
-  int debug;
   char *rcfile;
   char *cssfile;
   char **pluginlist;
   int pluginlist_alloc, pluginlist_len;
   char **color_argv;
   int color_argv_alloc, color_argv_len;
-  int raw_ansi;
+
+  ccze_mode_t mode;
 } ccze_config_t;
 
 extern ccze_config_t ccze_config;

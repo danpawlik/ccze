@@ -390,7 +390,7 @@ ccze_color_parse (char *line)
     {
       if (!csskey && (nbg = _ccze_colorname_map_lookup (bg)) != -1)
       {
-	if (ccze_config.raw_ansi)
+	if (ccze_config.mode == CCZE_MODE_RAW_ANSI)
 	  ncolor += (nbg << 8);
 	else
 	  ncolor += nbg*8;
@@ -401,7 +401,7 @@ ccze_color_parse (char *line)
     rcolor = ncolor;
   else
   {
-    if (ccze_config.raw_ansi)
+    if (ccze_config.mode == CCZE_MODE_RAW_ANSI)
       rcolor = ncolor;
     else
       rcolor = COLOR_PAIR (ncolor);
@@ -410,13 +410,17 @@ ccze_color_parse (char *line)
   if (pre)
     {
       if (!strcmp (pre, "bold"))
-	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_BOLD : A_BOLD;
+	rcolor |= (ccze_config.mode == CCZE_MODE_RAW_ANSI) ?
+	  RAW_ANSI_BOLD : A_BOLD;
       else if (!strcmp (pre, "underline"))
-	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_UNDERLINE : A_UNDERLINE;
+	rcolor |= (ccze_config.mode == CCZE_MODE_RAW_ANSI) ?
+	  RAW_ANSI_UNDERLINE : A_UNDERLINE;
       else if (!strcmp (pre, "reverse"))
-	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_REVERSE : A_REVERSE;
+	rcolor |= (ccze_config.mode == CCZE_MODE_RAW_ANSI) ?
+	  RAW_ANSI_REVERSE : A_REVERSE;
       else if (!strcmp (pre, "blink"))
-	rcolor |= (ccze_config.raw_ansi) ? RAW_ANSI_BLINK : A_BLINK;
+	rcolor |= (ccze_config.mode == CCZE_MODE_RAW_ANSI) ?
+	  RAW_ANSI_BLINK : A_BLINK;
     }
 
   if (!csskey)
@@ -556,7 +560,7 @@ ccze_color_init_raw_ansi (void)
 void
 ccze_color_init (void)
 {
-  if (ccze_config.raw_ansi)
+  if (ccze_config.mode == CCZE_MODE_RAW_ANSI)
     {
       ccze_color_init_raw_ansi ();
       return;

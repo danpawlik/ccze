@@ -42,9 +42,7 @@ ccze_config_t ccze_config = {
   .pluginlist_alloc = 10,
   .color_argv_len = 0,
   .color_argv_alloc = 10,
-  .html = 0,
-  .debug = 0,
-  .raw_ansi = 0
+  .mode = CCZE_MODE_CURSES
 };
 
 const char *argp_program_name = "ccze-dump";
