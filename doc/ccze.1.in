@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE 1 "2003-03-13" "CCZE @VERSION@" CCZE
+.TH CCZE 1 "2003-03-19" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer
 .SH SYNOPSIS
@@ -32,6 +32,10 @@ and features.
 These programs follow the usual GNU command line syntax, with long
 options starting with two dashes (`-'). A summary of options is
 included below.
+.TP
+.B \-c, \-\-color \fIKEY=COLOR\fB
+Set the color of the keyword \fIKEY\fR to \fICOLOR\fR, like one would
+do in one of the configuration files.
 .TP
 .B \-C, \-\-convert\-date
 Convert unix timestamp to readable date format (in

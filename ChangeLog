@@ -2,6 +2,33 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 02:31:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-130
+
+    Summary:
+      Support changing colors on the command-line
+    Revision:
+      ccze--0.1--patch-130
+
+    * src/ccze-color.h (ccze_color_parse): New prototype.
+    * src/ccze-color.c (ccze_color_parse): New function, broken out of
+      ccze_color_load's main loop.
+      (ccze_color_load): Use it.
+    * src/ccze.c (ccze_config): New members: color_argv, color_argv_alloc
+      and color_argv_len.
+      (options): Added --color.
+      (empty_subopts): New global variable.
+      (parse_opt): Handle --color.
+      (main): Cycle through ccze_config.color_argv after loading the
+      configuration files, passing each element to ccze_color_parse().
+    * TODO: Removed relevant entry.
+    * THANKS: Added Matyas Koszik.
+    * doc/ccze.1.in (OPTIONS): Documented the new --color option.
+
+    modified files:
+     ChangeLog THANKS TODO doc/ccze.1.in src/ccze-color.c
+     src/ccze-color.h src/ccze.c
+
+
 2003-01-19 01:46:21 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-129
 
     Summary:

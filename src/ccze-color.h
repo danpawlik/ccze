@@ -85,6 +85,7 @@ typedef enum
 
 int ccze_color (ccze_color_t idx);
 void ccze_color_init (void);
+void ccze_color_parse (char *line);
 void ccze_color_load (const char *fn);
 
 int ccze_color_strip_attrib (int color);

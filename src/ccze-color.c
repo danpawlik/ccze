@@ -296,6 +296,95 @@ _ccze_colorname_map_lookup (const char *color)
 }
 
 void
+ccze_color_parse (char *line)
+{
+  char *tmp, *keyword, *color, *pre = NULL, *bg;
+  int ncolor = 0, nkeyword = 0, nbg, rcolor, csskey = 0;
+      
+  keyword = strtok (line, " \t\n=");
+  if (!keyword)
+    return;
+  if (strstr (keyword, "css") == keyword)
+    csskey = 1;
+  else
+    {
+      tmp = strstr (line, "#");
+      if (tmp)
+	tmp[0]='\0';
+    }
+
+  if (!csskey &&
+      ((nkeyword = _ccze_color_keyword_lookup (keyword)) == -1))
+    return;
+
+  color = strtok (NULL, " \t\n");
+  if (!csskey)
+    {
+      if (color &&
+	  (!strcmp (color, "bold") || !strcmp (color, "underline") ||
+	   !strcmp (color, "reverse") || !strcmp (color, "blink")))
+	{
+	  pre = color;
+	  color = strtok (NULL, " \t\n");
+	}
+    }
+      
+  if (!color)
+    return;
+
+  if (!csskey && (ncolor = _ccze_colorname_map_lookup (color)) == -1)
+    return;
+
+  bg = strtok (NULL, " \t\n");
+  if (bg)
+    {
+      if (!csskey && (nbg = _ccze_colorname_map_lookup (bg)) != -1)
+	ncolor += nbg*8;
+    }
+      
+  if (color[0] == '\'')
+    rcolor = ncolor;
+  else
+    rcolor = COLOR_PAIR (ncolor);
+
+  if (pre)
+    {
+      if (!strcmp (pre, "bold"))
+	rcolor |= A_BOLD;
+      else if (!strcmp (pre, "underline"))
+	rcolor |= A_UNDERLINE;
+      else if (!strcmp (pre, "reverse"))
+	rcolor |= A_REVERSE;
+      else if (!strcmp (pre, "blink"))
+	rcolor |= A_BLINK;
+    }
+
+  if (!csskey)
+    ccze_color_table[nkeyword] = rcolor;
+  else
+    {
+      int bold = 0;
+
+      if (!strcmp (keyword, "cssbody"))
+	ccze_cssbody = strdup (color);
+      else
+	{
+	  keyword += 3;
+	  if (strstr (keyword, "bold") == keyword)
+	    {
+	      keyword += 4;
+	      bold = 1;
+	    }
+	  ncolor = _ccze_colorname_map_lookup (keyword);
+	  if (bold)
+	    ccze_csscolor_bold_map[ncolor] = strdup (color);
+	  else
+	    ccze_csscolor_normal_map[ncolor] = strdup (color);
+	}
+    }
+}
+
+void
 ccze_color_load (const char *fn)
 {
   FILE *fp;
@@ -311,92 +400,7 @@ ccze_color_load (const char *fn)
   if (!fp)
     return;
   while (getline (&line, &len, fp) != -1)
-    {
-      char *tmp, *keyword, *color, *pre = NULL, *bg;
-      int ncolor = 0, nkeyword = 0, nbg, rcolor, csskey = 0;
-      
-      keyword = strtok (line, " \t\n");
-      if (!keyword)
-	continue;
-      if (strstr (keyword, "css") == keyword)
-	csskey = 1;
-      else
-	{
-	  tmp = strstr (line, "#");
-	  if (tmp)
-	    tmp[0]='\0';
-	}
-
-      if (!csskey &&
-	  ((nkeyword = _ccze_color_keyword_lookup (keyword)) == -1))
-	continue;
-
-      color = strtok (NULL, " \t\n");
-      if (!csskey)
-	{
-	  if (color &&
-	      (!strcmp (color, "bold") || !strcmp (color, "underline") ||
-	       !strcmp (color, "reverse") || !strcmp (color, "blink")))
-	    {
-	      pre = color;
-	      color = strtok (NULL, " \t\n");
-	    }
-	}
-      
-      if (!color)
-	continue;
-
-      if (!csskey && (ncolor = _ccze_colorname_map_lookup (color)) == -1)
-	continue;
-
-      bg = strtok (NULL, " \t\n");
-      if (bg)
-	{
-	  if (!csskey && (nbg = _ccze_colorname_map_lookup (bg)) != -1)
-	    ncolor += nbg*8;
-	}
-      
-      if (color[0] == '\'')
-	rcolor = ncolor;
-      else
-	rcolor = COLOR_PAIR (ncolor);
-
-      if (pre)
-	{
-	  if (!strcmp (pre, "bold"))
-	    rcolor |= A_BOLD;
-	  else if (!strcmp (pre, "underline"))
-	    rcolor |= A_UNDERLINE;
-	  else if (!strcmp (pre, "reverse"))
-	    rcolor |= A_REVERSE;
-	  else if (!strcmp (pre, "blink"))
-	    rcolor |= A_BLINK;
-	}
-
-      if (!csskey)
-	ccze_color_table[nkeyword] = rcolor;
-      else
-	{
-	  int bold = 0;
-
-	  if (!strcmp (keyword, "cssbody"))
-	    ccze_cssbody = strdup (color);
-	  else
-	    {
-	      keyword += 3;
-	      if (strstr (keyword, "bold") == keyword)
-		{
-		  keyword += 4;
-		  bold = 1;
-		}
-	      ncolor = _ccze_colorname_map_lookup (keyword);
-	      if (bold)
-		ccze_csscolor_bold_map[ncolor] = strdup (color);
-	      else
-		ccze_csscolor_normal_map[ncolor] = strdup (color);
-	    }
-	}
-    }
+    ccze_color_parse (line);
   free (line);
   fclose (fp);
 }

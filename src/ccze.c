@@ -61,6 +61,8 @@ static struct
   char *cssfile;
   char **pluginlist;
   size_t pluginlist_alloc, pluginlist_len;
+  char **color_argv;
+  size_t color_argv_alloc, color_argv_len;
 } ccze_config = {
   .scroll = 1,
   .convdate = 0,
@@ -71,6 +73,8 @@ static struct
   .cssfile = NULL,
   .pluginlist_len = 0,
   .pluginlist_alloc = 10,
+  .color_argv_len = 0,
+  .color_argv_alloc = 10,
   .html = 0
 };
 
@@ -92,6 +96,7 @@ static struct argp_option options[] = {
   {"plugin", 'p', "PLUGIN", 0, "Load PLUGIN", 1},
   {"remove-facility", 'r', NULL, 0,
    "remove syslog-ng's facility from start of the lines", 1},
+  {"color", 'c', "KEY=COLOR,...", 0, "Set the color of KEY to COLOR", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -122,6 +127,8 @@ static char *o_subopts[] = {
   [CCZE_O_SUBOPT_NOCSSFILE] = "nocssfile",
   [CCZE_O_SUBOPT_END] = NULL
 };
+
+static char *empty_subopts[] = { NULL };
 
 static char *_strbrk_string;
 static size_t _strbrk_string_len;
@@ -169,6 +176,23 @@ parse_opt (int key, char *arg, struct argp_state *state)
   
   switch (key)
     {
+    case 'c':
+      subopts = arg;
+      while (*subopts != '\0')
+	{
+	  getsubopt (&subopts, empty_subopts, &value);
+	  ccze_config.color_argv[ccze_config.color_argv_len++] =
+	    strdup (value);
+	  if (ccze_config.color_argv_len >= ccze_config.color_argv_alloc)
+	    {
+	      ccze_config.color_argv_alloc *= 2;
+	      ccze_config.color_argv =
+		(char **)realloc (ccze_config.color_argv,
+				  ccze_config.color_argv_alloc *
+				  sizeof (char *));
+	    }
+	}
+      break;
     case 'p':
       ccze_config.pluginlist[ccze_config.pluginlist_len++] = strdup (arg);
       if (ccze_config.pluginlist_len >= ccze_config.pluginlist_alloc)
@@ -342,6 +366,8 @@ main (int argc, char **argv)
       
   ccze_config.pluginlist = (char **)calloc (ccze_config.pluginlist_alloc,
 					    sizeof (char *));
+  ccze_config.color_argv = (char **)calloc (ccze_config.color_argv_alloc,
+					    sizeof (char *));
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 
   ccze_color_init ();
@@ -364,6 +390,12 @@ main (int argc, char **argv)
 	}
     }
 
+  while (ccze_config.color_argv_len > 0)
+    {
+      ccze_color_parse (ccze_config.color_argv[ccze_config.color_argv_len - 1]);
+      free (ccze_config.color_argv[--ccze_config.color_argv_len]);
+    }
+  
   if (!ccze_config.html)
     {
       initscr ();
