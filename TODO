@@ -1,6 +1,8 @@
 # -*- outline -*-
 
 * New features
+** Allow setting colors on the command-line
+*** Need to break up src/ccze-color.c::ccze_color_load(). *Yuck*
 ** Support for more kinds of logs
 *** xferlog
 *** oops.log
