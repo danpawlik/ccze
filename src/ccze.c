@@ -48,7 +48,7 @@ struct
   int slookup;
 } ccze_config;
 
-const char *argp_program_version = "ccze/0.1";
+const char *argp_program_version = "ccze 0.1." PATCHLEVEL;
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
   {NULL, 0, NULL, 0, "", 1},
