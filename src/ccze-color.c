@@ -55,6 +55,7 @@ static char *ccze_csscolor_normal_map[] = {
 static char *ccze_csscolor_bold_map[] = {
   "black", "lightred", "lime", "yellow", "slateblue",
   "cyan", "magenta", "white" };
+static char *ccze_cssbody = "#404040";
 
 typedef struct
 {
@@ -376,22 +377,33 @@ ccze_color_load (const char *fn)
       else
 	{
 	  int bold = 0;
-	  	  
-	  keyword += 3;
-	  if (strstr (keyword, "bold") == keyword)
-	    {
-	      keyword += 4;
-	      bold = 1;
-	    }
-	  ncolor = _ccze_colorname_map_lookup (keyword);
-	  if (bold)
-	    ccze_csscolor_bold_map[ncolor] = strdup (color);
+
+	  if (!strcmp (keyword, "cssbody"))
+	    ccze_cssbody = strdup (color);
 	  else
-	    ccze_csscolor_normal_map[ncolor] = strdup (color);
+	    {
+	      keyword += 3;
+	      if (strstr (keyword, "bold") == keyword)
+		{
+		  keyword += 4;
+		  bold = 1;
+		}
+	      ncolor = _ccze_colorname_map_lookup (keyword);
+	      if (bold)
+		ccze_csscolor_bold_map[ncolor] = strdup (color);
+	      else
+		ccze_csscolor_normal_map[ncolor] = strdup (color);
+	    }
 	}
     }
   free (line);
   fclose (fp);
+}
+
+char *
+ccze_cssbody_color (void)
+{
+  return ccze_cssbody;
 }
 
 void

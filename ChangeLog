@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-19 00:28:56 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-126
+
+    Summary:
+      Support for changing the HTML body background
+    Revision:
+      ccze--0.1--patch-126
+
+    * src/ccze-color.h (ccze_cssbody_color): New prototype.
+    * src/ccze-color.c (ccze_cssbody): New global variable.
+      (ccze_color_load): Support "cssbody".
+      (ccze_cssbody_color): New function.
+    * src/ccze.c (main): Use ccze_cssbody_color().
+    * src/ccze-cssdump.c (main): Dump cssbody too.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-color.h src/ccze-dump.c
+     src/ccze.c
+
+
 2003-01-19 00:17:29 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-125
 
     Summary:

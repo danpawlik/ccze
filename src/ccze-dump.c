@@ -122,7 +122,9 @@ int
 main (int argc, char *argv[])
 {
   ccze_color_t cidx;
-
+  char line[256];
+  int color;
+  
   argp_parse (&argp, argc, argv, 0, 0, NULL);
   
   ccze_color_init ();
@@ -166,8 +168,7 @@ main (int argc, char *argv[])
   /* Dump colors */
   for (cidx = CCZE_COLOR_DATE; cidx < CCZE_COLOR_LAST; cidx++)
     {
-      int color = ccze_color (cidx);
-      char line[256];
+      color = ccze_color (cidx);
       
       strcpy (line, ccze_color_lookup_name (cidx));
       memset (&line[strlen(line)], ' ', 16 - strlen (line));
@@ -186,8 +187,6 @@ main (int argc, char *argv[])
   printf ("\n# CSS codes for the HTML output\n");
   for (cidx = 0; cidx < 8; cidx++)
     {
-      char line[256];
-
       strcpy (line, "css");
       strcat (line, ccze_colorname_map[cidx].name);
       memset (&line[strlen(line)], ' ', 16 - strlen (line));
@@ -201,8 +200,12 @@ main (int argc, char *argv[])
       line[16]='\0';
       strcat (line, ccze_csscolor_bold_map[cidx]);
       printf ("%s\n", line);
-
     }
-    
+  strcpy (line, "cssbody");
+  memset (&line[strlen(line)], ' ', 16 - strlen (line));
+  line[16]='\0';
+  strcat (line, ccze_cssbody_color ());
+  printf ("%s\n", line);
+  
   return 0;
 }
