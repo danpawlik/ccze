@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 14:43:26 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-119
+
+    Summary:
+      TODO cleanup
+    Revision:
+      ccze--0.1--patch-119
+
+    * TODO: Removed HTML output entries, all done.
+
+    modified files:
+     ChangeLog TODO
+
+
 2003-01-13 14:29:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-118
 
     Summary:
