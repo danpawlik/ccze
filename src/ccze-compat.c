@@ -95,8 +95,10 @@ argp_parse (const struct argp *argps, int argc, char **argv,
   struct option *longopts;
   int longoptionspos = 0;
  
-  longopts = (struct option *)ccze_malloc (sizeof (struct option));
+  longopts = (struct option *)ccze_calloc (optionssize,
+					   sizeof (struct option));
 #endif
+  
   state = (struct argp_state *)ccze_malloc (sizeof (struct argp_state));
   state->input = input;
 

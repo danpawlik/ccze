@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-20 17:32:51 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-198
+
+    Summary:
+      Fixed a malloc issue
+    Revision:
+      ccze--0.1--patch-198
+
+    * src/ccze-compat.c [HAVE_GETOPT_LONG] (argp_parse): Use ccze_calloc,
+      not ccze_malloc.
+
+    modified files:
+     ChangeLog src/ccze-compat.c
+
+
 2003-02-20 17:03:45 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-197
 
     Summary:
