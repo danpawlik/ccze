@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-03-30 11:56:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-3
+
+    Summary:
+      Added --mode
+    Revision:
+      ccze--0.3--patch-3
+
+    * src/ccze.c (parse_opt): Recognise --mode.
+    * doc/ccze.1.in (OPTIONS): Documented it.
+
+    modified files:
+     ChangeLog doc/ccze.1.in src/ccze.c
+
+
 2003-03-30 11:28:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-2
 
     Summary:

@@ -89,6 +89,8 @@ static struct argp_option options[] = {
   {"debug", 'd', NULL, OPTION_HIDDEN, "Turn on debugging.", 1},
   {"raw-ansi", 'A', NULL, 0, "Generate raw ANSI output", 1},
   {"list-plugins", 'l', NULL, 0, "List available plugins", 1},
+  {"mode", 'm', "MODE", 0, "Change the output mode\n"
+   "(Available modes are curses, ansi and html.)", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -122,6 +124,23 @@ static char *o_subopts[] = {
   [CCZE_O_SUBOPT_TRANSPARENT] = "transparent",
   [CCZE_O_SUBOPT_NOTRANSPARENT] = "notransparent",
   [CCZE_O_SUBOPT_END] = NULL
+};
+
+enum
+{
+  CCZE_M_SUBOPT_CURSES,
+  CCZE_M_SUBOPT_ANSI,
+  CCZE_M_SUBOPT_HTML,
+  CCZE_M_SUBOPT_DEBUG,
+  CCZE_M_SUBOPT_END
+};
+
+static char *m_subopts[] = {
+  [CCZE_M_SUBOPT_CURSES] = "curses",
+  [CCZE_M_SUBOPT_ANSI] = "ansi",
+  [CCZE_M_SUBOPT_HTML] = "html",
+  [CCZE_M_SUBOPT_DEBUG] = "debug",
+  [CCZE_M_SUBOPT_END] = NULL
 };
 
 static char *empty_subopts[] = { NULL };
@@ -228,6 +247,30 @@ parse_opt (int key, char *arg, struct argp_state *state)
       break;
     case 'r':
       ccze_config.remfac = 1;
+      break;
+    case 'm':
+      subopts = optarg;
+      while (*subopts != '\0')
+	{
+	  switch (getsubopt (&subopts, m_subopts, &value))
+	    {
+	    case CCZE_M_SUBOPT_CURSES:
+	      ccze_config.mode = CCZE_MODE_CURSES;
+	      break;
+	    case CCZE_M_SUBOPT_ANSI:
+	      ccze_config.mode = CCZE_MODE_RAW_ANSI;
+	      break;
+	    case CCZE_M_SUBOPT_HTML:
+	      ccze_config.mode = CCZE_MODE_HTML;
+	      break;
+	    case CCZE_M_SUBOPT_DEBUG:
+	      ccze_config.mode = CCZE_MODE_DEBUG;
+	      break;
+	    default:
+	      argp_error (state, "unrecognised mode: `%s'", value);
+	      break;
+	    }
+	}
       break;
     case 'o':
       subopts = optarg;
