@@ -110,7 +110,8 @@ sigwinch_handler (int sig)
 int
 main (int argc, char **argv)
 {
-  char subject[4096];
+  char *subject = NULL;
+  size_t subjlen = 0;
   int match, offsets[99];
   pcre *regc_syslog, *regc_procmail_log, *regc_httpd_access_log;
   pcre *regc_squid_access_log, *regc_vsftpd_log, *regc_squid_cache_log;
@@ -160,13 +161,12 @@ main (int argc, char **argv)
       int handled = CCZE_MATCH_NONE;
       char *rest = NULL;
             
-      if (fgets (subject, sizeof (subject), stdin) == NULL)
+      if (getline (&subject, &subjlen, stdin) == -1)
 	break;
 
       /** Procmail **/
       if ((match = pcre_exec (regc_procmail_log, hints_procmail_log,
-			      subject, strlen (subject), 0, 0, offsets,
-			      99)) >= 0)
+			      subject, subjlen, 0, 0, offsets, 99)) >= 0)
 	{
 	  rest = ccze_procmail_process (subject, offsets, match);
 	  handled = CCZE_MATCH_PROCMAIL_LOG;
@@ -174,8 +174,8 @@ main (int argc, char **argv)
 
       /** HTTPd access.log **/
       if ((match = pcre_exec (regc_httpd_access_log, hints_httpd_access_log,
-			      subject, strlen (subject), 0, 0, offsets,
-			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
+	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_httpd_access_log_process (subject, offsets, match);
 	  handled = CCZE_MATCH_HTTPD_ACCESS_LOG;
@@ -183,8 +183,8 @@ main (int argc, char **argv)
 
       /** HTTPD error.log **/
       if ((match = pcre_exec (regc_httpd_error_log, hints_httpd_error_log,
-			      subject, strlen (subject), 0, 0, offsets,
-			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
+	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_httpd_error_log_process (subject, offsets, match);
 	  handled = CCZE_MATCH_HTTPD_ERROR_LOG;
@@ -192,8 +192,8 @@ main (int argc, char **argv)
 
       /** Squid access.log **/
       if ((match = pcre_exec (regc_squid_access_log, hints_squid_access_log,
-			      subject, strlen (subject), 0, 0, offsets,
-			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
+	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_squid_access_log_process (subject, offsets, match);
 	  handled = CCZE_MATCH_SQUID_ACCESS_LOG;
@@ -201,8 +201,8 @@ main (int argc, char **argv)
 
       /** Squid store.log **/
       if ((match = pcre_exec (regc_squid_store_log, hints_squid_store_log,
-			      subject, strlen (subject), 0, 0, offsets,
-			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
+	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_squid_store_log_process (subject, offsets, match);
 	  handled = CCZE_MATCH_SQUID_STORE_LOG;
@@ -210,8 +210,8 @@ main (int argc, char **argv)
       
       /** Squid cache.log **/
       if ((match = pcre_exec (regc_squid_cache_log, hints_squid_cache_log,
-			      subject, strlen (subject), 0, 0, offsets,
-			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+			      subject, subjlen, 0, 0, offsets, 99)) >= 0 &&
+	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_squid_cache_log_process (subject, offsets, match);
 	  handled = CCZE_MATCH_SQUID_CACHE_LOG;
@@ -219,7 +219,7 @@ main (int argc, char **argv)
       
       /** VSFTPd log **/
       if ((match = pcre_exec (regc_vsftpd_log, hints_vsftpd_log, subject,
-			      strlen (subject), 0, 0, offsets, 99)) >= 0 &&
+			      subjlen, 0, 0, offsets, 99)) >= 0 &&
 	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_vsftpd_log_process (subject, offsets, match);
@@ -228,7 +228,7 @@ main (int argc, char **argv)
 
       /** sulog **/
       if ((match = pcre_exec (regc_sulog, hints_sulog, subject,
-			      strlen (subject), 0, 0, offsets, 99)) >= 0 &&
+			      subjlen, 0, 0, offsets, 99)) >= 0 &&
 	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_sulog_process (subject, offsets, match);
@@ -237,7 +237,7 @@ main (int argc, char **argv)
 
       /** super **/
       if ((match = pcre_exec (regc_super, hints_super, subject,
-			      strlen (subject), 0, 0, offsets, 99)) >= 0 &&
+			      subjlen, 0, 0, offsets, 99)) >= 0 &&
 	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_super_process (subject, offsets, match);
@@ -246,7 +246,7 @@ main (int argc, char **argv)
 
       /** Syslog **/
       if ((match = pcre_exec (regc_syslog, hints_syslog, subject,
-			      strlen (subject), 0, 0, offsets, 99)) >= 0 &&
+			      subjlen, 0, 0, offsets, 99)) >= 0 &&
 	  handled == CCZE_MATCH_NONE)
 	{
 	  rest = ccze_syslog_process (subject, offsets, match);
@@ -289,7 +289,8 @@ main (int argc, char **argv)
   free (hints_sulog);
   free (regc_super);
   free (hints_super);
-      
+  free (subject);
+  
   sigint_handler (0);
   
   return 0;
