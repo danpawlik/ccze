@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-04 20:01:50 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-82
+
+    Summary:
+      Link shared objects to ncurses and pcre
+    Revision:
+      ccze--0.1--patch-82
+
+    * Rules.mk.in (%.so): Add ${ALL_LDFLAGS} to the command-line.
+    * THANKS: Added Ferenc Kalcso.
+
+    modified files:
+     ChangeLog Rules.mk.in THANKS
+
+
 2002-10-13 12:56:24 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-81
 
     Summary:

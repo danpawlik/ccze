@@ -70,7 +70,7 @@ TAGS:: ${SOURCES} ${HEADERS}
 .c.o:
 	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
 %.so: ccze-%.c ccze.h
-	${CC} -fPIC -DPIC ${ALL_CFLAGS} -o $@ $< -shared
+	${CC} -fPIC -DPIC ${ALL_CFLAGS} ${ALL_LDFLAGS} -o $@ $< -shared
 
 mostlyclean clean::
 	rm -f *~ ${PROGRAM} ${OBJECTS} TAGS
