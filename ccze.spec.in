@@ -44,11 +44,14 @@ rm -rf $RPM_BUILD_ROOT
 %config %{_sysconfdir}/cczerc
 %{_bindir}/ccze
 %{_bindir}/ccze-cssdump
-%attr(0644,root,root) %{_mandir}/man1/ccze.1*
-%attr(0644,root,root) %{_mandir}/man1/ccze-cssdump.1*
-%attr(0644,root,root) %{_mandir}/man7/ccze-plugin.7*
+%{_includedir}/ccze.h
+%{_mandir}/man1/ccze.1*
+%{_mandir}/man1/ccze-cssdump.1*
+%{_mandir}/man7/ccze-plugin.7*
 
 %changelog
+* Sat Jan 25 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+- Include %{_includedir}/ccze.h
 * Mon Jan 13 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
 - Include ccze-cssdump and its manual page.
 - Packager changed to myself.
