@@ -65,6 +65,7 @@ typedef struct
   int remfac;
   int html;
   int transparent;
+  int debug;
   char *rcfile;
   char *cssfile;
   char **pluginlist;

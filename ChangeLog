@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-10 08:35:44 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-174
+
+    Summary:
+      --debug
+    Revision:
+      ccze--0.1--patch-174
+
+    * src/ccze-private.h (ccze_config_t): New member: `debug'.
+    * src/ccze.c (ccze_config): Initialise it to zero.
+      (options): Add --debug.
+      (parse_opt): Parse it.
+      (ccze_newline): Handle ccze_config.debug.
+      (ccze_addstr_internal): Likewise.
+      (sigint_handler): Likewise.
+      (ccze_main): Likewise.
+
+    modified files:
+     ChangeLog src/ccze-private.h src/ccze.c
+
+
 2003-02-09 19:08:49 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-173
 
     Summary:

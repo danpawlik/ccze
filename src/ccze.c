@@ -58,7 +58,8 @@ ccze_config_t ccze_config = {
   .pluginlist_alloc = 10,
   .color_argv_len = 0,
   .color_argv_alloc = 10,
-  .html = 0
+  .html = 0,
+  .debug = 0
 };
 
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
@@ -81,6 +82,7 @@ static struct argp_option options[] = {
   {"remove-facility", 'r', NULL, 0,
    "remove syslog-ng's facility from start of the lines", 1},
   {"color", 'c', "KEY=COLOR,...", 0, "Set the color of KEY to COLOR", 1},
+  {"debug", 'd', NULL, OPTION_HIDDEN, "Turn on debugging.", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -194,6 +196,9 @@ parse_opt (int key, char *arg, struct argp_state *state)
     case 'h':
       ccze_config.html = 1;
       break;
+    case 'd':
+      ccze_config.debug = 1;
+      break;
     case 'F':
       ccze_config.rcfile = strdup (arg);
       break;
@@ -297,8 +302,13 @@ ccze_newline (void)
 {
   if (ccze_config.html)
     printf ("<br>\n");
-  else  
-    addstr ("\n");
+  else
+    {
+      if (ccze_config.debug)
+	printf ("\n");
+      else
+	addstr ("\n");
+    }
 }
 
 static char *
@@ -364,8 +374,17 @@ ccze_addstr_internal (ccze_color_t col, const char *str, int enc)
     }
   else
     {
-      attrset (ccze_color (col));
-      addstr (str);
+      if (ccze_config.debug)
+	{
+	  if (str)
+	    printf ("<%s>%s</%s>", ccze_color_lookup_name (col),
+		    str, ccze_color_lookup_name (col));
+	}
+      else
+	{
+	  attrset (ccze_color (col));
+	  addstr (str);
+	}
     }
 }
 
@@ -388,9 +407,9 @@ static void sigint_handler (int sig) __attribute__ ((noreturn));
 static void
 sigint_handler (int sig)
 {
-  if (!ccze_config.html)
+  if (!ccze_config.html && !ccze_config.debug)
     endwin ();
-  else
+  else if (ccze_config.html)
     printf ("\n</body>\n</html>\n");
 
   if (sig)
@@ -453,7 +472,7 @@ ccze_main (void)
       free (ccze_config.color_argv[--ccze_config.color_argv_len]);
     }
   
-  if (!ccze_config.html)
+  if (!ccze_config.html && !ccze_config.debug)
     {
       initscr ();
       signal (SIGWINCH, sigwinch_handler);
@@ -478,7 +497,7 @@ ccze_main (void)
 	for (j = 0; j < 8; j++)
 	  init_pair (i*8 + j, colors[j], colors[i]);
     }
-  else
+  else if (ccze_config.html)
     {
       printf
 	("<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//Transitional//EN\">\n"
@@ -575,11 +594,11 @@ ccze_main (void)
 	  ccze_newline ();
 	}
 
-      if (!ccze_config.html)
+      if (!ccze_config.html && !ccze_config.debug)
 	refresh ();
     }
 
-  if (!ccze_config.html)
+  if (!ccze_config.html && !ccze_config.debug)
     refresh ();
 }
 
