@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-24 09:44:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-137
+
+    Summary:
+      Install ccze.h.
+    Revision:
+      ccze--0.1--patch-137
+
+    * Rules.mk.in (includedir): New substvar.
+    * src/Makefile.in (install): Install ccze.h
+      (uninstall): Uninstall it.
+
+    modified files:
+     ChangeLog Rules.mk.in src/Makefile.in
+
+
 2003-01-23 18:12:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-136
 
     Summary:

@@ -17,6 +17,7 @@ mandir		= @mandir@
 man1dir		= ${mandir}/man1
 man7dir		= ${mandir}/man7
 libdir		= @libdir@
+includedir	= @includedir@
 pkglibdir	= ${libdir}/${PACKAGE}
 
 CC		= @CC@
