@@ -45,7 +45,7 @@ endif
 builddir	= @builddir@
 
 PATCHLEVEL	= $(shell head -5 ${top_srcdir}/ChangeLog | tail -1 | sed -e "s,^.*patch-,,g")
-DISTFILES	= ${SOURCES} ${HEADERS} Makefile.in ${EXTRA_DIST}
+DISTFILES	= ${SOURCES} ${HEADERS} Makefile.in ${TESTS} ${EXTRA_DIST}
 
 ## -- Generic rules -- ##
 all:

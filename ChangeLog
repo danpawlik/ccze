@@ -2,6 +2,37 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-09 18:49:31 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-172
+
+    Summary:
+      First shot at a testsuite
+    Revision:
+      ccze--0.1--patch-172
+
+    * configure.ac (AC_OUTPUT): Added testsuite/Makefile.
+    * Rules.mk.in (DISTFILES): Include ${TESTS}.
+    * Makefile.in (distdir): Make distdir in testsuite/ too.
+      (check): New target.
+    * testsuite/*: New files.
+
+    new files:
+     testsuite/.arch-ids/Makefile.in.id testsuite/.arch-ids/defs.id
+     testsuite/.arch-ids/do-test.id
+     testsuite/.arch-ids/syslog.test.id
+     testsuite/.arch-ids/version.test.id
+     testsuite/.arch-ids/syslog.in.id
+     testsuite/.arch-ids/syslog.ok.id testsuite/.arch-ids/=id
+     testsuite/Makefile.in testsuite/defs testsuite/do-test
+     testsuite/syslog.test testsuite/version.test
+     testsuite/syslog.in testsuite/syslog.ok
+
+    modified files:
+     ChangeLog Makefile.in Rules.mk.in configure.ac
+
+    new directories:
+     testsuite/.arch-ids testsuite
+
+
 2003-02-09 13:57:34 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-171
 
     Summary:

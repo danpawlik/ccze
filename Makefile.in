@@ -46,6 +46,7 @@ dist: ccze.spec
 	${MAKE} distdir
 	${MAKE} -C doc distdir
 	${MAKE} -C src distdir
+	${MAKE} -C testsuite distdir
 	${TAR} ${TAR_OPTIONS} -cf - ${PACKAGE}-${VERSION} | ${GZIP} ${GZIP_ENV} >${PACKAGE}-${VERSION}.tar.gz
 	test -z "${distdir}" || rm -rf "${distdir}"
 
@@ -62,5 +63,8 @@ distcheck: dist
 
 ccze.spec: ccze.spec.in Rules.mk ${top_srcdir}/ChangeLog
 	sed -e "s,@VERSION@,${VERSION},g" <${srcdir}/$@.in >$@
+
+check: all
+	${MAKE} -C testsuite check
 
 .PHONY: all-recursive

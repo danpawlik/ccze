@@ -125,6 +125,7 @@ Rules.mk
 Makefile
 doc/Makefile
 src/Makefile
+testsuite/Makefile
 ])
 
 AC_OUTPUT
