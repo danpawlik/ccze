@@ -16,7 +16,7 @@ SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
 		$(addprefix ccze-,$(addsuffix .c, ${PLUGINS}))
 HEADERS		= ccze.h ccze-color.h ccze-plugin.h ccze-wordcolor.h \
 		$(addprefix ccze-,$(addsuffix .h, ${PLUGINS}))
-PLUGINS		= httpd procmail squid sulog super syslog vsftpd
+PLUGINS		= exim httpd procmail squid sulog super syslog vsftpd
 PLUGIN_OBJS	= $(addsuffix .so,${PLUGINS})
 CLEANFILES	= ${OBJECTS:.o=.da} ${PLUGIN_OBJS}
 OBJECTS		= ccze.o ccze-color.o ccze-plugin.o ccze-wordcolor.o
@@ -50,6 +50,7 @@ ccze-plugin.o: ccze-plugin.c ${top_builddir}/system.h ccze.h ccze-plugin.h
 ccze-wordcolor.o: ccze-wordcolor.c ${top_builddir}/system.h ccze.h \
 		  ccze-wordcolor.h
 
+ccze-exim.so: ccze-exim.c ${top_builddir}/system.h ccze.h ccze-exim.h
 ccze-httpd.so: ccze-httpd.c ${top_builddir}/system.h ccze.h ccze-httpd.h
 ccze-procmail.so: ccze-procmail.c ${top_builddir}/system.h ccze.h ccze-procmail.h
 ccze-squid.so: ccze-squid.c ${top_builddir}/system.h ccze.h ccze-squid.h

@@ -120,7 +120,10 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {"user", CCZE_COLOR_USER},
   {"numbers", CCZE_COLOR_NUMBERS},
   {"subject", CCZE_COLOR_SUBJECT},
-  {"signal", CCZE_COLOR_SIGNAL}
+  {"signal", CCZE_COLOR_SIGNAL},
+  {"incoming", CCZE_COLOR_INCOMING},
+  {"outgoing", CCZE_COLOR_OUTGOING},
+  {"uniqn", CCZE_COLOR_UNIQN},
 };
 
 int
@@ -282,5 +285,8 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_BADWORD] = (BOLD YELLOW);
   ccze_color_table[CCZE_COLOR_GOODWORD] = (BOLD GREEN);
   ccze_color_table[CCZE_COLOR_SYSTEMWORD] = (BOLD CYAN);
+  ccze_color_table[CCZE_COLOR_INCOMING] = (BOLD WHITE);
+  ccze_color_table[CCZE_COLOR_OUTGOING] = (WHITE);
+  ccze_color_table[CCZE_COLOR_UNIQN] = (BOLD WHITE);
   ccze_color_table[CCZE_COLOR_LAST] = (CYAN);
 }

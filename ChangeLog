@@ -2,6 +2,31 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-28 16:36:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-62
+
+    Summary:
+      Exim mainlog colorisation module
+    Revision:
+      ccze--0.1--patch-62
+
+    * src/ccze-color.c (ccze_color_keyword_map): Added `incoming',
+      `outgoing', and `uniqn'.
+      (ccze_color_init): Initialise them.
+    * src/ccze-color.h (ccze_color_t): Added CCZE_COLOR_INCOMING,
+      CCZE_COLOR_OUTGOING, and CCZE_COLOR_UNIQN.
+    * src/ccze-exim.h: New file.
+    * src/ccze-exim.c: Likewise.
+    * Makefile.in (PLUGINS): Added `exim'.
+      (ccze-exim.so): New target.
+
+    new files:
+     src/.arch-ids/ccze-exim.c.id src/.arch-ids/ccze-exim.h.id
+     src/ccze-exim.c src/ccze-exim.h
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze-color.c src/ccze-color.h
+
+
 2002-09-28 15:33:51 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-61
 
     Summary:
