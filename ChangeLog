@@ -2,6 +2,30 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-07 21:10:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-160
+
+    Summary:
+      mod_php
+    Revision:
+      ccze--0.1--patch-160
+
+    * configure.ac (ALL_PLUGINS): Added php.
+    * src/mod_php.c: New file.
+    * src/ccze.h (ccze_color_t): Added CCZE_COLOR_KEYWORD.
+    * src/ccze-color.c (ccze_color_keyword_map): Added `keyword'.
+      (ccze_color_init): Initialize CCZE_COLOR_KEYWORD to bold yellow.
+    * src/ccze-wordcolor.c (words_error): Added fatal.
+    * doc/ccze.1 (PLUGINS): Mention mod_php.
+    * TODO: Removed relevant entry.
+
+    new files:
+     src/.arch-ids/mod_php.c.id src/mod_php.c
+
+    modified files:
+     ChangeLog TODO configure.ac doc/ccze.1.in src/ccze-color.c
+     src/ccze-wordcolor.c src/ccze.h
+
+
 2003-02-07 20:08:51 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-159
 
     Summary:

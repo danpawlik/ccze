@@ -105,8 +105,8 @@ AC_CHECK_FUNC(dlopen, [], [AC_CHECK_LIB(dl, dlopen)])
 dnl **********************
 dnl * Plugins
 dnl **********************
-ALL_PLUGINS="apm exim fetchmail httpd postfix procmail squid sulog super \
-	     syslog ulogd vsftpd xferlog"
+ALL_PLUGINS="apm exim fetchmail httpd php postfix procmail squid sulog \
+	     super syslog ulogd vsftpd xferlog"
 AC_SUBST(ALL_PLUGINS)
 AC_ARG_WITH(builtins,
 	   [  --with-builtins=LIST    Build the listed plugins into the binary],
