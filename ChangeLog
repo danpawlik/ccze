@@ -2,6 +2,30 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-13 09:26:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-14
+
+    Summary:
+      sulog colorisation
+    Revision:
+      ccze--0.1--patch-14
+
+    * src/ccze-sulog.h: New file.
+    * src/ccze-sulog.c: New file.
+    * src/ccze.h (CCZE_MATCH_SULOG): New enum member.
+    * src/ccze.c (main): Support sulog colorisation.
+    * src/Makefile.in (SOURCES): Added ccze-sulog.c.
+      (HEADERS): Added ccze-sulog.h.
+      (ccze.o): Depend on ccze-sulog.h too.
+      (ccze-sulog.o): New target.
+
+    new files:
+     src/.arch-ids/ccze-sulog.c.id src/.arch-ids/ccze-sulog.h.id
+     src/ccze-sulog.c src/ccze-sulog.h
+
+    modified files:
+     ChangeLog src/Makefile.in src/ccze.c src/ccze.h
+
+
 2002-09-13 08:47:31 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-13
 
     Summary:

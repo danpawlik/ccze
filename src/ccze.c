@@ -33,6 +33,7 @@
 #include "ccze-httpd.h"
 #include "ccze-procmail.h"
 #include "ccze-squid.h"
+#include "ccze-sulog.h"
 #include "ccze-syslog.h"
 #include "ccze-vsftpd.h"
 
@@ -112,11 +113,11 @@ main (int argc, char **argv)
   int match, offsets[99];
   pcre *regc_syslog, *regc_procmail_log, *regc_httpd_access_log;
   pcre *regc_squid_access_log, *regc_vsftpd_log, *regc_squid_cache_log;
-  pcre *regc_squid_store_log, *regc_httpd_error_log;
+  pcre *regc_squid_store_log, *regc_httpd_error_log, *regc_sulog;
   pcre_extra *hints_syslog, *hints_procmail_log, *hints_httpd_access_log;
   pcre_extra *hints_squid_access_log, *hints_vsftpd_log;
   pcre_extra *hints_squid_cache_log, *hints_squid_store_log;
-  pcre_extra *hints_httpd_error_log;
+  pcre_extra *hints_httpd_error_log, *hints_sulog;
     
   ccze_config.scroll = 1;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
@@ -149,6 +150,7 @@ main (int argc, char **argv)
   ccze_httpd_setup (&regc_httpd_access_log, &regc_httpd_error_log,
 		    &hints_httpd_access_log, &hints_httpd_error_log);
   ccze_vsftpd_setup (&regc_vsftpd_log, &hints_vsftpd_log);
+  ccze_sulog_setup (&regc_sulog, &hints_sulog);
   
   while (1)
     {
@@ -220,6 +222,15 @@ main (int argc, char **argv)
 	  rest = ccze_vsftpd_log_process (subject, offsets, match);
 	  handled = CCZE_MATCH_VSFTPD_LOG;
 	}
+
+      /** sulog **/
+      if ((match = pcre_exec (regc_sulog, hints_sulog, subject,
+			      strlen (subject), 0, 0, offsets, 99)) >= 0 &&
+	  handled == CCZE_MATCH_NONE)
+	{
+	  rest = ccze_sulog_process (subject, offsets, match);
+	  handled = CCZE_MATCH_SULOG;
+	}
       
       /** Syslog **/
       if ((match = pcre_exec (regc_syslog, hints_syslog, subject,
@@ -262,7 +273,9 @@ main (int argc, char **argv)
   free (hints_squid_store_log);
   free (regc_httpd_error_log);
   free (hints_httpd_error_log);
-  
+  free (regc_sulog);
+  free (hints_sulog);
+    
   sigint_handler (0);
   
   return 0;
