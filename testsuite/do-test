@@ -19,23 +19,29 @@
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
 # Run the test saving stderr to a file, and showing stdout if VERBOSE == 1
-if test -f $testname.in; then
-	${RUNPROG} ${PROG_CMDLINE} < $testname.in 2>$testname.err | tee -i \
-		$testname.out >&2
+if test -f ${srcdir}/${testname}.in; then
+	${RUNPROG} ${PROG_CMDLINE} < ${srcdir}/${testname}.in \
+		2>${testname}.err | tee -i ${testname}.out >&2
 else
-	${RUNPROG} ${PROG_CMDLINE} 2>$testname.err | tee -i $testname.out >&2
+	if test -f ${testname}.in; then
+		${RUNPROG} ${PROG_CMDLINE} < ${testname}.in \
+			2>${testname}.err | tee -i ${testname}.out >&2
+	else
+		${RUNPROG} ${PROG_CMDLINE} 2>${testname}.err | \
+			tee -i ${testname}.out >&2
+	fi
 fi
 
-if test -f $testname.ok; then
-	TEST_OK_LIST=${TEST_OK_LIST-$testname.ok}
+if test -f ${testname}.ok; then
+	TEST_OK_LIST=${TEST_OK_LIST-${testname}.ok}
 fi
 
-if test -f $testname.errok; then
-	TEST_ERROK_LIST=${TEST_ERROK_LIST-$testname.ok}
+if test -f ${testname}.errok; then
+	TEST_ERROK_LIST=${TEST_ERROK_LIST-${testname}.ok}
 fi
 
 # Test against expected output
-case x$TEST_OK_LIST in
+case x${TEST_OK_LIST} in
 	x)
 		TEST_OK=yes
 		;;
@@ -44,28 +50,26 @@ case x$TEST_OK_LIST in
 		;;
 esac
 
-for f in $TEST_OK_LIST; do
+for f in ${TEST_OK_LIST}; do
 	if test -f $f; then
-		if ${CMP} -s $testname.out $f; then
+		if ${CMP} -s ${testname}.out $f; then
 			TEST_OK=yes
 		fi
 	fi
 done
 
-if test $TEST_OK = yes; then
-	:
-else
+if ! test ${TEST_OK} = yes; then
 	echo "ok:" >&2
-	cat $testname.ok >&2
+	cat ${testname}.ok >&2
 	exit 1
 fi
 
 # Munge error output to remove leading directories, `lt-' or trailing `.exe'
-sed -e "s,^[^:]*[lt-]*$PACKAGE[.ex]*:,$PACKAGE:," $testname.err > sederr && \
-	mv sederr $testname.err
+sed -e "s,^[^:]*[lt-]*${PACKAGE}[.ex]*:,${PACKAGE}:," \
+	${testname}.err > sederr && mv sederr ${testname}.err
 
 # Show stderr if doesn't match expected output if VERBOSE == 1
-case x$TEST_ERROK_LIST in
+case x${TEST_ERROK_LIST} in
 	x)
 		TEST_ERROK=yes
 		;;
@@ -74,20 +78,18 @@ case x$TEST_ERROK_LIST in
 		;;
 esac
 
-for f in $TEST_ERROK_LIST; do
+for f in ${TEST_ERROK_LIST}; do
 	if test -f $f; then
-		if $CMP -s $testname.err $testname.errok; then
+		if ${CMP} -s ${testname}.err ${testname}.errok; then
 			TEST_ERROK=yes
 		fi
 	fi
 done
 
-if test $TEST_ERROK = yes; then
-	:
-else
+if ! test ${TEST_ERROK} = yes; then
 	echo "err:" >&2
-	cat $testname.err >&2
+	cat ${testname}.err >&2
 	echo "errok:" >&2
-	cat $testname.errok >&2
+	cat ${testname}.errok >&2
 	exit 1
 fi

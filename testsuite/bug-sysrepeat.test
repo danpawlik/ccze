@@ -1,5 +1,6 @@
 #! /bin/sh
-## color.test -- Check if CCZE produces correct output	-*- sh -*-
+## bug-sysrepeat.test -- Check if syslog-ng "repeated n times" stuff is ok
+## -*- sh -*-
 ## Copyright (C) 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
 ##
 ## This file is part of CCZE.
@@ -18,31 +19,15 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
+DESCRIPTION="Check if syslog-ngs repeat marker is colorised right"
+PROG_CMDLINE="-F /dev/null -psyslog -o nolookups -d"
+
 # Common definitions
-if test -z "$srcdir"; then
+if test -z "${srcdir}"; then
 	srcdir=`echo "$0" | sed 's,[^/]*$,,'`
-	test "$srcdir" = "$0" && srcdir=.
-	test -z "$srcdir" && srcdir=.
+	test "${srcdir}" = "$0" && srcdir=.
+	test -z "${srcdir}" && srcdir=.
 	test "${VERBOSE+set}" != set && VERBOSE=1
 fi
-. $srcdir/defs
-
-SUBTESTS="apm bug-wnum exim procmail syslog"
-SUBTEST_PLUGINS="apm:syslog,apm bug-wnum:syslog"
-
-for subtest in ${SUBTESTS}; do
-	subtest_plugins=$(echo ${SUBTEST_PLUGINS} | grep "$subtest:" | \
-		sed -e "s,^.*\(${subtest}:[^ ]*\).*,\1," \
-		    -e "s,.*:,-p ,")
-	if [ -z "${subtest_plugins}" ]; then
-		echo foo
-		subtest_plugins="-p ${subtest}"
-	fi
-	echo "$subtest::${subtest_plugins}"
-	cp ${srcdir}/$subtest.ok $testname.ok
-	cp ${srcdir}/$subtest.in $testname.in
-
-	PROG_CMDLINE="-F /dev/null ${subtest_plugins} -o nolookups -d"
-
-	. ${srcdir}/do-test
-done
+. ${srcdir}/defs
+. ${srcdir}/do-test

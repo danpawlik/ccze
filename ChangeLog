@@ -2,6 +2,80 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-12 16:23:33 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-225
+
+    Summary:
+      Testsuite overhaul
+    Revision:
+      ccze--0.1--patch-225
+
+    * testsuite/defs: Support VERBOSE=1 - echoing which test it runs, and a
+      description - and VERBOSE=* - the old behaviour.
+    * testsuite/do-test: Check for the ${testname}.in file in both the
+      objdir, and the sourcedir.
+    * testsuite/exim.in: Removed.
+    * testsuite/exim.ok: Likewise.
+    * testsuite/apm.in: Likewise.
+    * testsuite/apm.ok: Likewise.
+    * testsuite/color.test: Likewise.
+    * testsuite/bug-wnum.test: New test, extracted from the former
+      color.test.
+    * testsuite/bug-procmailsubj.test: Likewise.
+    * testsuite/procmail.in: Renamed to...
+    * testsuite/bug-procmailsubj.in: ...this.
+    * testsuite/procmail.ok: Renamed to...
+    * testsuite/bug-procmailsubj.ok: ...this.
+    * testsuite/bug-wnum.test: New test, extracted from the former
+      color.test.
+    * testsuite/bug-sysrepeat.test: Likewise.
+    * testsuite/syslog.in: Renamed to...
+    * testsuite/bug-sysrepeat.in: ...this.
+    * testsuite/syslog.ok: Renamed to...
+    * testsuite/bug-sysrepeat.ok: ...this.
+    * testsuite/Makefile.in (TESTS): Updated according to the above
+      changes.
+      (TEST_IO): New variable.
+      (EXTRA_DIST): Compute dynamically using ${TEST_IO}.
+    * testsuite/version.test: Added DESCRIPTION.
+
+    new files:
+     testsuite/.arch-ids/bug-procmailsubj.test.id
+     testsuite/.arch-ids/bug-sysrepeat.test.id
+     testsuite/.arch-ids/bug-wnum.test.id
+     testsuite/bug-procmailsubj.test testsuite/bug-sysrepeat.test
+     testsuite/bug-wnum.test
+
+    removed files:
+     testsuite/.arch-ids/apm.in.id testsuite/.arch-ids/apm.ok.id
+     testsuite/.arch-ids/exim.in.id testsuite/.arch-ids/exim.ok.id
+     testsuite/.arch-ids/color.test.id testsuite/apm.in
+     testsuite/apm.ok testsuite/exim.in testsuite/exim.ok
+     testsuite/color.test
+
+    modified files:
+     ChangeLog testsuite/Makefile.in testsuite/defs
+     testsuite/do-test testsuite/version.test
+
+    renamed files:
+     testsuite/.arch-ids/syslog.in.id
+       ==> testsuite/.arch-ids/bug-sysrepeat.in.id
+     testsuite/.arch-ids/syslog.ok.id
+       ==> testsuite/.arch-ids/bug-sysrepeat.ok.id
+     testsuite/.arch-ids/procmail.in.id
+       ==> testsuite/.arch-ids/bug-procmailsubj.in.id
+     testsuite/.arch-ids/procmail.ok.id
+       ==> testsuite/.arch-ids/bug-procmailsubj.ok.id
+     testsuite/syslog.in
+       ==> testsuite/bug-sysrepeat.in
+     testsuite/syslog.ok
+       ==> testsuite/bug-sysrepeat.ok
+     testsuite/procmail.in
+       ==> testsuite/bug-procmailsubj.in
+     testsuite/procmail.ok
+       ==> testsuite/bug-procmailsubj.ok
+
+
+
 2003-03-11 08:14:43 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-224
 
     Summary:

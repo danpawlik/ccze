@@ -1,5 +1,6 @@
 #! /bin/sh
-## version.test -- Test if CCZE responds to --version	-*- sh -*-
+## bug-wnum.test -- Check if single digits are wordcolored right
+## -*- sh -*-
 ## Copyright (C) 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
 ##
 ## This file is part of CCZE.
@@ -18,8 +19,8 @@
 ## along with this program; if not, write to the Free Software
 ## Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
 
-DESCRIPTION="Test if CCZE responds to -V"
-PROG_CMDLINE="-V"
+DESCRIPTION="Check if single digits are wordcolored right"
+PROG_CMDLINE="-F /dev/null -psyslog -o nolookups -d"
 
 # Common definitions
 if test -z "${srcdir}"; then
@@ -29,11 +30,4 @@ if test -z "${srcdir}"; then
 	test "${VERBOSE+set}" != set && VERBOSE=1
 fi
 . ${srcdir}/defs
-
-TEST_OK_LIST="${testname}.ok"
-
-cat >${testname}.ok <<EOF
-ccze ${VERSION}
-EOF
-
 . ${srcdir}/do-test

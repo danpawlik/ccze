@@ -11,10 +11,15 @@ include ../Rules.mk
 
 TESTS_ENVIRONMENT       = top_builddir=$(top_builddir) \
 			VERSION=$(VERSION)
-TESTS                   = version.test color.test
+TESTS                   = version.test bug-wnum.test bug-procmailsubj.test \
+			bug-sysrepeat.test
+TEST_IO			= $(foreach test,${TESTS},\
+				$(addsuffix .ok,$(basename $(test)))) \
+			$(foreach test,${TESTS},\
+				$(addsuffix .in,$(basename $(test))))
 EXTRA_DIST		= defs do-test \
-			syslog.in syslog.ok apm.in apm.ok exim.in exim.ok \
-			procmail.in procmail.ok bug-wnum.in bug-wnum.ok
+			$(filter-out version.in,$(filter-out version.ok,\
+				${TEST_IO}))
 
 ## -- Standard targets -- ##
 all: ;
