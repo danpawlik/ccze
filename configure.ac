@@ -75,9 +75,6 @@ dnl **********************
 AC_HEADER_STDC
 AC_HEADER_DIRENT
 AC_CHECK_HEADERS([argp.h getopt.h netdb.h fcntl.h])
-AC_CHECK_HEADER([pcre.h],
-                [AC_DEFINE_UNQUOTED(HAVE_PCRE_H, 1, [Define to 1 if you have
-the <pcre.h> header file.])], [AC_CHECK_HEADERS([pcre/pcre.h])])
 
 dnl **********************
 dnl * Typedefs & co
@@ -98,9 +95,21 @@ AC_FUNC_STAT
 AC_CHECK_FUNCS([alphasort argp_parse asprintf getline getsubopt memset \
 		scandir strcasecmp strchr strdup strndup strstr])
 
-AC_CHECK_LIB(pcre, pcre_exec, [], [AC_ERROR(PCRE library not found)])
 AC_CHECK_LIB(ncurses, initscr, [], [AC_ERROR(NCurses library not found)])
 AC_CHECK_FUNC(dlopen, [], [AC_CHECK_LIB(dl, dlopen)])
+
+if test -z "${PCRE_CONFIG}"; then
+	AC_PATH_PROG(PCRE_CONFIG, pcre-config, no)
+fi
+AC_MSG_CHECKING(for PCRE)
+if test "${PCRE_CONFIG}" = "no"; then
+	AC_ERROR(PCRE not found)
+fi
+PCRE_CFLAGS=$($PCRE_CONFIG --cflags)
+PCRE_LIBS=$($PCRE_CONFIG --libs)
+AC_SUBST(PCRE_CFLAGS)
+AC_SUBST(PCRE_LIBS)
+AC_MSG_RESULT(found)
 
 dnl **********************
 dnl * Plugins

@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-13 16:22:32 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-187
+
+    Summary:
+      Use pcre-config
+    Revision:
+      ccze--0.1--patch-187
+
+    * configure.ac: Disabled the pcre.h and pcre/pcre.h tests, likewise the
+      -lpcre test. Use pcre-config instead.
+    * src/Makefile.in (ALL_CFLAGS): Added @PCRE_CFLAGS@.
+      (LIBS): Added @PCRE_LIBS@.
+    * src/ccze.h: #include <pcre.h>, unconditionally.
+
+    modified files:
+     ChangeLog configure.ac src/Makefile.in src/ccze.h
+
+
 2003-02-12 22:44:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-186
 
     Summary:

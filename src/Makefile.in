@@ -26,9 +26,9 @@ WFLAGS_GCC	= -Wshadow -Wpointer-arith -Waggregate-return \
 WFLAGS_ICC	= -Wall -wd193,279,810,869,1418,1419
 WFLAGS_3X	= -Wsequence-point -Wdiv-by-zero -W -Wunused \
 		-Wno-unused-parameter -Wno-unused-function
-ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${WFLAGS} ${CFLAGS}
+ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${WFLAGS} ${CFLAGS} @PCRE_CFLAGS@
 
-LIBS		= @LIBS@
+LIBS		= @PCRE_LIBS@ @LIBS@
 
 SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
 		$(addprefix mod_,$(addsuffix .c, ${ALL_PLUGINS})) \

@@ -25,12 +25,7 @@
 #ifdef HAVE_SYSTEM_H
 # include "system.h"
 #endif
-#ifdef HAVE_PCRE_H
-# define PCRE_H <pcre.h>
-#elif HAVE_PCRE_PCRE_H
-# define PCRE_H <pcre/pcre.h>
-#endif
-#include PCRE_H
+#include <pcre.h>
 #include <curses.h>
 #include <stddef.h>
 
