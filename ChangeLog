@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-12 21:29:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-79
+
+    Summary:
+      Various updates under debian/
+    Revision:
+      ccze--0.1--patch-79
+
+    * debian/rules (install): We need root privileges for this target.
+    * debian/copyright: Changed my e-mail address, and replaced the
+      standard GPL header with one tuned for CCZE.
+    * debian/control (Maintainer): Changed my e-mail address.
+
+    modified files:
+     ChangeLog debian/control debian/copyright debian/rules
+
+
 2002-10-12 21:20:36 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-78
 
     Summary:

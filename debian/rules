@@ -33,7 +33,7 @@ clean:
 	rm -rf ${PKGDIR}
 
 install: build
-	test -e debian/control
+	test -e debian/control && test "x`whoami`" = "xroot"
 	install -d ${PKGDIR}/usr/share/doc/${PACKAGE} ${PKGDIR}/etc
 	${MAKE} install DESTDIR=${PKGDIR}
 	install -m 0644 NEWS THANKS TODO \
