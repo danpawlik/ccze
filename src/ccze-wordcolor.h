@@ -25,5 +25,6 @@
 void ccze_wordcolor_process (const char *msg, int wcol, int slookup);
 void ccze_wordcolor_setup (void);
 void ccze_wordcolor_shutdown (void);
-
+void ccze_wordcolor_process_one (char *word, int slookup);
+     
 #endif /* !_CCZE_WORDCOLOR_H */

@@ -2,6 +2,31 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-11-18 18:16:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-83
+
+    Summary:
+      Some stuff reorganised
+    Revision:
+      ccze--0.1--patch-83
+
+    * src/ccze-wordcolor.h (ccze_wordcolor_process_one): New prototype.
+    * src/ccze-wordcolor.c (ccze_wordcolor_process_one): New function.
+      (ccze_wordcolor_process): Use it.
+      (xstrdup): Moved to src/ccze.c.
+      (_my_strbrk): Likewise.
+    * src/ccze.h (xstrdup): New prototype.
+      (ccze_strbrk): Likewise.
+    * src/ccze.c (xstrdup): Moved here from src/ccze-wordcolor.c.
+      (ccze_strbrk): Likewise.
+    * src/ccze-color.h (ccze_color_t): Added _FIELD and _CHAIN.
+    * src/ccze-color.c: Added support code for them.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze-color.h
+     src/ccze-wordcolor.c src/ccze-wordcolor.h src/ccze.c
+     src/ccze.h
+
+
 2002-11-04 20:01:50 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-82
 
     Summary:

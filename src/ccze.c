@@ -88,6 +88,45 @@ static char *o_subopts[] = {
   [CCZE_O_SUBOPT_END] = NULL
 };
 
+static char *_strbrk_string;
+static size_t _strbrk_string_len;
+
+char *
+ccze_strbrk (char *str, char delim)
+{
+  char *found;
+      
+  if (str)
+    {
+      _strbrk_string = str;
+      _strbrk_string_len = strlen (str);
+      found = str;
+    }
+  else
+    found = _strbrk_string + 1;
+  
+  if (!_strbrk_string_len)
+    return NULL;
+  while (_strbrk_string_len >= 1 &&
+	 *_strbrk_string != delim)
+    {
+      _strbrk_string++;
+      _strbrk_string_len--;
+    }
+  if (_strbrk_string_len > 0)
+    *_strbrk_string = '\0';
+  return found;
+}
+
+char *
+xstrdup (const char *str)
+{
+  if (!str)
+    return NULL;
+  else
+    return strdup (str);
+}
+
 static error_t
 parse_opt (int key, char *arg, struct argp_state *state)
 {

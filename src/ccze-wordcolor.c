@@ -58,15 +58,6 @@ static char *words_system[] = {
 };
 
 static char *
-xstrdup (const char *str)
-{
-  if (!str)
-    return NULL;
-  else
-    return strdup (str);
-}
-
-static char *
 _stolower (const char *str)
 {
   char *newstr = strdup (str);
@@ -78,45 +69,130 @@ _stolower (const char *str)
   return newstr;
 }
 
-static char *_strbrk_string;
-static size_t _strbrk_string_len;
-
-static char *
-_my_strbrk (char *str, char delim)
+void
+ccze_wordcolor_process_one (char *word, int slookup)
 {
-  char *found;
-      
-  if (str)
+  size_t wlen;
+  int offsets[99];
+  int col;
+  int match;
+  char *pre = NULL, *post = NULL, *tmp, *lword;
+
+  col = CCZE_COLOR_DEFAULT;
+
+  /** prefix **/
+  if ((match = pcre_exec (reg_pre, NULL, word, strlen (word), 0, 0,
+			  offsets, 99)) >= 0)
     {
-      _strbrk_string = str;
-      _strbrk_string_len = strlen (str);
-      found = str;
+      pcre_get_substring (word, offsets, match, 1, (const char **)&pre);
+      pcre_get_substring (word, offsets, match, 2, (const char **)&tmp);
+      free (word);
+      word = tmp;
     }
   else
-    found = _strbrk_string + 1;
-  
-  if (!_strbrk_string_len)
-    return NULL;
-  while (_strbrk_string_len >= 1 &&
-	 *_strbrk_string != delim)
+    pre = NULL;
+
+  /** postfix **/
+  if ((match = pcre_exec (reg_post, NULL, word, strlen (word), 0, 0,
+			  offsets, 99)) >= 0)
     {
-      _strbrk_string++;
-      _strbrk_string_len--;
+      pcre_get_substring (word, offsets, match, 1, (const char **)&tmp);
+      pcre_get_substring (word, offsets, match, 2, (const char **)&post);
+      free (word);
+      word = tmp;
     }
-  if (_strbrk_string_len > 0)
-    *_strbrk_string = '\0';
-  return found;
+  else
+    post = NULL;
+
+  wlen = strlen (word);
+  lword = _stolower (word);
+      
+  /** Host **/
+  if (pcre_exec (reg_host, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_HOST;
+  /** MAC address **/
+  else if (pcre_exec (reg_mac, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_MAC;
+  /** Directory **/
+  else if (lword[0] == '/')
+    col = CCZE_COLOR_DIR;
+  /** E-mail **/
+  else if (pcre_exec (reg_email, NULL, lword, wlen, 0, 0, offsets, 99)
+	   >= 0 && pcre_exec (reg_email2, NULL, lword, wlen, 0, 0,
+			      offsets,99) >= 0)
+    col = CCZE_COLOR_EMAIL;
+  /** URI **/
+  else if (pcre_exec (reg_uri, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_URI;
+  /** Size **/
+  else if (pcre_exec (reg_size, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_SIZE;
+  /** Version **/
+  else if (pcre_exec (reg_ver, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_VERSION;
+  /** Time **/
+  else if (pcre_exec (reg_time, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_DATE;
+  /** Address **/
+  else if (pcre_exec (reg_addr, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_ADDRESS;
+  /** Number **/
+  else if (pcre_exec (reg_num, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_NUMBERS;
+  /** Signal **/
+  else if (pcre_exec (reg_sig, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
+    col = CCZE_COLOR_SIGNAL;
+  /** Service **/
+  else if (slookup && getservbyname (lword, NULL))
+    col = CCZE_COLOR_SERVICE;
+  /** Protocol **/
+  else if (slookup && getprotobyname (lword))
+    col = CCZE_COLOR_PROT;
+  /** User **/
+  else if (slookup && getpwnam (lword))
+    col = CCZE_COLOR_USER;
+  else
+    { /* Good/Bad/System words */
+      size_t i;
+      
+      for (i = 0; i < sizeof (words_bad) / sizeof (char *); i++)
+	{
+	  if (strstr (lword, words_bad[i]) == lword)
+	    col = CCZE_COLOR_BADWORD;
+	}
+      for (i = 0; i < sizeof (words_good) / sizeof (char *); i++)
+	{
+	  if (strstr (lword, words_good[i]) == lword)
+	    col = CCZE_COLOR_GOODWORD;
+	}
+      for (i = 0; i < sizeof (words_error) / sizeof (char *); i++)
+	{
+	  if (strstr (lword, words_error[i]) == lword)
+	    col = CCZE_COLOR_ERROR;
+	}
+      for (i = 0; i < sizeof (words_system) / sizeof (char *); i++)
+	{
+	  if (strstr (lword, words_system[i]) == lword)
+	    col = CCZE_COLOR_SYSTEMWORD;
+	}
+    }
+      
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, pre);
+  CCZE_ADDSTR (col, word);
+  CCZE_ADDSTR (CCZE_COLOR_DEFAULT, post);
+  ccze_space ();
+      
+  free (lword);
+  free (word);
+  free (post);
+  free (pre);
 }
 
 void
 ccze_wordcolor_process (const char *msg, int wcol, int slookup)
 {
-  char *word, *tmp, *lword;
+  char *word;
   char *msg2 = strdup (msg);
-  char *pre = NULL, *post = NULL;
-  int offsets[99];
-  int col;
-  int match;
 
   if (!wcol)
     {
@@ -133,7 +209,7 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
       return;
     }
 
-  word = xstrdup (_my_strbrk (msg2, ' '));
+  word = xstrdup (ccze_strbrk (msg2, ' '));
   if (!word)
     {
       CCZE_ADDSTR (CCZE_COLOR_DEFAULT, msg);
@@ -144,116 +220,8 @@ ccze_wordcolor_process (const char *msg, int wcol, int slookup)
   
   do
     {
-      size_t wlen;
-      col = CCZE_COLOR_DEFAULT;
-
-      /** prefix **/
-      if ((match = pcre_exec (reg_pre, NULL, word, strlen (word), 0, 0,
-			      offsets, 99)) >= 0)
-	{
-	  pcre_get_substring (word, offsets, match, 1, (const char **)&pre);
-	  pcre_get_substring (word, offsets, match, 2, (const char **)&tmp);
-	  free (word);
-	  word = tmp;
-	}
-      else
-	pre = NULL;
-
-      /** postfix **/
-      if ((match = pcre_exec (reg_post, NULL, word, strlen (word), 0, 0,
-			      offsets, 99)) >= 0)
-	{
-	  pcre_get_substring (word, offsets, match, 1, (const char **)&tmp);
-	  pcre_get_substring (word, offsets, match, 2, (const char **)&post);
-	  free (word);
-	  word = tmp;
-	}
-      else
-	post = NULL;
-
-      wlen = strlen (word);
-      lword = _stolower (word);
-      
-      /** Host **/
-      if (pcre_exec (reg_host, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-	col = CCZE_COLOR_HOST;
-      /** MAC address **/
-      else if (pcre_exec (reg_mac, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-	col = CCZE_COLOR_MAC;
-      /** Directory **/
-      else if (lword[0] == '/')
-	col = CCZE_COLOR_DIR;
-      /** E-mail **/
-      else if (pcre_exec (reg_email, NULL, lword, wlen, 0, 0, offsets, 99)
-	       >= 0 && pcre_exec (reg_email2, NULL, lword, wlen, 0, 0,
-				  offsets,99) >= 0)
-	col = CCZE_COLOR_EMAIL;
-      /** URI **/
-      else if (pcre_exec (reg_uri, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-      	col = CCZE_COLOR_URI;
-      /** Size **/
-      else if (pcre_exec (reg_size, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-      	col = CCZE_COLOR_SIZE;
-      /** Version **/
-      else if (pcre_exec (reg_ver, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-	col = CCZE_COLOR_VERSION;
-      /** Time **/
-      else if (pcre_exec (reg_time, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-	col = CCZE_COLOR_DATE;
-      /** Address **/
-      else if (pcre_exec (reg_addr, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-	col = CCZE_COLOR_ADDRESS;
-      /** Number **/
-      else if (pcre_exec (reg_num, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-	col = CCZE_COLOR_NUMBERS;
-      /** Signal **/
-      else if (pcre_exec (reg_sig, NULL, lword, wlen, 0, 0, offsets, 99) >= 0)
-	col = CCZE_COLOR_SIGNAL;
-      /** Service **/
-      else if (slookup && getservbyname (lword, NULL))
-	col = CCZE_COLOR_SERVICE;
-      /** Protocol **/
-      else if (slookup && getprotobyname (lword))
-	col = CCZE_COLOR_PROT;
-      /** User **/
-      else if (slookup && getpwnam (lword))
-	col = CCZE_COLOR_USER;
-      else
-	{ /* Good/Bad/System words */
-	  size_t i;
-	  
-	  for (i = 0; i < sizeof (words_bad) / sizeof (char *); i++)
-	    {
-	      if (strstr (lword, words_bad[i]) == lword)
-		col = CCZE_COLOR_BADWORD;
-	    }
-	  for (i = 0; i < sizeof (words_good) / sizeof (char *); i++)
-	    {
-	      if (strstr (lword, words_good[i]) == lword)
-		col = CCZE_COLOR_GOODWORD;
-	    }
-	  for (i = 0; i < sizeof (words_error) / sizeof (char *); i++)
-	    {
-	      if (strstr (lword, words_error[i]) == lword)
-		col = CCZE_COLOR_ERROR;
-	    }
-	  for (i = 0; i < sizeof (words_system) / sizeof (char *); i++)
-	    {
-	      if (strstr (lword, words_system[i]) == lword)
-		col = CCZE_COLOR_SYSTEMWORD;
-	    }
-	}
-      
-      CCZE_ADDSTR (CCZE_COLOR_DEFAULT, pre);
-      CCZE_ADDSTR (col, word);
-      CCZE_ADDSTR (CCZE_COLOR_DEFAULT, post);
-      ccze_space ();
-      
-      free (lword);
-      free (word);
-      free (post);
-      free (pre);
-    } while ((word = xstrdup (_my_strbrk (NULL, ' '))) != NULL);
+      ccze_wordcolor_process_one (word, slookup);
+    } while ((word = xstrdup (ccze_strbrk (NULL, ' '))) != NULL);
 
   free (msg2);
   

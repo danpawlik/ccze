@@ -124,7 +124,8 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {"incoming", CCZE_COLOR_INCOMING},
   {"outgoing", CCZE_COLOR_OUTGOING},
   {"uniqn", CCZE_COLOR_UNIQN},
-  {"repeat", CCZE_COLOR_REPEAT}
+  {"repeat", CCZE_COLOR_REPEAT},
+  {"field", CCZE_COLOR_FIELD}
 };
 
 int
@@ -292,5 +293,7 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_OUTGOING] = (WHITE);
   ccze_color_table[CCZE_COLOR_UNIQN] = (BOLD WHITE);
   ccze_color_table[CCZE_COLOR_REPEAT] = (WHITE);
+  ccze_color_table[CCZE_COLOR_FIELD] = (GREEN);
+  ccze_color_table[CCZE_COLOR_CHAIN] = (CYAN);
   ccze_color_table[CCZE_COLOR_LAST] = (CYAN);
 }

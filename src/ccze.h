@@ -31,5 +31,7 @@
 
 int ccze_http_action (const char *method);
 void ccze_print_date (const char *date);
+char *ccze_strbrk (char *str, char delim);
+char *xstrdup (const char *str);
 
 #endif /* !_CCZE_H */
