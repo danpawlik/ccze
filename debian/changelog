@@ -1,3 +1,9 @@
+ccze (0.1.212-1) unstable; urgency=low
+
+  * The `Avatar' release.
+
+ -- Gergely Nagy <algernon@bonehunter.rulez.org>  Tue,  4 Mar 2003 19:32:32 +0100
+
 ccze (0.1.200-1) unstable; urgency=low
 
   * The `Enigma of the Absolute' release.

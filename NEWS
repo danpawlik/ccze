@@ -1,5 +1,14 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.212 [Avatar] -- 2003-03-04
+
+Implemented support for passing arguments to plugins. None of the
+plugins shipped with CCZE support this, however, external plugins
+might (and do, for that matter, see the homepage).
+
+Also, some minor bugs (misformatting on the manual page, garbled
+output, and not properly recognised procmail logs) were also squashed.
+
 * CCZE 0.1.200 [Enigma of the Absolute] -- 2003-02-21
 
 During the past few weeks, CCZE was ported to Cygwin and Tru64 (many

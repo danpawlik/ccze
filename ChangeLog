@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-04 18:54:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-212
+
+    Summary:
+      The `Avatar' release
+    Revision:
+      ccze--0.1--patch-212
+
+      (Instrumental)
+    
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+
+    modified files:
+     ChangeLog NEWS debian/changelog
+
+
 2003-03-04 18:51:24 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-211
 
     Summary:
