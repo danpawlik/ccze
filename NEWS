@@ -1,5 +1,10 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.103 [For My Fallen Angel] -- 2002.12.02.
+
+Many internal cleanups and documentation updates, support for built-in
+and partial plugins, and more.
+
 * CCZE 0.1.91 [Like Gods of the Sun] -- 2002.11.19.
 
 Major restructuring in the plugin code: cleaner, better, lighter. The

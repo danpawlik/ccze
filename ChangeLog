@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-12-02 19:48:38 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-103
+
+    Summary:
+      The `For My Fallen Angel' release.
+    Revision:
+      ccze--0.1--patch-103
+
+      "Loves golden arrow
+      At her should have fled,
+      And not Deaths ebon dart
+      To strike her dead."
+    
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+
+    modified files:
+     ChangeLog NEWS debian/changelog
+
+
 2002-12-02 14:53:01 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-102
 
     Summary:
