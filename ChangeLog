@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-24 16:32:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-58
+
+    Summary:
+      --plugin support
+    Revision:
+      ccze--0.1--patch-58
+
+    * src/ccze.c (ccze_config): Added pluginlist, pluginlist_len and
+      pluginlist_alloc members.
+      (options): Added --plugin.
+      (parse_opt): Handle --plugin.
+      (main): If no --plugin option was given, try to load all of them. If
+      there was at least one, only load the ones which were explicitly
+      specified.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2002-09-24 16:18:32 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-57
 
     Summary:

@@ -42,6 +42,8 @@ struct
   int wcol;
   int slookup;
   char *rcfile;
+  char **pluginlist;
+  size_t pluginlist_alloc, pluginlist_len;
 } ccze_config;
 
 static short colors[] = {COLOR_BLACK, COLOR_RED, COLOR_GREEN, COLOR_YELLOW,
@@ -59,6 +61,7 @@ static struct argp_option options[] = {
   {"convert-date", 'C', NULL, 0, "Convert UNIX timestamps to readable format", 1},
   {"no-word-color", -101, NULL, 0, "Disable word coloring", 1},
   {"no-service-lookup", -102, NULL, 0, "Disable service lookups", 1},
+  {"plugin", 'p', "PLUGIN", 0, "Load PLUGIN", 1},
   {NULL, 0, NULL, 0,  NULL, 0}
 };
 static error_t parse_opt (int key, char *arg, struct argp_state *state);
@@ -70,6 +73,15 @@ parse_opt (int key, char *arg, struct argp_state *state)
 {
   switch (key)
     {
+    case 'p':
+      ccze_config.pluginlist[ccze_config.pluginlist_len++] = arg;
+      if (ccze_config.pluginlist_len >= ccze_config.pluginlist_alloc)
+	{
+	  ccze_config.pluginlist_alloc *= 2;
+	  ccze_config.pluginlist = (char **)realloc
+	    (ccze_config.pluginlist, ccze_config.pluginlist_alloc * sizeof (char *));
+	}
+      break;
     case 'F':
       ccze_config.rcfile = arg;
       break;
@@ -172,12 +184,17 @@ main (int argc, char **argv)
   size_t subjlen = 0;
   int i, j;
   char *homerc, *home;
-  
+  size_t plugins_alloc, plugins_len = 0;
+    
   ccze_config.scroll = 1;
   ccze_config.convdate = 0;
   ccze_config.wcol = 1;
   ccze_config.slookup = 1;
   ccze_config.rcfile = NULL;
+  ccze_config.pluginlist_len = 0;
+  ccze_config.pluginlist_alloc = 10;
+  ccze_config.pluginlist = (char **)calloc (ccze_config.pluginlist_alloc,
+					    sizeof (char *));
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 
   initscr ();
@@ -216,8 +233,27 @@ main (int argc, char **argv)
     }
 
   ccze_wordcolor_setup ();
-  plugins = ccze_plugin_load_all ();
-
+  if (ccze_config.pluginlist_len == 0)
+    plugins = ccze_plugin_load_all ();
+  else
+    {
+      ccze_plugin_t *plugin;
+      
+      plugins_len = 0;
+      plugins_alloc = 10;
+      plugins = (ccze_plugin_t **)calloc (plugins_alloc, sizeof (ccze_plugin_t *));
+      while (ccze_config.pluginlist_len-- > 0)
+	{
+	  plugin = ccze_plugin_load (ccze_config.pluginlist[ccze_config.pluginlist_len]);
+	  plugins[plugins_len++] = plugin;
+	  if (plugins_len >= plugins_alloc)
+	    {
+	      plugins_alloc *= 2;
+	      plugins = (ccze_plugin_t **)realloc (plugins, plugins_alloc * sizeof (ccze_plugin_t *));
+	    }
+	}
+    }
+    
   i = 0;
   while (plugins[i])
     (*(plugins[i++]->startup))();
