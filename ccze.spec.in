@@ -1,4 +1,5 @@
 %define version @VERSION@
+%define dist @DIST@
 %define release 1
 
 Summary: A robust log colorizer
@@ -10,7 +11,7 @@ Packager: Gergely Nagy <algernon@bonehunter.rulez.org>
 URL: http://bonehunter.rulez.org/CCZE.html
 Copyright: GPL
 Group: Applications/Text
-Source: ftp://bonehunter.rulez.org/pub/ccze/stable/ccze-%{version}.tar.gz
+Source: ftp://bonehunter.rulez.org/pub/ccze/%{dist}/ccze-%{version}.tar.gz
 BuildRoot: %{_tmppath}/%{name}-root
 BuildPrereq: ncurses-devel >= 5.0, pcre-devel >= 3.1
 
@@ -46,6 +47,8 @@ rm -rf %{buildroot}
 %{_mandir}/man7/ccze-plugin.7*
 
 %changelog
+* Sat Mar 29 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+- Support different distributions than CCZE stable.
 * Tue Feb 25 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
 - Include FAQ.
 * Thu Feb 20 2003 Gergely Nagy <algernon@bonehunter.rulez.org>

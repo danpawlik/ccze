@@ -2,6 +2,23 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 14:44:28 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-237
+
+    Summary:
+      Preparing 0.2.0...
+    Revision:
+      ccze--0.1--patch-237
+
+    * Rules.mk.in (DIST): New variable.
+      (PATCHLEVEL): Support -base-*.
+    * ccze.spec.in: Support %{dist} (via @DIST@).
+    * Makefile.in (ccze.spec): Substitue @DIST@ with ${DIST}.
+    * debian/rules (binary-ccze): Support more than one ChangeLog.
+
+    modified files:
+     ChangeLog Makefile.in Rules.mk.in ccze.spec.in debian/rules
+
+
 2003-03-29 14:24:27 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-236
 
     Summary:
