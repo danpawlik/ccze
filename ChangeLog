@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-03 18:20:30 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-208
+
+    Summary:
+      Recompute subjlen
+    Revision:
+      ccze--0.1--patch-208
+
+    * src/ccze.c (ccze_main): Recompute subjlen before calling
+      ccze_plugin_run. Fixes a rare output corruption.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-03-03 15:23:09 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-207
 
     Summary:

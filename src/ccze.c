@@ -585,6 +585,7 @@ ccze_main (void)
 	  subject = tmp;
 	}
 
+      subjlen = strlen (subject);
       ccze_plugin_run (plugins, subject, subjlen, &rest,
 		       CCZE_PLUGIN_TYPE_FULL, &handled, &status);
       
