@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-20 17:03:45 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-197
+
+    Summary:
+      Support long options everywhere, where getopt_long is present
+    Revision:
+      ccze--0.1--patch-197
+
+    * configure.ac: Check for getopt_long in libc and libgnugetopt.
+    * src/ccze-compat.c (argp_parse): Use getopt_long, if present. Also
+      format the --help message a bit better.
+
+    modified files:
+     ChangeLog configure.ac src/ccze-compat.c
+
+
 2003-02-20 15:28:00 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-196
 
     Summary:

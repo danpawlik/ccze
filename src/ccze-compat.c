@@ -91,7 +91,12 @@ argp_parse (const struct argp *argps, int argc, char **argv,
   int optpos = 0, optionspos = 0, optionssize = 30;
   struct argp_state *state;
   int c;
-  
+#if HAVE_GETOPT_LONG
+  struct option *longopts;
+  int longoptionspos = 0;
+ 
+  longopts = (struct option *)ccze_malloc (sizeof (struct option));
+#endif
   state = (struct argp_state *)ccze_malloc (sizeof (struct argp_state));
   state->input = input;
 
@@ -102,8 +107,21 @@ argp_parse (const struct argp *argps, int argc, char **argv,
       {
 	optionssize *= 2;
 	XSREALLOC (options, char, optionssize);
+#if HAVE_GETOPT_LONG
+	XSREALLOC (longopts, struct option, optionssize);
+#endif
       }
     options[optionspos++] = (char) argps->options[optpos].key;
+#if HAVE_GETOPT_LONG
+    longopts[longoptionspos].name = argps->options[optpos].name;
+    if (argps->options[optpos].arg)
+      longopts[longoptionspos].has_arg = required_argument;
+    else
+      longopts[longoptionspos].has_arg = no_argument;
+    longopts[longoptionspos].flag = NULL;
+    longopts[longoptionspos].val = argps->options[optpos].key;
+    longoptionspos++;
+#endif
     if (argps->options[optpos].arg)
       options[optionspos++] = ':';
     optpos++;
@@ -112,32 +130,58 @@ argp_parse (const struct argp *argps, int argc, char **argv,
     {
       optionssize += 5;
       XSREALLOC (options, char, optionssize);
+#if HAVE_GETOPT_LONG
+      XSREALLOC (longopts, struct option, optionssize);
+#endif
     }
   options[optionspos++] = 'V';
   options[optionspos++] = '?';
   options[optionspos] = '\0';
+#if HAVE_GETOPT_LONG
+  longopts[longoptionspos].name = "help";
+  longopts[longoptionspos].has_arg = no_argument;
+  longopts[longoptionspos].flag = NULL;
+  longopts[longoptionspos].val = '?';
+  longoptionspos++;
+  longopts[longoptionspos].name = "version";
+  longopts[longoptionspos].has_arg = no_argument;
+  longopts[longoptionspos].flag = NULL;
+  longopts[longoptionspos].val = 'V';
+  longoptionspos++;
+  longopts[longoptionspos].name = NULL;
+  longopts[longoptionspos].has_arg = 0;
+  longopts[longoptionspos].flag = NULL;
+  longopts[longoptionspos].val = 0;
+#endif
 
+#if HAVE_GETOPT_LONG
+  while ((c = getopt_long (argc, argv, options, longopts, NULL)) != -1)
+#else
   while ((c = getopt (argc, argv, options)) != -1)
+#endif
     {
       switch (c)
 	{
 	case '?':
-	  if ((optopt != c) && (optopt != '?'))
-	    {
-	      fprintf (stderr, "Try `%s -?' for more information.\n",
-		       argp_program_name);
-	      exit (1);
-	    }
 	  printf ("Usage: %s [OPTION...]\n%s\n\n", argp_program_name,
 		  argps->doc);
 	  optpos = 0;
 	  while (argps->options[optpos].name != NULL)
 	    {
 	      if (!(argps->options[optpos].flags & OPTION_HIDDEN))
-		printf ("  -%c %s\t\t%s\n", argps->options[optpos].key,
+#if HAVE_GETOPT_LONG
+		printf ("  -%c, --%-15s %-12s\t%s\n", 
+		        argps->options[optpos].key,
+		        argps->options[optpos].name,
+			(argps->options[optpos].arg) ?
+			 argps->options[optpos].arg : "",
+			 argps->options[optpos].doc);
+#else
+		printf ("  -%c %-12s\t%s\n", argps->options[optpos].key,
 			(argps->options[optpos].arg) ?
 			argps->options[optpos].arg : "",
 			argps->options[optpos].doc);
+#endif
 	      optpos++;
 	    }
 	  printf ("\nReport bugs to %s.\n", argp_program_bug_address);
