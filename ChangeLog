@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 16:14:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-122
+
+    Summary:
+      The `Wild in The Woods' release.
+    Revision:
+      ccze--0.1--patch-122
+
+      Wild in The Woods of Love
+      We harm those whom we adore
+      Contrary to other intentions
+      We suffocate them in an alarming embrace
+    
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+
+    modified files:
+     ChangeLog NEWS debian/changelog
+
+
 2003-01-13 16:11:30 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-121
 
     Summary:

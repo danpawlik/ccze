@@ -1,5 +1,10 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.122 [Wild in The Woods] -- 2003-01-13.
+
+HTML output was cleaned up and made customisable. From now on, CCZE
+uses Cascading Style Sheets.
+
 * CCZE 0.1.108 [Devorzhum] -- 2003-01-10.
 
 In this release experimental HTML output was added. It is not really
