@@ -111,6 +111,9 @@ For coloring fetchmail's log files. (See \fIfetchmail\fR(1))
 For coloring apache-style \fIaccess.log\fR and \fIerror.log\fR
 files. (See \fIapache\fR(8))
 .TP
+.IR postfix
+For coloring postfix logs. (See \fIpostfix\fR(1))
+.TP
 .IR procmail
 For coloring procmail's log file. (See \fIprocmail\fR(1))
 .TP

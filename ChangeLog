@@ -2,6 +2,24 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-28 17:37:26 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-143
+
+    Summary:
+      mod_postfix
+    Revision:
+      ccze--0.1--patch-143
+
+    * configure.ac (ALL_PLUGINS): Added postfix.
+    * src/mod_postfix.c: New file.
+    * doc/ccze.1.in (PLUGINS): Added a note about this.
+
+    new files:
+     src/.arch-ids/mod_postfix.c.id src/mod_postfix.c
+
+    modified files:
+     ChangeLog configure.ac doc/ccze.1.in
+
+
 2003-01-28 17:16:52 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-142
 
     Summary:
