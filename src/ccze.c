@@ -80,7 +80,8 @@ enum
   CCZE_MATCH_SYSLOG,
   CCZE_MATCH_HTTPD_ACCESS_LOG,
   CCZE_MATCH_SQUID_ACCESS_LOG,
-  CCZE_MATCH_VSFTPD_LOG
+  CCZE_MATCH_VSFTPD_LOG,
+  CCZE_MATCH_SQUID_CACHE_LOG
 };
 
 struct
@@ -497,7 +498,23 @@ process_vsftpd_log (const char *str, int *offsets, int match)
   
   return other;
 }
-     
+
+static char *
+process_squid_cache_log (const char *str, int *offsets, int match)
+{
+  char *date, *other;
+
+  pcre_get_substring (str, offsets, match, 1, (const char **)&date);
+  pcre_get_substring (str, offsets, match, 3, (const char **)&other);
+
+  attrset (CCZE_COLOR_DATE);
+  addstr (date);
+  space();
+
+  free (date);
+  return other;
+}
+
 int
 main (int argc, char **argv)
 {
@@ -505,9 +522,10 @@ main (int argc, char **argv)
   const char *error;
   int match, offsets[99], errptr;
   pcre *regc_syslog, *regc_procmail_log, *regc_httpd_access_log;
-  pcre *regc_squid_access_log, *regc_vsftpd_log;
+  pcre *regc_squid_access_log, *regc_vsftpd_log, *regc_squid_cache_log;
   pcre_extra *hints_syslog, *hints_procmail_log, *hints_httpd_access_log;
   pcre_extra *hints_squid_access_log, *hints_vsftpd_log;
+  pcre_extra *hints_squid_cache_log;
   
   ccze_config.scroll = 1;
   argp_parse (&argp, argc, argv, 0, 0, NULL);
@@ -535,20 +553,29 @@ main (int argc, char **argv)
      "\\s(\\d+)\\s(\\w+)\\s(\\S+)\\s(\\S+)\\s(\\w+)\\/(\\S+)\\s(\\S*)$",
      0, &error, &errptr, NULL);
   hints_squid_access_log = pcre_study (regc_squid_access_log, 0, &error);
+
+  regc_squid_cache_log = pcre_compile
+    ("^(\\d{4}\\/\\d{2}\\/\\d{2}\\s(\\d{2}:){2}\\d{2}\\|)\\s(.*)$", 0,
+     &error, &errptr, NULL);
+  hints_squid_cache_log = pcre_study (regc_squid_cache_log, 0, &error);
+    
   regc_httpd_access_log = pcre_compile
     ("^(\\S*)\\s-\\s(\\S+)\\s(\\[\\d{1,2}\\/\\S*"
      "\\/\\d{4}:\\d{2}:\\d{2}:\\d{2}.{0,6}\\])\\s"
      "(\"([A-Z]{3,})\\s[^\"]+\")\\s(\\d{3})\\s(\\d+|-)\\s(.*)$", 0,
      &error, &errptr, NULL);
   hints_httpd_access_log = pcre_study (regc_httpd_access_log, 0, &error);
+
   regc_procmail_log = pcre_compile ("^(\\s*)(>?From|Subject:|Folder:)?"
 				    "\\s(\\S+)(\\s+)(.*)$", 0,
 				     &error, &errptr, NULL);
   hints_procmail_log = pcre_study (regc_procmail_log, 0, &error);
+
   regc_syslog = pcre_compile ("^(\\S*\\s{1,2}\\d{1,2}\\s\\d\\d:\\d\\d:\\d\\d)"
 			      "\\s(\\S+)\\s((\\S+:?)\\s(.*))$", 0, &error,
 			      &errptr, NULL);
   hints_syslog = pcre_study (regc_syslog, 0, &error);
+  
   regc_vsftpd_log = pcre_compile
     ("^(\\S+\\s+\\S+\\s+\\d{1,2}\\s+\\d{1,2}:\\d{1,2}:\\d{1,2}\\s+\\d+)(\\s+)"
      "\\[pid (\\d+)\\]\\s+(\\[(\\S+)\\])?\\s*(.*)$", 0, &error, &errptr, NULL);
@@ -589,6 +616,16 @@ main (int argc, char **argv)
 	  handled = CCZE_MATCH_SQUID_ACCESS_LOG;
 	}
 
+      /** Squid cache.log **/
+      if ((match = pcre_exec (regc_squid_cache_log, hints_squid_cache_log,
+			      subject, strlen (subject), 0, 0, offsets,
+			      99)) >= 0 && handled == CCZE_MATCH_NONE)
+	{
+	  rest = process_squid_cache_log (subject, offsets, match);
+	  handled = CCZE_MATCH_SQUID_CACHE_LOG;
+	}
+      
+      /** VSFTPd log **/
       if ((match = pcre_exec (regc_vsftpd_log, hints_vsftpd_log, subject,
 			      strlen (subject), 0, 0, offsets, 99)) >= 0 &&
 	  handled == CCZE_MATCH_NONE)
@@ -636,6 +673,10 @@ main (int argc, char **argv)
   free (hints_httpd_access_log);
   free (regc_squid_access_log);
   free (hints_squid_access_log);
-  
+  free (regc_vsftpd_log);
+  free (hints_vsftpd_log);
+  free (regc_squid_cache_log);
+  free (hints_squid_cache_log);
+    
   return 0;
 }

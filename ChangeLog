@@ -2,3 +2,42 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-09-12 14:42:58 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-1
+
+    Summary:
+      Squid cache.log support
+    Revision:
+      ccze--0.1--patch-1
+
+    * src/ccze.c (CCZE_MATCH_SQUID_CACHE_LOG): New enum-member.
+      (process_squid_cache_log): New function.
+      (main): Use them. And also free() the vsftpd stuff.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
+2002-09-12 14:28:42 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	base-0
+
+    Summary:
+      Initial import
+    Revision:
+      ccze--0.1--base-0
+
+    This is the initial import of CCZE, a clone of `colorize' written in
+    C to be fast and light on resources.
+
+    new files:
+     ./.arch-ids/AUTHORS.id ./.arch-ids/COPYING.id
+     ./.arch-ids/ChangeLog.id ./.arch-ids/INSTALL.id
+     ./.arch-ids/Makefile.in.id ./.arch-ids/NEWS.id
+     ./.arch-ids/README.id ./.arch-ids/Rules.mk.in.id
+     ./.arch-ids/TODO.id ./.arch-ids/config.guess.id
+     ./.arch-ids/config.sub.id ./.arch-ids/configure.ac.id
+     ./.arch-ids/install-sh.id ./AUTHORS ./COPYING ./ChangeLog
+     ./INSTALL ./Makefile.in ./NEWS ./README ./Rules.mk.in ./TODO
+     ./config.guess ./config.sub ./configure.ac ./install-sh
+     ./src/.arch-ids/=id ./src/.arch-ids/Makefile.in.id
+     ./src/.arch-ids/ccze.c.id ./src/Makefile.in ./src/ccze.c
+
+
