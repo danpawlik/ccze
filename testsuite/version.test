@@ -33,6 +33,6 @@ cat >$testname.ok <<EOF
 ccze ${VERSION}
 EOF
 
-PROG_CMDLINE="--version"
+PROG_CMDLINE="-V"
 
 . ${srcdir}/do-test

@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-13 17:46:33 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-190
+
+    Summary:
+      unLinuxize version.test
+    Revision:
+      ccze--0.1--patch-190
+
+    * testsuite/version.test: Use `-V' instead of `--version'.
+
+    modified files:
+     ChangeLog testsuite/version.test
+
+
 2003-02-13 17:43:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-189
 
     Summary:
