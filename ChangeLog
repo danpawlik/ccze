@@ -2,6 +2,67 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-23 18:12:40 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-136
+
+    Summary:
+      Internal cleanup, part two
+    Revision:
+      ccze--0.1--patch-136
+
+    Renamed all modules to mod_<foo>.c, modified src/Makefile.in
+    accordingly.
+
+    modified files:
+     ChangeLog src/Makefile.in
+
+    renamed files:
+     src/.arch-ids/ccze-sulog.c.id
+       ==> src/.arch-ids/mod_sulog.c.id
+     src/.arch-ids/ccze-fetchmail.c.id
+       ==> src/.arch-ids/mod_fetchmail.c.id
+     src/.arch-ids/ccze-ulogd.c.id
+       ==> src/.arch-ids/mod_ulogd.c.id
+     src/.arch-ids/ccze-apm.c.id
+       ==> src/.arch-ids/mod_apm.c.id
+     src/.arch-ids/ccze-super.c.id
+       ==> src/.arch-ids/mod_super.c.id
+     src/.arch-ids/ccze-exim.c.id
+       ==> src/.arch-ids/mod_exim.c.id
+     src/.arch-ids/ccze-httpd.c.id
+       ==> src/.arch-ids/mod_httpd.c.id
+     src/.arch-ids/ccze-procmail.c.id
+       ==> src/.arch-ids/mod_procmail.c.id
+     src/.arch-ids/ccze-squid.c.id
+       ==> src/.arch-ids/mod_squid.c.id
+     src/.arch-ids/ccze-syslog.c.id
+       ==> src/.arch-ids/mod_syslog.c.id
+     src/.arch-ids/ccze-vsftpd.c.id
+       ==> src/.arch-ids/mod_vsftpd.c.id
+     src/ccze-sulog.c
+       ==> src/mod_sulog.c
+     src/ccze-fetchmail.c
+       ==> src/mod_fetchmail.c
+     src/ccze-ulogd.c
+       ==> src/mod_ulogd.c
+     src/ccze-apm.c
+       ==> src/mod_apm.c
+     src/ccze-super.c
+       ==> src/mod_super.c
+     src/ccze-exim.c
+       ==> src/mod_exim.c
+     src/ccze-httpd.c
+       ==> src/mod_httpd.c
+     src/ccze-procmail.c
+       ==> src/mod_procmail.c
+     src/ccze-squid.c
+       ==> src/mod_squid.c
+     src/ccze-syslog.c
+       ==> src/mod_syslog.c
+     src/ccze-vsftpd.c
+       ==> src/mod_vsftpd.c
+
+
+
 2003-01-23 17:43:46 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-135
 
     Summary:

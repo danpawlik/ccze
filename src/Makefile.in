@@ -31,14 +31,14 @@ ALL_CFLAGS	= ${INCLUDES} ${DEFINES} ${WFLAGS} ${CFLAGS}
 LIBS		= @LIBS@
 
 SOURCES		= ccze.c ccze-color.c ccze-plugin.c ccze-wordcolor.c \
-		$(addprefix ccze-,$(addsuffix .c, ${ALL_PLUGINS})) \
+		$(addprefix mod_,$(addsuffix .c, ${ALL_PLUGINS})) \
 		ccze-dump.c ccze-cssdump.c ccze-compat.c
 HEADERS		= ccze.h ccze-compat.h ccze-private.h
 ALL_PLUGINS	= @ALL_PLUGINS@
 S_PLUGINS	= @S_PLUGINS@
 SH_PLUGINS	= $(filter-out ${S_PLUGINS},${ALL_PLUGINS})
 PLUGIN_SHOBJS	= $(addsuffix .so,${SH_PLUGINS})
-PLUGIN_SOBJS	= $(addsuffix .o,$(addprefix ccze-,${S_PLUGINS}))
+PLUGIN_SOBJS	= $(addsuffix .o,$(addprefix mod_,${S_PLUGINS}))
 PLUGIN_OBJS	= ${PLUGIN_SHOBJS} ${PLUGIN_SOBJS}
 CLEANFILES	= ccze-dump ccze-cssdump
 DISTCLEANFILES	= ccze-builtins.c
@@ -83,9 +83,9 @@ ccze-builtins.c: Makefile
 		echo "  ccze_plugin_add (&ccze_$${p}_info);" >>$@; \
 	done
 	echo "}" >>$@
-%.o: %.c ccze.h ccze-compat.h
+%.o: %.c ccze.h
 	${CC} -c ${CPPFLAGS} ${ALL_CFLAGS} $<
-%.so: ccze-%.c ccze.h
+%.so: mod_%.c ccze.h
 	${CC} -fPIC -DPIC ${ALL_CFLAGS} ${ALL_LDFLAGS} -o $@ $< -shared
 
 ## -- Dependencies -- ##
