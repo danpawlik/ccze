@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-24 09:50:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-138
+
+    Summary:
+      Documentation update
+    Revision:
+      ccze--0.1--patch-138
+
+    * doc/ccze-plugin.7.in (EXAMPLE): Updated the #includes, to reflect the
+      recent reorganisation.
+
+    modified files:
+     ChangeLog doc/ccze-plugin.7.in
+
+
 2003-01-24 09:44:17 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-137
 
     Summary:

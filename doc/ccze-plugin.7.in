@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE\-PLUGIN 1 "2003-01-13" "CCZE @VERSION@" CCZE
+.TH CCZE\-PLUGIN 1 "2003-01-24" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer, plugin infrastructure
 .SH SYNOPSIS
@@ -85,10 +85,7 @@ subsequent plugins, like \fIulogd\fR.
 .SH EXAMPLE
 .nf
 #include <ccze.h>
-#include <ccze\-color.h>
-#include <ccze\-plugin.h>
-
-#include <ncurses.h>
+#include <stddef.h>
 #include <string.h>
 
 static int
