@@ -166,6 +166,56 @@ ccze_color_to_name_simple (int color)
   return NULL;
 }
 
+static char *
+ccze_color_to_name_css (int color, int realcolor)
+{
+  if (ccze_color (realcolor) & A_BOLD)
+    {
+      switch (color)
+	{
+	case BLACK:
+	  return "black";
+	case RED:
+	  return "lightred";
+	case GREEN:
+	  return "lime";
+	case YELLOW:
+	  return "yellow";
+	case BLUE:
+	  return "slateblue";
+	case CYAN:
+	  return "cyan";
+	case MAGENTA:
+	  return "magenta";
+	case WHITE:
+	  return "white";
+	}
+    }
+  else
+    {
+      switch (color)
+	{
+	case BLACK:
+	  return "black";
+	case RED:
+	  return "red";
+	case GREEN:
+	  return "#00C000";
+	case YELLOW:
+	  return "brown";
+	case BLUE:
+	  return "blue";
+	case CYAN:
+	  return "darkcyan";
+	case MAGENTA:
+	  return "darkmagenta";
+	case WHITE:
+	  return "grey";
+	}
+    }
+  return NULL;
+}
+
 int
 ccze_color_strip_attrib (int color)
 {
@@ -201,7 +251,7 @@ ccze_color_to_css (int cidx)
   char *str, *tmp;
 
   if (my_color < COLOR_PAIR (8))
-    asprintf (&tmp, "\tcolor: %s\n", ccze_color_to_name_simple (my_color));
+    asprintf (&tmp, "\tcolor: %s\n", ccze_color_to_name_css (my_color, cidx));
   else
     {
       int i,j;
@@ -209,15 +259,15 @@ ccze_color_to_css (int cidx)
       j = (my_color >> 8) % 8;
       i = (my_color >> 8) / 8;
       asprintf (&tmp, "\tcolor: %s\n\ttext-background: %s\n",
-		ccze_color_to_name_simple (COLOR_PAIR (j)),
-		ccze_color_to_name_simple (COLOR_PAIR (i)));
+		ccze_color_to_name_css (COLOR_PAIR (j), cidx),
+		ccze_color_to_name_css (COLOR_PAIR (i), cidx));
     }
 
   if (ccze_color (cidx) & A_UNDERLINE)
-    asprintf (&str, "%s {\n%s\ttext-decoration: underline\n}\n",
+    asprintf (&str, ".ccze_%s {\n%s\ttext-decoration: underline\n}\n",
 	      ccze_color_lookup_name (cidx), tmp);
   else
-    asprintf (&str, "%s {\n%s}\n",
+    asprintf (&str, ".ccze_%s {\n%s}\n",
 	      ccze_color_lookup_name (cidx), tmp);
   free (tmp);
   

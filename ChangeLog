@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-12 17:27:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-111
+
+    Summary:
+      Working in-line CSS in HTML output
+    Revision:
+      ccze--0.1--patch-111
+
+    * src/ccze-color.c (ccze_color_to_name_css): Moved here from
+      src/ccze.c.
+      (ccze_color_to_css): Use ccze_color_to_name_css(), and a `.ccze_'
+      prefix for css classes.
+    * src/ccze.c (ccze_color_to_name_html): Moved to src/ccze-color.c.
+      (ccze_addstr): HTML output part rewritten.
+      (ccze_color_to_html): Unused function, removed.
+      (main): Move the CSS output stuff after loading the configuration.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze.c
+
+
 2003-01-12 17:02:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-110
 
     Summary:
