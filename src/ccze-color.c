@@ -148,6 +148,7 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {CCZE_KEYWORD ("field", CCZE_COLOR_FIELD, "RFC822 Field")},
   {CCZE_KEYWORD ("chain", CCZE_COLOR_CHAIN, "Chain names (ulogd)")},
   {CCZE_KEYWORD ("percentage", CCZE_COLOR_PERCENTAGE, "Percentages")},
+  {CCZE_KEYWORD ("ftpcodes", CCZE_COLOR_FTPCODES, "FTP codes")}
 };
 
 char *
@@ -470,5 +471,6 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_FIELD] = (GREEN);
   ccze_color_table[CCZE_COLOR_CHAIN] = (CYAN);
   ccze_color_table[CCZE_COLOR_PERCENTAGE] = (BOLD YELLOW);
+  ccze_color_table[CCZE_COLOR_FTPCODES] = (CYAN);
   ccze_color_table[CCZE_COLOR_LAST] = (CYAN);
 }

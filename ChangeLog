@@ -2,6 +2,28 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-28 12:10:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-141
+
+    Summary:
+      mod_xferlog
+    Revision:
+      ccze--0.1--patch-141
+
+    * configure.ac (ALL_PLUGINS): Added xferlog.
+    * src/ccze.h (ccze_color_t): Added CCZE_COLOR_FTPCODES.
+    * src/ccze-color.c (ccze_color_keyword_map): Recognise `ftpcodes'.
+      (ccze_color_init): Initialise [CCZE_COLOR_FTPCODES].
+    * doc/ccze.1.in (PLUGINS): Mention xferlog.
+    * TODO: Removed relevant entry.
+
+    new files:
+     src/.arch-ids/mod_xferlog.c.id src/mod_xferlog.c
+
+    modified files:
+     ChangeLog TODO configure.ac doc/ccze.1.in src/ccze-color.c
+     src/ccze.h
+
+
 2003-01-28 11:16:07 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-140
 
     Summary:
