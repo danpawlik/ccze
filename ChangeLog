@@ -2,6 +2,19 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-29 16:14:20 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-242
+
+    Summary:
+      Bumped Standards-Version
+    Revision:
+      ccze--0.1--patch-242
+
+    * debian/control (Standards-Version): Updated to 3.5.9.
+
+    modified files:
+     ChangeLog debian/control
+
+
 2003-03-29 16:10:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-241
 
     Summary:
