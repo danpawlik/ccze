@@ -97,7 +97,7 @@ ccze_procmail_setup (void)
   int errptr;
 
   reg_procmail = pcre_compile
-    ("^(\\s*)(>?From|Subject:|Folder:)?\\s(\\S+)(\\s+)(.*)$", 0,
+    ("^(\\s*)(>?From|Subject:|Folder:)?\\s(\\S+)(\\s+)?(.*)", 0,
      &error, &errptr, NULL);
   hints_procmail = pcre_study (reg_procmail, 0, &error);
 }

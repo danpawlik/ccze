@@ -2,6 +2,32 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-04 17:07:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-210
+
+    Summary:
+      mod_procmail fix
+    Revision:
+      ccze--0.1--patch-210
+
+    * src/mod_procmail.c (ccze_procmail_setup): Added a missing `?' to the
+      regexps, so it catches stuff for real.
+    * testsuite/procmail.in: Added a test case that triggered the bug,
+      thanks to Morten Brix Pedersen.
+    * testsuite/procmail.ok: And added the expected, good output.
+    * testsuite/Makefile.in (EXTRA_DIST): Include them.
+    * testsuite/color.test (SUBTESTS): Run the new test.
+    * THANKS: Added Morten Brix Pedersen.
+
+    new files:
+     testsuite/.arch-ids/procmail.in.id
+     testsuite/.arch-ids/procmail.ok.id testsuite/procmail.in
+     testsuite/procmail.ok
+
+    modified files:
+     ChangeLog THANKS src/mod_procmail.c testsuite/Makefile.in
+     testsuite/color.test
+
+
 2003-03-04 17:02:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-209
 
     Summary:

@@ -27,7 +27,7 @@ if test -z "$srcdir"; then
 fi
 . $srcdir/defs
 
-SUBTESTS="apm exim syslog"
+SUBTESTS="apm exim procmail syslog"
 SUBTEST_PLUGINS="apm:syslog,apm"
 
 for subtest in ${SUBTESTS}; do
