@@ -50,13 +50,15 @@ dist: ccze.spec
 	${MAKE} -C doc distdir
 	${MAKE} -C src distdir
 	${MAKE} -C testsuite distdir
-	${TAR} ${TAR_OPTIONS} -cf - ${PACKAGE}-${VERSION} | ${GZIP} ${GZIP_ENV} >${PACKAGE}-${VERSION}.tar.gz
+	${TAR} ${TAR_OPTIONS} -cf - ${PACKAGE}-${VERSION} | \
+	       ${GZIP} ${GZIP_ENV} >${PACKAGE}-${VERSION}.tar.gz
 	test -z "${distdir}" || rm -rf "${distdir}"
 
 distcheck: dist
 	${GZIP} -dfc ${PACKAGE}-${VERSION}.tar.gz | tar ${TAR_OPTIONS} -xf -
-	cd ${PACKAGE}-${VERSION} && ./configure
-	${MAKE} -C ${PACKAGE}-${VERSION} all install dist DESTDIR=$(shell pwd)/${PACKAGE}-${VERSION}
+	cd ${PACKAGE}-${VERSION} && ./configure --with-builtins=all
+	${MAKE} -C ${PACKAGE}-${VERSION} all install check dist \
+		DESTDIR=$(shell pwd)/${PACKAGE}-${VERSION}
 	rm -rf ${PACKAGE}-${VERSION}
 	@banner="${PACKAGE}-${VERSION}.tar.gz is ready for distribution." ;\
 	dashes=`echo "$$banner" | sed -e s/./=/g`; \

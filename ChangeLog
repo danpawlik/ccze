@@ -2,6 +2,20 @@
 # arch-tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.3
 #
 
+2003-04-26 21:36:41 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-12
+
+    Summary:
+      Run `make check' during distcheck
+    Revision:
+      ccze--0.3--patch-12
+
+    * Makefile.in (distcheck): Configure with --with-builtins=all, and run
+      `make check' after the build.
+
+    modified files:
+     ChangeLog Makefile.in
+
+
 2003-04-26 14:16:04 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-11
 
     Summary:
