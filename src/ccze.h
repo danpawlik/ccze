@@ -99,6 +99,7 @@ typedef enum
 } ccze_color_t;
 
 int ccze_color (ccze_color_t idx);
+int ccze_color_keyword_lookup (const char *key);
 
 /* Helpers */
 ccze_color_t ccze_http_action (const char *method);

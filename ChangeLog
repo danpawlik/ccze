@@ -2,6 +2,21 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-03 13:47:10 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-205
+
+    Summary:
+      ccze_color_keyword_lookup()
+    Revision:
+      ccze--0.1--patch-205
+
+    * src/ccze.h (ccze_color_keyword_lookup): New public prototype.
+    * src/ccze-color.c (_ccze_color_keyword_lookup): Renamed to...
+      (ccze_color_keyword_lookup): ..this, and removed staticness.
+
+    modified files:
+     ChangeLog src/ccze-color.c src/ccze.h
+
+
 2003-03-02 18:18:12 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-204
 
     Summary:

@@ -267,8 +267,8 @@ ccze_color (ccze_color_t idx)
   return ccze_color_table[idx];
 }
 
-static int
-_ccze_color_keyword_lookup (const char *key)
+int
+ccze_color_keyword_lookup (const char *key)
 {
   size_t i;
 
@@ -287,7 +287,7 @@ _ccze_colorname_map_lookup (const char *color)
   if (color[0] == '\'')
     {
       char *tmp = strndup (&color[1], strlen (color) - 2);
-      int rval = ccze_color_table[_ccze_color_keyword_lookup (tmp)];
+      int rval = ccze_color_table[ccze_color_keyword_lookup (tmp)];
       free (tmp);
       return rval;
     }
@@ -317,7 +317,7 @@ ccze_color_parse (char *line)
     }
 
   if (!csskey &&
-      ((nkeyword = _ccze_color_keyword_lookup (keyword)) == -1))
+      ((nkeyword = ccze_color_keyword_lookup (keyword)) == -1))
     return;
 
   color = strtok (NULL, " \t\n");
