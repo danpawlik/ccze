@@ -2,6 +2,20 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-13 16:11:30 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-121
+
+    Summary:
+      Fix an unitialised variable warning.
+    Revision:
+      ccze--0.1--patch-121
+
+    * src/ccze-color.c (ccze_color_load): Initialise ncolor and nkeyword to
+      zero.
+
+    modified files:
+     ChangeLog src/ccze-color.c
+
+
 2003-01-13 15:33:04 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-120
 
     Summary:

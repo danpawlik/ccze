@@ -310,7 +310,7 @@ ccze_color_load (const char *fn)
   while (getline (&line, &len, fp) != -1)
     {
       char *tmp, *keyword, *color, *pre = NULL, *bg;
-      int ncolor, nkeyword, nbg, rcolor, csskey = 0;
+      int ncolor = 0, nkeyword = 0, nbg, rcolor, csskey = 0;
       
       keyword = strtok (line, " \t\n");
       if (!keyword)
