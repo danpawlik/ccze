@@ -14,7 +14,7 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE-PLUGIN 7 "2003-03-19" "CCZE @VERSION@" CCZE
+.TH CCZE-PLUGIN 7 "2003-03-29" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer, plugin infrastructure
 .SH SYNOPSIS
@@ -29,7 +29,7 @@ ccze \- A robust log colorizer, plugin infrastructure
 .BI "typedef int (*" ccze_plugin_handle_t ") (const char *" str ,
 .BI "size_t " length ", char **" rest );
 
-.BI "CCZE_DEFINE_PLUGIN (" name ", " type );
+.BI "CCZE_DEFINE_PLUGIN (" name ", " type ", " desc );
 .br
 .BI "CCZE_DEFINE_PLUGINS (" plugins "...);"
 .br
@@ -93,14 +93,13 @@ disclosed in this manual page.  Instead, the helper macro,
 
 \fICCZE_DEFINE_PLUGIN\fR is the macro to use if one wants to make the plugin
 loadable. Its first argument is an unquoted string: the name of the plugin.
-The second one is the same, but quoted this time.  The third part is the
-type of the plugin, it can either be \fIFULL\fR or \fIPARTIAL\fR.  It is
-assumed that the three functions are called \fIccze_\fBname\fI_setup\fR,
-\fIccze_\fBname\fI_shutdown\fR and \fIccze_\fBname\fI_handle\fR,
-respectively.
+The second part is the type of the plugin, it can be \fIFULL\fR,
+\fIPARTIAL\fR or \fIANY\fR. The last argument is a short description of the
+plugin.
 
-With \fICCZE_DEFINE_PLUGINS\fR one can place more than one plugin into one
-shared object.
+It is assumed that the three functions mentioned earlier are called
+\fIccze_\fBname\fI_setup\fR, \fIccze_\fBname\fI_shutdown\fR and
+\fIccze_\fBname\fI_handle\fR, respectively.
 
 A \fIFULL\fR plugin is one that accepts raw input, untouched by any other
 plugin before, and processes it.  On the other hand, a \fIPARTIAL\fR plugin
@@ -108,7 +107,11 @@ relies on previous ones preprocessing the input.  For example, \fIsyslog\fR
 is a full plugin, on which \fIulogd\fR, a partial plugin relies.  The
 \fIsyslog\fR plugin processes the raw input from the logfile, adds colour to
 most of it, save the actual message sent by a process, that is left to
-subsequent plugins, like \fIulogd\fR.
+subsequent plugins, like \fIulogd\fR. An \fIANY\fR plugin is one can act as
+both other types.
+
+With \fICCZE_DEFINE_PLUGINS\fR one can place more than one plugin into one
+shared object.
 
 There are two other helper functions, \fIccze_plugin_argv_get\fR and
 \fIccze_plugin_name_get\fR. One can pass arguments to CCZE plugins, and
@@ -177,7 +180,7 @@ ccze_foo_shutdown (void)
 {
 }
 
-CCZE_DEFINE_PLUGIN (foo, PARTIAL);
+CCZE_DEFINE_PLUGIN (foo, PARTIAL, "Partial FOO coloriser.");
 .fi
 .SH "SEE ALSO"
 .BR ccze (1)

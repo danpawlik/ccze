@@ -64,7 +64,7 @@ distcheck: dist
 	echo "$$banner" ;\
 	echo "$$dashes"
 
-ccze.spec: ccze.spec.in Rules.mk ${top_srcdir}/ChangeLog
+${top_srcdir}/ccze.spec: ccze.spec.in Rules.mk ${top_srcdir}/ChangeLog
 	sed -e "s,@VERSION@,${VERSION},g" -e "s,@DIST@,${DIST},g" \
 	    <$@.in >$@
 
