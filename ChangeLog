@@ -2,6 +2,25 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2002-10-12 21:35:55 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-80
+
+    Summary:
+      The `Stance of Evander Sinque' release.
+    Revision:
+      ccze--0.1--patch-80
+
+      He lays forgotten
+      Dead skin and broken neck
+      And no-one knew him
+      Though he was genius
+    
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+
+    modified files:
+     ChangeLog NEWS debian/changelog
+
+
 2002-10-12 21:29:57 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-79
 
     Summary:

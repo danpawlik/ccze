@@ -1,5 +1,10 @@
 NEWS -- list of user-visible changes		-*- outline -*-
 
+* CCZE 0.1.80 [The Stance of Evander Sinque] -- 2002.10.12.
+
+This is mainly a minor convenience-enhanced release. The major change
+is that CCZE will now exit if it could not load any plugins.
+
 * CCZE 0.1.72 [Base Level Erotica] -- 2002.10.04.
 
 Brown paper-bag release, as I broke all the modules in 0.1.64. Apart

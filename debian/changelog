@@ -1,3 +1,10 @@
+ccze (0.1.80-1) unstable; urgency=low
+
+  * The `Stance of Evander Sinque' release.
+    + Exits if no plugins could be loaded.
+
+ -- Gergely Nagy <algernon@bonehunter.rulez.org>  Sat, 12 Oct 2002 23:33:46 +0200
+
 ccze (0.1.72-1) unstable; urgency=low
 
   * The `Base Level Erotica' release.
