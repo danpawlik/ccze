@@ -2,6 +2,26 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-02-21 10:41:59 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-200
+
+    Summary:
+      The `Enigma of the Absolute' release
+    Revision:
+      ccze--0.1--patch-200
+
+      Across the sea lies the fountain of renewal
+      Where you will see the whole cause of your loneliness
+      Can be measured in dreams that transcend all these lies
+      And I wish and I pray that there may come a day
+      For a saviour's arms...
+    
+    * NEWS: Updated.
+    * debian/changelog: Likewise.
+
+    modified files:
+     ChangeLog NEWS debian/changelog
+
+
 2003-02-21 09:09:02 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-199
 
     Summary:

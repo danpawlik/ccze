@@ -1,3 +1,10 @@
+ccze (0.1.200-1) unstable; urgency=low
+
+  * The `Enigma of the Absolute' release.
+    + New coloriser for distccd.log files.
+
+ -- Gergely Nagy <algernon@bonehunter.rulez.org>  Fri, 21 Feb 2003 11:32:04 +0100
+
 ccze (0.1.171-1) unstable; urgency=low
 
   * The `Mesmerism' release.
