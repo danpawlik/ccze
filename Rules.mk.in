@@ -76,7 +76,7 @@ distclean:: clean
 	rm -f Makefile
 	test -z "${DISTCLEANFILES}" || rm -rf ${DISTCLEANFILES}
 maintainer-clean:: distclean
-	test -z "${MAINTCLEANFILEs}" || rm -rf ${MAINTCLEANFILES}
+	test -z "${MAINTCLEANFILES}" || rm -rf ${MAINTCLEANFILES}
 
 distdir = ${top_builddir}/${PACKAGE}-${VERSION}/${subdir}
 distdir: ${DISTFILES}
