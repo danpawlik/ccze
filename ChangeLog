@@ -2,6 +2,22 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-01-12 19:29:48 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-113
+
+    Summary:
+      Support CSS in an external file
+    Revision:
+      ccze--0.1--patch-113
+
+    * src/ccze.c (ccze_config): Added a `cssfile' member.
+      (parse_opt): Support -o cssfile=.
+      (main): If ccze_config.cssfile is NULL, do as usual, if not, include a
+      <link> reference in the HTML header.
+
+    modified files:
+     ChangeLog src/ccze.c
+
+
 2003-01-12 17:45:50 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-112
 
     Summary:
