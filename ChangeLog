@@ -2,6 +2,28 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.1
 #
 
+2003-03-04 17:02:03 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-209
+
+    Summary:
+      Documentation update
+    Revision:
+      ccze--0.1--patch-209
+
+    * doc/ccze-plugin.7.in (SYNOPSIS): Added all the important function
+      definitions.
+      (DISPLAY METHODS): Document the display methods.
+      (HELPER METHODS): Document the helper methods.
+    * doc/ccze.1.in (OPTIONS): Document that -a's arguments are whitespace
+      separated.
+      (NOTES): Removed this section.
+    * TODO: Updated.
+    * FAQ: Added a section about extensions.
+
+    modified files:
+     ChangeLog FAQ TODO debian/rules doc/ccze-plugin.7.in
+     doc/ccze.1.in
+
+
 2003-03-03 18:20:30 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-208
 
     Summary:

@@ -45,3 +45,10 @@ A more dynamical approach would be this:
 Then put this file somewhere where your browser can run CGI scripts,
 set execute permissions, and point your browser to
 `ccze.cgi/apache/access.log' for example.
+
+* Extensions
+
+** Where can I find CCZE extensions?
+
+Links to third-party or separately maintained CCZE extensions can be
+found on the CCZE home page at http://bonehunter.rulez.org/CCZE.html.

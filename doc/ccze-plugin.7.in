@@ -14,22 +14,43 @@
 .\" manual into another language, under the above conditions for modified
 .\" versions, except that this permission notice may be stated in a
 .\" translation approved by the Author.
-.TH CCZE\-PLUGIN 1 "2003-03-02" "CCZE @VERSION@" CCZE
+.TH CCZE\-PLUGIN 1 "2003-03-04" "CCZE @VERSION@" CCZE
 .SH NAME
 ccze \- A robust log colorizer, plugin infrastructure
 .SH SYNOPSIS
 .B #include <ccze.h>
 
+.B /* Plugin support */
+.br
 .BI "typedef void (*" ccze_plugin_startup_t ") (void);"
 .br
 .BI "typedef void (*" ccze_plugin_shutdown_t ") (void);"
 .br
 .BI "typedef int (*" ccze_plugin_handle_t ") (const char *" str ,
 .BI "size_t " length ", char **" rest );
+.br
+.BI "char **ccze_plugin_argv_get (const char *" name ");"
+.br
 
 .BI "CCZE_DEFINE_PLUGIN (" name ", " type );
+.br
 
-.BI "char **ccze_plugin_argv_get (const char *" name ");"
+.B /* Display */
+.br
+.BI "void ccze_addstr (ccze_color_t " col ", const char *" str ");"
+.br
+.B void ccze_newline (void);
+.br
+.B void ccze_space (void);
+.br
+.BI "void ccze_wordcolor_process_one (char *" word ", int " slookup ");"
+.br
+
+.B /* Helpers */
+.br
+.BI "ccze_color_t ccze_http_action (const char *" method ");"
+.br
+.BI "void ccze_print_date (const char *" date ");"
 .SH DESCRIPTION
 This manual page attempts to outline the internals of CCZE plugins:  how
 they work, how they are implemented, and how to add new ones.
@@ -85,6 +106,26 @@ There is another helper function, \fIccze_plugin_argv_get\fR. One can pass
 arguments to CCZE plugins, and this is the function to retrieve them. It
 simply returns a NULL\-terminated array, with each entry containing an
 argument.
+.SH "DISPLAY METHODS"
+The so\-called \fIdisplay methods\fR are the \fBonly\fR supported interface
+to emit something to the display. These handle both the normal,
+ncurses\-based, and the HTML output. This is a kind of abstraction so
+plugins will not have to worry about the differences between the output
+formats.
+
+The most important one is \fIccze_addstr\fR, which takes a color (see
+\fIccze.h\fR for a list of supported color tags) and a string, and displays
+it appropriately. The \fIccze_space\fR and \fIccze_newline\fR functions emit
+a space and a newline, respectively.
+
+Our last function, \fIccze_wordcolor_process_one\fR passes \fBword\fR to the
+word colourising engine. If the second argument, \fBslookup\fR is non\-zero,
+the engine will perform service lookups (like \fIgetent\fR and friends).
+.SH "HELPER METHODS"
+We only have two helper methods: \fIccze_print_date\fR, which simply prints
+out the date in the appropriate colour, and \fIccze_http_action\fR, which
+given a HTTP \fBmethod\fR, returns the associated colour, in a format
+suitable for \fIccze_addstr\fR.
 .SH EXAMPLE
 .nf
 #include <ccze.h>

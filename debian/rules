@@ -17,11 +17,11 @@ endif
 
 config.status: configure
 	test -e debian/control
-	CFLAGS="${CFLAGS}" ./configure --prefix=/usr --sysconfdir=/etc \
-				       --mandir=/usr/share/man \
-				       --build=${BGT} --host=${HGT} \
-				       --with-builtins=all \
-				       ${CONFIG_FLAGS}
+	./configure --prefix=/usr --sysconfdir=/etc \
+				  --mandir=/usr/share/man \
+				  --build=${BGT} --host=${HGT} \
+				  --with-builtins=all ${CONFIG_FLAGS} \
+				  CFLAGS="${CFLAGS}" 
 
 build: config.status
 	test -e debian/control
