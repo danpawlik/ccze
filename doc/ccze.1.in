@@ -94,7 +94,7 @@ will appear as black.
 
 If \fIcssfile\fR is set, then CCZE will not inline the Cascading Style
 Sheet information into the outputted HTML, but include a link to the
-external stylesheet given in this paramater.
+external stylesheet given in this parameter.
 .TP
 .B \-p, \-\-plugin \fIPLUGIN\fR
 While the default action is to load all plugins (see the \fBPlugins\fR
@@ -102,7 +102,7 @@ section below), when this option is present, only the specified
 plugins will be loaded. If one knows what kind of log will be piped
 through \fBccze\fR, using this option may result in a slight speedup.
 .TP
-.B \-r, \-\-remove\-facilty
+.B \-r, \-\-remove\-facility
 Syslog\-ng puts the facility level before log messages. With this
 switch, these can be cut off.
 .TP
