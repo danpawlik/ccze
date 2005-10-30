@@ -1,3 +1,12 @@
+ccze (0.2.1-1.1) unstable; urgency=low
+
+  * NMU
+  * Apply patch to fix FTBFS with gcc-4.0 (closes: #288834, #322985)
+  * Apply patch to fix segfault in parse_opt (closes: #322993)
+  * Man page typo fixes (closes: #307036)
+
+ -- Stephen Gran <sgran@debian.org>  Sun, 30 Oct 2005 20:01:35 +0000
+
 ccze (0.2.1-1) unstable; urgency=low
 
   * The `Fireflower' release.
