@@ -37,13 +37,13 @@ static char *words_bad[] = {
   "warn", "restart", "exit", "stop", "end", "shutting", "down", "close",
   "unreach", "can't", "cannot", "skip", "deny", "disable", "ignored",
   "miss", "oops", "not", "backdoor", "blocking", "ignoring",
-  "unable", "readonly", "offline", "terminate", "empty"
+  "unable", "readonly", "offline", "terminate", "empty", "virus"
 };
 
 static char *words_good[] = {
   "activ", "start", "ready", "online", "load", "ok", "register", "detected",
   "configured", "enable", "listen", "open", "complete", "attempt", "done",
-  "check", "listen", "connect", "finish"
+  "check", "listen", "connect", "finish", "clean"
 };
 
 static char *words_error[] = {
