@@ -1,3 +1,14 @@
+ccze (0.2.1-1.2) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Apply patch for A/V regexes (closes: #345586)
+  * Make debian/copyright pedantically correct (closes: #290082)
+  * Update FSF address
+  * Update to standards version 3.6.2 (no changes necessary)
+  * Allow for extra space in syslog parsing (appears to closes: #330974)
+
+ -- Stephen Gran <sgran@debian.org>  Mon, 17 Apr 2006 20:07:56 +0100
+
 ccze (0.2.1-1.1) unstable; urgency=low
 
   * NMU
