@@ -2,7 +2,7 @@ Source: ccze
 Section: utils
 Priority: extra
 Maintainer: Gergely Nagy <algernon@bonehunter.rulez.org>
-Standards-Version: 3.5.9
+Standards-Version: 3.6.2
 Build-Depends: libpcre3-dev, libncurses5-dev
 
 Package: ccze
