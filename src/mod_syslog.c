@@ -104,7 +104,7 @@ ccze_syslog_setup (void)
   int errptr;
 
   reg_syslog = pcre_compile ("^(\\S*\\s{1,2}\\d{1,2}\\s\\d\\d:\\d\\d:\\d\\d)"
-			     "\\s(\\S+)\\s((\\S+:?)\\s(.*))$", 0, &error,
+			     "\\s(\\S+)\\s+((\\S+:?)\\s(.*))$", 0, &error,
 			     &errptr, NULL);
   hints_syslog = pcre_study (reg_syslog, 0, &error);
 }
