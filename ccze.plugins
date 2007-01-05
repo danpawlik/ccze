@@ -1,5 +1,6 @@
 apm
 distcc
+dpkg
 exim
 fetchmail
 ftpstats

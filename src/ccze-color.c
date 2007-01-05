@@ -133,6 +133,7 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {CCZE_KEYWORD ("system", CCZE_COLOR_SYSTEMWORD, "\"System words\"")},
   {CCZE_KEYWORD ("process", CCZE_COLOR_PROC, "Sender process")},
   {CCZE_KEYWORD ("dir", CCZE_COLOR_DIR, "Directory names")},
+  {CCZE_KEYWORD ("file", CCZE_COLOR_FILE, "File names")},
   {CCZE_KEYWORD ("prot", CCZE_COLOR_PROT, "Protocols")},
   {CCZE_KEYWORD ("service", CCZE_COLOR_SERVICE, "Services")},
   {CCZE_KEYWORD ("email", CCZE_COLOR_EMAIL, "E-mail addresses")},
@@ -169,6 +170,8 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
   {CCZE_KEYWORD ("ftpcodes", CCZE_COLOR_FTPCODES, "FTP codes")},
   {CCZE_KEYWORD ("keyword", CCZE_COLOR_KEYWORD,
 		 "Various keywords (like PHP in php.log, etc)")},
+  {CCZE_KEYWORD ("pkgstatus", CCZE_COLOR_PKGSTATUS, "package status (dpkg)")},
+  {CCZE_KEYWORD ("pkg", CCZE_COLOR_PKG, "package name (dpkg)")},
   
   {CCZE_KEYWORD_H ("black", CCZE_COLOR_STATIC_BLACK, "Black")},
   {CCZE_KEYWORD_H ("red", CCZE_COLOR_STATIC_RED, "Red")},
@@ -487,6 +490,7 @@ ccze_color_init_raw_ansi (void)
   ccze_color_table[CCZE_COLOR_EMAIL] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
   ccze_color_table[CCZE_COLOR_SUBJECT] = (RAW_ANSI_MAGENTA);
   ccze_color_table[CCZE_COLOR_DIR] = (RAW_ANSI_BOLD | RAW_ANSI_CYAN);
+  ccze_color_table[CCZE_COLOR_FILE] = ccze_color_table[CCZE_COLOR_DIR];
   ccze_color_table[CCZE_COLOR_SIZE] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
   ccze_color_table[CCZE_COLOR_USER] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
   ccze_color_table[CCZE_COLOR_HTTPCODES] = (RAW_ANSI_BOLD | RAW_ANSI_WHITE);
@@ -536,6 +540,8 @@ ccze_color_init_raw_ansi (void)
   ccze_color_table[CCZE_COLOR_PERCENTAGE] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
   ccze_color_table[CCZE_COLOR_FTPCODES] = (RAW_ANSI_CYAN);
   ccze_color_table[CCZE_COLOR_KEYWORD] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
+  ccze_color_table[CCZE_COLOR_PKGSTATUS] = (RAW_ANSI_GREEN);
+  ccze_color_table[CCZE_COLOR_PKG] = (RAW_ANSI_BOLD|RAW_ANSI_RED);
 
   ccze_color_table[CCZE_COLOR_STATIC_BLACK] = (RAW_ANSI_BLACK);
   ccze_color_table[CCZE_COLOR_STATIC_RED] = (RAW_ANSI_RED);
@@ -575,6 +581,7 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_EMAIL] = (BOLD GREEN);
   ccze_color_table[CCZE_COLOR_SUBJECT] = (MAGENTA);
   ccze_color_table[CCZE_COLOR_DIR] = (BOLD CYAN);
+  ccze_color_table[CCZE_COLOR_FILE] = ccze_color_table[CCZE_COLOR_DIR];
   ccze_color_table[CCZE_COLOR_SIZE] = (BOLD WHITE);
   ccze_color_table[CCZE_COLOR_USER] = (BOLD YELLOW);
   ccze_color_table[CCZE_COLOR_HTTPCODES] = (BOLD WHITE);
@@ -624,6 +631,8 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_PERCENTAGE] = (BOLD YELLOW);
   ccze_color_table[CCZE_COLOR_FTPCODES] = (CYAN);
   ccze_color_table[CCZE_COLOR_KEYWORD] = (BOLD YELLOW);
+  ccze_color_table[CCZE_COLOR_PKGSTATUS] = (GREEN);
+  ccze_color_table[CCZE_COLOR_PKG] = (BOLD RED);
 
   ccze_color_table[CCZE_COLOR_STATIC_BLACK] = (BLACK);
   ccze_color_table[CCZE_COLOR_STATIC_RED] = (RED);
