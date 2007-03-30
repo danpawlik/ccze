@@ -291,7 +291,7 @@ ccze_wordcolor_setup (void)
   reg_time = pcre_compile ("\\d{1,2}:\\d{1,2}(:\\d{1,2})?", 0, &error,
 			   &errptr, NULL);
   reg_addr = pcre_compile ("^0x(\\d|[a-f])+$", 0, &error, &errptr, NULL);
-  reg_num = pcre_compile ("^-?\\d+$", 0, &error, &errptr, NULL);
+  reg_num = pcre_compile ("^[+-]?\\d+$", 0, &error, &errptr, NULL);
   reg_sig = pcre_compile ("^sig(hup|int|quit|ill|abrt|fpe|kill|segv|pipe|"
 			  "alrm|term|usr1|usr2|chld|cont|stop|tstp|tin|tout|"
 			  "bus|poll|prof|sys|trap|urg|vtalrm|xcpu|xfsz|iot|"
