@@ -1,3 +1,14 @@
+ccze (0.2.1-2) unstable; urgency=low
+
+  * Add myself as Maintainer, as Gergely seems to be MIA
+  * Update Standards-Version to 3.7.2 (no changes)
+  * Add support for plus sign in numbers (closes: #416854)
+  * Add support for dpkg logs (closes: #405617)
+  * Don't ignore errors in clean target
+  * reautotool the source, as it was using version from 2002.
+
+ -- Stephen Gran <sgran@debian.org>  Sat, 01 Sep 2007 13:29:01 +0100
+
 ccze (0.2.1-1.2) unstable; urgency=low
 
   * Non-maintainer upload.
