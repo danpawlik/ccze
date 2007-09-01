@@ -1,7 +1,7 @@
 Source: ccze
 Section: utils
 Priority: extra
-Maintainer: Gergely Nagy <algernon@bonehunter.rulez.org>
+Maintainer: Stephen Gran <sgran@debian.org>
 Standards-Version: 3.7.2
 Build-Depends: libpcre3-dev, libncurses5-dev
 
