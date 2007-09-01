@@ -30,7 +30,9 @@ build: config.status
 clean:
 	test -e debian/control && test "x`whoami`" = "xroot"
 	rm -rf debian/${PACKAGE}.substvars ${PKGDIR} debian/files
-	-${MAKE} distclean
+ifeq (Makefile,$(wildcard Makefile))
+	${MAKE} distclean
+endif
 	rm -rf ${PKGDIR}
 
 install: build
