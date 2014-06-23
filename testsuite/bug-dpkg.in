@@ -2,3 +2,4 @@
 2006-12-01 15:50:20 status half-installed icewm 1.2.28-3
 2006-12-01 15:50:22 status unpacked libexif12 0.6.13-5
 2006-12-25 12:49:29 conffile /etc/postfix/post-install install
+2014-02-25 21:08:46 configure dpkg 1.17.6 1.17.6

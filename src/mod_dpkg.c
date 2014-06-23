@@ -1,6 +1,7 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * mod_dpkg.c -- Dpkg log-coloriser module for CCZE
  * Copyright (C) 2007 arno. <arno.@no-log.org>
+ * Copyright (C) 2014 Gergely Nagy <algernon@madhouse-project.org>
  *
  * This file is part of ccze.
  *
@@ -26,7 +27,6 @@
 static void ccze_dpkg_setup (void);
 static void ccze_dpkg_shutdown (void);
 static int ccze_dpkg_handle (const char *str, size_t length, char **rest);
-
 
 static pcre *reg_dpkg_status, *reg_dpkg_action, *reg_dpkg_conffile;
 
@@ -130,14 +130,13 @@ ccze_dpkg_setup (void)
 
   /* YYYY-MM-DD HH:MM:SS <action> <pkg> <installed-version> <available-version> */
   reg_dpkg_action = pcre_compile(
-      "^([-\\d]{10}\\s[:\\d]{8})\\s(install|upgrade|remove|purge)\\s(\\S+)\\s(\\S+)\\s(\\S+)$",
+      "^([-\\d]{10}\\s[:\\d]{8})\\s(install|upgrade|remove|purge|configure)\\s(\\S+)\\s(\\S+)\\s(\\S+)$",
       0, &error, &errptr, NULL);
 
   /* YYYY-MM-DD HH:MM:SS conffile <filename> <decision> */
   reg_dpkg_conffile = pcre_compile(
       "^([-\\d]{10}\\s[:\\d]{8})\\sconffile\\s(\\S+)\\s(install|keep)$",
       0, &error, &errptr, NULL);
-
 }
 
 static void
