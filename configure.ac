@@ -1,5 +1,5 @@
 dnl configure.ac for ccze
-dnl Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+dnl Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
 dnl
 dnl Process this file with autoconf to produce a configure script.
 dnl
@@ -38,33 +38,6 @@ dnl * Programs
 dnl **********************
 AC_CHECK_TOOL(CC, cc)
 AC_PROG_CC
-
-WFLAGS=""
-WFLAGS_3X=""
-if test "x$ac_compiler_gnu" = "xyes"; then
-	WFLAGS='${WFLAGS_GCC}'
-	AC_MSG_CHECKING(whether we are using GCC 3)
-	GCCVER=$(${CC} -dumpversion 2>/dev/null)
-	case ${GCCVER} in
-		3.*)
-			WFLAGS_3X='${WFLAGS_3X}'
-			AC_MSG_RESULT(yes)
-			;;
-		*)
-			AC_MSG_RESULT(no)
-			;;
-	esac
-else
-	AC_MSG_CHECKING(whether we are using the Intel C compiler)
-	if ${CC} -V 2>&1 | head -n 1 | grep -q "Intel(R)"; then
-		AC_MSG_RESULT(yes)
-		WFLAGS='${WFLAGS_ICC}'
-	else
-		AC_MSG_RESULT(no)
-	fi
-fi
-AC_SUBST(WFLAGS)
-AC_SUBST(WFLAGS_3X)
 
 AC_PROG_CPP
 AC_PROG_INSTALL
