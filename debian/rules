@@ -47,9 +47,6 @@ binary-ccze: install
 	test -e debian/control && test "x`whoami`" = "xroot"
 ## Install debian-specific stuff
 # ..the changelogs..
-	find . -name 'ChangeLog*' -maxdepth 1 -print0 | xargs -r0 -i@ \
-	 sh -c "gzip -9fc @ >${PKGDIR}/usr/share/doc/${PACKAGE}/@.gz"
-	ln -sf ChangeLog.gz ${PKGDIR}/usr/share/doc/${PACKAGE}/changelog.gz
 	gzip -9fc debian/changelog >${PKGDIR}/usr/share/doc/${PACKAGE}/changelog.Debian.gz
 # ..the copyright file..
 	install -m 0644 debian/copyright ${PKGDIR}/usr/share/doc/${PACKAGE}

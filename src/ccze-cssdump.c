@@ -29,7 +29,7 @@
 #include "ccze-color.c"
 
 const char *argp_program_name = "ccze-cssdump";
-const char *argp_program_version = "ccze-cssdump (ccze 0.1." PATCHLEVEL ")";
+const char *argp_program_version = "ccze-cssdump (ccze " VERSION ")";
 const char *argp_program_bug_address = "<algernon@bonehunter.rulez.org>";
 static struct argp_option options[] = {
   {NULL, 0, NULL, 0, "", 1},
