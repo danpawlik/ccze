@@ -2,8 +2,6 @@
 /configure
 /system.h.in
 
-/ccze.spec
-
 *~
 *.o
 *.so

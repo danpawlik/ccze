@@ -9,12 +9,10 @@ include Rules.mk
 ## -- Private variables -- ##
 EXTRA_DIST	= Rules.mk.in configure configure.ac system.h.in \
 		COPYING install-sh config.guess config.sub \
-		AUTHORS README NEWS INSTALL THANKS ccze.spec.in \
-		ccze.spec ccze.plugins FAQ
-DISTCLEANFILES	= ccze.spec
+		AUTHORS README NEWS INSTALL THANKS ccze.plugins FAQ
 
 ## -- Generic rules -- ##
-all: all-recursive ccze.spec
+all: all-recursive
 all-recursive:
 	${MAKE} -C doc all
 	${MAKE} -C src all
@@ -44,7 +42,7 @@ maintainer-clean:: distclean
 	rm -rf ${top_srcdir}/configure ${top_srcdir}/system.h.in \
 	       ${top_srcdir}/autom4te.cache
 
-dist: ccze.spec
+dist:
 	test -z "${distdir}" || rm -rf "${distdir}"
 	${MAKE} distdir
 	${MAKE} -C doc distdir
@@ -65,10 +63,6 @@ distcheck: dist
 	echo "$$dashes" ;\
 	echo "$$banner" ;\
 	echo "$$dashes"
-
-${top_srcdir}/ccze.spec: ccze.spec.in Rules.mk
-	sed -e "s,@VERSION@,${VERSION},g" -e "s,@DIST@,${DIST},g" \
-	    <$@.in >$@
 
 check: all
 	${MAKE} -C testsuite check
