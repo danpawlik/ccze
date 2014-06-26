@@ -53,7 +53,7 @@ static char *words_error[] = {
 static char *words_system[] = {
   "ext2-fs", "reiserfs", "vfs", "iso", "isofs", "cslip", "ppp", "bsd",
   "linux", "tcp/ip", "mtrr", "pci", "isa", "scsi", "ide", "atapi",
-  "bios", "cpu", "fpu", "discharging", "resume"
+  "bios", "cpu", "fpu", "discharging", "resume", "systemd"
 };
 
 static char *
