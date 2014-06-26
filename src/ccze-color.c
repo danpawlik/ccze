@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-color.c -- Color-handling routines for CCZE
- * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -230,10 +230,10 @@ ccze_color_to_name_css (int color, ccze_color_t realcolor)
     return ccze_csscolor_normal_map[PAIR_NUMBER (color)];
 }
 
-int
+chtype
 ccze_color_strip_attrib (int color)
 {
-  int mycolor = color;
+  chtype mycolor = color;
 
   if (mycolor & A_BOLD)
     mycolor ^= A_BOLD;
@@ -261,7 +261,7 @@ ccze_color_lookup_name (ccze_color_t color)
 char *
 ccze_color_to_css (ccze_color_t cidx)
 {
-  int my_color = ccze_color_strip_attrib (ccze_color (cidx));
+  chtype my_color = ccze_color_strip_attrib (ccze_color (cidx));
   char *str, *tmp;
 
   if (my_color < COLOR_PAIR (8))

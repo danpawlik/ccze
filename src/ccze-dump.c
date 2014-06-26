@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-dump.c -- Dump internal color table
- * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -98,7 +98,7 @@ ccze_dump_color_get_attrib (int color)
 static char *
 ccze_dump_color_to_name (int color)
 {
-  int my_color = ccze_color_strip_attrib (color);
+  chtype my_color = ccze_color_strip_attrib (color);
 
   if (my_color < COLOR_PAIR (8))
     return ccze_color_to_name_simple (my_color);

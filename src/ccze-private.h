@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-private.h -- Internal CCZE function prototypes
- * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -29,7 +29,7 @@ void ccze_color_init (void);
 void ccze_color_parse (char *line);
 void ccze_color_load (const char *fn);
 
-int ccze_color_strip_attrib (int color);
+chtype ccze_color_strip_attrib (int color);
 char *ccze_color_to_name_simple (int color);
 char *ccze_color_lookup_name (ccze_color_t color);
 char *ccze_color_to_css (ccze_color_t cidx);
