@@ -542,6 +542,9 @@ sigint_handler (int sig)
       ccze_wordcolor_shutdown ();
       ccze_plugin_shutdown ();
     }
+
+  free (ccze_config.pluginlist);
+  free (ccze_config.color_argv);
   
   exit (0);
 }
@@ -732,6 +735,8 @@ ccze_main (void)
       if (ccze_config.mode == CCZE_MODE_CURSES)
 	refresh ();
     }
+
+  free (subject);
 
   if (ccze_config.mode == CCZE_MODE_CURSES)
     refresh ();
