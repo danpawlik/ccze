@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-wordcolor.c -- Word-coloriser functions
- * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -75,9 +75,21 @@ ccze_wordcolor_process_one (char *word, int slookup)
   int offsets[99];
   ccze_color_t col;
   int match, printed = 0;
-  char *pre = NULL, *post = NULL, *tmp, *lword;
+  char *pre = NULL, *post = NULL, *tmp, *lword, *eqsign = NULL;
 
   col = CCZE_COLOR_DEFAULT;
+
+  /** name-value pairs */
+  if ((eqsign = strchr (word, '=')) != NULL)
+    {
+      eqsign[0] = '\0';
+      ccze_addstr (CCZE_COLOR_KEYWORD, word);
+      ccze_addstr (CCZE_COLOR_DEFAULT, "=");
+      ccze_addstr (CCZE_COLOR_VALUE, eqsign + 1);
+
+      free (word);
+      return;
+    }
 
   /** prefix **/
   if ((match = pcre_exec (reg_pre, NULL, word, strlen (word), 0, 0,

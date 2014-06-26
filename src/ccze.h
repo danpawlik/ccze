@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze.h -- Public interface to CCZE.
- * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -98,6 +98,7 @@ typedef enum
   CCZE_COLOR_KEYWORD,
   CCZE_COLOR_PKGSTATUS,
   CCZE_COLOR_PKG,
+  CCZE_COLOR_VALUE,
 
   CCZE_COLOR_STATIC_BLACK,
   CCZE_COLOR_STATIC_RED,

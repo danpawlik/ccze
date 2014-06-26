@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-color.c -- Color-handling routines for CCZE
- * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -172,6 +172,7 @@ static ccze_color_keyword_t ccze_color_keyword_map[] = {
 		 "Various keywords (like PHP in php.log, etc)")},
   {CCZE_KEYWORD ("pkgstatus", CCZE_COLOR_PKGSTATUS, "package status (dpkg)")},
   {CCZE_KEYWORD ("pkg", CCZE_COLOR_PKG, "package name (dpkg)")},
+  {CCZE_KEYWORD ("value", CCZE_COLOR_VALUE, "A generic value")},
   
   {CCZE_KEYWORD_H ("black", CCZE_COLOR_STATIC_BLACK, "Black")},
   {CCZE_KEYWORD_H ("red", CCZE_COLOR_STATIC_RED, "Red")},
@@ -542,6 +543,7 @@ ccze_color_init_raw_ansi (void)
   ccze_color_table[CCZE_COLOR_KEYWORD] = (RAW_ANSI_BOLD | RAW_ANSI_YELLOW);
   ccze_color_table[CCZE_COLOR_PKGSTATUS] = (RAW_ANSI_GREEN);
   ccze_color_table[CCZE_COLOR_PKG] = (RAW_ANSI_BOLD|RAW_ANSI_RED);
+  ccze_color_table[CCZE_COLOR_VALUE] = (RAW_ANSI_BOLD | RAW_ANSI_GREEN);
 
   ccze_color_table[CCZE_COLOR_STATIC_BLACK] = (RAW_ANSI_BLACK);
   ccze_color_table[CCZE_COLOR_STATIC_RED] = (RAW_ANSI_RED);
@@ -633,6 +635,7 @@ ccze_color_init (void)
   ccze_color_table[CCZE_COLOR_KEYWORD] = (BOLD YELLOW);
   ccze_color_table[CCZE_COLOR_PKGSTATUS] = (GREEN);
   ccze_color_table[CCZE_COLOR_PKG] = (BOLD RED);
+  ccze_color_table[CCZE_COLOR_VALUE] = (BOLD GREEN);
 
   ccze_color_table[CCZE_COLOR_STATIC_BLACK] = (BLACK);
   ccze_color_table[CCZE_COLOR_STATIC_RED] = (RED);
