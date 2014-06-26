@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze-cssdump.c -- Dump internal color table into css format
- * Copyright (C) 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -61,7 +61,7 @@ static struct argp argp =
 static int ccze_loaddefs = 0;
 
 static error_t
-parse_opt (int key, char *arg, struct argp_state *state)
+parse_opt (int key, char *arg, struct argp_state __attribute__((unused)) *state)
 {
   switch (key)
     {

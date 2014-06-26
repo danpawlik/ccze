@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * mod_postfix.c -- Postfix colorizer for CCZE
- * Copyright (C) 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -32,7 +32,7 @@ static int ccze_postfix_handle (const char *str, size_t length, char **rest);
 static pcre *reg_postfix;
 
 static int
-_ccze_postfix_process_one (const char *s, char **rest)
+_ccze_postfix_process_one (const char *s)
 {
   char *field, *value;
   size_t i;
@@ -69,7 +69,7 @@ ccze_postfix_process (const char *str, int *offsets, int match)
   
   do
     {
-      r = _ccze_postfix_process_one (tmp, &rest);
+      r = _ccze_postfix_process_one (tmp);
       if (r)
 	ccze_addstr (CCZE_COLOR_DEFAULT, tmp);
       else

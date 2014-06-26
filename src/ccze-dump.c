@@ -62,7 +62,7 @@ static struct argp argp =
 static int ccze_loaddefs = 0;
 
 static error_t
-parse_opt (int key, char *arg, struct argp_state *state)
+parse_opt (int key, char *arg, struct argp_state __attribute__((unused)) *state)
 {
   switch (key)
     {

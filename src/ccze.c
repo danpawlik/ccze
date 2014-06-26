@@ -1,6 +1,6 @@
 /* -*- mode: c; c-file-style: "gnu" -*-
  * ccze.c -- CCZE itself
- * Copyright (C) 2002, 2003 Gergely Nagy <algernon@bonehunter.rulez.org>
+ * Copyright (C) 2002, 2003, 2014 Gergely Nagy <algernon@bonehunter.rulez.org>
  *
  * This file is part of ccze.
  *
@@ -547,7 +547,7 @@ sigint_handler (int sig)
 }
 
 static void
-sigwinch_handler (int sig)
+sigwinch_handler ()
 {
   endwin ();
   refresh ();
@@ -555,7 +555,7 @@ sigwinch_handler (int sig)
 }
 
 static void
-sighup_handler (int sig)
+sighup_handler ()
 {
   sighup_received = 1;
   signal (SIGHUP, sighup_handler);
