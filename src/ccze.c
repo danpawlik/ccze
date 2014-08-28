@@ -751,6 +751,10 @@ main (int argc, char **argv)
   ccze_config.color_argv = (char **)ccze_calloc (ccze_config.color_argv_alloc,
 						 sizeof (char *));
   ccze_plugin_argv_init ();
+
+  if (!isatty(1))
+    ccze_config.mode = CCZE_MODE_RAW_ANSI;
+
   argp_parse (&argp, argc, argv, 0, 0, NULL);
 
   do
