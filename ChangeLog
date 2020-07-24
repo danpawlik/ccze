@@ -2,7 +2,7 @@
 # tag: automatic-ChangeLog--algernon@bonehunter.rulez.org--iluvatar-archive/ccze--0.2
 #
 
-2003-05-13 18:07:25 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-1
+2003-05-13 17:51:30 GMT	Gergely Nagy <algernon@bonehunter.rulez.org>	patch-1
 
     Summary:
       The `Fireflower' release
@@ -71,12 +71,8 @@
      testsuite/.arch-ids/bug-procmailsubj2.in.id
      testsuite/.arch-ids/bug-procmailsubj2.ok.id
      testsuite/.arch-ids/bug-procmailsubj2.test.id
-     .arch-ids/ChangeLog.id testsuite/bug-procmailsubj2.in
-     testsuite/bug-procmailsubj2.ok
-     testsuite/bug-procmailsubj2.test ChangeLog
-
-    removed files:
-     .arch-ids/ChangeLog.id ChangeLog
+     testsuite/bug-procmailsubj2.in testsuite/bug-procmailsubj2.ok
+     testsuite/bug-procmailsubj2.test
 
     modified files:
      Makefile.in NEWS ccze.spec.in debian/changelog debian/rules
